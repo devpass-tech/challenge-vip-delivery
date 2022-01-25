@@ -11,4 +11,6 @@ import XCTest
 
 class RestaurantDetailsRouterTests: XCTestCase {
 
+    private lazy var sut = RestaurantDetailsRouter()
+
 }

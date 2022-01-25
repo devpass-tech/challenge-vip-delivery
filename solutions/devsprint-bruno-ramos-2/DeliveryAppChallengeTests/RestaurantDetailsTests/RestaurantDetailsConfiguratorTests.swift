@@ -12,4 +12,5 @@ import XCTest
 class RestaurantDetailsConfiguratorTests: XCTestCase {
 
 
+    //private lazy var sut = RestaurantDetailsConfigurator()
 }
