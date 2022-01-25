@@ -7,9 +7,15 @@
 
 import UIKit
 
-class RestaurantDetailsViewController: UIViewController {
+protocol RestaurantDetailsDisplayLogic: AnyObject {}
+
+final class RestaurantDetailsViewController: UIViewController {
 
     override func loadView() {
         self.view = RestaurantDetailsView()
     }
 }
+
+//MARK: - RestaurantDetailsDisplayLogic Extension
+
+extension RestaurantDetailsViewController: RestaurantDetailsDisplayLogic {}

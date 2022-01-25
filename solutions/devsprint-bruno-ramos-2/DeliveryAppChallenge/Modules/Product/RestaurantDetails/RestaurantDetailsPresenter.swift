@@ -6,3 +6,15 @@
 //
 
 import Foundation
+
+protocol RestaurantDetailsPresentationLogic {
+    
+}
+
+final class RestaurantDetailsPresenter {
+    weak var viewController: RestaurantDetailsDisplayLogic?
+}
+
+//MARK: - RestaurantDetailsPresentationLogic Extension
+
+extension RestaurantDetailsPresenter: RestaurantDetailsPresentationLogic {}
