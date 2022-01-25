@@ -9,9 +9,7 @@ import UIKit
 
 protocol RestaurantDetailsViewProtocol: UIView {}
 
-protocol RestaurantDetailsViewDelegate: AnyObject {
-    
-}
+protocol RestaurantDetailsViewDelegate: AnyObject {}
 
 final class RestaurantDetailsView: UIView {
     

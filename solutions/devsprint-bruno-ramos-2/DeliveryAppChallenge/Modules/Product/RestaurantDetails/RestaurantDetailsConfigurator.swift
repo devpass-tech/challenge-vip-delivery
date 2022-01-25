@@ -1,5 +1,5 @@
 //
-//  RestaurantDetailsFactory.swift
+//  RestaurantDetailsConfigurator.swift
 //  DeliveryAppChallenge
 //
 //  Created by bruna.drago on 25/01/22.
@@ -23,5 +23,4 @@ enum RestaurantDetailsConfigurator: FeatureFactory {
         
         return viewController
     }
-    
 }

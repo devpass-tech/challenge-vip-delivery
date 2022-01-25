@@ -7,9 +7,7 @@
 
 import Foundation
 
-protocol RestaurantDetailsPresentationLogic {
-    
-}
+protocol RestaurantDetailsPresentationLogic {}
 
 final class RestaurantDetailsPresenter {
     weak var viewController: RestaurantDetailsDisplayLogic?
