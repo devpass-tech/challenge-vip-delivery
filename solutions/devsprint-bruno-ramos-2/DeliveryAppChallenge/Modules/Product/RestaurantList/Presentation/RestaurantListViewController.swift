@@ -7,7 +7,9 @@
 
 import UIKit
 
-class RestaurantListViewController: UIViewController {
+protocol RestaurantListDisplayLogic: AnyObject {}
+
+final class RestaurantListViewController: UIViewController {
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -23,3 +25,6 @@ class RestaurantListViewController: UIViewController {
         self.view = RestaurantListView()
     }
 }
+
+// MARK: - Display Logic
+extension RestaurantListViewController: RestaurantListDisplayLogic {}

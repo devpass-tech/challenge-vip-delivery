@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		936E5CA627A09F9D0019F047 /* RestaurantListFeatureFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E5CA527A09F9C0019F047 /* RestaurantListFeatureFactory.swift */; };
+		936E5CA827A09FB80019F047 /* RestaurantListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E5CA727A09FB80019F047 /* RestaurantListInteractor.swift */; };
+		936E5CAA27A09FCB0019F047 /* RestaurantListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E5CA927A09FCB0019F047 /* RestaurantListPresenter.swift */; };
+		936E5CAC27A09FEB0019F047 /* RestaurantListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E5CAB27A09FEB0019F047 /* RestaurantListRouter.swift */; };
+		936E5CAE27A09FF80019F047 /* RestaurantListUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E5CAD27A09FF80019F047 /* RestaurantListUseCases.swift */; };
 		983271BD272752AF0010C63A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983271BC272752AF0010C63A /* AppDelegate.swift */; };
 		983271BF272752AF0010C63A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983271BE272752AF0010C63A /* SceneDelegate.swift */; };
 		983271C1272752AF0010C63A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983271C0272752AF0010C63A /* HomeViewController.swift */; };
@@ -67,6 +72,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		936E5CA527A09F9C0019F047 /* RestaurantListFeatureFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListFeatureFactory.swift; sourceTree = "<group>"; };
+		936E5CA727A09FB80019F047 /* RestaurantListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListInteractor.swift; sourceTree = "<group>"; };
+		936E5CA927A09FCB0019F047 /* RestaurantListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListPresenter.swift; sourceTree = "<group>"; };
+		936E5CAB27A09FEB0019F047 /* RestaurantListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListRouter.swift; sourceTree = "<group>"; };
+		936E5CAD27A09FF80019F047 /* RestaurantListUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListUseCases.swift; sourceTree = "<group>"; };
 		983271B9272752AF0010C63A /* DeliveryAppChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeliveryAppChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		983271BC272752AF0010C63A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		983271BE272752AF0010C63A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +147,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		936E5CA427A09E1D0019F047 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				98EA055D272A0949007B0228 /* RestaurantListViewController.swift */,
+				936E5CA527A09F9C0019F047 /* RestaurantListFeatureFactory.swift */,
+				936E5CA727A09FB80019F047 /* RestaurantListInteractor.swift */,
+				936E5CA927A09FCB0019F047 /* RestaurantListPresenter.swift */,
+				936E5CAB27A09FEB0019F047 /* RestaurantListRouter.swift */,
+				936E5CAD27A09FF80019F047 /* RestaurantListUseCases.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
 		983271B0272752AF0010C63A = {
 			isa = PBXGroup;
 			children = (
@@ -333,7 +356,7 @@
 		98EA055C272A0933007B0228 /* RestaurantList */ = {
 			isa = PBXGroup;
 			children = (
-				98EA055D272A0949007B0228 /* RestaurantListViewController.swift */,
+				936E5CA427A09E1D0019F047 /* Presentation */,
 			);
 			path = RestaurantList;
 			sourceTree = "<group>";
@@ -572,11 +595,14 @@
 				988ABC5F279B16DE009506DC /* SampleRouter.swift in Sources */,
 				988ABC51279B14BC009506DC /* SampleRequest.swift in Sources */,
 				98F1296C272F328200B88A87 /* CategoryListView.swift in Sources */,
+				936E5CA627A09F9D0019F047 /* RestaurantListFeatureFactory.swift in Sources */,
 				98F1296E272F363200B88A87 /* HomeView.swift in Sources */,
+				936E5CA827A09FB80019F047 /* RestaurantListInteractor.swift in Sources */,
 				98F1296A272F327100B88A87 /* CategoryCellView.swift in Sources */,
 				98FC5AAB2732B938002412EA /* RestaurantDetailsView.swift in Sources */,
 				988ABC6E279B19B3009506DC /* GetDataUseCase.swift in Sources */,
 				988ABC55279B152F009506DC /* NetworkRequest.swift in Sources */,
+				936E5CAA27A09FCB0019F047 /* RestaurantListPresenter.swift in Sources */,
 				983271BD272752AF0010C63A /* AppDelegate.swift in Sources */,
 				98F12968272F30E500B88A87 /* AddressView.swift in Sources */,
 				983271BF272752AF0010C63A /* SceneDelegate.swift in Sources */,
@@ -589,6 +615,8 @@
 				98EA0561272A0963007B0228 /* RestaurantDetailsViewController.swift in Sources */,
 				988ABC4B279B1409009506DC /* SampleDataSource.swift in Sources */,
 				988ABC76279B1CD4009506DC /* NetworkError.swift in Sources */,
+				936E5CAE27A09FF80019F047 /* RestaurantListUseCases.swift in Sources */,
+				936E5CAC27A09FEB0019F047 /* RestaurantListRouter.swift in Sources */,
 				988ABC67279B182F009506DC /* SampleInteractor.swift in Sources */,
 				98F12972272F41BE00B88A87 /* RestaurantListView.swift in Sources */,
 			);
