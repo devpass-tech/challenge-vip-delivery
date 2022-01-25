@@ -7,6 +7,19 @@
 
 import Foundation
 
-enum RestaurantDetails {
+enum RestaurantDetailsUseCases {
     
+    enum FechtData {
+        struct Request {}
+        struct Response {}
+        struct ViewModel {}
+      //  enum ViewModel {}
+    }
+    
+    enum Error {
+        struct Response {
+            let error: Swift.Error
+        }
+        struct ViewModel {}
+    }
 }

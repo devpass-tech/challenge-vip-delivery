@@ -16,6 +16,8 @@ typealias RestaurantDetailsRouterType = (RestaurantDetailsRoutingLogic & Restaur
 final class RestaurantDetailsRouter: RestaurantDetailsRoutingLogic, RestaurantDetailsDataPassing {
     
     weak var viewController: RestaurantDetailsViewController?
+    var dataStore: RestaurantDetailsDataStore?
     
+    init() {}
     
 }

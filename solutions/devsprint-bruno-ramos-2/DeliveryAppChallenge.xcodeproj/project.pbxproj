@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7BBAE3CB27A066B700A84801 /* RestaurantDetailsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBAE3CA27A066B700A84801 /* RestaurantDetailsFactory.swift */; };
+		7BBAE3CB27A066B700A84801 /* RestaurantDetailsConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBAE3CA27A066B700A84801 /* RestaurantDetailsConfigurator.swift */; };
 		7BBAE3CD27A066DB00A84801 /* RestaurantDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBAE3CC27A066DB00A84801 /* RestaurantDetailsPresenter.swift */; };
 		7BBAE3CF27A066EE00A84801 /* RestaurantDetailsUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBAE3CE27A066EE00A84801 /* RestaurantDetailsUseCases.swift */; };
 		7BBAE3D127A0670400A84801 /* RestaurantDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBAE3D027A0670400A84801 /* RestaurantDetailsRouter.swift */; };
@@ -72,7 +72,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7BBAE3CA27A066B700A84801 /* RestaurantDetailsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsFactory.swift; sourceTree = "<group>"; };
+		7BBAE3CA27A066B700A84801 /* RestaurantDetailsConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsConfigurator.swift; sourceTree = "<group>"; };
 		7BBAE3CC27A066DB00A84801 /* RestaurantDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsPresenter.swift; sourceTree = "<group>"; };
 		7BBAE3CE27A066EE00A84801 /* RestaurantDetailsUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsUseCases.swift; sourceTree = "<group>"; };
 		7BBAE3D027A0670400A84801 /* RestaurantDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsRouter.swift; sourceTree = "<group>"; };
@@ -353,7 +353,7 @@
 			children = (
 				98EA0560272A0963007B0228 /* RestaurantDetailsViewController.swift */,
 				98FC5AAA2732B938002412EA /* RestaurantDetailsView.swift */,
-				7BBAE3CA27A066B700A84801 /* RestaurantDetailsFactory.swift */,
+				7BBAE3CA27A066B700A84801 /* RestaurantDetailsConfigurator.swift */,
 				7BBAE3CC27A066DB00A84801 /* RestaurantDetailsPresenter.swift */,
 				7BBAE3CE27A066EE00A84801 /* RestaurantDetailsUseCases.swift */,
 				7BBAE3D027A0670400A84801 /* RestaurantDetailsRouter.swift */,
@@ -583,7 +583,7 @@
 				988ABC57279B159D009506DC /* FeatureFactory.swift in Sources */,
 				98F12977272F48F000B88A87 /* AddressListView.swift in Sources */,
 				98EA055E272A0949007B0228 /* RestaurantListViewController.swift in Sources */,
-				7BBAE3CB27A066B700A84801 /* RestaurantDetailsFactory.swift in Sources */,
+				7BBAE3CB27A066B700A84801 /* RestaurantDetailsConfigurator.swift in Sources */,
 				98F1297B272F51AE00B88A87 /* SettingsViewController.swift in Sources */,
 				988ABC4D279B145F009506DC /* SampleApiDataSource.swift in Sources */,
 				988ABC6C279B198F009506DC /* SampleRepository.swift in Sources */,

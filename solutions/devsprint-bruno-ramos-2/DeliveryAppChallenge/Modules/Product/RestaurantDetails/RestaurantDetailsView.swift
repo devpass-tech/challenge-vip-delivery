@@ -15,6 +15,10 @@ protocol RestaurantDetailsViewDelegate: AnyObject {
 
 final class RestaurantDetailsView: UIView {
     
+    //MARK: - ViewModel
+    
+    struct ViewModel {}
+    
     //MARK: - UI Components
     
     let scrollView: UIScrollView = {
