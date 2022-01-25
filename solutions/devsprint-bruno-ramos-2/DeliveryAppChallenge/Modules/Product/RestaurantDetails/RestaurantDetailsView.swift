@@ -113,4 +113,6 @@ extension RestaurantDetailsView: ViewCode {
     }
 }
 
+//MARK: - RestaurantDetailsViewProtocol Extension
+
 extension RestaurantDetailsView: RestaurantDetailsViewProtocol {}
