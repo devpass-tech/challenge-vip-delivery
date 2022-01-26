@@ -17,4 +17,6 @@ final class RestaurantListRouter: RestaurantListRouterType {
     
     weak var viewController: RestaurantListViewController?
     var dataStore: RestaurantListDataStore?
+    
+    init() {}
 }

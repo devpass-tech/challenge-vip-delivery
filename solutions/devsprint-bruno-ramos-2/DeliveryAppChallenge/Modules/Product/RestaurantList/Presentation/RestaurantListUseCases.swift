@@ -6,3 +6,19 @@
 //
 
 import Foundation
+
+enum RestaurantListUseCases {
+    
+    enum FetchData {
+        struct Request {}
+        struct Response {}
+        struct ViewModel {}
+    }
+    
+    enum Error {
+        struct Response {
+            let error: Swift.Error
+        }
+        struct ViewModel {}
+    }
+}

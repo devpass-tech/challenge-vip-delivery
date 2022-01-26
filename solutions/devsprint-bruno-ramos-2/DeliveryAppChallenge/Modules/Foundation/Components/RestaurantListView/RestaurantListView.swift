@@ -18,6 +18,9 @@ class RestaurantListView: UIView {
 
     static let cellSize = CGFloat(82)
     private let cellIdentifier = "RestaurantCellIdentifier"
+    
+    // MARK: - ViewModel
+    struct ViewModel {}
 
     // MARK: - UI Components
     lazy var tableView: UITableView = {
@@ -39,7 +42,7 @@ class RestaurantListView: UIView {
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        nil
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -87,3 +90,6 @@ extension RestaurantListView: UITableViewDelegate {
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
 }
+
+// MARK: - ViewProtocol
+extension RestaurantListView: RestaurantListViewProtocol {}
