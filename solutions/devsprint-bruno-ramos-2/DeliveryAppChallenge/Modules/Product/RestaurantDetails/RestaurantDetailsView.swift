@@ -7,7 +7,9 @@
 
 import UIKit
 
-protocol RestaurantDetailsViewProtocol: UIView {}
+protocol RestaurantDetailsViewProtocol: UIView {
+    func display(_ viewModel: RestaurantDetailsView.ViewModel)
+}
 
 protocol RestaurantDetailsViewDelegate: AnyObject {}
 
@@ -15,7 +17,11 @@ final class RestaurantDetailsView: UIView {
     
     //MARK: - ViewModel
     
-    struct ViewModel {}
+    struct ViewModel {
+        let name: String
+    }
+
+    private var viewModel: ViewModel = .init(name: "")
     
     //MARK: - UI Components
     
@@ -117,4 +123,8 @@ extension RestaurantDetailsView: ViewCode {
 
 //MARK: - RestaurantDetailsViewProtocol Extension
 
-extension RestaurantDetailsView: RestaurantDetailsViewProtocol {}
+extension RestaurantDetailsView: RestaurantDetailsViewProtocol {
+    func display(_ viewModel: ViewModel) {
+        self.viewModel = viewModel
+    }
+}

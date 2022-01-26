@@ -7,7 +7,9 @@
 
 import UIKit
 
-protocol RestaurantDetailsDisplayLogic: AnyObject {}
+protocol RestaurantDetailsDisplayLogic: AnyObject {
+    func displayRestaurantMenu(viewModel: RestaurantDetailsUseCases.FetchMenu.ViewModel)
+}
 
 final class RestaurantDetailsViewController: UIViewController {
     
@@ -19,7 +21,7 @@ final class RestaurantDetailsViewController: UIViewController {
     
     //MARK: - Inits
     
-    init(customView: RestaurantDetailsViewProtocol, interactor: RestaurantDetailsBusinessLogic, router: RestaurantDetailsRouterType) {
+    init(customView: RestaurantDetailsViewProtocol, interactor: RestaurantDetailsBusinessLogic, router: RestaurantDetailsRoutingLogic) {
         self.customView = customView
         self.interactor = interactor
         self.router = router
@@ -39,12 +41,17 @@ final class RestaurantDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        interactor.requestFetchRestaurantMenu(request: .init())
     }
 }
 
 //MARK: - RestaurantDetailsDisplayLogic Extension
 
-extension RestaurantDetailsViewController: RestaurantDetailsDisplayLogic {}
+extension RestaurantDetailsViewController: RestaurantDetailsDisplayLogic {
+    func displayRestaurantMenu(viewModel: RestaurantDetailsUseCases.FetchMenu.ViewModel) {
+        customView.display(.init(name: viewModel.name))
+    }
+}
 
 //MARK: - RestaurantDetailsViewDelegate Extension
 

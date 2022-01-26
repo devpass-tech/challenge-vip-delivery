@@ -13,7 +13,7 @@ protocol RestaurantDetailsDataPassing {}
 
 typealias RestaurantDetailsRouterType = (RestaurantDetailsRoutingLogic & RestaurantDetailsDataPassing)
 
-final class RestaurantDetailsRouter: RestaurantDetailsRoutingLogic, RestaurantDetailsDataPassing {
+final class RestaurantDetailsRouter: RestaurantDetailsRouterType {
     
     weak var viewController: RestaurantDetailsViewController?
     var dataStore: RestaurantDetailsDataStore?

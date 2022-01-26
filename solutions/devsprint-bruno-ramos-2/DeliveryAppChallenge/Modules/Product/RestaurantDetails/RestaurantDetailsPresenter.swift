@@ -7,7 +7,9 @@
 
 import Foundation
 
-protocol RestaurantDetailsPresentationLogic {}
+protocol RestaurantDetailsPresentationLogic {
+    func presentRestaurantMenu(response: RestaurantDetailsUseCases.FetchMenu.Response)
+}
 
 final class RestaurantDetailsPresenter {
     weak var viewController: RestaurantDetailsDisplayLogic?
@@ -15,4 +17,8 @@ final class RestaurantDetailsPresenter {
 
 //MARK: - RestaurantDetailsPresentationLogic Extension
 
-extension RestaurantDetailsPresenter: RestaurantDetailsPresentationLogic {}
+extension RestaurantDetailsPresenter: RestaurantDetailsPresentationLogic {
+    func presentRestaurantMenu(response: RestaurantDetailsUseCases.FetchMenu.Response) {
+        viewController?.displayRestaurantMenu(viewModel: .init(name: "Foo"))
+    }
+}

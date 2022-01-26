@@ -9,11 +9,17 @@ import Foundation
 
 enum RestaurantDetailsUseCases {
     
-    enum FechtData {
+    enum FetchMenu {
         struct Request {}
-        struct Response {}
-        struct ViewModel {}
-      //  enum ViewModel {}
+
+        enum Response {
+            case success(String)
+            case failure(RestaurantFetchDataError)
+        }
+
+        struct ViewModel {
+            let name: String
+        }
     }
     
     enum Error {

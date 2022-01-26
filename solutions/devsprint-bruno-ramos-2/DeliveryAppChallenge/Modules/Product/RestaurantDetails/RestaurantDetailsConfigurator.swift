@@ -13,7 +13,9 @@ enum RestaurantDetailsConfigurator: FeatureFactory {
     static func make(with dependencies: Dependencies) -> UIViewController {
         let view = RestaurantDetailsView()
         let presenter = RestaurantDetailsPresenter()
-        let interactor = RestaurantDetailsInteractor(presenter: presenter)
+        let networkManager = NetworkManager()
+        let worker = RestaurantDetailsWorker(network: networkManager)
+        let interactor = RestaurantDetailsInteractor(presenter: presenter, worker: worker)
         let router = RestaurantDetailsRouter()
         let viewController = RestaurantDetailsViewController(customView: view, interactor: interactor , router: router)
         
