@@ -12,10 +12,10 @@ final class RestaurantDetailsInteractorTests: XCTestCase {
         worker: workerStub
     )
 
-    func test_requestFetchRestaurantMenu_whenWorkerReturnsSuccess_shouldCallPresenterWithSuccessName() {
+    func test_requestFetchRestaurantMenu_whenWorkerReturnsSuccess_shouldCallPresenterWithSuccessResult() {
         // Given or Arrange
-        workerStub.fetchDataCompletionToBeExecuted = .success(.fixture())
-
+        workerStub.fetchDataCompletionToBeExecuted = .success(.fixture(name: "Padaria do João"))
+        
         // When or Act
         sut.requestFetchRestaurantMenu(request: .init())
 
@@ -26,9 +26,10 @@ final class RestaurantDetailsInteractorTests: XCTestCase {
         switch presenterSpy.presentRestaurantMenuResponsePassed {
         case .success(let restaurantDetails):
             XCTAssertNotNil(restaurantDetails)
+            XCTAssertEqual(restaurantDetails.name, "Padaria do João")
+            XCTAssertEqual(restaurantDetails.category, "Almoço")
         default:
             XCTFail("Should be a success result")
-
         }
     }
 
@@ -46,6 +47,7 @@ final class RestaurantDetailsInteractorTests: XCTestCase {
         switch presenterSpy.presentRestaurantMenuResponsePassed {
         case .failure(let error):
             XCTAssertNotNil(error)
+           // XCTAssertTrue(error as Error)
         default:
             XCTFail("Should be a failure result")
 

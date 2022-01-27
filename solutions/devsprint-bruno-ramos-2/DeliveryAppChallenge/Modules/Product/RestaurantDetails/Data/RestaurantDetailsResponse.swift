@@ -25,24 +25,50 @@ struct RestaurantDetailsResponse: Codable {
 // MARK: - DeliveryTime
 
 extension RestaurantDetailsResponse {
-    struct DeliveryTime: Codable {
+    struct DeliveryTime: Codable, Equatable {
         let min, max: Int
     }
+}
+
+// MARK: - Menu
+
+extension RestaurantDetailsResponse {
     
-    struct Menu: Codable {
+    struct Menu: Codable, Equatable {
         let category: Category
-        let name: String
+        var name: String
         let price: Int
     }
+}
+
+// MARK: - Category
+
+extension RestaurantDetailsResponse {
     
     enum Category: String, Codable {
         case lunch = "Almoço"
         case breakfast = "Café da manhã"
         case dinner = "Jantar"
     }
+}
+
+// MARK: - Reviews
+
+extension RestaurantDetailsResponse {
     
-    struct Reviews: Codable {
+    struct Reviews: Codable, Equatable {
         let score: Double
         let count: Int
+    }
+}
+
+extension RestaurantDetailsResponse: Equatable {
+    static func == (lhs: RestaurantDetailsResponse, rhs: RestaurantDetailsResponse) -> Bool {
+        return
+        lhs.name == rhs.name &&
+        lhs.category == rhs.category &&
+        lhs.reviews == rhs.reviews &&
+        lhs.deliveryTime == rhs.deliveryTime
+        lhs.menu == rhs.menu
     }
 }
