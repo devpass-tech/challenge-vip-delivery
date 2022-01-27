@@ -14,10 +14,13 @@ protocol RestaurantListDataStore {}
 final class RestaurantListInteractor: RestaurantListDataStore {
     
     private let presenter: RestaurantListPresentationLogic
+    private let worker: RestaurantListWorking
     
     // MARK: - Initializers
-    init(presenter: RestaurantListPresentationLogic) {
+    init(presenter: RestaurantListPresentationLogic,
+         worker: RestaurantListWorking) {
         self.presenter = presenter
+        self.worker = worker
     }
 }
 

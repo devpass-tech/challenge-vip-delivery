@@ -7,7 +7,9 @@
 
 import UIKit
 
-protocol RestaurantListViewProtocol: UIView {}
+protocol RestaurantListViewProtocol: UIView {
+    func reloadTableViewData()
+}
 
 protocol RestaurantListViewDelegate: AnyObject {}
 
@@ -35,9 +37,7 @@ class RestaurantListView: UIView {
     // MARK: - Initializers
     init() {
         super.init(frame: .zero)
-        
         setup()
-        tableView.reloadData()
     }
 
     @available(*, unavailable)
@@ -92,4 +92,8 @@ extension RestaurantListView: UITableViewDelegate {
 }
 
 // MARK: - ViewProtocol
-extension RestaurantListView: RestaurantListViewProtocol {}
+extension RestaurantListView: RestaurantListViewProtocol {
+    func reloadTableViewData() {
+        tableView.reloadData()
+    }
+}

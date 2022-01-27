@@ -14,7 +14,9 @@ enum RestaurantListConfigurator: FeatureFactory {
     static func make(with dependencies: Dependencies) -> UIViewController {
         let view = RestaurantListView()
         let presenter = RestaurantListPresenter()
-        let interactor = RestaurantListInteractor(presenter: presenter)
+        let networkManager = NetworkManager()
+        let worker = RestaurantListWorker(network: networkManager)
+        let interactor = RestaurantListInteractor(presenter: presenter, worker: worker)
         let router = RestaurantListRouter()
         let viewController = RestaurantListViewController(customView: view, interactor: interactor, router: router)
         
