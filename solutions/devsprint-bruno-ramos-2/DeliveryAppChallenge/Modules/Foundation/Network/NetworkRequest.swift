@@ -19,6 +19,6 @@ enum HTTPMethod: String {
 
 extension NetworkRequest {
     var baseURL: String {
-        "https://raw.githubusercontent.com/devpass-tech/challenge-delivery-app/main/api/"
+        "https://raw.githubusercontent.com/devpass-tech/challenge-vip-delivery/main/api/"
     }
 }

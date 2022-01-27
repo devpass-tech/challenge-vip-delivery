@@ -14,8 +14,7 @@ final class RestaurantDetailsInteractorTests: XCTestCase {
 
     func test_requestFetchRestaurantMenu_whenWorkerReturnsSuccess_shouldCallPresenterWithSuccessName() {
         // Given or Arrange
-        let expectedName = "DevPass"
-        workerStub.fetchDataCompletionToBeExecuted = .success(expectedName)
+        workerStub.fetchDataCompletionToBeExecuted = .success(.fixture())
 
         // When or Act
         sut.requestFetchRestaurantMenu(request: .init())
@@ -25,8 +24,8 @@ final class RestaurantDetailsInteractorTests: XCTestCase {
         XCTAssertTrue(presenterSpy.presentRestaurantMenuCalled)
 
         switch presenterSpy.presentRestaurantMenuResponsePassed {
-        case .success(let name):
-            XCTAssertEqual(name, expectedName)
+        case .success(let restaurantDetails):
+            XCTAssertNotNil(restaurantDetails)
         default:
             XCTFail("Should be a success result")
 
