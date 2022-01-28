@@ -5,15 +5,15 @@ import XCTest
 
 final class RestaurantDetailsRequestTests: XCTestCase {
     
-    private let pathURLPassed = "restaurant_details.json"
-    private let httpMethodPassed: HTTPMethod = .get
+    private let pathURLStub = "restaurant_details.json"
+    private let httpMethodStub: HTTPMethod = .get
     
-    private lazy var sut = RestaurantDetailsRequest(pathURL: pathURLPassed, method:  httpMethodPassed)
+    private lazy var sut = RestaurantDetailsRequest(pathURL: pathURLStub, method:  httpMethodStub)
     
     func test_pathURL_shouldReturnCorrectPathURL() {
         let path = sut.pathURL
         
-        XCTAssertEqual(path,pathURLPassed)
+        XCTAssertEqual(path,pathURLStub)
         XCTAssertNotEqual(path,"restaurant_details")
     }
     
@@ -21,7 +21,7 @@ final class RestaurantDetailsRequestTests: XCTestCase {
         let method = sut.method
         let post: HTTPMethod = .post
         
-        XCTAssertEqual(method, httpMethodPassed)
+        XCTAssertEqual(method, httpMethodStub)
         XCTAssertNotEqual(method, post)
     }
 }
