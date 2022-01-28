@@ -7,7 +7,9 @@
 
 import Foundation
 
-protocol RestaurantListPresentationLogic {}
+protocol RestaurantListPresentationLogic {
+    func presentFetchedRestaurantList(response: RestaurantListUseCases.FetchData.Response)
+}
 
 final class RestaurantListPresenter {
     
@@ -15,4 +17,6 @@ final class RestaurantListPresenter {
 }
 
 // MARK: - Presentation Logic
-extension RestaurantListPresenter: RestaurantListPresentationLogic {}
+extension RestaurantListPresenter: RestaurantListPresentationLogic {
+    func presentFetchedRestaurantList(response: RestaurantListUseCases.FetchData.Response) {}
+}

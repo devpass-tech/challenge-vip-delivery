@@ -7,7 +7,9 @@
 
 import Foundation
 
-protocol RestaurantListBusinessLogic {}
+protocol RestaurantListBusinessLogic {
+    func fetchRestaurantList(request: RestaurantListUseCases.FetchData.Request)
+}
 
 protocol RestaurantListDataStore {}
 
@@ -25,4 +27,18 @@ final class RestaurantListInteractor: RestaurantListDataStore {
 }
 
 // MARK: - Business Logic
-extension RestaurantListInteractor: RestaurantListBusinessLogic {}
+extension RestaurantListInteractor: RestaurantListBusinessLogic {
+    
+    func fetchRestaurantList(request: RestaurantListUseCases.FetchData.Request) {
+        worker.fetchRestaurantList { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let restaurantList):
+                self.presenter.presentFetchedRestaurantList(response: .success(restaurantList))
+            case .failure(let error):
+                self.presenter.presentFetchedRestaurantList(response: .failure(error))
+            }
+        }
+    }
+}
