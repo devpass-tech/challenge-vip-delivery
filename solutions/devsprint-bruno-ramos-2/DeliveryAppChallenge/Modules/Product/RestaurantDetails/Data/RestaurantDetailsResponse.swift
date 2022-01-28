@@ -45,7 +45,7 @@ extension RestaurantDetailsResponse {
 
 extension RestaurantDetailsResponse {
     
-    enum Category: String, Codable {
+    enum Category: String, Codable, CaseIterable {
         case lunch = "Almoço"
         case breakfast = "Café da manhã"
         case dinner = "Jantar"
