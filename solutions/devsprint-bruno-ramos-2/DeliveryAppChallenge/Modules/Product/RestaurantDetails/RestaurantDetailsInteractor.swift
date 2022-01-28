@@ -39,7 +39,7 @@ extension RestaurantDetailsInteractor: RestaurantDetailsBusinessLogic {
             case .success(let restaurantDetails):
                 self.presenter.presentRestaurantMenu(response: .success(restaurantDetails))
             case .failure(let error):
-                self.presenter.presentRestaurantMenu(response: .failure(error))
+                self.presenter.presentRestaurantMenu(response: .failure(APIError.networkError))
             }
         }
     }

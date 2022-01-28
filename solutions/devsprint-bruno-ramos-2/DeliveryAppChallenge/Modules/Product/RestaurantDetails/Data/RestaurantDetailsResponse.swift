@@ -33,7 +33,6 @@ extension RestaurantDetailsResponse {
 // MARK: - Menu
 
 extension RestaurantDetailsResponse {
-    
     struct Menu: Codable, Equatable {
         let category: Category
         var name: String
@@ -44,7 +43,6 @@ extension RestaurantDetailsResponse {
 // MARK: - Category
 
 extension RestaurantDetailsResponse {
-    
     enum Category: String, Codable, CaseIterable {
         case lunch = "Almoço"
         case breakfast = "Café da manhã"
@@ -55,7 +53,6 @@ extension RestaurantDetailsResponse {
 // MARK: - Reviews
 
 extension RestaurantDetailsResponse {
-    
     struct Reviews: Codable, Equatable {
         let score: Double
         let count: Int

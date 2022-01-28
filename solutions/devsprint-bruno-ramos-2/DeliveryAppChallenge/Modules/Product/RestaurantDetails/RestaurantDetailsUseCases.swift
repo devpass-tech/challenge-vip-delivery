@@ -14,7 +14,7 @@ enum RestaurantDetailsUseCases {
 
         enum Response {
             case success(RestaurantDetailsResponse)
-            case failure(Error)
+            case failure(APIError)
         }
 
         struct ViewModel {
