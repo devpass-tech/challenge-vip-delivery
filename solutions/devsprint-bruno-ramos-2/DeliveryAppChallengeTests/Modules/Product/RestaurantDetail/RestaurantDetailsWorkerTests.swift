@@ -48,7 +48,7 @@ final class RestaurantDetailsWorkerTests: XCTestCase {
             return XCTFail("Should be failure")
         }
         
-        let networkError = try XCTUnwrap(error as? APIError)
+        let networkError = try XCTUnwrap(error)
         XCTAssertEqual(networkError, .networkError)
     }
 }
