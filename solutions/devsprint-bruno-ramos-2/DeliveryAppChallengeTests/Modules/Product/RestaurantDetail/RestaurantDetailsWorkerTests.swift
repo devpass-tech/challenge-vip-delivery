@@ -12,7 +12,7 @@ final class RestaurantDetailsWorkerTests: XCTestCase {
         //Given
         networkSpy.requestToBeReturned = Result<RestaurantDetailsResponse,Error>.success(.fixture(name: "Condimento Bistro", category: .breakfast, deliveryTime: .fixture(min: 15, max: 30), reviews: .fixture(score: 4.8, count: 10)))
         
-        var result: Result<RestaurantDetailsResponse,Error>?
+        var result: Result<RestaurantDetailsResponse,APIError>?
         
         //When
         sut.fetchData { resultReturned in
@@ -33,7 +33,7 @@ final class RestaurantDetailsWorkerTests: XCTestCase {
         //Given
         networkSpy.requestToBeReturned = Result<RestaurantDetailsResponse, Error>.failure(APIError.networkError)
         
-        var result: Result<RestaurantDetailsResponse,Error>?
+        var result: Result<RestaurantDetailsResponse,APIError>?
         
         // When or Act
         sut.fetchData { resultReturned in
