@@ -68,6 +68,7 @@
 		98FC5AB62732BFDA002412EA /* MenuCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FC5AB52732BFDA002412EA /* MenuCellView.swift */; };
 		98FC5AB82732C1EF002412EA /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FC5AB72732C1EF002412EA /* MenuItemView.swift */; };
 		D14E515527A7518F00A2E74E /* HomeUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515427A7518F00A2E74E /* HomeUseCases.swift */; };
+		D14E515727A7560100A2E74E /* HomeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515627A7560100A2E74E /* HomeWorker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +146,7 @@
 		98FC5AB52732BFDA002412EA /* MenuCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellView.swift; sourceTree = "<group>"; };
 		98FC5AB72732C1EF002412EA /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		D14E515427A7518F00A2E74E /* HomeUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCases.swift; sourceTree = "<group>"; };
+		D14E515627A7560100A2E74E /* HomeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWorker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,6 +287,7 @@
 				983271C0272752AF0010C63A /* HomeViewController.swift */,
 				98F1296D272F363200B88A87 /* HomeView.swift */,
 				D14E515427A7518F00A2E74E /* HomeUseCases.swift */,
+				D14E515627A7560100A2E74E /* HomeWorker.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -609,6 +612,7 @@
 			files = (
 				983271C1272752AF0010C63A /* HomeViewController.swift in Sources */,
 				70097E8E27A0C5A8006A441C /* RestaurantDetailsWorker.swift in Sources */,
+				D14E515727A7560100A2E74E /* HomeWorker.swift in Sources */,
 				98FC5AB42732BFC8002412EA /* MenuListView.swift in Sources */,
 				988ABC61279B1713009506DC /* SampleViewController.swift in Sources */,
 				98EA055B272A092F007B0228 /* AddressSearchViewController.swift in Sources */,
