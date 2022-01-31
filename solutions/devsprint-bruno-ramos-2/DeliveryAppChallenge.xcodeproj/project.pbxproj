@@ -71,6 +71,7 @@
 		D14E515927A7582000A2E74E /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515827A7582000A2E74E /* HomeInteractor.swift */; };
 		D14E515B27A75F9900A2E74E /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515A27A75F9900A2E74E /* HomePresenter.swift */; };
 		D14E515D27A7643000A2E74E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515C27A7643000A2E74E /* HomeViewController.swift */; };
+		D14E515F27A76C1C00A2E74E /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515E27A76C1C00A2E74E /* HomeRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +152,7 @@
 		D14E515827A7582000A2E74E /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		D14E515A27A75F9900A2E74E /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		D14E515C27A7643000A2E74E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		D14E515E27A76C1C00A2E74E /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +296,7 @@
 				D14E515827A7582000A2E74E /* HomeInteractor.swift */,
 				D14E515A27A75F9900A2E74E /* HomePresenter.swift */,
 				D14E515C27A7643000A2E74E /* HomeViewController.swift */,
+				D14E515E27A76C1C00A2E74E /* HomeRouter.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -639,6 +642,7 @@
 				98612707272F56AB0049403C /* SettingsView.swift in Sources */,
 				98F1297D272F51DE00B88A87 /* MenuItemViewController.swift in Sources */,
 				98F12975272F48E400B88A87 /* AddressCellView.swift in Sources */,
+				D14E515F27A76C1C00A2E74E /* HomeRouter.swift in Sources */,
 				7BBAE3CD27A066DB00A84801 /* RestaurantDetailsPresenter.swift in Sources */,
 				988ABC72279B1C97009506DC /* NetworkManager.swift in Sources */,
 				98F12970272F41AE00B88A87 /* RestaurantCellView.swift in Sources */,

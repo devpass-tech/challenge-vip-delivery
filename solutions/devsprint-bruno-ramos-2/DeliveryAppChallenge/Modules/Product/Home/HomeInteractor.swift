@@ -12,7 +12,7 @@ protocol HomeBusinessLogic {
     func requestData(request: HomeUseCase.FetchData.Request)
 }
 
-/// Protocol used allow Router pass data thuru scenes
+/// Protocol used allow Router access data to is need to be pass between scenes
 protocol HomeDataStore {}
 
 /// Class used to mediate communication between worker and presenter,

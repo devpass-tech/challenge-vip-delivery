@@ -14,10 +14,6 @@ protocol HomeDisplayLogic: AnyObject {
     func displayError(error: HomeUseCase.Error.ViewModel)
 }
 
-/// Protocol used to intermediate scene routes to another scene
-protocol HomeRoutingLogic {
-}
-
 /// Class use to handle user's intections with view, call requests to Interactor and send data (ViewModel) from Presenter to View display it
 /// ViewController call Router when need to transit to another Scene
 final class HomeViewController: UIViewController {
