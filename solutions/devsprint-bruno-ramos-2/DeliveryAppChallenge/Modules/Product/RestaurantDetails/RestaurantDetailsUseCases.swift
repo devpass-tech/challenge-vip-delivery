@@ -13,19 +13,12 @@ enum RestaurantDetailsUseCases {
         struct Request {}
 
         enum Response {
-            case success(String)
-            case failure(RestaurantFetchDataError)
+            case success(RestaurantDetailsResponse)
+            case failure(APIError)
         }
 
         struct ViewModel {
             let name: String
         }
-    }
-    
-    enum Error {
-        struct Response {
-            let error: Swift.Error
-        }
-        struct ViewModel {}
     }
 }
