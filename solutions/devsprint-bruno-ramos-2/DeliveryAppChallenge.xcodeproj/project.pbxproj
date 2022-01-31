@@ -212,6 +212,7 @@
 		70097E8127A0BA66006A441C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				7B17B76B27A8A4E3001B79DB /* Foundation */,
 				70097E8227A0BA6C006A441C /* Product */,
 			);
 			path = Modules;
@@ -248,6 +249,29 @@
 				70097E8B27A0BE38006A441C /* RestaurantDetailsRoutingLogicSpy.swift */,
 				70097E9127A0C8CA006A441C /* RestaurantDetailsPresentationLogicSpy.swift */,
 				70097E9327A0C929006A441C /* RestaurantDetailsWorkingSpy.swift */,
+			);
+			path = Doubles;
+			sourceTree = "<group>";
+		};
+		7B17B76B27A8A4E3001B79DB /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				7B17B76C27A8A4EC001B79DB /* Network */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		7B17B76C27A8A4EC001B79DB /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				7B17B76D27A8A4FC001B79DB /* Doubles */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		7B17B76D27A8A4FC001B79DB /* Doubles */ = {
+			isa = PBXGroup;
+			children = (
 				7BE3525727A377B200488D3A /* NetworkManagerProtocolSpy.swift */,
 			);
 			path = Doubles;
