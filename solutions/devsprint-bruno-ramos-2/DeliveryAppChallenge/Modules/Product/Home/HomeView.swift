@@ -7,17 +7,30 @@
 
 import UIKit
 
-class HomeView: UIView {
+/// Protocol used to intermediate diaply data communication from ViewController to View
+protocol HomeViewProtocol: UIView {
+    func display(viewModel: HomeView.ViewModel)
+}
 
+protocol HomeViewDelegate: AnyObject {
+}
+
+final class HomeView: UIView {
+    // MARK: ViewModel struct
+    struct ViewModel {
+    }
+
+    weak var delegate: HomeViewDelegate?
+    private var viewModel: ViewModel?
+
+    // MARK: - UI components
     let scrollView: UIScrollView = {
-
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
 
     let stackView: UIStackView = {
-
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -28,21 +41,18 @@ class HomeView: UIView {
     }()
 
     let addressView: AddressView = {
-
         let addressView = AddressView()
         addressView.translatesAutoresizingMaskIntoConstraints = false
         return addressView
     }()
 
     let categoryListView: CategoryListView = {
-
         let categoryListView = CategoryListView()
         categoryListView.translatesAutoresizingMaskIntoConstraints = false
         return categoryListView
     }()
 
     let restaurantListView: RestaurantListView = {
-
         let restaurantListView = RestaurantListView()
         restaurantListView.translatesAutoresizingMaskIntoConstraints = false
         return restaurantListView
@@ -57,8 +67,15 @@ class HomeView: UIView {
         configureConstraints()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension HomeView: HomeViewProtocol {
+    func display(viewModel: ViewModel) {
+        self.viewModel = viewModel
     }
 }
 
