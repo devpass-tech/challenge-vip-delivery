@@ -49,11 +49,11 @@ extension HomeViewController: HomeViewDelegate {
 }
 
 extension HomeViewController: HomeDisplayLogic {
-    func displayViewModel(viewModel: HomeUseCase.FetchData.ViewModel) {
+    func displayHome(viewModel: HomeUseCase.FetchData.ViewModel) {
         customView.display(viewModel: HomeView.ViewModel())
     }
 
-    func displayError(error: HomeUseCase.Error.ViewModel) {
+    func displayHomeError(error: HomeUseCase.Error.ViewModel) {
         customView.display(viewModel: HomeView.ViewModel())
     }
 }

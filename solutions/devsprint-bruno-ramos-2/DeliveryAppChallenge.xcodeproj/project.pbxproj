@@ -343,14 +343,7 @@
 		983271F2272753100010C63A /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				98F1296D272F363200B88A87 /* HomeView.swift */,
-				D14E515427A7518F00A2E74E /* HomeUseCases.swift */,
-				D14E515627A7560100A2E74E /* HomeWorker.swift */,
-				D14E515827A7582000A2E74E /* HomeInteractor.swift */,
-				D14E515A27A75F9900A2E74E /* HomePresenter.swift */,
-				D14E515C27A7643000A2E74E /* HomeViewController.swift */,
-				D14E515E27A76C1C00A2E74E /* HomeRouter.swift */,
-				D14E516027A76F1500A2E74E /* HomeConfigurator.swift */,
+				D1265F2427A89A110027F2BB /* Presentation */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -571,6 +564,21 @@
 				98FC5AB52732BFDA002412EA /* MenuCellView.swift */,
 			);
 			path = MenuListView;
+			sourceTree = "<group>";
+		};
+		D1265F2427A89A110027F2BB /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				98F1296D272F363200B88A87 /* HomeView.swift */,
+				D14E515427A7518F00A2E74E /* HomeUseCases.swift */,
+				D14E515627A7560100A2E74E /* HomeWorker.swift */,
+				D14E515827A7582000A2E74E /* HomeInteractor.swift */,
+				D14E515A27A75F9900A2E74E /* HomePresenter.swift */,
+				D14E515C27A7643000A2E74E /* HomeViewController.swift */,
+				D14E515E27A76C1C00A2E74E /* HomeRouter.swift */,
+				D14E516027A76F1500A2E74E /* HomeConfigurator.swift */,
+			);
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
