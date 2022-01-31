@@ -69,6 +69,7 @@
 		98FC5AB82732C1EF002412EA /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FC5AB72732C1EF002412EA /* MenuItemView.swift */; };
 		D14E515527A7518F00A2E74E /* HomeUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515427A7518F00A2E74E /* HomeUseCases.swift */; };
 		D14E515727A7560100A2E74E /* HomeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515627A7560100A2E74E /* HomeWorker.swift */; };
+		D14E515927A7582000A2E74E /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515827A7582000A2E74E /* HomeInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +148,7 @@
 		98FC5AB72732C1EF002412EA /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		D14E515427A7518F00A2E74E /* HomeUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCases.swift; sourceTree = "<group>"; };
 		D14E515627A7560100A2E74E /* HomeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWorker.swift; sourceTree = "<group>"; };
+		D14E515827A7582000A2E74E /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,6 +290,7 @@
 				98F1296D272F363200B88A87 /* HomeView.swift */,
 				D14E515427A7518F00A2E74E /* HomeUseCases.swift */,
 				D14E515627A7560100A2E74E /* HomeWorker.swift */,
+				D14E515827A7582000A2E74E /* HomeInteractor.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -645,6 +648,7 @@
 				988ABC4D279B145F009506DC /* SampleApiDataSource.swift in Sources */,
 				988ABC6C279B198F009506DC /* SampleRepository.swift in Sources */,
 				988ABC5F279B16DE009506DC /* SampleRouter.swift in Sources */,
+				D14E515927A7582000A2E74E /* HomeInteractor.swift in Sources */,
 				988ABC51279B14BC009506DC /* SampleRequest.swift in Sources */,
 				98F1296C272F328200B88A87 /* CategoryListView.swift in Sources */,
 				98F1296E272F363200B88A87 /* HomeView.swift in Sources */,

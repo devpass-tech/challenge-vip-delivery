@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Home {
+enum HomeUseCase {
     enum FetchData {
         struct Request {
         }
