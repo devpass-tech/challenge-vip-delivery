@@ -12,12 +12,6 @@ protocol HomeBusinessLogic {
     func requestData(request: HomeUseCase.FetchData.Request)
 }
 
-/// Protocol used to intermediate communication from Interactor to Presenter ( Interactor ----`response` ----> Presenter )
-protocol HomePresentationLogic {
-    func responseData(response: HomeUseCase.FetchData.Response)
-    func responseError(response: HomeUseCase.Error.Response)
-}
-
 /// Protocol used allow Router pass data thuru scenes
 protocol HomeDataStore {}
 

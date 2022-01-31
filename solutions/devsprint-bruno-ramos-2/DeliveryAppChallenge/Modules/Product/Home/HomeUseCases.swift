@@ -16,7 +16,6 @@ enum HomeUseCase {
         }
 
         struct ViewModel {
-            let name: String
         }
     }
 
