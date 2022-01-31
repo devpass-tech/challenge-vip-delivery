@@ -22,7 +22,6 @@
 		7BBAE3D327A0671000A84801 /* RestaurantDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBAE3D227A0671000A84801 /* RestaurantDetailsInteractor.swift */; };
 		983271BD272752AF0010C63A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983271BC272752AF0010C63A /* AppDelegate.swift */; };
 		983271BF272752AF0010C63A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983271BE272752AF0010C63A /* SceneDelegate.swift */; };
-		983271C1272752AF0010C63A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983271C0272752AF0010C63A /* HomeViewController.swift */; };
 		983271C6272752B50010C63A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 983271C5272752B50010C63A /* Assets.xcassets */; };
 		983271C9272752B50010C63A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 983271C7272752B50010C63A /* LaunchScreen.storyboard */; };
 		983271D4272752B50010C63A /* DeliveryAppChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983271D3272752B50010C63A /* DeliveryAppChallengeTests.swift */; };
@@ -70,6 +69,8 @@
 		D14E515527A7518F00A2E74E /* HomeUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515427A7518F00A2E74E /* HomeUseCases.swift */; };
 		D14E515727A7560100A2E74E /* HomeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515627A7560100A2E74E /* HomeWorker.swift */; };
 		D14E515927A7582000A2E74E /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515827A7582000A2E74E /* HomeInteractor.swift */; };
+		D14E515B27A75F9900A2E74E /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515A27A75F9900A2E74E /* HomePresenter.swift */; };
+		D14E515D27A7643000A2E74E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515C27A7643000A2E74E /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,7 +100,6 @@
 		983271B9272752AF0010C63A /* DeliveryAppChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeliveryAppChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		983271BC272752AF0010C63A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		983271BE272752AF0010C63A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		983271C0272752AF0010C63A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		983271C5272752B50010C63A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		983271C8272752B50010C63A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		983271CA272752B50010C63A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -149,6 +149,8 @@
 		D14E515427A7518F00A2E74E /* HomeUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCases.swift; sourceTree = "<group>"; };
 		D14E515627A7560100A2E74E /* HomeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWorker.swift; sourceTree = "<group>"; };
 		D14E515827A7582000A2E74E /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
+		D14E515A27A75F9900A2E74E /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
+		D14E515C27A7643000A2E74E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,11 +288,12 @@
 		983271F2272753100010C63A /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				983271C0272752AF0010C63A /* HomeViewController.swift */,
 				98F1296D272F363200B88A87 /* HomeView.swift */,
 				D14E515427A7518F00A2E74E /* HomeUseCases.swift */,
 				D14E515627A7560100A2E74E /* HomeWorker.swift */,
 				D14E515827A7582000A2E74E /* HomeInteractor.swift */,
+				D14E515A27A75F9900A2E74E /* HomePresenter.swift */,
+				D14E515C27A7643000A2E74E /* HomeViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -613,9 +616,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				983271C1272752AF0010C63A /* HomeViewController.swift in Sources */,
 				70097E8E27A0C5A8006A441C /* RestaurantDetailsWorker.swift in Sources */,
 				D14E515727A7560100A2E74E /* HomeWorker.swift in Sources */,
+				D14E515B27A75F9900A2E74E /* HomePresenter.swift in Sources */,
 				98FC5AB42732BFC8002412EA /* MenuListView.swift in Sources */,
 				988ABC61279B1713009506DC /* SampleViewController.swift in Sources */,
 				98EA055B272A092F007B0228 /* AddressSearchViewController.swift in Sources */,
@@ -648,6 +651,7 @@
 				988ABC4D279B145F009506DC /* SampleApiDataSource.swift in Sources */,
 				988ABC6C279B198F009506DC /* SampleRepository.swift in Sources */,
 				988ABC5F279B16DE009506DC /* SampleRouter.swift in Sources */,
+				D14E515D27A7643000A2E74E /* HomeViewController.swift in Sources */,
 				D14E515927A7582000A2E74E /* HomeInteractor.swift in Sources */,
 				988ABC51279B14BC009506DC /* SampleRequest.swift in Sources */,
 				98F1296C272F328200B88A87 /* CategoryListView.swift in Sources */,

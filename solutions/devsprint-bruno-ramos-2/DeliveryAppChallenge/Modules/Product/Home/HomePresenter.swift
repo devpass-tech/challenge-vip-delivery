@@ -13,14 +13,7 @@ protocol HomePresentationLogic {
     func responseError(response: HomeUseCase.Error.Response)
 }
 
-
-/// Protocol used to intermediates communication from Presenter to ViewController ( Presenter ----`viewModel` ----> ViewController )
-protocol HomeDisplayLogic: AnyObject {
-    func displayViewModel(viewModel: HomeUseCase.FetchData.ViewModel)
-    func displayError(error: HomeUseCase.Error.ViewModel)
-}
-
-/// Class used to handle data from Interactor, preparing to to be displated by ViewController
+/// Class used to handle data from Interactor, preparing (and deciding how) data to be displated by ViewController
 /// Interactor passes a request response to Presenter
 /// Presenter hadle this response separating and formating data to be displayed
 /// Presenter pass a viewModel with data that User need see to ViewController
