@@ -15,6 +15,7 @@ protocol NetworkRequest {
 
 enum HTTPMethod: String {
     case get
+    case post
 }
 
 extension NetworkRequest {

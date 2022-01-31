@@ -9,6 +9,6 @@ import Foundation
 
 struct RestaurantListRequest: NetworkRequest {
     
-    let pathURL: String = "home_restaurant_list.json"
-    let method: HTTPMethod = .get
+    var pathURL: String = "home_restaurant_list.json"
+    var method: HTTPMethod = .get
 }

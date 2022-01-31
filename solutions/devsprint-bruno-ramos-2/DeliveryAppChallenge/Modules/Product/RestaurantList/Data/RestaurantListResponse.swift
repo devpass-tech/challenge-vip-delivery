@@ -19,6 +19,8 @@ struct RestaurantListResponse: Codable {
 }
 
 // MARK: - DeliveryTime
-struct DeliveryTime: Codable {
-    let min, max: Int
+extension RestaurantListResponse {
+    struct DeliveryTime: Codable {
+        let min, max: Int
+    }
 }
