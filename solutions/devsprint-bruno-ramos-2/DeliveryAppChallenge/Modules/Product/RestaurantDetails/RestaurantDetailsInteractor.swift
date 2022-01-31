@@ -38,8 +38,8 @@ extension RestaurantDetailsInteractor: RestaurantDetailsBusinessLogic {
             switch result {
             case .success(let restaurantDetails):
                 self.presenter.presentRestaurantMenu(response: .success(restaurantDetails))
-            case .failure(_):
-                self.presenter.presentRestaurantMenu(response: .failure(APIError.networkError))
+            case .failure(let error):
+                self.presenter.presentRestaurantMenu(response: .failure(error))
             }
         }
     }

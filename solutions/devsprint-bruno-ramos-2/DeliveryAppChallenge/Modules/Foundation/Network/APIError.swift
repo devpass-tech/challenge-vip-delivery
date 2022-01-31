@@ -8,7 +8,7 @@ enum APIError: Error {
     case networkError
 }
 
-extension APIError: LocalizedError {
+extension APIError: LocalizedError, Equatable {
     
     var errorDescription: String? {
         switch self {
