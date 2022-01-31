@@ -12,11 +12,10 @@ final class RestaurantDetailsInteractorTests: XCTestCase {
         worker: workerStub
     )
 
-    func test_requestFetchRestaurantMenu_whenWorkerReturnsSuccess_shouldCallPresenterWithSuccessName() {
+    func test_requestFetchRestaurantMenu_whenWorkerReturnsSuccess_shouldCallPresenterWithSuccessResult() {
         // Given or Arrange
-        let expectedName = "DevPass"
-        workerStub.fetchDataCompletionToBeExecuted = .success(expectedName)
-
+        workerStub.fetchDataCompletionToBeExecuted = .success(.fixture(name: "Padaria do João"))
+        
         // When or Act
         sut.requestFetchRestaurantMenu(request: .init())
 
@@ -25,17 +24,18 @@ final class RestaurantDetailsInteractorTests: XCTestCase {
         XCTAssertTrue(presenterSpy.presentRestaurantMenuCalled)
 
         switch presenterSpy.presentRestaurantMenuResponsePassed {
-        case .success(let name):
-            XCTAssertEqual(name, expectedName)
+        case .success(let restaurantDetails):
+            XCTAssertNotNil(restaurantDetails)
+            XCTAssertEqual(restaurantDetails.name, "Padaria do João")
+            XCTAssertEqual(restaurantDetails.category, "Almoço")
         default:
             XCTFail("Should be a success result")
-
         }
     }
 
     func test_requestFetchRestaurantMenu_whenWorkerReturnsFailure_shouldCallPresenterWithFailureError() {
         // Given or Arrange
-        workerStub.fetchDataCompletionToBeExecuted = .failure(ErrorDummy())
+        workerStub.fetchDataCompletionToBeExecuted = .failure(.networkError)
 
         // When or Act
         sut.requestFetchRestaurantMenu(request: .init())
@@ -46,12 +46,12 @@ final class RestaurantDetailsInteractorTests: XCTestCase {
 
         switch presenterSpy.presentRestaurantMenuResponsePassed {
         case .failure(let error):
-            XCTAssertNotNil(error)
+            XCTAssertNotNil(error as APIError)
+            XCTAssertEqual(error, APIError.networkError)
+            XCTAssertNotEqual(error, APIError.invalidURL)
         default:
             XCTFail("Should be a failure result")
 
         }
     }
 }
-
-struct ErrorDummy: Error { }

@@ -15,10 +15,11 @@ protocol NetworkRequest {
 
 enum HTTPMethod: String {
     case get
+    case post
 }
 
 extension NetworkRequest {
     var baseURL: String {
-        "https://raw.githubusercontent.com/devpass-tech/challenge-delivery-app/main/api/"
+        "https://raw.githubusercontent.com/devpass-tech/challenge-vip-delivery/main/api/"
     }
 }
