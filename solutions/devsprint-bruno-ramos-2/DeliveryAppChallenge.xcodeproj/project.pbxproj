@@ -72,6 +72,7 @@
 		D14E515B27A75F9900A2E74E /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515A27A75F9900A2E74E /* HomePresenter.swift */; };
 		D14E515D27A7643000A2E74E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515C27A7643000A2E74E /* HomeViewController.swift */; };
 		D14E515F27A76C1C00A2E74E /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515E27A76C1C00A2E74E /* HomeRouter.swift */; };
+		D14E516127A76F1500A2E74E /* HomeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E516027A76F1500A2E74E /* HomeConfigurator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +154,7 @@
 		D14E515A27A75F9900A2E74E /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		D14E515C27A7643000A2E74E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D14E515E27A76C1C00A2E74E /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
+		D14E516027A76F1500A2E74E /* HomeConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeConfigurator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,6 +299,7 @@
 				D14E515A27A75F9900A2E74E /* HomePresenter.swift */,
 				D14E515C27A7643000A2E74E /* HomeViewController.swift */,
 				D14E515E27A76C1C00A2E74E /* HomeRouter.swift */,
+				D14E516027A76F1500A2E74E /* HomeConfigurator.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -670,6 +673,7 @@
 				983271BF272752AF0010C63A /* SceneDelegate.swift in Sources */,
 				988ABC5D279B162B009506DC /* SampleUseCases.swift in Sources */,
 				988ABC74279B1CC0009506DC /* URLSessionProtocol.swift in Sources */,
+				D14E516127A76F1500A2E74E /* HomeConfigurator.swift in Sources */,
 				98FC5AB62732BFDA002412EA /* MenuCellView.swift in Sources */,
 				983271BD272752AF0010C63A /* AppDelegate.swift in Sources */,
 				98F12968272F30E500B88A87 /* AddressView.swift in Sources */,
