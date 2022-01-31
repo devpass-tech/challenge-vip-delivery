@@ -18,11 +18,6 @@ protocol HomeDisplayLogic: AnyObject {
 protocol HomeRoutingLogic {
 }
 
-/// Protocol used to intermediate diaply data communication from ViewController to View
-protocol HomeViewProtocol: UIView {
-    func display()
-}
-
 /// Class use to handle user's intections with view, call requests to Interactor and send data (ViewModel) from Presenter to View display it
 /// ViewController call Router when need to transit to another Scene
 final class HomeViewController: UIViewController {
@@ -55,10 +50,10 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController: HomeDisplayLogic {
     func displayViewModel(viewModel: HomeUseCase.FetchData.ViewModel) {
-        customView.display()
+        customView.display(viewModel: HomeView.ViewModel())
     }
 
     func displayError(error: HomeUseCase.Error.ViewModel) {
-        customView.display()
+        customView.display(viewModel: HomeView.ViewModel())
     }
 }
