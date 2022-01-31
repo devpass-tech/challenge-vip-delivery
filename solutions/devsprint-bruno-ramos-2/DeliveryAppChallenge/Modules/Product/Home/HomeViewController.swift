@@ -44,6 +44,10 @@ final class HomeViewController: UIViewController {
     }
 }
 
+extension HomeViewController: HomeViewDelegate {
+
+}
+
 extension HomeViewController: HomeDisplayLogic {
     func displayViewModel(viewModel: HomeUseCase.FetchData.ViewModel) {
         customView.display(viewModel: HomeView.ViewModel())
