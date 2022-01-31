@@ -7,6 +7,7 @@
 
 import UIKit
 
+// TODO: Tirar duvida, pq usamos um Enum no configurator?
 /// Used to initialize the whole module
 enum HomeConfigurator: FeatureFactory {
     /// Struct used to initialize dependences needed on module
