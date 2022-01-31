@@ -55,39 +55,36 @@ class RestaurantCellView: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.accessoryType = .disclosureIndicator
 
-        addSubviews()
-        configureConstraints()
+        setup()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
-extension RestaurantCellView {
-
-    func addSubviews() {
-
+extension RestaurantCellView: ViewCode {
+    func setupComponents() {
         addSubview(mainStackView)
+        
         mainStackView.addArrangedSubview(logoImageView)
         mainStackView.addArrangedSubview(labelsStackView)
 
         labelsStackView.addArrangedSubview(restaurantNameLabel)
         labelsStackView.addArrangedSubview(restaurantInfoLabel)
     }
-
-    func configureConstraints() {
-
+    
+    func setupConstraints() {
         NSLayoutConstraint.activate([
             mainStackView.topAnchor.constraint(equalTo: topAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
 
-            self.logoImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            self.logoImageView.widthAnchor.constraint(equalToConstant: 50),
-            self.logoImageView.heightAnchor.constraint(equalToConstant: 50),
-
+            logoImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            logoImageView.widthAnchor.constraint(equalToConstant: 50),
+            logoImageView.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
 }
