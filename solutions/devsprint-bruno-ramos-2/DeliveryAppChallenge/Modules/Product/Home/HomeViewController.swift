@@ -10,8 +10,8 @@ import UIKit
 
 /// Protocol used to intermediates communication from Presenter to ViewController ( Presenter ----`viewModel` ----> ViewController )
 protocol HomeDisplayLogic: AnyObject {
-    func displayViewModel(viewModel: HomeUseCase.FetchData.ViewModel)
-    func displayError(error: HomeUseCase.Error.ViewModel)
+    func displayHome(viewModel: HomeUseCase.FetchData.ViewModel)
+    func displayHomeError(error: HomeUseCase.Error.ViewModel)
 }
 
 /// Class use to handle user's intections with view, call requests to Interactor and send data (ViewModel) from Presenter to View display it
@@ -40,7 +40,7 @@ final class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        interactor.requestData(request: HomeUseCase.FetchData.Request())
+        interactor.fetchHome(request: HomeUseCase.FetchData.Request())
     }
 }
 

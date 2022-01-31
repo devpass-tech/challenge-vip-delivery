@@ -9,8 +9,8 @@ import Foundation
 
 /// Protocol used to intermediate communication from Interactor to Presenter ( Interactor ----`response` ----> Presenter )
 protocol HomePresentationLogic {
-    func responseData(response: HomeUseCase.FetchData.Response)
-    func responseError(response: HomeUseCase.Error.Response)
+    func presentHomeData(response: HomeUseCase.FetchData.Response)
+    func presentHomeError(response: HomeUseCase.Error.Response)
 }
 
 /// Class used to handle data from Interactor, preparing (and deciding how) data to be displated by ViewController
@@ -20,11 +20,11 @@ protocol HomePresentationLogic {
 final class HomePresenter: HomePresentationLogic {
     weak var viewController: HomeDisplayLogic?
 
-    func responseData(response: HomeUseCase.FetchData.Response) {
-        viewController?.displayViewModel(viewModel: HomeUseCase.FetchData.ViewModel())
+    func presentHomeData(response: HomeUseCase.FetchData.Response) {
+        viewController?.displayHome(viewModel: HomeUseCase.FetchData.ViewModel())
     }
 
-    func responseError(response: HomeUseCase.Error.Response) {
-        viewController?.displayError(error: HomeUseCase.Error.ViewModel(message: "Ops, desculpe não conseguimos as informações"))
+    func presentHomeError(response: HomeUseCase.Error.Response) {
+        viewController?.displayHomeError(error: HomeUseCase.Error.ViewModel(message: "Ops, desculpe não conseguimos as informações"))
     }
 }
