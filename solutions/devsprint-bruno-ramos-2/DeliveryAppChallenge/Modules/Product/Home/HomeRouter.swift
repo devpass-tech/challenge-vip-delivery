@@ -21,7 +21,7 @@ typealias HomeRouterType = (HomeRoutingLogic & HomeDataPassing)
 
 /// Class used to navigate between scenes, ViewController calls Router (using RoutingLogic protocol) when need navigate to another scene
 /// Router keep a data store to allow pass data needed on next scene
-final class HomerRouter: HomeRouterType {
+final class HomeRouter: HomeRouterType {
     weak var viewController: HomeViewController?
     var dataStore: HomeDataStore?
 
