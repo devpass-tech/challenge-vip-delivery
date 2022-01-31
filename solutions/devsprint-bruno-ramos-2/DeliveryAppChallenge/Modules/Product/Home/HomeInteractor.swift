@@ -38,9 +38,9 @@ extension HomeInteractor: HomeBusinessLogic {
 
             switch result {
             case .success(let data):
-                self.presenter.responseData(response: .init())
+                self.presenter.responseData(response: HomeUseCase.FetchData.Response())
             case .failure(let error):
-                self.presenter.responseError(response: .init(error: "Error" as! Error))
+                self.presenter.responseError(response: HomeUseCase.Error.Response(error: "Error" as! Error))
             }
         })
     }
