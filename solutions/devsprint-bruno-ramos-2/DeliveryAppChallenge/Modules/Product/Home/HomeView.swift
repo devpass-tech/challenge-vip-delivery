@@ -20,8 +20,7 @@ final class HomeView: UIView {
     struct ViewModel {
     }
 
-    // MARK: - Private properties
-    private weak var delegate: HomeViewDelegate?
+    weak var delegate: HomeViewDelegate?
     private var viewModel: ViewModel?
 
     // MARK: - UI components
@@ -71,6 +70,12 @@ final class HomeView: UIView {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension HomeView: HomeViewProtocol {
+    func display(viewModel: ViewModel) {
+        self.viewModel = viewModel
     }
 }
 
