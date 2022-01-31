@@ -40,7 +40,7 @@ final class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        interactor.requestData(request: HomeUseCase.FetchData.Request())
+        interactor.fetchHome(request: HomeUseCase.FetchData.Request())
     }
 }
 

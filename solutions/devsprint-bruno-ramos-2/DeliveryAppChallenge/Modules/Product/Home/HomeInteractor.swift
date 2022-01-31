@@ -9,7 +9,7 @@ import Foundation
 
 /// Protocol used to intermediate communication from ViewController to Interactor ( ViewController ----`request` ----> Interactor )
 protocol HomeBusinessLogic {
-    func requestData(request: HomeUseCase.FetchData.Request)
+    func fetchHome(request: HomeUseCase.FetchData.Request)
 }
 
 /// Protocol used allow Router access data to is need to be pass between scenes
@@ -30,7 +30,7 @@ final class HomeInteractor: HomeDataStore {
 }
 
 extension HomeInteractor: HomeBusinessLogic {
-    func requestData(request: HomeUseCase.FetchData.Request) {
+    func fetchHome(request: HomeUseCase.FetchData.Request) {
         worker.fetchData(completion: { [weak self]  result in
             guard let self = self else {
                 return
@@ -38,9 +38,9 @@ extension HomeInteractor: HomeBusinessLogic {
 
             switch result {
             case .success(let data):
-                self.presenter.responseData(response: HomeUseCase.FetchData.Response())
+                self.presenter.presentHomeData(response: HomeUseCase.FetchData.Response())
             case .failure(let error):
-                self.presenter.responseError(response: HomeUseCase.Error.Response(error: "Error" as! Error))
+                self.presenter.presentHomeError(response: HomeUseCase.Error.Response(error: "Error" as! Error))
             }
         })
     }
