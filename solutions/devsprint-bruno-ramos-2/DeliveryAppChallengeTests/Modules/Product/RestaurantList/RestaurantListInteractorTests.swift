@@ -40,7 +40,8 @@ class RestaurantListInteractorTests: XCTestCase {
     
     func test_fetchRestaurantList_whenWorkerReturnsFailure_shouldCallPresenterWithFailureError() {
         // Given
-        workerSpy.fetchRestaurantListCompletionToBeExecuted = .failure(ErrorDummy())
+        let expectedError = ErrorDummy()
+        workerSpy.fetchRestaurantListCompletionToBeExecuted = .failure(expectedError)
         
         // When
         sut.fetchRestaurantList(request: .init())
@@ -52,6 +53,7 @@ class RestaurantListInteractorTests: XCTestCase {
         switch presenterSpy.presentFetchedRestaurantListResponsePassed {
         case.failure(let error):
             XCTAssertNotNil(error)
+            XCTAssertNotNil(error as? ErrorDummy)
         default:
             XCTFail("Should be a failure result.")
         }

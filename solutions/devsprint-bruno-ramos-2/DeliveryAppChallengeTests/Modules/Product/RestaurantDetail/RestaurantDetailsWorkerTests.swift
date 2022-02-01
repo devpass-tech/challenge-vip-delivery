@@ -12,7 +12,7 @@ final class RestaurantDetailsWorkerTests: XCTestCase {
         //Given
         networkSpy.requestToBeReturned = Result<RestaurantDetailsResponse,Error>.success(.fixture(name: "Condimento Bistro", category: .breakfast, deliveryTime: .fixture(min: 15, max: 30), reviews: .fixture(score: 4.8, count: 10)))
         
-        var result: Result<RestaurantDetailsResponse,APIError>?
+        var result: Result<RestaurantDetailsResponse,Error>?
         
         //When
         sut.fetchData { resultReturned in
@@ -31,9 +31,10 @@ final class RestaurantDetailsWorkerTests: XCTestCase {
     
     func test_fetchData_givenFailureResponse_shouldReturnFailure() throws {
         //Given
-        networkSpy.requestToBeReturned = Result<RestaurantDetailsResponse, Error>.failure(APIError.networkError)
+        let expectedError = ErrorDummy()
+        networkSpy.requestToBeReturned = Result<RestaurantDetailsResponse, Error>.failure(expectedError)
         
-        var result: Result<RestaurantDetailsResponse,APIError>?
+        var result: Result<RestaurantDetailsResponse,Error>?
         
         // When or Act
         sut.fetchData { resultReturned in
@@ -48,7 +49,7 @@ final class RestaurantDetailsWorkerTests: XCTestCase {
             return XCTFail("Should be failure")
         }
         
-        let networkError = try XCTUnwrap(error)
-        XCTAssertEqual(networkError, .networkError)
+        let receivedError = try XCTUnwrap(error)
+        XCTAssertNotNil(receivedError as? ErrorDummy)
     }
 }

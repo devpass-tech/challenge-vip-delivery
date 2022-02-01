@@ -35,7 +35,8 @@ final class RestaurantDetailsInteractorTests: XCTestCase {
 
     func test_requestFetchRestaurantMenu_whenWorkerReturnsFailure_shouldCallPresenterWithFailureError() {
         // Given or Arrange
-        workerStub.fetchDataCompletionToBeExecuted = .failure(.networkError)
+        let exptectedError = ErrorDummy()
+        workerStub.fetchDataCompletionToBeExecuted = .failure(exptectedError)
 
         // When or Act
         sut.requestFetchRestaurantMenu(request: .init())
@@ -46,9 +47,7 @@ final class RestaurantDetailsInteractorTests: XCTestCase {
 
         switch presenterSpy.presentRestaurantMenuResponsePassed {
         case .failure(let error):
-            XCTAssertNotNil(error as APIError)
-            XCTAssertEqual(error, APIError.networkError)
-            XCTAssertNotEqual(error, APIError.invalidURL)
+            XCTAssertNotNil(error as? ErrorDummy)
         default:
             XCTFail("Should be a failure result")
 
