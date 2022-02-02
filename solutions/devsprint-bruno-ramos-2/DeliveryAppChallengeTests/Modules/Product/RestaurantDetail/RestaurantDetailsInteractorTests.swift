@@ -5,22 +5,23 @@ import XCTest
 
 final class RestaurantDetailsInteractorTests: XCTestCase {
     private let presenterSpy = RestaurantDetailsPresentationLogicSpy()
-    private let workerStub = RestaurantDetailsWorkingStub()
+    private let getRestaurantDetailsUseCaseSpy = GetRestaurantDetailsUseCaseSpy()
 
     private lazy var sut = RestaurantDetailsInteractor(
         presenter: presenterSpy,
-        worker: workerStub
+        getRestaurantDetails: getRestaurantDetailsUseCaseSpy,
+        restaurantId: "Foo"
     )
 
     func test_requestFetchRestaurantMenu_whenWorkerReturnsSuccess_shouldCallPresenterWithSuccessResult() {
         // Given or Arrange
-        workerStub.fetchDataCompletionToBeExecuted = .success(.fixture(name: "Padaria do João"))
+        getRestaurantDetailsUseCaseSpy.executeCompletionToBeExecuted = .success(.fixture(name: "Padaria do João"))
         
         // When or Act
         sut.requestFetchRestaurantMenu(request: .init())
 
         // Then or Assert
-        XCTAssertTrue(workerStub.fetchDataCalled)
+        XCTAssertTrue(getRestaurantDetailsUseCaseSpy.executeCalled)
         XCTAssertTrue(presenterSpy.presentRestaurantMenuCalled)
 
         switch presenterSpy.presentRestaurantMenuResponsePassed {
@@ -36,13 +37,13 @@ final class RestaurantDetailsInteractorTests: XCTestCase {
     func test_requestFetchRestaurantMenu_whenWorkerReturnsFailure_shouldCallPresenterWithFailureError() {
         // Given or Arrange
         let exptectedError = ErrorDummy()
-        workerStub.fetchDataCompletionToBeExecuted = .failure(exptectedError)
+        getRestaurantDetailsUseCaseSpy.executeCompletionToBeExecuted = .failure(exptectedError)
 
         // When or Act
         sut.requestFetchRestaurantMenu(request: .init())
 
         // Then or Assert
-        XCTAssertTrue(workerStub.fetchDataCalled)
+        XCTAssertTrue(getRestaurantDetailsUseCaseSpy.executeCalled)
         XCTAssertTrue(presenterSpy.presentRestaurantMenuCalled)
 
         switch presenterSpy.presentRestaurantMenuResponsePassed {

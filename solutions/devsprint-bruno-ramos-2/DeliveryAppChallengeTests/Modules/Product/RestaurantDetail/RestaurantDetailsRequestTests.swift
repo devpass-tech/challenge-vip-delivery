@@ -8,7 +8,7 @@ final class RestaurantDetailsRequestTests: XCTestCase {
     private let pathURLStub = "restaurant_details.json"
     private let httpMethodStub: HTTPMethod = .get
     
-    private lazy var sut = RestaurantDetailsRequest(pathURL: pathURLStub, method:  httpMethodStub)
+    private lazy var sut = RestaurantDetailsRequest(restaurantId: "Foo", method:  httpMethodStub)
     
     func test_pathURL_shouldReturnCorrectPathURL() {
         let path = sut.pathURL

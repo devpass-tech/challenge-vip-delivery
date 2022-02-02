@@ -13,7 +13,7 @@ enum RestaurantDetailsUseCases {
         struct Request {}
 
         enum Response {
-            case success(RestaurantDetailsResponse)
+            case success(RestaurantDetails)
             case failure(Error)
         }
 

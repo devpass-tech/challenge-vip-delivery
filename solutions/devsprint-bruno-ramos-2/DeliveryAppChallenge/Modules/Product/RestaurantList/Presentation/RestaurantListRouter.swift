@@ -7,9 +7,13 @@
 
 import UIKit
 
-protocol RestaurantListRoutingLogic {}
+protocol RestaurantListRoutingLogic {
+    func routeToRestaurantDetail()
+}
 
-protocol RestaurantListDataPassing {}
+protocol RestaurantListDataPassing {
+    var dataStore: RestaurantListDataStore? { get set }
+}
 
 typealias RestaurantListRouterType = (RestaurantListRoutingLogic & RestaurantListDataPassing)
 
@@ -19,4 +23,10 @@ final class RestaurantListRouter: RestaurantListRouterType {
     var dataStore: RestaurantListDataStore?
     
     init() {}
+
+    func routeToRestaurantDetail() {
+        guard let restaurantId = dataStore?.restaurantId else { return }
+        let destination = RestaurantDetailsConfigurator.make(with: .init(restaurantId: restaurantId))
+        viewController?.navigationController?.pushViewController(destination, animated: true)
+    }
 }

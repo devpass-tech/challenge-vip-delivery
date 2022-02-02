@@ -8,7 +8,11 @@
 import Foundation
 
 struct RestaurantDetailsRequest: NetworkRequest {
-    var pathURL: String = "restaurant_details.json"
+    let restaurantId: String
+
+    var pathURL: String {
+        "restaurant_details.json/\(restaurantId)"
+    }
     
     var method: HTTPMethod = .get
 }

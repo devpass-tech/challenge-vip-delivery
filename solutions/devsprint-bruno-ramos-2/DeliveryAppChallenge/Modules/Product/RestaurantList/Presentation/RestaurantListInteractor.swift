@@ -11,12 +11,15 @@ protocol RestaurantListBusinessLogic {
     func fetchRestaurantList(request: RestaurantListUseCases.FetchData.Request)
 }
 
-protocol RestaurantListDataStore {}
+protocol RestaurantListDataStore {
+    var restaurantId: String? { get set }
+}
 
 final class RestaurantListInteractor: RestaurantListDataStore {
     
     private let presenter: RestaurantListPresentationLogic
     private let worker: RestaurantListWorking
+    var restaurantId: String?
     
     // MARK: - Initializers
     init(presenter: RestaurantListPresentationLogic,

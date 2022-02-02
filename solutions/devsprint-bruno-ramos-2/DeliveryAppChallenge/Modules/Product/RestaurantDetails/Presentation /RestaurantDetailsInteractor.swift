@@ -11,20 +11,25 @@ protocol RestaurantDetailsBusinessLogic {
     func requestFetchRestaurantMenu(request: RestaurantDetailsUseCases.FetchMenu.Request)
 }
 
-protocol RestaurantDetailsDataStore {}
+protocol RestaurantDetailsDataStore {
+    var restaurantId: String { get }
+}
 
 final class RestaurantDetailsInteractor: RestaurantDetailsDataStore {
     private let presenter: RestaurantDetailsPresentationLogic
-    private let worker: RestaurantDetailsWorking
+    private let getRestaurantDetails: GetRestaurantDetailsUseCase
+    let restaurantId: String
     
     //MARK: - Inits
     
     init(
         presenter: RestaurantDetailsPresentationLogic,
-        worker: RestaurantDetailsWorking
+        getRestaurantDetails: GetRestaurantDetailsUseCase,
+        restaurantId: String
     ) {
         self.presenter = presenter
-        self.worker = worker
+        self.getRestaurantDetails = getRestaurantDetails
+        self.restaurantId = restaurantId
     }
 }
 
@@ -32,7 +37,7 @@ final class RestaurantDetailsInteractor: RestaurantDetailsDataStore {
 
 extension RestaurantDetailsInteractor: RestaurantDetailsBusinessLogic {
     func requestFetchRestaurantMenu(request: RestaurantDetailsUseCases.FetchMenu.Request) {
-        worker.fetchData { [weak self] result in
+        getRestaurantDetails.execute(request: .init(restaurantId: restaurantId)) { [weak self] result in
             guard let self = self else { return }
 
             switch result {
