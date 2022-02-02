@@ -31,8 +31,8 @@ class RestaurantListInteractorTests: XCTestCase {
         switch presenterSpy.presentFetchedRestaurantListResponsePassed {
         case .success(let restaurantList):
             XCTAssertNotNil(restaurantList)
-            XCTAssertEqual(restaurantList[0].name, "Padaria Bolo Fofo")
-            XCTAssertEqual(restaurantList[1].name, "Baita Padaria")
+            XCTAssertTrue(restaurantList.contains { $0.name == "Padaria Bolo Fofo" })
+            XCTAssertTrue(restaurantList.contains { $0.name == "Baita Padaria" })
         default:
             XCTFail("Should be a success result.")
         }
