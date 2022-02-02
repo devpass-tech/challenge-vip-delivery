@@ -36,8 +36,8 @@ final class RestaurantListWorkerTests: XCTestCase {
         XCTAssertNotNil(result)
         
         let restaurantList = try XCTUnwrap(result?.get())
-        XCTAssertEqual(restaurantList[0].name, "Padaria Bolo Fofo")
-        XCTAssertEqual(restaurantList[1].name, "Baita Padaria")
+        XCTAssertTrue(restaurantList.contains { $0.name == "Padaria Bolo Fofo" })
+        XCTAssertTrue(restaurantList.contains { $0.name == "Baita Padaria" })
     }
     
     func test_fetchRestaurantList_givenFailureResponse_shouldFail() throws {
