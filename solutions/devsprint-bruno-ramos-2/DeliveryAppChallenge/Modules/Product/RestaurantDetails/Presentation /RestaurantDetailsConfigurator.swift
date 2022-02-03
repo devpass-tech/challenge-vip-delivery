@@ -34,6 +34,7 @@ enum RestaurantDetailsConfigurator: FeatureFactory {
         let viewController = RestaurantDetailsViewController(customView: view, interactor: interactor , router: router)
         
         view.delegate = viewController
+        router.viewController = viewController
         router.dataStore = interactor
         presenter.viewController = viewController
         

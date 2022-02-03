@@ -11,7 +11,7 @@ protocol RestaurantDetailsBusinessLogic {
     func requestFetchRestaurantMenu(request: RestaurantDetailsUseCases.FetchMenu.Request)
 }
 
-protocol RestaurantDetailsDataStore {
+protocol RestaurantDetailsDataStore: AnyObject {
     var restaurantId: String { get }
 }
 
