@@ -12,20 +12,12 @@ enum HomeUseCase {
         struct Request {
         }
 
-        struct Response {
+        enum Response {
+            case success(Home)
+            case failure(Error)
         }
 
         struct ViewModel {
-        }
-    }
-
-    enum Error {
-        struct Response {
-            let error: Swift.Error
-        }
-
-        struct ViewModel {
-            let message: String
         }
     }
 }
