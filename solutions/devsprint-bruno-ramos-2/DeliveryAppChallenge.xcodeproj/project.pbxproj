@@ -271,6 +271,7 @@
 		70097E8227A0BA6C006A441C /* Product */ = {
 			isa = PBXGroup;
 			children = (
+				D196843627B06FCA00451B6F /* Home */,
 				93379EA427A207B9003A88E8 /* RestaurantList */,
 				70097E8327A0BA71006A441C /* RestaurantDetail */,
 			);
@@ -798,6 +799,29 @@
 				D196843427B060B100451B6F /* HomeCacheDataSource.swift */,
 			);
 			path = DataSource;
+			sourceTree = "<group>";
+		};
+		D196843627B06FCA00451B6F /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				D196843827B06FDE00451B6F /* Doubles */,
+				D196843727B06FD300451B6F /* Fixtures */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		D196843727B06FD300451B6F /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		D196843827B06FDE00451B6F /* Doubles */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Doubles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
