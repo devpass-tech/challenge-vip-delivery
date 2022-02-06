@@ -115,6 +115,7 @@
 		D196843027B059C400451B6F /* HomeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196842F27B059C400451B6F /* HomeDataSource.swift */; };
 		D196843227B05AB300451B6F /* HomeApiDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196843127B05AB300451B6F /* HomeApiDataSource.swift */; };
 		D196843527B060B100451B6F /* HomeCacheDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196843427B060B100451B6F /* HomeCacheDataSource.swift */; };
+		D196843A27B0705500451B6F /* HomeResponse+Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196843927B0705500451B6F /* HomeResponse+Fixtures.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -239,6 +240,7 @@
 		D196842F27B059C400451B6F /* HomeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDataSource.swift; sourceTree = "<group>"; };
 		D196843127B05AB300451B6F /* HomeApiDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeApiDataSource.swift; sourceTree = "<group>"; };
 		D196843427B060B100451B6F /* HomeCacheDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCacheDataSource.swift; sourceTree = "<group>"; };
+		D196843927B0705500451B6F /* HomeResponse+Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeResponse+Fixtures.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -813,6 +815,7 @@
 		D196843727B06FD300451B6F /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				D196843927B0705500451B6F /* HomeResponse+Fixtures.swift */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -1031,6 +1034,7 @@
 				983271D4272752B50010C63A /* DeliveryAppChallengeTests.swift in Sources */,
 				93379EBB27A8985B003A88E8 /* ResturantListWorkerTests.swift in Sources */,
 				93379EB927A38362003A88E8 /* RestaurantListResponse+Fixtures.swift in Sources */,
+				D196843A27B0705500451B6F /* HomeResponse+Fixtures.swift in Sources */,
 				7B17B76A27A89CB3001B79DB /* NetworkErrorTests.swift in Sources */,
 				70097E9227A0C8CA006A441C /* RestaurantDetailsPresentationLogicSpy.swift in Sources */,
 				93379EB627A38231003A88E8 /* RestaurantListPresentationLogicSpy.swift in Sources */,
