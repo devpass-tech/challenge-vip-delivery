@@ -23,9 +23,9 @@ enum HomeConfigurator: FeatureFactory {
         let repository = GetHomeRepositoryImpl(primaryDataSource: cacheDataSource,
                                                           secondaryDataSource: apiDataSource)
 
-        let getHomeRestaurants = GetHome(repository: repository)
+        let getHome = GetHome(repository: repository)
         let interactor = HomeInteractor(presenter: presenter,
-                                        getHomeRestaurants: getHomeRestaurants)
+                                        getHome: getHome)
 
         let router = HomeRouter()
         let view = HomeView()

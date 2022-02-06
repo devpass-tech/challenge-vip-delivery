@@ -21,17 +21,17 @@ protocol HomeDataStore {}
 /// Interactor passes the response from Worker to Presenter
 final class HomeInteractor: HomeDataStore {
     private let presenter: HomePresentationLogic
-    private let getHomeRestaurants: GetHomeUseCase
+    private let getHome: GetHomeUseCase
 
-    init(presenter: HomePresentationLogic, getHomeRestaurants: GetHomeUseCase) {
+    init(presenter: HomePresentationLogic, getHome: GetHomeUseCase) {
         self.presenter = presenter
-        self.getHomeRestaurants = getHomeRestaurants
+        self.getHome = getHome
     }
 }
 
 extension HomeInteractor: HomeBusinessLogic {
     func fetchHome(request: HomeUseCase.FetchData.Request) {
-        getHomeRestaurants.execute { [weak self] result in
+        getHome.execute { [weak self] result in
             guard let self = self else {
                 return
             }

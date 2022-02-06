@@ -9,7 +9,7 @@ import Foundation
 
 /// Protocol  with first Home module data request
 /// Should return all restaurants from api
-protocol GetHomeRestaurantsUseCase {
+protocol GetHomeUseCase {
     func execute(completion: @escaping GetHomeCompletion)
 }
 
@@ -22,7 +22,7 @@ final class GetHome {
     }
 }
 
-extension GetHome: GetHomeRestaurantsUseCase {
+extension GetHome: GetHomeUseCase {
     func execute(completion: @escaping GetHomeCompletion) {
         repository.getHomeRestaurants(completion: completion)
     }
