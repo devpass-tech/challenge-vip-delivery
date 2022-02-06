@@ -113,6 +113,7 @@
 		D196842C27B0561F00451B6F /* GetHomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196842B27B0561F00451B6F /* GetHomeUseCase.swift */; };
 		D196843027B059C400451B6F /* HomeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196842F27B059C400451B6F /* HomeDataSource.swift */; };
 		D196843227B05AB300451B6F /* HomeApiDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196843127B05AB300451B6F /* HomeApiDataSource.swift */; };
+		D196843527B060B100451B6F /* HomeCacheDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196843427B060B100451B6F /* HomeCacheDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -235,6 +236,7 @@
 		D196842B27B0561F00451B6F /* GetHomeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHomeUseCase.swift; sourceTree = "<group>"; };
 		D196842F27B059C400451B6F /* HomeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDataSource.swift; sourceTree = "<group>"; };
 		D196843127B05AB300451B6F /* HomeApiDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeApiDataSource.swift; sourceTree = "<group>"; };
+		D196843427B060B100451B6F /* HomeCacheDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCacheDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -790,6 +792,7 @@
 			children = (
 				D196842F27B059C400451B6F /* HomeDataSource.swift */,
 				D196843127B05AB300451B6F /* HomeApiDataSource.swift */,
+				D196843427B060B100451B6F /* HomeCacheDataSource.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -955,6 +958,7 @@
 				D196842327B0467F00451B6F /* HomeResponse.swift in Sources */,
 				7BBAE3D327A0671000A84801 /* RestaurantDetailsInteractor.swift in Sources */,
 				988ABC55279B152F009506DC /* NetworkRequest.swift in Sources */,
+				D196843527B060B100451B6F /* HomeCacheDataSource.swift in Sources */,
 				D196843027B059C400451B6F /* HomeDataSource.swift in Sources */,
 				7BE3524F27A212D200488D3A /* RestaurantDetailsResponse.swift in Sources */,
 				D196842827B04ACE00451B6F /* HomeResponseMapper.swift in Sources */,
