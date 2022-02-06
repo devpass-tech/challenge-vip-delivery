@@ -11,10 +11,10 @@ import Foundation
 extension Home {
     static func fixture() -> Home {
         [
-            HomeRestaurant.fixture(),
-            HomeRestaurant.fixture(),
-            HomeRestaurant.fixture(),
-            HomeRestaurant.fixture(),
+            HomeRestaurant.fixture(name: "Casa do Alemão"),
+            HomeRestaurant.fixture(name: "Padoca do Flavio"),
+            HomeRestaurant.fixture(name: "PF da mamae"),
+            HomeRestaurant.fixture(name: "NatuErvas"),
             HomeRestaurant.fixture()
         ]
     }
