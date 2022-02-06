@@ -15,14 +15,23 @@ enum HomeConfigurator: FeatureFactory {
 
     static func make(with dependencies: Dependencies) -> UIViewController {
         let presenter = HomePresenter()
-
         let networkManager = NetworkManager()
-        let worker = HomeWorker(network: networkManager)
-        let interactor = HomeInteractor(presenter: presenter, worker: worker)
+
+        // MARK: - Interactor
+        let apiDataSource = HomeApiDataSource(network: networkManager)
+        let cacheDataSource = HomeCacheDataSource()
+        let repository = GetHomeRestaurantsRepositoryImpl(primaryDataSource: cacheDataSource,
+                                                          secondaryDataSource: apiDataSource)
+
+        let getHomeRestaurants = GetHomeRestaurants(repository: repository)
+        let interactor = HomeInteractor(presenter: presenter,
+                                        getHomeRestaurants: getHomeRestaurants)
 
         let router = HomeRouter()
         let view = HomeView()
-        let viewController = HomeViewController(customView: view, interactor: interactor, router: router)
+        let viewController = HomeViewController(customView: view,
+                                                interactor: interactor,
+                                                router: router)
 
         view.delegate = viewController
         router.dataStore = interactor
