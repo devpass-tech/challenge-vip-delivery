@@ -122,6 +122,7 @@
 		D196844227B0742800451B6F /* HomePresentationLogicSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196844127B0742800451B6F /* HomePresentationLogicSpy.swift */; };
 		D196844527B0767C00451B6F /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196844427B0767C00451B6F /* Home.swift */; };
 		D196844727B0777800451B6F /* GetHomeUseCaseSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196844627B0777700451B6F /* GetHomeUseCaseSpy.swift */; };
+		D196844A27B0793200451B6F /* HomeInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196844927B0793200451B6F /* HomeInteractorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -253,6 +254,7 @@
 		D196844127B0742800451B6F /* HomePresentationLogicSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresentationLogicSpy.swift; sourceTree = "<group>"; };
 		D196844427B0767C00451B6F /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		D196844627B0777700451B6F /* GetHomeUseCaseSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHomeUseCaseSpy.swift; sourceTree = "<group>"; };
+		D196844927B0793200451B6F /* HomeInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -818,6 +820,7 @@
 		D196843627B06FCA00451B6F /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				D196844827B078FC00451B6F /* Presentation */,
 				D196844327B0764200451B6F /* Domain */,
 				D196843827B06FDE00451B6F /* Doubles */,
 				D196843727B06FD300451B6F /* Fixtures */,
@@ -851,6 +854,14 @@
 				D196844627B0777700451B6F /* GetHomeUseCaseSpy.swift */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		D196844827B078FC00451B6F /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				D196844927B0793200451B6F /* HomeInteractorTests.swift */,
+			);
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1065,6 +1076,7 @@
 				93379EBB27A8985B003A88E8 /* ResturantListWorkerTests.swift in Sources */,
 				93379EB927A38362003A88E8 /* RestaurantListResponse+Fixtures.swift in Sources */,
 				D196843A27B0705500451B6F /* HomeResponse+Fixtures.swift in Sources */,
+				D196844A27B0793200451B6F /* HomeInteractorTests.swift in Sources */,
 				D196843E27B0736D00451B6F /* HomeBussinessLogicProtocolSpy.swift in Sources */,
 				7B17B76A27A89CB3001B79DB /* NetworkErrorTests.swift in Sources */,
 				70097E9227A0C8CA006A441C /* RestaurantDetailsPresentationLogicSpy.swift in Sources */,
