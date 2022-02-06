@@ -109,6 +109,8 @@
 		D196842327B0467F00451B6F /* HomeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196842227B0467F00451B6F /* HomeResponse.swift */; };
 		D196842527B0493B00451B6F /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196842427B0493B00451B6F /* Home.swift */; };
 		D196842827B04ACE00451B6F /* HomeResponseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196842727B04ACE00451B6F /* HomeResponseMapper.swift */; };
+		D196843027B059C400451B6F /* HomeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196842F27B059C400451B6F /* HomeDataSource.swift */; };
+		D196843227B05AB300451B6F /* HomeApiDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196843127B05AB300451B6F /* HomeApiDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -227,6 +229,8 @@
 		D196842227B0467F00451B6F /* HomeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeResponse.swift; sourceTree = "<group>"; };
 		D196842427B0493B00451B6F /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		D196842727B04ACE00451B6F /* HomeResponseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeResponseMapper.swift; sourceTree = "<group>"; };
+		D196842F27B059C400451B6F /* HomeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDataSource.swift; sourceTree = "<group>"; };
+		D196843127B05AB300451B6F /* HomeApiDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeApiDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -415,6 +419,7 @@
 			children = (
 				93379EAF27A35EB7003A88E8 /* RestaurantListResponse.swift */,
 				93379EB127A35F0D003A88E8 /* RestaurantListRequest.swift */,
+				D196843327B05ABC00451B6F /* DataSource */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -774,6 +779,15 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
+		D196843327B05ABC00451B6F /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				D196842F27B059C400451B6F /* HomeDataSource.swift */,
+				D196843127B05AB300451B6F /* HomeApiDataSource.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -890,6 +904,7 @@
 				988ABC59279B15CA009506DC /* SampleFeatureFactory.swift in Sources */,
 				70F96A0727A9FE5D00EDF593 /* GetResutantDetailsUseCase.swift in Sources */,
 				7BBAE3D127A0670400A84801 /* RestaurantDetailsRouter.swift in Sources */,
+				D196843227B05AB300451B6F /* HomeApiDataSource.swift in Sources */,
 				98F1297D272F51DE00B88A87 /* MenuItemViewController.swift in Sources */,
 				988ABC65279B17F4009506DC /* ViewCode.swift in Sources */,
 				988ABC53279B14CD009506DC /* SampleResponse.swift in Sources */,
