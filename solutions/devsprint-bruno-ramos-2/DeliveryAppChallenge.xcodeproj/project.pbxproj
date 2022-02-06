@@ -427,8 +427,6 @@
 			children = (
 				93379EAF27A35EB7003A88E8 /* RestaurantListResponse.swift */,
 				93379EB127A35F0D003A88E8 /* RestaurantListRequest.swift */,
-				D196842D27B058F300451B6F /* GetHomeRestaurantsRepositoryImpl.swift */,
-				D196843327B05ABC00451B6F /* DataSource */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -776,6 +774,8 @@
 				D196842027B0467800451B6F /* HomeRequest.swift */,
 				D196842227B0467F00451B6F /* HomeResponse.swift */,
 				D196842727B04ACE00451B6F /* HomeResponseMapper.swift */,
+				D196842D27B058F300451B6F /* GetHomeRestaurantsRepositoryImpl.swift */,
+				D196843327B05ABC00451B6F /* DataSource */,
 			);
 			path = Data;
 			sourceTree = "<group>";
