@@ -120,6 +120,8 @@
 		D196843E27B0736D00451B6F /* HomeBussinessLogicProtocolSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196843D27B0736D00451B6F /* HomeBussinessLogicProtocolSpy.swift */; };
 		D196844027B073D900451B6F /* HomeRoutingLogicSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196843F27B073D900451B6F /* HomeRoutingLogicSpy.swift */; };
 		D196844227B0742800451B6F /* HomePresentationLogicSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196844127B0742800451B6F /* HomePresentationLogicSpy.swift */; };
+		D196844527B0767C00451B6F /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196844427B0767C00451B6F /* Home.swift */; };
+		D196844727B0777800451B6F /* GetHomeUseCaseSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196844627B0777700451B6F /* GetHomeUseCaseSpy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -249,6 +251,8 @@
 		D196843D27B0736D00451B6F /* HomeBussinessLogicProtocolSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBussinessLogicProtocolSpy.swift; sourceTree = "<group>"; };
 		D196843F27B073D900451B6F /* HomeRoutingLogicSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRoutingLogicSpy.swift; sourceTree = "<group>"; };
 		D196844127B0742800451B6F /* HomePresentationLogicSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresentationLogicSpy.swift; sourceTree = "<group>"; };
+		D196844427B0767C00451B6F /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		D196844627B0777700451B6F /* GetHomeUseCaseSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHomeUseCaseSpy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -814,6 +818,7 @@
 		D196843627B06FCA00451B6F /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				D196844327B0764200451B6F /* Domain */,
 				D196843827B06FDE00451B6F /* Doubles */,
 				D196843727B06FD300451B6F /* Fixtures */,
 			);
@@ -837,6 +842,15 @@
 				D196844127B0742800451B6F /* HomePresentationLogicSpy.swift */,
 			);
 			path = Doubles;
+			sourceTree = "<group>";
+		};
+		D196844327B0764200451B6F /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				D196844427B0767C00451B6F /* Home.swift */,
+				D196844627B0777700451B6F /* GetHomeUseCaseSpy.swift */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1038,6 +1052,7 @@
 				93379EBF27A89E48003A88E8 /* RestaurantListRequestTests.swift in Sources */,
 				7BE3525827A377B200488D3A /* NetworkManagerProtocolSpy.swift in Sources */,
 				93379EA827A20845003A88E8 /* RestaurantListInteractorTests.swift in Sources */,
+				D196844527B0767C00451B6F /* Home.swift in Sources */,
 				D196844027B073D900451B6F /* HomeRoutingLogicSpy.swift in Sources */,
 				D196843C27B072A400451B6F /* HomeViewProtocolSpy.swift in Sources */,
 				70F96A1627AA087400EDF593 /* GetRestaurantDetailsUseCaseSpy.swift in Sources */,
@@ -1062,6 +1077,7 @@
 				70F96A1827AA095600EDF593 /* RestaurantDetails+Fixtures.swift in Sources */,
 				70097E9027A0C891006A441C /* RestaurantDetailsInteractorTests.swift in Sources */,
 				70097E8A27A0BDF2006A441C /* RestaurantDetailsBusinessLogicSpy.swift in Sources */,
+				D196844727B0777800451B6F /* GetHomeUseCaseSpy.swift in Sources */,
 				7BE3525C27A3836700488D3A /* RestaurantDetailsRequestTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
