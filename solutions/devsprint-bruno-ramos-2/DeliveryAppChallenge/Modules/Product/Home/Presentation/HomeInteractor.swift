@@ -21,9 +21,9 @@ protocol HomeDataStore {}
 /// Interactor passes the response from Worker to Presenter
 final class HomeInteractor: HomeDataStore {
     private let presenter: HomePresentationLogic
-    private let getHomeRestaurants: GetHomeRestaurantsUseCase
+    private let getHomeRestaurants: GetHomeUseCase
 
-    init(presenter: HomePresentationLogic, getHomeRestaurants: GetHomeRestaurantsUseCase) {
+    init(presenter: HomePresentationLogic, getHomeRestaurants: GetHomeUseCase) {
         self.presenter = presenter
         self.getHomeRestaurants = getHomeRestaurants
     }

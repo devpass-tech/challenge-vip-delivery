@@ -10,20 +10,20 @@ import Foundation
 /// Protocol  with first Home module data request
 /// Should return all restaurants from api
 protocol GetHomeRestaurantsUseCase {
-    func execute(completion: @escaping GetHomeRestaurantsCompletion)
+    func execute(completion: @escaping GetHomeCompletion)
 }
 
 /// Class that contains the repository and conforms to UseCase protocol to get requested data
-final class GetHomeRestaurants {
-    let repository: GetHomeRestaurantsRepository
+final class GetHome {
+    let repository: GetHomeRepository
 
-    init(repository: GetHomeRestaurantsRepository) {
+    init(repository: GetHomeRepository) {
         self.repository = repository
     }
 }
 
-extension GetHomeRestaurants: GetHomeRestaurantsUseCase {
-    func execute(completion: @escaping GetHomeRestaurantsCompletion) {
+extension GetHome: GetHomeRestaurantsUseCase {
+    func execute(completion: @escaping GetHomeCompletion) {
         repository.getHomeRestaurants(completion: completion)
     }
 }

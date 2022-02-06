@@ -9,7 +9,7 @@ import Foundation
 
 typealias GetHomeCompletion = (Result<Home, Error>) -> Void
 
-/// Protocol used to be an interface that contains what data whe can get
+/// Protocol used to be an interface that contains what data we can get
 protocol GetHomeRepository {
     func getHomeRestaurants(completion: @escaping GetHomeCompletion)
 }

@@ -1,5 +1,5 @@
 //
-//  GetHomeRestaurantsRepositoryImpl.swift
+//  GetHomeRepositoryImpl.swift
 //  DeliveryAppChallenge
 //
 //  Created by Leonardo Mendes on 06/02/22.
@@ -9,7 +9,7 @@ import Foundation
 
 /// Class used to get data from data source (API/ DB/ UseDefaults/ ETC)
 /// In this class we can implementa a cache strategy too
-final class GetHomeRestaurantsRepositoryImpl {
+final class GetHomeRepositoryImpl {
     private let primaryDataSource: HomeDataSource
     private let secondaryDataSource: HomeDataSource
 
@@ -20,8 +20,8 @@ final class GetHomeRestaurantsRepositoryImpl {
 }
 
 
-extension GetHomeRestaurantsRepositoryImpl: GetHomeRestaurantsRepository {
-    func getHomeRestaurants(completion: @escaping GetHomeRestaurantsCompletion) {
+extension GetHomeRepositoryImpl: GetHomeRepository {
+    func getHomeRestaurants(completion: @escaping GetHomeCompletion) {
         primaryDataSource.fetchHomeData { [weak self] result in
             guard let self = self else {
                 return

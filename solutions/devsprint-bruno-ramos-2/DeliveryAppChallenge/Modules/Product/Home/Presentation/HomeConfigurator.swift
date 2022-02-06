@@ -20,10 +20,10 @@ enum HomeConfigurator: FeatureFactory {
         // MARK: - Interactor
         let apiDataSource = HomeApiDataSource(network: networkManager)
         let cacheDataSource = HomeCacheDataSource()
-        let repository = GetHomeRestaurantsRepositoryImpl(primaryDataSource: cacheDataSource,
+        let repository = GetHomeRepositoryImpl(primaryDataSource: cacheDataSource,
                                                           secondaryDataSource: apiDataSource)
 
-        let getHomeRestaurants = GetHomeRestaurants(repository: repository)
+        let getHomeRestaurants = GetHome(repository: repository)
         let interactor = HomeInteractor(presenter: presenter,
                                         getHomeRestaurants: getHomeRestaurants)
 
