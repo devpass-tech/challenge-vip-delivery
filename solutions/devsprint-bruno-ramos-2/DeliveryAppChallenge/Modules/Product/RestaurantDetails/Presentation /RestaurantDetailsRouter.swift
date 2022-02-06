@@ -9,7 +9,9 @@ import UIKit
 
 protocol RestaurantDetailsRoutingLogic {}
 
-protocol RestaurantDetailsDataPassing {}
+protocol RestaurantDetailsDataPassing {
+    var dataStore: RestaurantDetailsDataStore? { get set }
+}
 
 typealias RestaurantDetailsRouterType = (RestaurantDetailsRoutingLogic & RestaurantDetailsDataPassing)
 

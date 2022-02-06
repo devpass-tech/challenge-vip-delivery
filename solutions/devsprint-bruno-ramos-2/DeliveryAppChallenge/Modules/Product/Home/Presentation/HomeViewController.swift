@@ -52,7 +52,7 @@ extension HomeViewController: HomeDisplayLogic {
     func displayHome(viewModel: HomeUseCase.FetchData.ViewModel) {
         customView.display(viewModel: HomeView.ViewModel())
     }
-
+    
     func displayHomeError(error: HomeUseCase.Error.ViewModel) {
         customView.display(viewModel: HomeView.ViewModel())
     }
