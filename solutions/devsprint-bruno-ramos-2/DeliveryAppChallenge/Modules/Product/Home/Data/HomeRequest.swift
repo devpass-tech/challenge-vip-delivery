@@ -9,5 +9,5 @@ import Foundation
  
 struct HomeRequest: NetworkRequest {
     var method: HTTPMethod = .get
-    var pathURL: String = "home_restaurant_list"
+    var pathURL: String = "home_restaurant_list.json"
 }
