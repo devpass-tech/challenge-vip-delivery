@@ -11,7 +11,6 @@ import UIKit
 /// Protocol used to intermediates communication from Presenter to ViewController ( Presenter ----`viewModel` ----> ViewController )
 protocol HomeDisplayLogic: AnyObject {
     func displayHome(viewModel: HomeUseCase.FetchData.ViewModel)
-    func displayHomeError(error: HomeUseCase.Error.ViewModel)
 }
 
 /// Class use to handle user's intections with view, call requests to Interactor and send data (ViewModel) from Presenter to View display it
@@ -50,10 +49,6 @@ extension HomeViewController: HomeViewDelegate {
 
 extension HomeViewController: HomeDisplayLogic {
     func displayHome(viewModel: HomeUseCase.FetchData.ViewModel) {
-        customView.display(viewModel: HomeView.ViewModel())
-    }
-    
-    func displayHomeError(error: HomeUseCase.Error.ViewModel) {
         customView.display(viewModel: HomeView.ViewModel())
     }
 }

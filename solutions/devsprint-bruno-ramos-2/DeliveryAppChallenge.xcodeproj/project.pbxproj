@@ -105,6 +105,24 @@
 		D14E515D27A7643000A2E74E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515C27A7643000A2E74E /* HomeViewController.swift */; };
 		D14E515F27A76C1C00A2E74E /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E515E27A76C1C00A2E74E /* HomeRouter.swift */; };
 		D14E516127A76F1500A2E74E /* HomeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E516027A76F1500A2E74E /* HomeConfigurator.swift */; };
+		D196842127B0467800451B6F /* HomeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196842027B0467800451B6F /* HomeRequest.swift */; };
+		D196842327B0467F00451B6F /* HomeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196842227B0467F00451B6F /* HomeResponse.swift */; };
+		D196842527B0493B00451B6F /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196842427B0493B00451B6F /* Home.swift */; };
+		D196842827B04ACE00451B6F /* HomeResponseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196842727B04ACE00451B6F /* HomeResponseMapper.swift */; };
+		D196842A27B0515000451B6F /* GetHomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196842927B0515000451B6F /* GetHomeRepository.swift */; };
+		D196842C27B0561F00451B6F /* GetHomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196842B27B0561F00451B6F /* GetHomeUseCase.swift */; };
+		D196842E27B058F300451B6F /* GetHomeRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196842D27B058F300451B6F /* GetHomeRepositoryImpl.swift */; };
+		D196843027B059C400451B6F /* HomeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196842F27B059C400451B6F /* HomeDataSource.swift */; };
+		D196843227B05AB300451B6F /* HomeApiDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196843127B05AB300451B6F /* HomeApiDataSource.swift */; };
+		D196843527B060B100451B6F /* HomeCacheDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196843427B060B100451B6F /* HomeCacheDataSource.swift */; };
+		D196843A27B0705500451B6F /* HomeResponse+Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196843927B0705500451B6F /* HomeResponse+Fixtures.swift */; };
+		D196843C27B072A400451B6F /* HomeViewProtocolSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196843B27B072A400451B6F /* HomeViewProtocolSpy.swift */; };
+		D196843E27B0736D00451B6F /* HomeBussinessLogicProtocolSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196843D27B0736D00451B6F /* HomeBussinessLogicProtocolSpy.swift */; };
+		D196844027B073D900451B6F /* HomeRoutingLogicSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196843F27B073D900451B6F /* HomeRoutingLogicSpy.swift */; };
+		D196844227B0742800451B6F /* HomePresentationLogicSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196844127B0742800451B6F /* HomePresentationLogicSpy.swift */; };
+		D196844527B0767C00451B6F /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196844427B0767C00451B6F /* Home.swift */; };
+		D196844727B0777800451B6F /* GetHomeUseCaseSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196844627B0777700451B6F /* GetHomeUseCaseSpy.swift */; };
+		D196844A27B0793200451B6F /* HomeInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D196844927B0793200451B6F /* HomeInteractorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -219,6 +237,24 @@
 		D14E515C27A7643000A2E74E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D14E515E27A76C1C00A2E74E /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		D14E516027A76F1500A2E74E /* HomeConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeConfigurator.swift; sourceTree = "<group>"; };
+		D196842027B0467800451B6F /* HomeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRequest.swift; sourceTree = "<group>"; };
+		D196842227B0467F00451B6F /* HomeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeResponse.swift; sourceTree = "<group>"; };
+		D196842427B0493B00451B6F /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		D196842727B04ACE00451B6F /* HomeResponseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeResponseMapper.swift; sourceTree = "<group>"; };
+		D196842927B0515000451B6F /* GetHomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHomeRepository.swift; sourceTree = "<group>"; };
+		D196842B27B0561F00451B6F /* GetHomeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHomeUseCase.swift; sourceTree = "<group>"; };
+		D196842D27B058F300451B6F /* GetHomeRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHomeRepositoryImpl.swift; sourceTree = "<group>"; };
+		D196842F27B059C400451B6F /* HomeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDataSource.swift; sourceTree = "<group>"; };
+		D196843127B05AB300451B6F /* HomeApiDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeApiDataSource.swift; sourceTree = "<group>"; };
+		D196843427B060B100451B6F /* HomeCacheDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCacheDataSource.swift; sourceTree = "<group>"; };
+		D196843927B0705500451B6F /* HomeResponse+Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeResponse+Fixtures.swift"; sourceTree = "<group>"; };
+		D196843B27B072A400451B6F /* HomeViewProtocolSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewProtocolSpy.swift; sourceTree = "<group>"; };
+		D196843D27B0736D00451B6F /* HomeBussinessLogicProtocolSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBussinessLogicProtocolSpy.swift; sourceTree = "<group>"; };
+		D196843F27B073D900451B6F /* HomeRoutingLogicSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRoutingLogicSpy.swift; sourceTree = "<group>"; };
+		D196844127B0742800451B6F /* HomePresentationLogicSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresentationLogicSpy.swift; sourceTree = "<group>"; };
+		D196844427B0767C00451B6F /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		D196844627B0777700451B6F /* GetHomeUseCaseSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHomeUseCaseSpy.swift; sourceTree = "<group>"; };
+		D196844927B0793200451B6F /* HomeInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +287,7 @@
 		70097E8227A0BA6C006A441C /* Product */ = {
 			isa = PBXGroup;
 			children = (
+				D196843627B06FCA00451B6F /* Home */,
 				93379EA427A207B9003A88E8 /* RestaurantList */,
 				70097E8327A0BA71006A441C /* RestaurantDetail */,
 			);
@@ -512,14 +549,9 @@
 		983271F2272753100010C63A /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				98F1296D272F363200B88A87 /* HomeView.swift */,
-				D14E515427A7518F00A2E74E /* HomeUseCases.swift */,
-				D14E515627A7560100A2E74E /* HomeWorker.swift */,
-				D14E515827A7582000A2E74E /* HomeInteractor.swift */,
-				D14E515A27A75F9900A2E74E /* HomePresenter.swift */,
-				D14E515C27A7643000A2E74E /* HomeViewController.swift */,
-				D14E515E27A76C1C00A2E74E /* HomeRouter.swift */,
-				D14E516027A76F1500A2E74E /* HomeConfigurator.swift */,
+				D196841F27B0466000451B6F /* Data */,
+				D1265F2427A89A110027F2BB /* Presentation */,
+				D196842627B0494100451B6F /* Domain */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -738,6 +770,100 @@
 			path = MenuListView;
 			sourceTree = "<group>";
 		};
+		D1265F2427A89A110027F2BB /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				98F1296D272F363200B88A87 /* HomeView.swift */,
+				D14E515427A7518F00A2E74E /* HomeUseCases.swift */,
+				D14E515627A7560100A2E74E /* HomeWorker.swift */,
+				D14E515827A7582000A2E74E /* HomeInteractor.swift */,
+				D14E515A27A75F9900A2E74E /* HomePresenter.swift */,
+				D14E515C27A7643000A2E74E /* HomeViewController.swift */,
+				D14E515E27A76C1C00A2E74E /* HomeRouter.swift */,
+				D14E516027A76F1500A2E74E /* HomeConfigurator.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		D196841F27B0466000451B6F /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				D196842027B0467800451B6F /* HomeRequest.swift */,
+				D196842227B0467F00451B6F /* HomeResponse.swift */,
+				D196842727B04ACE00451B6F /* HomeResponseMapper.swift */,
+				D196842D27B058F300451B6F /* GetHomeRepositoryImpl.swift */,
+				D196843327B05ABC00451B6F /* DataSource */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		D196842627B0494100451B6F /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				D196842427B0493B00451B6F /* Home.swift */,
+				D196842927B0515000451B6F /* GetHomeRepository.swift */,
+				D196842B27B0561F00451B6F /* GetHomeUseCase.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		D196843327B05ABC00451B6F /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				D196842F27B059C400451B6F /* HomeDataSource.swift */,
+				D196843127B05AB300451B6F /* HomeApiDataSource.swift */,
+				D196843427B060B100451B6F /* HomeCacheDataSource.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		D196843627B06FCA00451B6F /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				D196844827B078FC00451B6F /* Presentation */,
+				D196844327B0764200451B6F /* Domain */,
+				D196843827B06FDE00451B6F /* Doubles */,
+				D196843727B06FD300451B6F /* Fixtures */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		D196843727B06FD300451B6F /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				D196843927B0705500451B6F /* HomeResponse+Fixtures.swift */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		D196843827B06FDE00451B6F /* Doubles */ = {
+			isa = PBXGroup;
+			children = (
+				D196843B27B072A400451B6F /* HomeViewProtocolSpy.swift */,
+				D196843D27B0736D00451B6F /* HomeBussinessLogicProtocolSpy.swift */,
+				D196843F27B073D900451B6F /* HomeRoutingLogicSpy.swift */,
+				D196844127B0742800451B6F /* HomePresentationLogicSpy.swift */,
+			);
+			path = Doubles;
+			sourceTree = "<group>";
+		};
+		D196844327B0764200451B6F /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				D196844427B0767C00451B6F /* Home.swift */,
+				D196844627B0777700451B6F /* GetHomeUseCaseSpy.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		D196844827B078FC00451B6F /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				D196844927B0793200451B6F /* HomeInteractorTests.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -840,6 +966,7 @@
 			files = (
 				70F96A0527A9FA9B00EDF593 /* RestaurantDetailsResponseMapper.swift in Sources */,
 				D14E515727A7560100A2E74E /* HomeWorker.swift in Sources */,
+				D196842527B0493B00451B6F /* Home.swift in Sources */,
 				D14E515B27A75F9900A2E74E /* HomePresenter.swift in Sources */,
 				98FC5AB42732BFC8002412EA /* MenuListView.swift in Sources */,
 				988ABC61279B1713009506DC /* SampleViewController.swift in Sources */,
@@ -853,6 +980,7 @@
 				988ABC59279B15CA009506DC /* SampleFeatureFactory.swift in Sources */,
 				70F96A0727A9FE5D00EDF593 /* GetResutantDetailsUseCase.swift in Sources */,
 				7BBAE3D127A0670400A84801 /* RestaurantDetailsRouter.swift in Sources */,
+				D196843227B05AB300451B6F /* HomeApiDataSource.swift in Sources */,
 				98F1297D272F51DE00B88A87 /* MenuItemViewController.swift in Sources */,
 				988ABC65279B17F4009506DC /* ViewCode.swift in Sources */,
 				988ABC53279B14CD009506DC /* SampleResponse.swift in Sources */,
@@ -881,9 +1009,12 @@
 				D14E515D27A7643000A2E74E /* HomeViewController.swift in Sources */,
 				D14E515927A7582000A2E74E /* HomeInteractor.swift in Sources */,
 				988ABC51279B14BC009506DC /* SampleRequest.swift in Sources */,
+				D196842E27B058F300451B6F /* GetHomeRepositoryImpl.swift in Sources */,
 				70F96A0327A9F92700EDF593 /* RestaurantDetails.swift in Sources */,
+				D196842C27B0561F00451B6F /* GetHomeUseCase.swift in Sources */,
 				70F96A0F27AA04E400EDF593 /* RestaurantDetailsCacheDataSource.swift in Sources */,
 				98F1296C272F328200B88A87 /* CategoryListView.swift in Sources */,
+				D196842127B0467800451B6F /* HomeRequest.swift in Sources */,
 				936E5CA627A09F9D0019F047 /* RestaurantListConfigurator.swift in Sources */,
 				93379EB227A35F0D003A88E8 /* RestaurantListRequest.swift in Sources */,
 				98F1296E272F363200B88A87 /* HomeView.swift in Sources */,
@@ -892,12 +1023,17 @@
 				98FC5AAB2732B938002412EA /* RestaurantDetailsView.swift in Sources */,
 				93379EAD27A35340003A88E8 /* RestaurantListWorker.swift in Sources */,
 				988ABC6E279B19B3009506DC /* GetDataUseCase.swift in Sources */,
+				D196842327B0467F00451B6F /* HomeResponse.swift in Sources */,
 				7BBAE3D327A0671000A84801 /* RestaurantDetailsInteractor.swift in Sources */,
 				988ABC55279B152F009506DC /* NetworkRequest.swift in Sources */,
+				D196843527B060B100451B6F /* HomeCacheDataSource.swift in Sources */,
+				D196843027B059C400451B6F /* HomeDataSource.swift in Sources */,
 				7BE3524F27A212D200488D3A /* RestaurantDetailsResponse.swift in Sources */,
+				D196842827B04ACE00451B6F /* HomeResponseMapper.swift in Sources */,
 				936E5CAA27A09FCB0019F047 /* RestaurantListPresenter.swift in Sources */,
 				983271BD272752AF0010C63A /* AppDelegate.swift in Sources */,
 				93379EB027A35EB7003A88E8 /* RestaurantListResponse.swift in Sources */,
+				D196842A27B0515000451B6F /* GetHomeRepository.swift in Sources */,
 				98F12968272F30E500B88A87 /* AddressView.swift in Sources */,
 				983271BF272752AF0010C63A /* SceneDelegate.swift in Sources */,
 				988ABC5D279B162B009506DC /* SampleUseCases.swift in Sources */,
@@ -927,14 +1063,21 @@
 				93379EBF27A89E48003A88E8 /* RestaurantListRequestTests.swift in Sources */,
 				7BE3525827A377B200488D3A /* NetworkManagerProtocolSpy.swift in Sources */,
 				93379EA827A20845003A88E8 /* RestaurantListInteractorTests.swift in Sources */,
+				D196844527B0767C00451B6F /* Home.swift in Sources */,
+				D196844027B073D900451B6F /* HomeRoutingLogicSpy.swift in Sources */,
+				D196843C27B072A400451B6F /* HomeViewProtocolSpy.swift in Sources */,
 				70F96A1627AA087400EDF593 /* GetRestaurantDetailsUseCaseSpy.swift in Sources */,
 				70097E8C27A0BE38006A441C /* RestaurantDetailsRoutingLogicSpy.swift in Sources */,
 				93379EB427A38133003A88E8 /* RestaurantListWorkingSpy.swift in Sources */,
 				70097E8527A0BABA006A441C /* RestaurantDetailsViewControllerTests.swift in Sources */,
+				D196844227B0742800451B6F /* HomePresentationLogicSpy.swift in Sources */,
 				93379EAA27A20855003A88E8 /* RestaurantListPresenterTests.swift in Sources */,
 				983271D4272752B50010C63A /* DeliveryAppChallengeTests.swift in Sources */,
 				93379EBB27A8985B003A88E8 /* ResturantListWorkerTests.swift in Sources */,
 				93379EB927A38362003A88E8 /* RestaurantListResponse+Fixtures.swift in Sources */,
+				D196843A27B0705500451B6F /* HomeResponse+Fixtures.swift in Sources */,
+				D196844A27B0793200451B6F /* HomeInteractorTests.swift in Sources */,
+				D196843E27B0736D00451B6F /* HomeBussinessLogicProtocolSpy.swift in Sources */,
 				7B17B76A27A89CB3001B79DB /* NetworkErrorTests.swift in Sources */,
 				70097E9227A0C8CA006A441C /* RestaurantDetailsPresentationLogicSpy.swift in Sources */,
 				93379EB627A38231003A88E8 /* RestaurantListPresentationLogicSpy.swift in Sources */,
@@ -946,6 +1089,7 @@
 				70F96A1827AA095600EDF593 /* RestaurantDetails+Fixtures.swift in Sources */,
 				70097E9027A0C891006A441C /* RestaurantDetailsInteractorTests.swift in Sources */,
 				70097E8A27A0BDF2006A441C /* RestaurantDetailsBusinessLogicSpy.swift in Sources */,
+				D196844727B0777800451B6F /* GetHomeUseCaseSpy.swift in Sources */,
 				7BE3525C27A3836700488D3A /* RestaurantDetailsRequestTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

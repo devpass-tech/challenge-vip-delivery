@@ -21,27 +21,27 @@ protocol HomeDataStore {}
 /// Interactor passes the response from Worker to Presenter
 final class HomeInteractor: HomeDataStore {
     private let presenter: HomePresentationLogic
-    private let worker: HomeWorking
+    private let getHome: GetHomeUseCase
 
-    init(presenter: HomePresentationLogic, worker: HomeWorking) {
+    init(presenter: HomePresentationLogic, getHome: GetHomeUseCase) {
         self.presenter = presenter
-        self.worker = worker
+        self.getHome = getHome
     }
 }
 
 extension HomeInteractor: HomeBusinessLogic {
     func fetchHome(request: HomeUseCase.FetchData.Request) {
-        worker.fetchData(completion: { [weak self]  result in
+        getHome.execute { [weak self] result in
             guard let self = self else {
                 return
             }
 
             switch result {
-            case .success(let data):
-                self.presenter.presentHomeData(response: HomeUseCase.FetchData.Response())
+            case .success(let home):
+                self.presenter.presentHomeData(response: .success(home))
             case .failure(let error):
-                self.presenter.presentHomeError(response: HomeUseCase.Error.Response(error: "Error" as! Error))
+                self.presenter.presentHomeData(response: .failure(error))
             }
-        })
+        }
     }
 }
