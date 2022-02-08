@@ -11,7 +11,9 @@ protocol RestaurantListViewProtocol: UIView {
     func reloadTableViewData()
 }
 
-protocol RestaurantListViewDelegate: AnyObject {}
+protocol RestaurantListViewDelegate: AnyObject {
+    func didSelectRestaurant(restaurant: RestaurantListResponse)
+}
 
 class RestaurantListView: UIView {
     
@@ -88,7 +90,13 @@ extension RestaurantListView: UITableViewDelegate {
         return RestaurantListView.cellSize
     }
 
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.didSelectRestaurant(restaurant: .init(
+            name: "Benjamin a Padaria ",
+            category: "Padaria",
+            deliveryTime: .init(min: 10, max: 20))
+        )
+    }
 }
 
 // MARK: - ViewProtocol

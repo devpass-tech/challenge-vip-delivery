@@ -19,14 +19,13 @@ typealias RestaurantListRouterType = (RestaurantListRoutingLogic & RestaurantLis
 
 final class RestaurantListRouter: RestaurantListRouterType {
     
-    weak var viewController: RestaurantListViewController?
+    weak var viewController: UIViewController?
     var dataStore: RestaurantListDataStore?
     
     init() {}
 
     func routeToRestaurantDetail() {
-        guard let restaurantId = dataStore?.restaurantId else { return }
-        let destination = RestaurantDetailsConfigurator.make(with: .init(restaurantId: restaurantId))
+        let destination = RestaurantDetailsConfigurator.make(with: .init(restaurantId: ""))
         viewController?.navigationController?.pushViewController(destination, animated: true)
     }
 }

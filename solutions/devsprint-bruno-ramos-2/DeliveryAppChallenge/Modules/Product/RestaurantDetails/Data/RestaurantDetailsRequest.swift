@@ -11,7 +11,7 @@ struct RestaurantDetailsRequest: NetworkRequest {
     let restaurantId: String
 
     var pathURL: String {
-        "restaurant_details.json/\(restaurantId)"
+        "restaurant_details.json"
     }
     
     var method: HTTPMethod = .get

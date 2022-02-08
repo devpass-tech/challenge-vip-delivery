@@ -44,4 +44,8 @@ final class RestaurantListViewController: UIViewController {
 extension RestaurantListViewController: RestaurantListDisplayLogic {}
 
 // MARK: - ViewDelegate
-extension RestaurantListViewController: RestaurantListViewDelegate {}
+extension RestaurantListViewController: RestaurantListViewDelegate {
+    func didSelectRestaurant(restaurant: RestaurantListResponse) {
+        router.routeToRestaurantDetail()
+    }
+}

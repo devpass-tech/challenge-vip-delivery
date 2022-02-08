@@ -13,8 +13,7 @@ final class RestaurantDetailsRequestTests: XCTestCase {
     func test_pathURL_shouldReturnCorrectPathURL() {
         let path = sut.pathURL
         
-        XCTAssertEqual(path,pathURLStub)
-        XCTAssertNotEqual(path,"restaurant_details")
+        XCTAssertEqual(path, pathURLStub)
     }
     
     func test_method_shouldReturn_Get() {
