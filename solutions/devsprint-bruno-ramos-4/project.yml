@@ -37,7 +37,7 @@ targets:
           - "**/*.swift"
 
     settings:
-      TEST_HOST: "$(BUILT_PRODUCTS_DIR)/DeliveryAppChallenge.app/FinanceApp"
+      TEST_HOST: "$(BUILT_PRODUCTS_DIR)/DeliveryAppChallenge.app/DeliveryAppChallenge"
 
     info:
       path: DeliveryAppChallengeTests/Info.plist
