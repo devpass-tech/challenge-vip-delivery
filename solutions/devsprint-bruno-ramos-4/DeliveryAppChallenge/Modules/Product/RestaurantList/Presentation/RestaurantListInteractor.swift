@@ -10,10 +10,12 @@ protocol RestaurantListBusinessLogic {
 }
 
 protocol RestaurantListDataStore {
-    
+    var restaurantId: Int? { get set }
 }
 
 final class RestaurantListInteractor:  RestaurantListDataStore {
+    var restaurantId: Int?
+    
     private let presenter:  RestaurantListPresentationLogic
     
     init(presenter:  RestaurantListPresentationLogic) {

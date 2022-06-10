@@ -22,6 +22,7 @@ enum RestaurantListConfigurator: FeatureFactory {
             router: router
         )
         presenter.viewController = viewController
+        router.dataStore = interactor
         router.viewController = viewController
         
         return viewController
