@@ -8,6 +8,6 @@ final class DevPassRouter: DevPassRoutingLogic {
     weak var viewController: UIViewController?
 
     func routeToNextModule() {
-        viewController?.navigationController?.pushViewController(RestaurantDetailsViewController(), animated: true)
+        viewController?.navigationController?.pushViewController(HomeViewController(), animated: true)
     }
 }
