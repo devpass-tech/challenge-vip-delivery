@@ -11,15 +11,8 @@ protocol RestaurantDetailsRoutingLogic {
     func routeToNextModule()
 }
 
-protocol RestaurantDetailsDataPassing {
-    var dataStore: RestaurantDetailsDataStore? { get }
-}
-
-typealias RestaurantDetailsRouterType = (RestaurantDetailsRoutingLogic & RestaurantDetailsDataPassing)
-
-final class RestaurantDetailsRouter: RestaurantDetailsRoutingLogic, RestaurantDetailsDataPassing {
+final class RestaurantDetailsRouter: RestaurantDetailsRoutingLogic {
     weak var viewController: RestaurantDetailsViewController?
-    var dataStore: RestaurantDetailsDataStore?
 
     init() { }
 

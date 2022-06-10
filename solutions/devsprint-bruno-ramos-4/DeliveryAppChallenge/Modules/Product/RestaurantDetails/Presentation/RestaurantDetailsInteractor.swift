@@ -11,9 +11,7 @@ protocol RestaurantDetailsBusinessLogic {
     func loadRestaurantDetails(request: RestaurantDetails.Request)
 }
 
-protocol RestaurantDetailsDataStore { }
-
-final class RestaurantDetailsInteractor:  RestaurantDetailsDataStore {
+final class RestaurantDetailsInteractor {
     private let presenter:  RestaurantDetailsPresentationLogic
 
     init(presenter:  RestaurantDetailsPresentationLogic) {

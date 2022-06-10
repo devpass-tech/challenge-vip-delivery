@@ -21,7 +21,7 @@ final class RestaurantDetailsViewController: UIViewController {
     init(
         customView: RestaurantDetailsViewProtocol,
         interactor: RestaurantDetailsBusinessLogic,
-        router: RestaurantDetailsRouterType
+        router: RestaurantDetailsRoutingLogic
     ) {
         self.customView = customView
         self.interactor = interactor
