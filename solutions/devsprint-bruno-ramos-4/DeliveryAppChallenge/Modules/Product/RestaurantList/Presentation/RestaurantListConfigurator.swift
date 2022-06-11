@@ -14,7 +14,8 @@ enum RestaurantListConfigurator: FeatureFactory {
         
         let view = RestaurantListView()
         let presenter = RestaurantListPresenter()
-        let interactor = RestaurantListInteractor(presenter: presenter)
+        let worker = RestaurantListWorker(network: NetworkManager())
+        let interactor = RestaurantListInteractor(presenter: presenter, worker: worker)
         let router = RestaurantListRouter()
         let viewController = RestaurantListViewController(
             customView: view,
