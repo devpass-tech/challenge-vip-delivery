@@ -19,7 +19,6 @@ final class DevPassViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        interactor.fetchData(request: .init())
     }
 
     override func loadView() {
@@ -34,24 +33,12 @@ final class DevPassViewController: UIViewController {
 
 extension DevPassViewController: DevPassDisplayLogic {
     func displayFetchedData(viewModel: DevPass.FetchData.ViewModel) {
-        let title = "\(viewModel.title) - Foo"
-        contentView.display(viewModel: .init(title: title, description: viewModel.description))
+        contentView.display(viewModel: .init(title: viewModel.title, description: viewModel.description))
     }
 }
 
-enum DevPassConfigurator {
-    static func make() -> UIViewController {
-        let presenter = DevPassPresenter()
-        let interactor = DevPassInteractor(presenter: presenter, worker: DevPassWorker.shared)
-        let router = DevPassRouter()
-        let view = DevPassView()
-        let viewController = DevPassViewController(
-            contentView: view,
-            interactor: interactor,
-            router: router
-        )
-        presenter.viewController = viewController
-        router.viewController = viewController
-        return viewController
+extension DevPassViewController: DevPassViewDelegate {
+    func didTapOnLoadScreen() {
+        interactor.fetchData(request: .init())
     }
 }

@@ -10,8 +10,10 @@ import UIKit
 class AddressSearchViewController: UIViewController {
 
     let searchController = UISearchController(searchResultsController: nil)
+    private let getDevPassSprintsUseCase: GetDevPassSprintsUseCase
 
-    init() {
+    init(getDevPassSprintsUseCase: GetDevPassSprintsUseCase) {
+        self.getDevPassSprintsUseCase = getDevPassSprintsUseCase
         super.init(nibName: nil, bundle: nil)
 
         searchController.searchResultsUpdater = self

@@ -11,8 +11,6 @@ final class DevPassPresenter: DevPassPresentationLogic {
     }
 
     func presentFetchedData(response: DevPass.FetchData.Response) {
-        let title = response.description
-        let description = response.description
-        viewController?.displayFetchedData(viewModel: .init(title: title, description: description))
+        viewController?.displayFetchedData(viewModel: .init())
     }
 }
