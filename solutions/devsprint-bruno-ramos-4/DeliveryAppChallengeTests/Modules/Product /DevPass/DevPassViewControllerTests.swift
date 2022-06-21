@@ -33,12 +33,12 @@ final class DevPassViewControllerTests: XCTestCase {
         let title = "foo"
         let description = "bar"
 
-        sut.displayFetchedData(viewModel: .init(title: title, description: description))
+        sut.displayFetchedData(viewModel: .init())
 
         XCTAssertEqual(contentViewSpy.displayCalledCount, 1)
         let viewModel = try XCTUnwrap(contentViewSpy.displayViewModelPassed)
-        XCTAssertEqual(viewModel.title, title + " - Foo")
-        XCTAssertEqual(viewModel.description, description)
+        XCTAssertEqual("", title + " - Foo")
+        XCTAssertEqual("", description)
 
         XCTAssertEqual(interactorSpy.fetchDataCalledCount, 0)
         XCTAssertEqual(routerSpy.routeToNextModuleCalledCount, 0)

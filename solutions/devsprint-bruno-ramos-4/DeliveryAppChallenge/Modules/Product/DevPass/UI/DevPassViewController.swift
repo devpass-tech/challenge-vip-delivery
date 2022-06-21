@@ -33,7 +33,7 @@ final class DevPassViewController: UIViewController {
 
 extension DevPassViewController: DevPassDisplayLogic {
     func displayFetchedData(viewModel: DevPass.FetchData.ViewModel) {
-        contentView.display(viewModel: .init(title: viewModel.title, description: viewModel.description))
+        contentView.display(viewModel: .init(title: "", description: ""))
     }
 }
 
