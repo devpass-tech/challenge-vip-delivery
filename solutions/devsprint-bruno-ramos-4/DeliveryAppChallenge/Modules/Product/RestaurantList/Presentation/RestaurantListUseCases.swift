@@ -11,7 +11,10 @@ enum RestaurantList {
     
     struct Request {}
     
-    struct Response {}
+    enum Response {
+        case success([Restaurant])
+        case failure(Error)
+    }
     
     struct ViewModel {}
 }

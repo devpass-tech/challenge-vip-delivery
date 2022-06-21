@@ -10,21 +10,29 @@ protocol RestaurantListBusinessLogic {
 }
 
 protocol RestaurantListDataStore {
-    var restaurantId: Int? { get set }
+
 }
 
 final class RestaurantListInteractor: RestaurantListDataStore {
-    var restaurantId: Int?
+    private let worker: RestaurantListWorkerProtocol
+    private let presenter: RestaurantListPresentationLogic
     
-    private let presenter:  RestaurantListPresentationLogic
-    
-    init(presenter:  RestaurantListPresentationLogic) {
+    init(presenter: RestaurantListPresentationLogic, worker: RestaurantListWorkerProtocol) {
         self.presenter = presenter
+        self.worker = worker
     }
 }
 
 extension RestaurantListInteractor: RestaurantListBusinessLogic {
     func fetchData(request: RestaurantList.Request) {
-        presenter.presentData(response: .init())
+        worker.fetchRestaurantList { [weak self] result in
+            guard let self = self else {return}
+            switch result {
+            case .success(let restaurantList):
+                self.presenter.presentData(response: .success(restaurantList))
+            case .failure(let error):
+                self.presenter.presentData(response: .failure(error))
+            }
+        }
     }
 }
