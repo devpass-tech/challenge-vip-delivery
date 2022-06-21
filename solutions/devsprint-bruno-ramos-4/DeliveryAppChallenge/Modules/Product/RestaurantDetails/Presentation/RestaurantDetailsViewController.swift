@@ -37,6 +37,11 @@ final class RestaurantDetailsViewController: UIViewController {
     override func loadView() {
         view = customView
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        interactor.loadRestaurantDetails()
+    }
 }
 
 extension RestaurantDetailsViewController: RestaurantDetailsDisplayLogic {

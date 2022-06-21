@@ -8,9 +8,11 @@
 import Foundation
 
 enum RestaurantDetails {
-    struct Request { }
     
-    struct Response { }
+    enum Response {
+        case success(RestaurantDetail)
+        case failure(Error)
+    }
     
     struct ViewModel { }
 }
