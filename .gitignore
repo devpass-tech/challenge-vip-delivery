@@ -55,6 +55,9 @@ Pods/
 #
 solutions/devsprint-bruno-ramos-4/*.xcodeproj/*
 solutions/devsprint-bruno-ramos-4/*.xcworkspace/*
+# Pedro Menezes
+solutions/devsprint-pedro-menezes-1/*.xcodeproj/*
+solutions/devsprint-pedro-menezes-1/*.xcworkspace/*
 
 # Carthage
 #
