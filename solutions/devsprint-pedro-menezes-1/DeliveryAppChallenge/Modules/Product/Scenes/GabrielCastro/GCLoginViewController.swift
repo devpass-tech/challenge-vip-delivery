@@ -2,6 +2,8 @@ import UIKit
 
 class GCLoginViewController: UIViewController {
     
+    
+    //MARK: Vars
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
     
@@ -43,12 +45,10 @@ class GCLoginViewController: UIViewController {
         }
     }
     
+    
     @IBAction func loginButton(_ sender: Any) {
         if !ConnectivityManager.shared.isConnected {
-            let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
-            let actin = UIAlertAction(title: "Ok", style: .default)
-            alertController.addAction(actin)
-            present(alertController, animated: true)
+            Globals.showNoInternetCOnnection(controller: self)
             return
         }
 
