@@ -93,13 +93,9 @@ class MJLoginViewController: UIViewController {
     }
     
     @IBAction func showPassword(_ sender: Any) {
-        if(showPassword == true) {
-            passwordTextField.isSecureTextEntry = false
-            showPasswordButton.setImage(UIImage.init(systemName: "eye.slash")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        } else {
-            passwordTextField.isSecureTextEntry = true
-            showPasswordButton.setImage(UIImage.init(systemName: "eye")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        }
+        let image = showPassword == true ? "eye" : "eye.slash"
+        passwordTextField.isSecureTextEntry = !showPassword
+        showPasswordButton.setImage(UIImage.init(systemName: image)?.withRenderingMode(.alwaysTemplate), for: .normal)
         showPassword = !showPassword
     }
     
