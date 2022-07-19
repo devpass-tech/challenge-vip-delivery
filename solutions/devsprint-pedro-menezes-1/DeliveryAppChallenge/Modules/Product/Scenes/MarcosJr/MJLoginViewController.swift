@@ -123,18 +123,9 @@ extension MJLoginViewController {
     
     func setupView() {
         heightLabelError.constant = 0
-        loginButton.layer.cornerRadius = loginButton.frame.height / 2
-        loginButton.backgroundColor = .blue
-        loginButton.setTitleColor(.white, for: .normal)
-        loginButton.isEnabled = true
-
         showPasswordButton.tintColor = .lightGray
-
-        createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
-        createAccountButton.layer.borderWidth = 1
-        createAccountButton.layer.borderColor = UIColor.blue.cgColor
-        createAccountButton.setTitleColor(.blue, for: .normal)
-        createAccountButton.backgroundColor = .white
+        setupLoginButton()
+        setupCreateAccountButton()
         
         emailTextField.setDefaultColor()
         passwordTextField.setDefaultColor()
@@ -142,6 +133,21 @@ extension MJLoginViewController {
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
         validateButton()
+    }
+    
+    func setupLoginButton() {
+        loginButton.layer.cornerRadius = loginButton.frame.height / 2
+        loginButton.backgroundColor = .blue
+        loginButton.setTitleColor(.white, for: .normal)
+        loginButton.isEnabled = true
+    }
+    
+    func setupCreateAccountButton() {
+        createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
+        createAccountButton.layer.borderWidth = 1
+        createAccountButton.layer.borderColor = UIColor.blue.cgColor
+        createAccountButton.setTitleColor(.blue, for: .normal)
+        createAccountButton.backgroundColor = .white
     }
 
     @objc
