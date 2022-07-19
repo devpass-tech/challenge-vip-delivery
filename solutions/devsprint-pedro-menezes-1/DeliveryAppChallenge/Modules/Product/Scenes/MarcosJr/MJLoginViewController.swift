@@ -43,19 +43,23 @@ class MJLoginViewController: UIViewController {
         }
     }
     
-    @IBAction func loginButton(_ sender: Any) {
+    func isConnected() -> Bool {
         if !ConnectivityManager.shared.isConnected {
             let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
             let actin = UIAlertAction(title: "Ok", style: .default)
             alertController.addAction(actin)
             present(alertController, animated: true)
-            return
+            return false
+        } else {
+            return true
         }
-
-        showLoading()
+    }
+    
+    func loginRequest() {
+        let endpoint = Endpoints.Auth.login
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
-        let endpoint = Endpoints.Auth.login
+        
         AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
             DispatchQueue.main.async {
                 self.stopLoading()
@@ -78,6 +82,13 @@ class MJLoginViewController: UIViewController {
                     Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
                 }
             }
+        }
+    }
+    
+    @IBAction func loginButton(_ sender: Any) {
+        if isConnected() {
+            showLoading()
+            loginRequest()
         }
     }
     
