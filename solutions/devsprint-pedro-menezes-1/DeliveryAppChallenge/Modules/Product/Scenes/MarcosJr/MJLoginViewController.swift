@@ -31,15 +31,20 @@ class MJLoginViewController: UIViewController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
+    func updateRootViewController(viewController: UINavigationController){
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        
+        window?.rootViewController = viewController
+        window?.makeKeyAndVisible()
+    }
 
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
             let vc = UINavigationController(rootViewController: HomeViewController())
-            let scenes = UIApplication.shared.connectedScenes
-            let windowScene = scenes.first as? UIWindowScene
-            let window = windowScene?.windows.first
-            window?.rootViewController = vc
-            window?.makeKeyAndVisible()
+            updateRootViewController(viewController: vc)
         }
     }
     
@@ -60,28 +65,33 @@ class MJLoginViewController: UIViewController {
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
         
+        getUserData(endpoint: endpoint, parameters: parameters)
+    }
+    
+    func getUserData(endpoint: String, parameters: [String: String]) {
         AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
             DispatchQueue.main.async {
                 self.stopLoading()
                 switch result {
                 case .success(let data):
-                    let decoder = JSONDecoder()
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        let vc = UINavigationController(rootViewController: HomeViewController())
-                        let scenes = UIApplication.shared.connectedScenes
-                        let windowScene = scenes.first as? UIWindowScene
-                        let window = windowScene?.windows.first
-                        window?.rootViewController = vc
-                        window?.makeKeyAndVisible()
-                        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    } else {
-                        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                    }
+                    self.saveUser(data: data)
                 case .failure:
                     self.setErrorLogin("E-mail ou senha incorretos")
                     Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
                 }
             }
+        }
+    }
+    
+    func saveUser(data: Data) {
+        let decoder = JSONDecoder()
+        if let session = try? decoder.decode(Session.self, from: data) {
+            let vc = UINavigationController(rootViewController: HomeViewController())
+            updateRootViewController(viewController: vc)
+            
+            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+        } else {
+            Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
         }
     }
     
@@ -119,16 +129,20 @@ extension MJLoginViewController {
     
     func setupView() {
         heightLabelError.constant = 0
-        showPasswordButton.tintColor = .lightGray
+
+        setupColors()
         setupLoginButton()
         setupCreateAccountButton()
+        setupGesture()
+
+        validateButton()
+    }
+    
+    func setupColors() {
+        showPasswordButton.tintColor = .lightGray
         
         emailTextField.setDefaultColor()
         passwordTextField.setDefaultColor()
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
-        view.addGestureRecognizer(gesture)
-        view.isUserInteractionEnabled = true
-        validateButton()
     }
     
     func setupLoginButton() {
@@ -144,6 +158,12 @@ extension MJLoginViewController {
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
         createAccountButton.setTitleColor(.blue, for: .normal)
         createAccountButton.backgroundColor = .white
+    }
+    
+    func setupGesture() {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
+        view.addGestureRecognizer(gesture)
+        view.isUserInteractionEnabled = true
     }
 
     @objc
@@ -195,13 +215,8 @@ extension MJLoginViewController {
     
     func resetErrorLogin(_ textField: UITextField) {
         heightLabelError.constant = 0
-        if textField == emailTextField {
-            emailTextField.setEditingColor()
-            passwordTextField.setDefaultColor()
-        } else {
-            emailTextField.setDefaultColor()
-            passwordTextField.setDefaultColor()
-        }
+        textField == emailTextField ? emailTextField.setEditingColor() : emailTextField.setDefaultColor()
+        passwordTextField.setDefaultColor()
     }
 }
 
@@ -215,11 +230,7 @@ extension MJLoginViewController {
         } else {
             if let atIndex = emailTextField.text!.firstIndex(of: "@") {
                 let substring = emailTextField.text![atIndex...]
-                if substring.contains(".") {
-                    enableButton()
-                } else {
-                    disableButton()
-                }
+                substring.contains(".") ? enableButton() : disableButton()
             } else {
                 disableButton()
             }
