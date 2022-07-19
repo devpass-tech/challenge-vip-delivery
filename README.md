@@ -27,3 +27,4 @@ A Devpass é uma comunidade de pessoas desenvolvedoras de alto potencial acelera
 
 Se interessou? Acesse www.devpass.com.br e se inscreva na nossa lista para ficar por dentro das novidades!
 # devPassLagosta
+# devPassLagosta
