@@ -28,18 +28,18 @@ final class GSLoginViewController: UIViewController {
         return .lightContent
     }
     
-    private func configureTextFieldWithDefaultValue() {
-        emailTextField.text = "clean.code@devpass.com"
-        passwordTextField.text = "111111"
+    private func configureTextFieldWithDefaultValue(emailTextField: String = "clean.code@devpass.com", passwordTextField: String = "111111") {
+        self.emailTextField.text = emailTextField
+        self.passwordTextField.text = passwordTextField
     }
     
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            configureRootViewController()
+            configureRoot(viewController: HomeViewController())
         }
     }
     
-    private func configureRootViewController() {
+    private func configureRoot(viewController: UIViewController) {
         let viewController = UINavigationController(rootViewController: HomeViewController())
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
@@ -50,39 +50,11 @@ final class GSLoginViewController: UIViewController {
     
     @IBAction func loginButton(_ sender: Any) {
         if !ConnectivityManager.shared.isConnected {
-            configureAlerView(
-                title: "Sem conexão",
-                message: "Conecte-se à internet para tentar novamente"
-            )
+            Globals.showNoInternetCOnnection(
+                controller: self)
             return
         }
-
-        showLoading()
-        let parameters = getParameters()
-        let endpoint = Endpoints.Auth.login
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
-            DispatchQueue.main.async {
-                self.stopLoading()
-                switch result {
-                case .success(let data):
-                    let decoder = JSONDecoder()
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        let vc = UINavigationController(rootViewController: HomeViewController())
-                        let scenes = UIApplication.shared.connectedScenes
-                        let windowScene = scenes.first as? UIWindowScene
-                        let window = windowScene?.windows.first
-                        window?.rootViewController = vc
-                        window?.makeKeyAndVisible()
-                        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    } else {
-                        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                    }
-                case .failure:
-                    self.setErrorLogin("E-mail ou senha incorretos")
-                    Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                }
-            }
-        }
+        makeAuthenticationRequest()
     }
     
     private func configureAlerView(title: String, message: String) {
@@ -91,20 +63,61 @@ final class GSLoginViewController: UIViewController {
             message: message,
             preferredStyle: .alert
         )
-        let actin = UIAlertAction(
+        let action = UIAlertAction(
             title: "Ok",
             style: .default
         )
-        alertController.addAction(actin)
+        alertController.addAction(action)
         present(alertController, animated: true)
     }
     
+    private func makeAuthenticationRequest() {
+        showLoading()
+        let parameters = getParameters()
+        let endpoint = Endpoints.Auth.login
+        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { [weak self] result in
+            guard let self = self else { return }
+            self.handleResponseResult(result: result)
+        }
+    }
+    
+    private func handleResponseResult(result: Result<Data, Error>) {
+        DispatchQueue.main.async {
+            self.stopLoading()
+            switch result {
+            case .success(let data):
+                self.decodeFrom(data: data)
+            case .failure:
+                self.showErrorMessage()
+            }
+        }
+    }
+    
+    
     private func getParameters() -> [String: String] {
-        let parameters: [String: String] = ["email": emailTextField.text!,
-                                            "password": passwordTextField.text!]
+        let parameters: [String: String] = ["email": emailTextField.text ?? "",
+                                            "password": passwordTextField.text ?? ""]
         return parameters
     }
-
+    
+    private func decodeFrom(data: Data) {
+        let decoder = JSONDecoder()
+        if let session = try? decoder.decode(Session.self, from: data) {
+            configureRoot(viewController: HomeViewController())
+            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+        } else {
+            showErrorMessage()
+        }
+    }
+    
+    private func showErrorMessage() {
+        self.setErrorLogin("E-mail ou senha incorretos")
+        self.configureAlerView(
+            title: "Ops..",
+            message: "Houve um problema, tente novamente mais tarde."
+        )
+    }
+    
     @IBAction func showPassword(_ sender: Any) {
         if(showPassword == true) {
             passwordTextField.isSecureTextEntry = false
