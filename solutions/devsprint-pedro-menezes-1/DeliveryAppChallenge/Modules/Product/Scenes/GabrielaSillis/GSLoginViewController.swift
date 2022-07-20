@@ -30,7 +30,7 @@ final class GSLoginViewController: UIViewController {
     
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            configureRoot(viewController: HomeViewController())
+            configureRootViewController(with: HomeViewController())
         }
     }
     
@@ -44,14 +44,8 @@ final class GSLoginViewController: UIViewController {
     }
     
     @IBAction func showPassword(_ sender: Any) {
-        if(showPassword == true) {
-            passwordTextField.isSecureTextEntry = false
-            showPasswordButton.setImage(UIImage.init(systemName: "eye.slash")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        } else {
-            passwordTextField.isSecureTextEntry = true
-            showPasswordButton.setImage(UIImage.init(systemName: "eye")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        }
-        showPassword = !showPassword
+        checkIfshouldShowOrHiddenPassword()
+        showPassword.toggle()
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
@@ -187,13 +181,15 @@ extension GSLoginViewController {
 }
 
 private extension GSLoginViewController {
-    func configureTextFieldWithDefaultValue(emailTextField: String = "clean.code@devpass.com", passwordTextField: String = "111111") {
+    func configureTextFieldWithDefaultValue(
+        emailTextField: String = "clean.code@devpass.com",
+        passwordTextField: String = "111111") {
         self.emailTextField.text = emailTextField
         self.passwordTextField.text = passwordTextField
     }
     
-    func configureRoot(viewController: UIViewController) {
-        let viewController = UINavigationController(rootViewController: HomeViewController())
+    func configureRootViewController(with rootViewController: UIViewController) {
+        let viewController = UINavigationController(rootViewController: rootViewController)
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
         let window = windowScene?.windows.first
@@ -247,7 +243,7 @@ private extension GSLoginViewController {
     func decodeFrom(data: Data) {
         let decoder = JSONDecoder()
         if let session = try? decoder.decode(Session.self, from: data) {
-            configureRoot(viewController: HomeViewController())
+            configureRootViewController(with: HomeViewController())
             UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
         } else {
             showErrorMessage()
@@ -260,5 +256,24 @@ private extension GSLoginViewController {
             title: "Ops..",
             message: "Houve um problema, tente novamente mais tarde."
         )
+    }
+    
+    func checkIfshouldShowOrHiddenPassword() {
+        if(showPassword == true) {
+            configureTextFieldSecureTextEntry(isSecureTextEntry: false)
+            configureImageButton(imageName: "eye.slash")
+        } else {
+            configureTextFieldSecureTextEntry(isSecureTextEntry: true)
+            configureImageButton(imageName: "eye")
+        }
+    }
+    
+    
+    func configureTextFieldSecureTextEntry(isSecureTextEntry: Bool) {
+        passwordTextField.isSecureTextEntry = isSecureTextEntry
+    }
+    
+    func configureImageButton(imageName: String) {
+        showPasswordButton.setImage(UIImage.init(systemName: imageName)?.withRenderingMode(.alwaysTemplate), for: .normal)
     }
 }
