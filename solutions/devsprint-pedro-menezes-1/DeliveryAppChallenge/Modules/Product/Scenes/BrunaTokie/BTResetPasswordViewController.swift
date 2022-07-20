@@ -30,8 +30,12 @@ class BTResetPasswordViewController: UIViewController {
     }
 
     @IBAction func recoverPasswordButton(_ sender: Any) {
-        if isRecoveryEmail() && isValidatedForm() {
-            self.checkConectionAvaiability()
+        if !isRecoveryEmail() {
+            dismiss(animated: true)
+        } else {
+            if isValidatedForm() {
+                self.startPasswordRecovering()
+            }
         }
     }
     
@@ -54,28 +58,28 @@ class BTResetPasswordViewController: UIViewController {
 
     private func isRecoveryEmail() -> Bool {
         if recoveryEmail {
-            dismiss(animated: true)
             return false
         } else {
             return true
         }
     }
 
-    private func checkConectionAvaiability() {
+    private func startPasswordRecovering() {
         if !ConnectivityManager.shared.isConnected {
             Globals.showNoInternetCOnnection(controller: self)
         } else {
-            recoverPasswordRequest()
+            let parameters = createPasswordRequestParameters()
+            recoverPasswordData(parameters: parameters)
         }
     }
 
-    private func recoverPasswordRequest() {
+    private func createPasswordRequestParameters() -> [String: String] {
         let emailUser = emailTextfield.text!.trimmingCharacters(in: .whitespaces)
 
         let parameters = [
             "email": emailUser
         ]
-        recoverPasswordData(parameters: parameters)
+        return parameters
     }
 
     private func recoverPasswordData(parameters: [String: String]) {
@@ -112,17 +116,15 @@ class BTResetPasswordViewController: UIViewController {
             emailTextfield.text!.count <= 5)
 
         if !isValid {
-            formNotValidated(isValid: false)
+            formNotValidated()
         }
         return isValid
     }
 
-    private func formNotValidated(isValid: Bool) {
-        if !isValid {
-            emailTextfield.setErrorColor()
-            textLabel.textColor = .red
-            textLabel.text = "Verifique o e-mail informado"
-        }
+    private func formNotValidated() {
+        emailTextfield.setErrorColor()
+        textLabel.textColor = .red
+        textLabel.text = "Verifique o e-mail informado"
     }
 }
 
@@ -199,11 +201,5 @@ extension BTResetPasswordViewController {
         recoverPasswordButton.backgroundColor = .blue
         recoverPasswordButton.setTitleColor(.white, for: .normal)
         recoverPasswordButton.isEnabled = true
-    }
-}
-
-struct BusinessErrors {
-    func invalidConection() {
-        
     }
 }
