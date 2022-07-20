@@ -149,6 +149,7 @@
 		A4C4BEA628820DAE00CF1E09 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA528820DAE00CF1E09 /* User.swift */; };
 		A4C4BEA82882160B00CF1E09 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA72882160B00CF1E09 /* Session.swift */; };
 		A4C4BEAA2882164200CF1E09 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA92882164200CF1E09 /* Endpoints.swift */; };
+		C57ED6E42888C0B3004BF505 /* GSCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57ED6E32888C0B3004BF505 /* GSCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -310,6 +311,7 @@
 		A4C4BEA528820DAE00CF1E09 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A4C4BEA72882160B00CF1E09 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		A4C4BEA92882164200CF1E09 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		C57ED6E32888C0B3004BF505 /* GSCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -789,6 +791,7 @@
 				A45BAE3228864E9E00E5AAE6 /* GSCreateAccountViewController.xib */,
 				A45BAE3628864E9E00E5AAE6 /* GSLoginViewController.swift */,
 				A45BAE3028864E9D00E5AAE6 /* GSResetPasswordViewController.swift */,
+				C57ED6E32888C0B3004BF505 /* GSCoordinator.swift */,
 			);
 			path = GabrielaSillis;
 			sourceTree = "<group>";
@@ -1088,6 +1091,7 @@
 				A45BAE572886513D00E5AAE6 /* IBContactUsViewController.swift in Sources */,
 				A45BADF5288643A500E5AAE6 /* TRResetPasswordViewController.swift in Sources */,
 				A45BAE4828864F9800E5AAE6 /* GCResetPasswordViewController.swift in Sources */,
+				C57ED6E42888C0B3004BF505 /* GSCoordinator.swift in Sources */,
 				98F1296E272F363200B88A87 /* HomeView.swift in Sources */,
 				A45BAE832886558700E5AAE6 /* PTResetPasswordViewController.swift in Sources */,
 				98F1296A272F327100B88A87 /* CategoryCellView.swift in Sources */,

@@ -9,13 +9,15 @@ final class GSLoginViewController: UIViewController {
     @IBOutlet weak var createAccountButton: UIButton!
     @IBOutlet weak var showPasswordButton: UIButton!
     
+    private var coordinator: GSCoordinating = GSCoordinator()
+    
     var showPassword = true
     var errorInLogin = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        verifyLogin()
-        
+        verifyIfUserIsAlreadyLoggedIn()
+        coordinator.controller = self
 #if DEBUG
         configureTextFieldWithDefaultValue()
 #endif
@@ -28,9 +30,9 @@ final class GSLoginViewController: UIViewController {
         return .lightContent
     }
     
-    func verifyLogin() {
+    func verifyIfUserIsAlreadyLoggedIn() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            configureRootViewController(with: HomeViewController())
+            coordinator.startNavigatingFlow()
         }
     }
     
@@ -44,22 +46,16 @@ final class GSLoginViewController: UIViewController {
     }
     
     @IBAction func showPassword(_ sender: Any) {
-        checkIfshouldShowOrHiddenPassword()
+        shouldShowOrHiddenPasswordInput()
         showPassword.toggle()
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "GSUser", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "GSResetPasswordViewController") as! GSResetPasswordViewController
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        coordinator.navigatingToResetPassword()
     }
     
-    
     @IBAction func createAccountButton(_ sender: Any) {
-        let controller = GSCreateAccountViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        coordinator.navigatingToCreateAccount()
     }
 }
 
@@ -68,25 +64,34 @@ extension GSLoginViewController {
     
     func setupView() {
         heightLabelError.constant = 0
+        configureButtons()
+        setupDefaultColorOfTextField()
+        validateButton()
+        addGestureRecognizerOnView()
+    }
+    
+    func configureButtons() {
         loginButton.layer.cornerRadius = loginButton.frame.height / 2
         loginButton.backgroundColor = .blue
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.isEnabled = true
-        
         showPasswordButton.tintColor = .lightGray
-        
         createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
         createAccountButton.layer.borderWidth = 1
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
         createAccountButton.setTitleColor(.blue, for: .normal)
         createAccountButton.backgroundColor = .white
-        
+    }
+    
+    func setupDefaultColorOfTextField() {
         emailTextField.setDefaultColor()
         passwordTextField.setDefaultColor()
+    }
+    
+    func addGestureRecognizerOnView() {
+        view.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
         view.addGestureRecognizer(gesture)
-        view.isUserInteractionEnabled = true
-        validateButton()
     }
     
     @objc
@@ -188,35 +193,13 @@ private extension GSLoginViewController {
         self.passwordTextField.text = passwordTextField
     }
     
-    func configureRootViewController(with rootViewController: UIViewController) {
-        let viewController = UINavigationController(rootViewController: rootViewController)
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        window?.rootViewController = viewController
-        window?.makeKeyAndVisible()
-    }
-    
-    func configureAlerView(title: String, message: String) {
-        let alertController = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .alert
-        )
-        let action = UIAlertAction(
-            title: "Ok",
-            style: .default
-        )
-        alertController.addAction(action)
-        present(alertController, animated: true)
-    }
-    
     func makeAuthenticationRequest() {
         showLoading()
         let parameters = getParameters()
         let endpoint = Endpoints.Auth.login
         AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { [weak self] result in
             guard let self = self else { return }
+            self.stopLoading()
             self.handleResponseResult(result: result)
         }
     }
@@ -230,20 +213,19 @@ private extension GSLoginViewController {
     
     func handleResponseResult(result: Result<Data, Error>) {
         DispatchQueue.main.async {
-            self.stopLoading()
             switch result {
             case .success(let data):
-                self.decodeFrom(data: data)
+                self.decodeJsonFrom(data: data)
             case .failure:
                 self.showErrorMessage()
             }
         }
     }
     
-    func decodeFrom(data: Data) {
+    func decodeJsonFrom(data: Data) {
         let decoder = JSONDecoder()
         if let session = try? decoder.decode(Session.self, from: data) {
-            configureRootViewController(with: HomeViewController())
+            coordinator.startNavigatingFlow()
             UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
         } else {
             showErrorMessage()
@@ -252,24 +234,20 @@ private extension GSLoginViewController {
     
     func showErrorMessage() {
         self.setErrorLogin("E-mail ou senha incorretos")
-        self.configureAlerView(
-            title: "Ops..",
-            message: "Houve um problema, tente novamente mais tarde."
-        )
+        coordinator.displayErrorAlertView()
     }
     
-    func checkIfshouldShowOrHiddenPassword() {
-        if(showPassword == true) {
-            configureTextFieldSecureTextEntry(isSecureTextEntry: false)
+    func shouldShowOrHiddenPasswordInput() {
+        if showPassword {
+            isPasswordTextFieldSecureTextEntry(false)
             configureImageButton(imageName: "eye.slash")
         } else {
-            configureTextFieldSecureTextEntry(isSecureTextEntry: true)
+            isPasswordTextFieldSecureTextEntry(true)
             configureImageButton(imageName: "eye")
         }
     }
     
-    
-    func configureTextFieldSecureTextEntry(isSecureTextEntry: Bool) {
+    func isPasswordTextFieldSecureTextEntry(_ isSecureTextEntry: Bool) {
         passwordTextField.isSecureTextEntry = isSecureTextEntry
     }
     
