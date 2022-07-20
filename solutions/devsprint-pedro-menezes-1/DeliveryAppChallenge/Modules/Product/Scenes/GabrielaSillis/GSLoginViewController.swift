@@ -1,6 +1,6 @@
 import UIKit
 
-class GSLoginViewController: UIViewController {
+final class GSLoginViewController: UIViewController {
     
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
@@ -18,20 +18,24 @@ class GSLoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyLogin()
-
-        #if DEBUG
-        emailTextField.text = "clean.code@devpass.com"
-        passwordTextField.text = "111111"
-        #endif
-
-        self.setupView()
-        self.validateButton()
+        
+#if DEBUG
+        configureTextFieldWithDefaultValue()
+#endif
+        
+        setupView()
+        validateButton()
     }
     
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
+    public override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-
+    
+    private func configureTextFieldWithDefaultValue() {
+        emailTextField.text = "clean.code@devpass.com"
+        passwordTextField.text = "111111"
+    }
+    
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
             let vc = UINavigationController(rootViewController: HomeViewController())
@@ -51,7 +55,7 @@ class GSLoginViewController: UIViewController {
             present(alertController, animated: true)
             return
         }
-
+        
         showLoading()
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
@@ -116,9 +120,9 @@ extension GSLoginViewController {
         loginButton.backgroundColor = .blue
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.isEnabled = true
-
+        
         showPasswordButton.tintColor = .lightGray
-
+        
         createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
         createAccountButton.layer.borderWidth = 1
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
@@ -132,7 +136,7 @@ extension GSLoginViewController {
         view.isUserInteractionEnabled = true
         validateButton()
     }
-
+    
     @objc
     func didClickView() {
         view.endEditing(true)
