@@ -106,29 +106,8 @@ class THResetPasswordViewController: UIViewController {
 
 // MARK: - Comportamentos de layout
 extension THResetPasswordViewController {
-    
     func setupView() {
-        recoverPasswordButton.layer.cornerRadius = recoverPasswordButton.bounds.height / 2
-        recoverPasswordButton.backgroundColor = .blue
-        recoverPasswordButton.setTitleColor(.white, for: .normal)
-
-        loginButton.layer.cornerRadius = createAccountButton.frame.height / 2
-        loginButton.layer.borderWidth = 1
-        loginButton.layer.borderColor = UIColor.blue.cgColor
-        loginButton.setTitleColor(.blue, for: .normal)
-        loginButton.backgroundColor = .white
-        
-        helpButton.layer.cornerRadius = createAccountButton.frame.height / 2
-        helpButton.layer.borderWidth = 1
-        helpButton.layer.borderColor = UIColor.blue.cgColor
-        helpButton.setTitleColor(.blue, for: .normal)
-        helpButton.backgroundColor = .white
-        
-        createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
-        createAccountButton.layer.borderWidth = 1
-        createAccountButton.layer.borderColor = UIColor.blue.cgColor
-        createAccountButton.setTitleColor(.blue, for: .normal)
-        createAccountButton.backgroundColor = .white
+        buildComponentsLayout()
         
         emailTextfield.setDefaultColor()
         
@@ -174,5 +153,44 @@ extension THResetPasswordViewController {
         recoverPasswordButton.backgroundColor = .blue
         recoverPasswordButton.setTitleColor(.white, for: .normal)
         recoverPasswordButton.isEnabled = true
+    }
+}
+
+extension THResetPasswordViewController {
+    func buildComponentsLayout() {
+        setupRecoverPasswordButton()
+        setupLoginButton()
+        setupHelpButton()
+        setupCreateAccountButton()
+    }
+    
+    func setupRecoverPasswordButton() {
+        recoverPasswordButton.layer.cornerRadius = recoverPasswordButton.bounds.height / 2
+        recoverPasswordButton.backgroundColor = .blue
+        recoverPasswordButton.setTitleColor(.white, for: .normal)
+    }
+    
+    func setupLoginButton() {
+        loginButton.layer.cornerRadius = createAccountButton.frame.height / 2
+        loginButton.layer.borderWidth = 1
+        loginButton.layer.borderColor = UIColor.blue.cgColor
+        loginButton.setTitleColor(.blue, for: .normal)
+        loginButton.backgroundColor = .white
+    }
+
+    func setupHelpButton() {
+        helpButton.layer.cornerRadius = createAccountButton.frame.height / 2
+        helpButton.layer.borderWidth = 1
+        helpButton.layer.borderColor = UIColor.blue.cgColor
+        helpButton.setTitleColor(.blue, for: .normal)
+        helpButton.backgroundColor = .white
+    }
+    
+    func setupCreateAccountButton() {
+        createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
+        createAccountButton.layer.borderWidth = 1
+        createAccountButton.layer.borderColor = UIColor.blue.cgColor
+        createAccountButton.setTitleColor(.blue, for: .normal)
+        createAccountButton.backgroundColor = .white
     }
 }
