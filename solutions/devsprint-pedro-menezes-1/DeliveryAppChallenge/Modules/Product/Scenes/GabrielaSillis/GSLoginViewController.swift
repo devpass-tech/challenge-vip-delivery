@@ -1,18 +1,15 @@
 import UIKit
 
 final class GSLoginViewController: UIViewController {
-    
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
-    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var createAccountButton: UIButton!
+    @IBOutlet weak var showPasswordButton: UIButton!
     
     var showPassword = true
-    @IBOutlet weak var showPasswordButton: UIButton!
     var errorInLogin = false
     
     override func viewDidLoad() {
@@ -38,27 +35,30 @@ final class GSLoginViewController: UIViewController {
     
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            let vc = UINavigationController(rootViewController: HomeViewController())
-            let scenes = UIApplication.shared.connectedScenes
-            let windowScene = scenes.first as? UIWindowScene
-            let window = windowScene?.windows.first
-            window?.rootViewController = vc
-            window?.makeKeyAndVisible()
+            configureRootViewController()
         }
+    }
+    
+    private func configureRootViewController() {
+        let viewController = UINavigationController(rootViewController: HomeViewController())
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.rootViewController = viewController
+        window?.makeKeyAndVisible()
     }
     
     @IBAction func loginButton(_ sender: Any) {
         if !ConnectivityManager.shared.isConnected {
-            let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
-            let actin = UIAlertAction(title: "Ok", style: .default)
-            alertController.addAction(actin)
-            present(alertController, animated: true)
+            configureAlerView(
+                title: "Sem conexão",
+                message: "Conecte-se à internet para tentar novamente"
+            )
             return
         }
-        
+
         showLoading()
-        let parameters: [String: String] = ["email": emailTextField.text!,
-                                            "password": passwordTextField.text!]
+        let parameters = getParameters()
         let endpoint = Endpoints.Auth.login
         AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
             DispatchQueue.main.async {
@@ -85,6 +85,26 @@ final class GSLoginViewController: UIViewController {
         }
     }
     
+    private func configureAlerView(title: String, message: String) {
+        let alertController = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        let actin = UIAlertAction(
+            title: "Ok",
+            style: .default
+        )
+        alertController.addAction(actin)
+        present(alertController, animated: true)
+    }
+    
+    private func getParameters() -> [String: String] {
+        let parameters: [String: String] = ["email": emailTextField.text!,
+                                            "password": passwordTextField.text!]
+        return parameters
+    }
+
     @IBAction func showPassword(_ sender: Any) {
         if(showPassword == true) {
             passwordTextField.isSecureTextEntry = false
