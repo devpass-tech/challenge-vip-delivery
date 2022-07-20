@@ -149,6 +149,7 @@
 		A4C4BEA628820DAE00CF1E09 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA528820DAE00CF1E09 /* User.swift */; };
 		A4C4BEA82882160B00CF1E09 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA72882160B00CF1E09 /* Session.swift */; };
 		A4C4BEAA2882164200CF1E09 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA92882164200CF1E09 /* Endpoints.swift */; };
+		BB356495288762A500A54B6E /* PTResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB356494288762A500A54B6E /* PTResetPasswordView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -310,6 +311,7 @@
 		A4C4BEA528820DAE00CF1E09 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A4C4BEA72882160B00CF1E09 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		A4C4BEA92882164200CF1E09 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		BB356494288762A500A54B6E /* PTResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTResetPasswordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -816,6 +818,7 @@
 				A45BAE762886558700E5AAE6 /* PTCreateAccountViewController.swift */,
 				A45BAE792886558700E5AAE6 /* PTCreateAccountViewController.xib */,
 				A45BAE7A2886558700E5AAE6 /* PTLoginViewController.swift */,
+				BB356494288762A500A54B6E /* PTResetPasswordView.swift */,
 				A45BAE7C2886558700E5AAE6 /* PTResetPasswordViewController.swift */,
 			);
 			path = PedroTres;
@@ -1080,6 +1083,7 @@
 				A4C4BEA82882160B00CF1E09 /* Session.swift in Sources */,
 				980D574B280DFF7700DDAF20 /* SampleDataSource.swift in Sources */,
 				980D5753280DFF7700DDAF20 /* SampleFeatureFactory.swift in Sources */,
+				BB356495288762A500A54B6E /* PTResetPasswordView.swift in Sources */,
 				A45BAE082886456A00E5AAE6 /* BTLoginViewController.swift in Sources */,
 				980D5750280DFF7700DDAF20 /* SampleInteractor.swift in Sources */,
 				980D5761280E016C00DDAF20 /* URLSessionProtocol.swift in Sources */,

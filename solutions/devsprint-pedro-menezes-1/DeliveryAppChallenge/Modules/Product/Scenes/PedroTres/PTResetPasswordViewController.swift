@@ -1,68 +1,84 @@
 import UIKit
 
 class PTResetPasswordViewController: UIViewController {
-
-    @IBOutlet weak var emailTextfield: UITextField!
-    @IBOutlet weak var recoverPasswordButton: UIButton!
-    @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var helpButton: UIButton!
-    @IBOutlet weak var createAccountButton: UIButton!
     
-    @IBOutlet weak var textLabel: UILabel!
-    @IBOutlet weak var viewSuccess: UIView!
-    @IBOutlet weak var emailLabel: UILabel!
+    private let customView: PTResetPasswordView
+    private let loadingScreen: LoadingController
     
-    var email = ""
-    var loadingScreen = LoadingController()
+    let email = ""
     var recoveryEmail = false
-
+    
+    init(customView: PTResetPasswordView, loadingScreen: LoadingController){
+        self.customView = customView
+        self.loadingScreen = loadingScreen
+        super.init(nibName: nil, bundle: nil)
+        setupView()
+    }
+    
+    required init?(coder: NSCoder) {
+        self.customView = PTResetPasswordView()
+        self.loadingScreen = LoadingController()
+        super.init(coder: coder)
+    }
+    
+    func setupView(){
+        if !email.isEmpty {
+            self.customView.emailTextfield.text = email
+            self.customView.emailTextfield.isEnabled = false
+        }
+        validateButton()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-
+    
     @IBAction func closeButtonAction(_ sender: Any) {
         dismiss(animated: true)
     }
-
+    
     @IBAction func recoverPasswordButton(_ sender: Any) {
         if recoveryEmail {
             dismiss(animated: true)
             return
         }
-
+        
         if validateForm() {
             self.view.endEditing(true)
             if !ConnectivityManager.shared.isConnected {
                 Globals.showNoInternetCOnnection(controller: self)
                 return
             }
-
-            let emailUser = emailTextfield.text!.trimmingCharacters(in: .whitespaces)
+            
+            let emailUser = customView.emailTextfield.text!.trimmingCharacters(in: .whitespaces)
             
             let parameters = [
                 "email": emailUser
             ]
             
-            BadNetworkLayer.shared.resetPassword(self, parameters: parameters) { (success) in
-                if success {
-                    self.recoveryEmail = true
-                    self.emailTextfield.isHidden = true
-                    self.textLabel.isHidden = true
-                    self.viewSuccess.isHidden = false
-                    self.emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
-                    self.recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
-                    self.recoverPasswordButton.setTitle("Voltar", for: .normal)
-                } else {
-                    let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "OK", style: .default)
-                    alertController.addAction(action)
-                    self.present(alertController, animated: true)
-                }
+            resetPassword(self, parameters: parameters)
+        }
+    }
+    
+    func resetPassword(_ targetVc: UIViewController, parameters: [String: String]) {
+        BadNetworkLayer.shared.resetPassword(targetVc, parameters: parameters) { (success) in
+            if success {
+                self.recoveryEmail = true
+                self.customView.emailTextfield.isHidden = true
+                self.customView.textLabel.isHidden = true
+                self.customView.viewSuccess.isHidden = false
+                self.customView.emailLabel.text = self.customView.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
+                self.customView.recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
+                self.customView.recoverPasswordButton.setTitle("Voltar", for: .normal)
+            } else {
+                let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .default)
+                alertController.addAction(action)
+                self.present(alertController, animated: true)
             }
         }
     }
@@ -85,15 +101,15 @@ class PTResetPasswordViewController: UIViewController {
     }
     
     func validateForm() -> Bool {
-        let status = emailTextfield.text!.isEmpty ||
-            !emailTextfield.text!.contains(".") ||
-            !emailTextfield.text!.contains("@") ||
-            emailTextfield.text!.count <= 5
+        let status = !self.customView.emailTextfield.text!.isEmpty ||
+        !self.customView.emailTextfield.text!.contains(".") ||
+        !self.customView.emailTextfield.text!.contains("@") ||
+        self.customView.emailTextfield.text!.count <= 5
         
         if status {
-            emailTextfield.setErrorColor()
-            textLabel.textColor = .red
-            textLabel.text = "Verifique o e-mail informado"
+            self.customView.emailTextfield.setErrorColor()
+            self.customView.textLabel.textColor = .red
+            self.customView.textLabel.text = "Verifique o e-mail informado"
             return false
         }
         
@@ -104,57 +120,25 @@ class PTResetPasswordViewController: UIViewController {
 // MARK: - Comportamentos de layout
 extension PTResetPasswordViewController {
     
-    func setupView() {
-        recoverPasswordButton.layer.cornerRadius = recoverPasswordButton.bounds.height / 2
-        recoverPasswordButton.backgroundColor = .blue
-        recoverPasswordButton.setTitleColor(.white, for: .normal)
-
-        loginButton.layer.cornerRadius = createAccountButton.frame.height / 2
-        loginButton.layer.borderWidth = 1
-        loginButton.layer.borderColor = UIColor.blue.cgColor
-        loginButton.setTitleColor(.blue, for: .normal)
-        loginButton.backgroundColor = .white
-        
-        helpButton.layer.cornerRadius = createAccountButton.frame.height / 2
-        helpButton.layer.borderWidth = 1
-        helpButton.layer.borderColor = UIColor.blue.cgColor
-        helpButton.setTitleColor(.blue, for: .normal)
-        helpButton.backgroundColor = .white
-        
-        createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
-        createAccountButton.layer.borderWidth = 1
-        createAccountButton.layer.borderColor = UIColor.blue.cgColor
-        createAccountButton.setTitleColor(.blue, for: .normal)
-        createAccountButton.backgroundColor = .white
-        
-        emailTextfield.setDefaultColor()
-        
-        if !email.isEmpty {
-            emailTextfield.text = email
-            emailTextfield.isEnabled = false
-        }
-        validateButton()
-    }
-    
     //email
     @IBAction func emailBeginEditing(_ sender: Any) {
-        emailTextfield.setEditingColor()
+        self.customView.emailTextfield.setEditingColor()
     }
     
     @IBAction func emailEditing(_ sender: Any) {
-        emailTextfield.setEditingColor()
+        self.customView.emailTextfield.setEditingColor()
         validateButton()
     }
     
     @IBAction func emailEndEditing(_ sender: Any) {
-        emailTextfield.setDefaultColor()
+        self.customView.emailTextfield.setDefaultColor()
     }
 }
 
 extension PTResetPasswordViewController {
     
     func validateButton() {
-        if !emailTextfield.text!.isEmpty {
+        if !self.customView.emailTextfield.text!.isEmpty {
             enableCreateButton()
         } else {
             disableCreateButton()
@@ -162,14 +146,14 @@ extension PTResetPasswordViewController {
     }
     
     func disableCreateButton() {
-        recoverPasswordButton.backgroundColor = .gray
-        recoverPasswordButton.setTitleColor(.white, for: .normal)
-        recoverPasswordButton.isEnabled = false
+        self.customView.recoverPasswordButton.backgroundColor = .gray
+        self.customView.recoverPasswordButton.setTitleColor(.white, for: .normal)
+        self.customView.recoverPasswordButton.isEnabled = false
     }
     
     func enableCreateButton() {
-        recoverPasswordButton.backgroundColor = .blue
-        recoverPasswordButton.setTitleColor(.white, for: .normal)
-        recoverPasswordButton.isEnabled = true
+        self.customView.recoverPasswordButton.backgroundColor = .blue
+        self.customView.recoverPasswordButton.setTitleColor(.white, for: .normal)
+        self.customView.recoverPasswordButton.isEnabled = true
     }
 }
