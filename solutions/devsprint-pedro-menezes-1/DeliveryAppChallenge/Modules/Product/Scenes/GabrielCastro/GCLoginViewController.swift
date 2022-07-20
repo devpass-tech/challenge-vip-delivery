@@ -109,12 +109,15 @@ class GCLoginViewController: UIViewController {
     
     
     @IBAction func resetPasswordButton(_ sender: Any) {
+        showGCResetPasswordViewController()
+    }
+    
+    func showGCResetPasswordViewController() {
         let storyboard = UIStoryboard(name: "GCUser", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "GCResetPasswordViewController") as! GCResetPasswordViewController
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }
-    
     
     @IBAction func createAccountButton(_ sender: Any) {
         let controller = GCCreateAccountViewController()
@@ -236,23 +239,29 @@ extension GCLoginViewController {
 extension GCLoginViewController {
     
     func validateButton() {
-        if !emailTextField.text!.contains(".") ||
-            !emailTextField.text!.contains("@") ||
-            emailTextField.text!.count <= 5 {
-            disableButton()
+        if validateEmail() == true {
+            enableButton()
         } else {
-            if let atIndex = emailTextField.text!.firstIndex(of: "@") {
-                let substring = emailTextField.text![atIndex...]
-                if substring.contains(".") {
-                    enableButton()
-                } else {
-                    disableButton()
-                }
-            } else {
-                disableButton()
-            }
+            disableButton()
         }
     }
+    
+    
+    func validateEmail() -> Bool {
+        
+        guard let email = emailTextField.text, let atIndex = email.firstIndex(of: "@") else {return false}
+            let substring = email[atIndex...]
+            if !email.contains(".") ||
+                !email.contains("@") ||
+                email.count <= 5 ||
+                !substring.contains(".") {
+                return false
+            } else {
+                return true
+        }
+    }
+    
+    
     
     func disableButton() {
         loginButton.backgroundColor = .gray
