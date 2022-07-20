@@ -61,10 +61,7 @@ class THResetPasswordViewController: UIViewController {
                     self.recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
                     self.recoverPasswordButton.setTitle("Voltar", for: .normal)
                 } else {
-                    let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "OK", style: .default)
-                    alertController.addAction(action)
-                    self.present(alertController, animated: true)
+                    self.showAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", messageAction: "Ok")
                 }
             }
         }
@@ -108,13 +105,8 @@ class THResetPasswordViewController: UIViewController {
 extension THResetPasswordViewController {
     func setupView() {
         buildComponentsLayout()
-        
         emailTextfield.setDefaultColor()
-        
-        if !email.isEmpty {
-            emailTextfield.text = email
-            emailTextfield.isEnabled = false
-        }
+        validateEmailEmpty()
         validateButton()
     }
     
@@ -134,13 +126,12 @@ extension THResetPasswordViewController {
 }
 
 extension THResetPasswordViewController {
-    
     func validateButton() {
-        if !emailTextfield.text!.isEmpty {
-            enableCreateButton()
-        } else {
-            disableCreateButton()
-        }
+        validateEmailTextField()
+    }
+    
+    func validateEmailTextField() {
+        isTextEmpty(text: emailTextfield.text!) ? enableCreateButton() : disableCreateButton()
     }
     
     func disableCreateButton() {
@@ -153,6 +144,26 @@ extension THResetPasswordViewController {
         recoverPasswordButton.backgroundColor = .blue
         recoverPasswordButton.setTitleColor(.white, for: .normal)
         recoverPasswordButton.isEnabled = true
+    }
+}
+
+extension THResetPasswordViewController {
+    func isTextEmpty(text: String) -> Bool {
+        return text.isEmpty == false
+    }
+    
+    func validateEmailEmpty() {
+        if !email.isEmpty {
+            emailTextfield.text = email
+            emailTextfield.isEnabled = false
+        }
+    }
+    
+    func showAlertController(title: String, message: String, messageAction: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: messageAction, style: .default)
+        alertController.addAction(action)
+        self.present(alertController, animated: true)
     }
 }
 
