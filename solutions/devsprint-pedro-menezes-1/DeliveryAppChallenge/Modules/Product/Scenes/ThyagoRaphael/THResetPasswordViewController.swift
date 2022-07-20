@@ -127,13 +127,9 @@ extension THResetPasswordViewController {
 
 extension THResetPasswordViewController {
     func validateButton() {
-        validateEmailTextField()
+        !emailTextfield.text!.isEmpty ? enableCreateButton() : disableCreateButton()
     }
-    
-    func validateEmailTextField() {
-        isTextEmpty(text: emailTextfield.text!) ? enableCreateButton() : disableCreateButton()
-    }
-    
+
     func disableCreateButton() {
         recoverPasswordButton.backgroundColor = .gray
         recoverPasswordButton.setTitleColor(.white, for: .normal)
@@ -148,10 +144,6 @@ extension THResetPasswordViewController {
 }
 
 extension THResetPasswordViewController {
-    func isTextEmpty(text: String) -> Bool {
-        return text.isEmpty == false
-    }
-    
     func validateEmailEmpty() {
         if !email.isEmpty {
             emailTextfield.text = email
