@@ -30,40 +30,8 @@ class BTResetPasswordViewController: UIViewController {
     }
 
     @IBAction func recoverPasswordButton(_ sender: Any) {
-        if recoveryEmail {
-            dismiss(animated: true)
-            return
-        }
-
-        if validateForm() {
-            self.view.endEditing(true)
-            if !ConnectivityManager.shared.isConnected {
-                Globals.showNoInternetCOnnection(controller: self)
-                return
-            }
-
-            let emailUser = emailTextfield.text!.trimmingCharacters(in: .whitespaces)
-            
-            let parameters = [
-                "email": emailUser
-            ]
-            
-            BadNetworkLayer.shared.resetPassword(self, parameters: parameters) { (success) in
-                if success {
-                    self.recoveryEmail = true
-                    self.emailTextfield.isHidden = true
-                    self.textLabel.isHidden = true
-                    self.viewSuccess.isHidden = false
-                    self.emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
-                    self.recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
-                    self.recoverPasswordButton.setTitle("Voltar", for: .normal)
-                } else {
-                    let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "OK", style: .default)
-                    alertController.addAction(action)
-                    self.present(alertController, animated: true)
-                }
-            }
+        if isRecoveryEmail() && isValidatedForm() {
+            self.checkConectionAvaiability()
         }
     }
     
@@ -83,23 +51,81 @@ class BTResetPasswordViewController: UIViewController {
         newVc.modalPresentationStyle = .fullScreen
         present(newVc, animated: true)
     }
+
+    private func isRecoveryEmail() -> Bool {
+        if recoveryEmail {
+            dismiss(animated: true)
+            return false
+        } else {
+            return true
+        }
+    }
+
+    private func checkConectionAvaiability() {
+        if !ConnectivityManager.shared.isConnected {
+            Globals.showNoInternetCOnnection(controller: self)
+        } else {
+            recoverPasswordRequest()
+        }
+    }
+
+    private func recoverPasswordRequest() {
+        let emailUser = emailTextfield.text!.trimmingCharacters(in: .whitespaces)
+
+        let parameters = [
+            "email": emailUser
+        ]
+        recoverPasswordData(parameters: parameters)
+    }
+
+    private func recoverPasswordData(parameters: [String: String]) {
+        BadNetworkLayer.shared.resetPassword(self, parameters: parameters) { (success) in
+            if success {
+                self.newPasswordCreatedSuccess()
+            } else {
+                self.createErrorAlert()
+            }
+        }
+    }
+
+    private func createErrorAlert() {
+        let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(action)
+        self.present(alertController, animated: true)
+    }
+
+    private func newPasswordCreatedSuccess() {
+        self.recoveryEmail = true
+        self.emailTextfield.isHidden = true
+        self.textLabel.isHidden = true
+        self.viewSuccess.isHidden = false
+        self.emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
+        self.recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
+        self.recoverPasswordButton.setTitle("Voltar", for: .normal)
+    }
     
-    func validateForm() -> Bool {
-        let status = emailTextfield.text!.isEmpty ||
+    private func isValidatedForm() -> Bool {
+        let isValid = !(emailTextfield.text!.isEmpty ||
             !emailTextfield.text!.contains(".") ||
             !emailTextfield.text!.contains("@") ||
-            emailTextfield.text!.count <= 5
-        
-        if status {
+            emailTextfield.text!.count <= 5)
+
+        if !isValid {
+            formNotValidated(isValid: false)
+        }
+        return isValid
+    }
+
+    private func formNotValidated(isValid: Bool) {
+        if !isValid {
             emailTextfield.setErrorColor()
             textLabel.textColor = .red
             textLabel.text = "Verifique o e-mail informado"
-            return false
         }
-        
-        return true
     }
 }
+
 
 // MARK: - Comportamentos de layout
 extension BTResetPasswordViewController {
@@ -126,14 +152,16 @@ extension BTResetPasswordViewController {
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
         createAccountButton.setTitleColor(.blue, for: .normal)
         createAccountButton.backgroundColor = .white
-        
+    }
+
+    private func setupTextField() {
+        !email.isEmpty ? emailNotEmpty() : validateButton()
         emailTextfield.setDefaultColor()
-        
-        if !email.isEmpty {
-            emailTextfield.text = email
-            emailTextfield.isEnabled = false
-        }
-        validateButton()
+    }
+
+    private func emailNotEmpty() {
+        emailTextfield.text = email
+        emailTextfield.isEnabled = false
     }
     
     //email
@@ -171,5 +199,11 @@ extension BTResetPasswordViewController {
         recoverPasswordButton.backgroundColor = .blue
         recoverPasswordButton.setTitleColor(.white, for: .normal)
         recoverPasswordButton.isEnabled = true
+    }
+}
+
+struct BusinessErrors {
+    func invalidConection() {
+        
     }
 }
