@@ -726,13 +726,13 @@
 		A45BADD52886408F00E5AAE6 /* ThyagoRaphael */ = {
 			isa = PBXGroup;
 			children = (
-				A45BAE972886577E00E5AAE6 /* THUser.storyboard */,
 				A45BAE962886577E00E5AAE6 /* THContactUsViewController.swift */,
 				A45BAE922886577D00E5AAE6 /* THContactUsViewController.xib */,
 				A45BAE942886577E00E5AAE6 /* THCreateAccountViewController.swift */,
 				A45BAE932886577D00E5AAE6 /* THCreateAccountViewController.xib */,
 				A45BAE952886577E00E5AAE6 /* THLoginViewController.swift */,
 				A45BAE982886577E00E5AAE6 /* THResetPasswordViewController.swift */,
+				A45BAE972886577E00E5AAE6 /* THUser.storyboard */,
 			);
 			path = ThyagoRaphael;
 			sourceTree = "<group>";

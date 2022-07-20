@@ -1,7 +1,12 @@
 import UIKit
 
 class THResetPasswordViewController: UIViewController {
-
+    // MARK: - Properties
+    var email = ""
+    var loadingScreen = LoadingController()
+    var recoveryEmail = false
+    
+    // MARK: - Outlets
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var recoverPasswordButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
@@ -11,11 +16,8 @@ class THResetPasswordViewController: UIViewController {
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var viewSuccess: UIView!
     @IBOutlet weak var emailLabel: UILabel!
-    
-    var email = ""
-    var loadingScreen = LoadingController()
-    var recoveryEmail = false
 
+    // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -25,6 +27,7 @@ class THResetPasswordViewController: UIViewController {
         return .lightContent
     }
 
+    // MARK: Actions
     @IBAction func closeButtonAction(_ sender: Any) {
         dismiss(animated: true)
     }
