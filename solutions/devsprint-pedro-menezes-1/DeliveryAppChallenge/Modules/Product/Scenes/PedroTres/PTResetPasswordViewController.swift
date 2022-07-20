@@ -1,70 +1,57 @@
 import UIKit
 
-class PTResetPasswordViewController: UIViewController {
+protocol PTResetPasswordViewProtocol {
+    func fetchResetPassword(parameters: [String : String])
+}
 
+class PTResetPasswordViewController: UIViewController {
+    var email = ""
+    var loadingScreen = LoadingController()
+    var recoveryEmail = false
+    
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var recoverPasswordButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var helpButton: UIButton!
     @IBOutlet weak var createAccountButton: UIButton!
-    
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var viewSuccess: UIView!
     @IBOutlet weak var emailLabel: UILabel!
     
-    var email = ""
-    var loadingScreen = LoadingController()
-    var recoveryEmail = false
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupView()
-    }
-    
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-
+    
     @IBAction func closeButtonAction(_ sender: Any) {
         dismiss(animated: true)
     }
-
+    
     @IBAction func recoverPasswordButton(_ sender: Any) {
         if recoveryEmail {
             dismiss(animated: true)
             return
         }
-
+        
         if validateForm() {
             self.view.endEditing(true)
+            
             if !ConnectivityManager.shared.isConnected {
                 Globals.showNoInternetCOnnection(controller: self)
                 return
-            }
-
-            let emailUser = emailTextfield.text!.trimmingCharacters(in: .whitespaces)
-            
-            let parameters = [
-                "email": emailUser
-            ]
-            
-            BadNetworkLayer.shared.resetPassword(self, parameters: parameters) { (success) in
-                if success {
-                    self.recoveryEmail = true
-                    self.emailTextfield.isHidden = true
-                    self.textLabel.isHidden = true
-                    self.viewSuccess.isHidden = false
-                    self.emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
-                    self.recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
-                    self.recoverPasswordButton.setTitle("Voltar", for: .normal)
-                } else {
-                    let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "OK", style: .default)
-                    alertController.addAction(action)
-                    self.present(alertController, animated: true)
-                }
+            } else {
+                let parameters = [
+                    "email": removeWhiteSpaces(email: emailTextfield.text)
+                ]
+                fetchResetPassword(parameters: parameters)
             }
         }
+    }
+    
+    func removeWhiteSpaces(email: String?) -> String {
+        guard let email = email else {
+            return ""
+        }
+        return email.trimmingCharacters(in: .whitespaces)
     }
     
     @IBAction func loginButton(_ sender: Any) {
@@ -84,31 +71,45 @@ class PTResetPasswordViewController: UIViewController {
         present(newVc, animated: true)
     }
     
-    func validateForm() -> Bool {
-        let status = emailTextfield.text!.isEmpty ||
-            !emailTextfield.text!.contains(".") ||
-            !emailTextfield.text!.contains("@") ||
-            emailTextfield.text!.count <= 5
-        
-        if status {
-            emailTextfield.setErrorColor()
-            textLabel.textColor = .red
-            textLabel.text = "Verifique o e-mail informado"
-            return false
-        }
-        
-        return true
+    @IBAction func emailBeginEditing(_ sender: Any) {
+        emailTextfield.setEditingColor()
+    }
+    
+    @IBAction func emailEditing(_ sender: Any) {
+        emailTextfield.setEditingColor()
+        validateButton()
+    }
+    
+    @IBAction func emailEndEditing(_ sender: Any) {
+        emailTextfield.setDefaultColor()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setup()
     }
 }
 
 // MARK: - Comportamentos de layout
 extension PTResetPasswordViewController {
     
+    func setup() {
+        setupView()
+        
+        setDefaultColor()
+        validateEmail()
+        validateButton()
+    }
+    
+    func setDefaultColor() {
+        emailTextfield.setDefaultColor()
+    }
+    
     func setupView() {
         recoverPasswordButton.layer.cornerRadius = recoverPasswordButton.bounds.height / 2
         recoverPasswordButton.backgroundColor = .blue
         recoverPasswordButton.setTitleColor(.white, for: .normal)
-
+        
         loginButton.layer.cornerRadius = createAccountButton.frame.height / 2
         loginButton.layer.borderWidth = 1
         loginButton.layer.borderColor = UIColor.blue.cgColor
@@ -126,38 +127,40 @@ extension PTResetPasswordViewController {
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
         createAccountButton.setTitleColor(.blue, for: .normal)
         createAccountButton.backgroundColor = .white
-        
-        emailTextfield.setDefaultColor()
-        
-        if !email.isEmpty {
-            emailTextfield.text = email
-            emailTextfield.isEnabled = false
-        }
-        validateButton()
-    }
-    
-    //email
-    @IBAction func emailBeginEditing(_ sender: Any) {
-        emailTextfield.setEditingColor()
-    }
-    
-    @IBAction func emailEditing(_ sender: Any) {
-        emailTextfield.setEditingColor()
-        validateButton()
-    }
-    
-    @IBAction func emailEndEditing(_ sender: Any) {
-        emailTextfield.setDefaultColor()
     }
 }
 
 extension PTResetPasswordViewController {
+    
+    func validateForm() -> Bool {
+        if isInValidEmail() {
+            emailTextfield.setErrorColor()
+            textLabel.textColor = .red
+            textLabel.text = "Verifique o e-mail informado"
+            return false
+        }
+        return true
+    }
+    
+    func isInValidEmail() -> Bool {
+        return emailTextfield.text!.isEmpty ||
+        !emailTextfield.text!.contains(".") ||
+        !emailTextfield.text!.contains("@") ||
+        emailTextfield.text!.count <= 5
+    }
     
     func validateButton() {
         if !emailTextfield.text!.isEmpty {
             enableCreateButton()
         } else {
             disableCreateButton()
+        }
+    }
+    
+    func validateEmail() {
+        if !email.isEmpty {
+            emailTextfield.text = email
+            emailTextfield.isEnabled = false
         }
     }
     
@@ -171,5 +174,27 @@ extension PTResetPasswordViewController {
         recoverPasswordButton.backgroundColor = .blue
         recoverPasswordButton.setTitleColor(.white, for: .normal)
         recoverPasswordButton.isEnabled = true
+    }
+}
+
+extension PTResetPasswordViewController: PTResetPasswordViewProtocol {
+    
+    func fetchResetPassword (parameters: [String : String]) {
+        BadNetworkLayer.shared.resetPassword(self, parameters: parameters) { (success) in
+            if success {
+                self.recoveryEmail = true
+                self.emailTextfield.isHidden = true
+                self.textLabel.isHidden = true
+                self.viewSuccess.isHidden = false
+                self.emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
+                self.recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
+                self.recoverPasswordButton.setTitle("Voltar", for: .normal)
+            } else {
+                let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .default)
+                alertController.addAction(action)
+                self.present(alertController, animated: true)
+            }
+        }
     }
 }
