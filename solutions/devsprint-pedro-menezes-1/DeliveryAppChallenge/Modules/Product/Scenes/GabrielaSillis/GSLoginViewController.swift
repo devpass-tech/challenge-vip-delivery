@@ -28,24 +28,10 @@ final class GSLoginViewController: UIViewController {
         return .lightContent
     }
     
-    private func configureTextFieldWithDefaultValue(emailTextField: String = "clean.code@devpass.com", passwordTextField: String = "111111") {
-        self.emailTextField.text = emailTextField
-        self.passwordTextField.text = passwordTextField
-    }
-    
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
             configureRoot(viewController: HomeViewController())
         }
-    }
-    
-    private func configureRoot(viewController: UIViewController) {
-        let viewController = UINavigationController(rootViewController: HomeViewController())
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        window?.rootViewController = viewController
-        window?.makeKeyAndVisible()
     }
     
     @IBAction func loginButton(_ sender: Any) {
@@ -55,67 +41,6 @@ final class GSLoginViewController: UIViewController {
             return
         }
         makeAuthenticationRequest()
-    }
-    
-    private func configureAlerView(title: String, message: String) {
-        let alertController = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .alert
-        )
-        let action = UIAlertAction(
-            title: "Ok",
-            style: .default
-        )
-        alertController.addAction(action)
-        present(alertController, animated: true)
-    }
-    
-    private func makeAuthenticationRequest() {
-        showLoading()
-        let parameters = getParameters()
-        let endpoint = Endpoints.Auth.login
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { [weak self] result in
-            guard let self = self else { return }
-            self.handleResponseResult(result: result)
-        }
-    }
-    
-    private func handleResponseResult(result: Result<Data, Error>) {
-        DispatchQueue.main.async {
-            self.stopLoading()
-            switch result {
-            case .success(let data):
-                self.decodeFrom(data: data)
-            case .failure:
-                self.showErrorMessage()
-            }
-        }
-    }
-    
-    
-    private func getParameters() -> [String: String] {
-        let parameters: [String: String] = ["email": emailTextField.text ?? "",
-                                            "password": passwordTextField.text ?? ""]
-        return parameters
-    }
-    
-    private func decodeFrom(data: Data) {
-        let decoder = JSONDecoder()
-        if let session = try? decoder.decode(Session.self, from: data) {
-            configureRoot(viewController: HomeViewController())
-            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-        } else {
-            showErrorMessage()
-        }
-    }
-    
-    private func showErrorMessage() {
-        self.setErrorLogin("E-mail ou senha incorretos")
-        self.configureAlerView(
-            title: "Ops..",
-            message: "Houve um problema, tente novamente mais tarde."
-        )
     }
     
     @IBAction func showPassword(_ sender: Any) {
@@ -258,5 +183,82 @@ extension GSLoginViewController {
     func enableButton() {
         loginButton.backgroundColor = .blue
         loginButton.isEnabled = true
+    }
+}
+
+private extension GSLoginViewController {
+    func configureTextFieldWithDefaultValue(emailTextField: String = "clean.code@devpass.com", passwordTextField: String = "111111") {
+        self.emailTextField.text = emailTextField
+        self.passwordTextField.text = passwordTextField
+    }
+    
+    func configureRoot(viewController: UIViewController) {
+        let viewController = UINavigationController(rootViewController: HomeViewController())
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.rootViewController = viewController
+        window?.makeKeyAndVisible()
+    }
+    
+    func configureAlerView(title: String, message: String) {
+        let alertController = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        let action = UIAlertAction(
+            title: "Ok",
+            style: .default
+        )
+        alertController.addAction(action)
+        present(alertController, animated: true)
+    }
+    
+    func makeAuthenticationRequest() {
+        showLoading()
+        let parameters = getParameters()
+        let endpoint = Endpoints.Auth.login
+        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { [weak self] result in
+            guard let self = self else { return }
+            self.handleResponseResult(result: result)
+        }
+    }
+    
+    
+    private func getParameters() -> [String: String] {
+        let parameters: [String: String] = ["email": emailTextField.text ?? "",
+                                            "password": passwordTextField.text ?? ""]
+        return parameters
+    }
+    
+    private func handleResponseResult(result: Result<Data, Error>) {
+        DispatchQueue.main.async {
+            self.stopLoading()
+            switch result {
+            case .success(let data):
+                self.decodeFrom(data: data)
+            case .failure:
+                self.showErrorMessage()
+            }
+        }
+    }
+    
+    private func decodeFrom(data: Data) {
+        let decoder = JSONDecoder()
+        if let session = try? decoder.decode(Session.self, from: data) {
+            configureRoot(viewController: HomeViewController())
+            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+        } else {
+            showErrorMessage()
+        }
+    }
+    
+    private func showErrorMessage() {
+        self.setErrorLogin("E-mail ou senha incorretos")
+        self.configureAlerView(
+            title: "Ops..",
+            message: "Houve um problema, tente novamente mais tarde."
+        )
     }
 }
