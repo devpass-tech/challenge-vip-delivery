@@ -226,13 +226,13 @@ private extension GSLoginViewController {
     }
     
     
-    private func getParameters() -> [String: String] {
+    func getParameters() -> [String: String] {
         let parameters: [String: String] = ["email": emailTextField.text ?? "",
                                             "password": passwordTextField.text ?? ""]
         return parameters
     }
     
-    private func handleResponseResult(result: Result<Data, Error>) {
+    func handleResponseResult(result: Result<Data, Error>) {
         DispatchQueue.main.async {
             self.stopLoading()
             switch result {
@@ -244,7 +244,7 @@ private extension GSLoginViewController {
         }
     }
     
-    private func decodeFrom(data: Data) {
+    func decodeFrom(data: Data) {
         let decoder = JSONDecoder()
         if let session = try? decoder.decode(Session.self, from: data) {
             configureRoot(viewController: HomeViewController())
@@ -254,7 +254,7 @@ private extension GSLoginViewController {
         }
     }
     
-    private func showErrorMessage() {
+    func showErrorMessage() {
         self.setErrorLogin("E-mail ou senha incorretos")
         self.configureAlerView(
             title: "Ops..",
