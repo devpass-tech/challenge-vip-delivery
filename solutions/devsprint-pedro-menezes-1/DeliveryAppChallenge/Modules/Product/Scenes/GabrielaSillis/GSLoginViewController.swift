@@ -10,7 +10,8 @@ final class GSLoginViewController: UIViewController {
     @IBOutlet weak var showPasswordButton: UIButton!
     
     private var coordinator: GSCoordinating = GSCoordinator()
-    private var serviceLayer: GSNetworkRequesting = GSNetworkManager()
+    private var serviceLayer: GSLoginNetworkRequesting = GSLoginNetworkManager()
+    private let viewModel: GSLoginViewModelProtocol = GSLoginViewModel()
     
     var showPassword = true
     var errorInLogin = false
@@ -22,7 +23,7 @@ final class GSLoginViewController: UIViewController {
 #if DEBUG
         configureTextFieldWithDefaultValue()
 #endif
-        
+        viewModel.delegate(self)
         setupView()
         validateButton()
     }
@@ -31,19 +32,9 @@ final class GSLoginViewController: UIViewController {
         return .lightContent
     }
     
-    func verifyIfUserIsAlreadyLoggedIn() {
-        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            coordinator.startNavigatingFlow()
-        }
-    }
-    
     @IBAction func loginButton(_ sender: Any) {
-        if !ConnectivityManager.shared.isConnected {
-            Globals.showNoInternetCOnnection(
-                controller: self)
-            return
-        }
-        makeAuthenticationRequest()
+        sendTextFieldDataToViewModel()
+        checkDeviceConnectivityAnduRequestAuthentication()
     }
     
     @IBAction func showPassword(_ sender: Any) {
@@ -194,22 +185,26 @@ private extension GSLoginViewController {
         self.passwordTextField.text = passwordTextField
     }
     
-    func makeAuthenticationRequest() {
-        showLoading()
+    func verifyIfUserIsAlreadyLoggedIn() {
+        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
+            coordinator.startNavigatingFlow()
+        }
+    }
+    
+    func checkDeviceConnectivityAnduRequestAuthentication() {
+        let deviceDoNotHaveConnectivity = !ConnectivityManager.shared.isConnected
+        if deviceDoNotHaveConnectivity {
+            Globals.showNoInternetCOnnection(
+                controller: self)
+            return
+        }
+        viewModel.makeAuthenticationRequest()
+    }
+    
+    func sendTextFieldDataToViewModel() {
         let email = emailTextField.text ?? ""
         let password = passwordTextField.text ?? ""
-        let userData = UserEmailAndPasswordData(email: email, password: password)
-        serviceLayer.makeAuthenticationRequest(userData: userData) { [weak self] result in
-            guard let self = self else { return }
-            self.stopLoading()
-            switch result {
-            case .success(let data):
-                self.coordinator.startNavigatingFlow()
-                UserDefaultsManager.UserInfos.shared.save(session: data, user: nil)
-            case .failure:
-                self.showErrorMessage()
-            }
-        }
+        viewModel.getUserEmailAndPasswordTextField(email: email, password: password)
     }
     
     func showErrorMessage() {
@@ -233,5 +228,32 @@ private extension GSLoginViewController {
     
     func configureImageButton(imageName: String) {
         showPasswordButton.setImage(UIImage.init(systemName: imageName)?.withRenderingMode(.alwaysTemplate), for: .normal)
+    }
+}
+
+extension GSLoginViewController: GSLoginViewModelDelegate {
+    func successAuthenticationRequest(session: Session) {
+        DispatchQueue.main.async {
+            self.coordinator.startNavigatingFlow()
+            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+        }
+    }
+    
+    func failureAuthenticationRequest() {
+        DispatchQueue.main.async {
+            self.showErrorMessage()
+        }
+    }
+    
+    func startLoadingView() {
+        DispatchQueue.main.async {
+            self.showLoading()
+        }
+    }
+    
+    func stopLoadingView() {
+        DispatchQueue.main.async {
+            self.stopLoading()
+        }
     }
 }
