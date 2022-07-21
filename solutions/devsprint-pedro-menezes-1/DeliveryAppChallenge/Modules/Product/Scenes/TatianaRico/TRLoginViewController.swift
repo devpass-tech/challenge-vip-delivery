@@ -27,7 +27,7 @@ class TRLoginViewController: UIViewController {
     
     @IBAction func loginButton(_ sender: Any) {
         if !ConnectivityManager.shared.isConnected {
-            alertConection(titleAlert: StringsHelper.SEM_CONEXAO, messageAlert: StringsHelper.CONECTE_SE_A_INTERNET, actionMsgAlert: StringsHelper.OK)
+            alertConection(titleAlert: StringsHelper.NOT_CONEXAO, messageAlert: StringsHelper.CONNECT_INTERNET, actionMsgAlert: StringsHelper.OK)
             return
         }
         
@@ -36,10 +36,13 @@ class TRLoginViewController: UIViewController {
     }
     
     @IBAction func showPassword(_ sender: Any) {
-        self.showPassword ? self.userShowPasswordOurNot(showPassword: false, nameImage: "eye.slash") : self.userShowPasswordOurNot(showPassword: true, nameImage: "eye")
+        let imageName = showPassword ? "eye.slash" : "eye"
+        let image = UIImage.init(systemName: imageName)?.withRenderingMode(.alwaysTemplate)
+        showPasswordButton.setImage(image, for: .normal)
+        passwordTextField.isSecureTextEntry = showPassword
         showPassword = !showPassword
     }
-    
+  
     @IBAction func resetPasswordButton(_ sender: Any) {
         self.coordinator.userResetPassword()
     }
@@ -55,12 +58,7 @@ class TRLoginViewController: UIViewController {
     
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            let vc = UINavigationController(rootViewController: HomeViewController())
-            let scenes = UIApplication.shared.connectedScenes
-            let windowScene = scenes.first as? UIWindowScene
-            let window = windowScene?.windows.first
-            window?.rootViewController = vc
-            window?.makeKeyAndVisible()
+            coordinator.verifyLogin()
         }
     }
     
@@ -99,26 +97,17 @@ class TRLoginViewController: UIViewController {
             self.coordinator.changeScreenHome()
             UserDefaultsManager.UserInfos.shared.save(session: json , user: nil)
         } catch {
-            handleLoginMsgError()
+            handleLoginFailure()
         }
     }
     
-    func handleLoginMsgError() {
-        self.alertMensagem(target: self, title: StringsHelper.OPS, message: StringsHelper.HOUVE_UM_PROBLEMA)
-    }
-    
     func handleLoginFailure() {
-        self.setErrorLogin(StringsHelper.EMAIL_SENHA_INCORRETO)
-        self.alertMensagem(target: self, title:StringsHelper.OPS, message: StringsHelper.HOUVE_UM_PROBLEMA)
+        self.setErrorLogin(StringsHelper.EMAIL_PASSWORD_INCORRECT)
+        self.alertMensagem(target: self, title:StringsHelper.OPS, message: StringsHelper.THERE_WAS_PROBLEM)
     }
     
     private func alertMensagem(target: UIViewController, title: String, message: String) {
         Globals.alertMessage(title: title, message: message, targetVC: target)
-    }
-    
-    private func userShowPasswordOurNot(showPassword: Bool, nameImage: String) {
-        passwordTextField.isSecureTextEntry = showPassword
-        showPasswordButton.setImage(UIImage.init(systemName: nameImage)?.withRenderingMode(.alwaysTemplate), for: .normal)
     }
 }
 
@@ -251,4 +240,16 @@ extension TRLoginViewController {
         loginButton.backgroundColor = .blue
         loginButton.isEnabled = true
     }
+}
+
+extension TRLoginViewController{
+enum StringsHelper {
+    static var CONNECT_INTERNET = "Conecte-se à internet para tentar novamente"
+    static var EMAIL_PASSWORD_INCORRECT = "E-mail ou senha incorretos"
+    static var THERE_WAS_PROBLEM = "Houve um problema, tente novamente mais tarde."
+    static var OK = "ok"
+    static var OPS = "Ops.."
+    static var NOT_CONEXAO = "Sem conexão"
+    
+}
 }

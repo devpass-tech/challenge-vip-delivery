@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 
-class LoginUserCoordinator: UIViewController {
+class LoginUserCoordinator {
+    let controler = UIViewController()
 
      func changeScreenHome() {
         let vc = UINavigationController(rootViewController: HomeViewController())
@@ -24,13 +25,21 @@ class LoginUserCoordinator: UIViewController {
         let storyboard = UIStoryboard(name: "TRUser", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "TRResetPasswordViewController") as! TRResetPasswordViewController
         vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        controler.present(vc, animated: true)
     }
-    
     
     func newAccount() {
         let controller = TRCreateAccountViewController()
         controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        controler.present(controller, animated: true)
+    }
+    
+    func verifyLogin() {
+        let vc = UINavigationController(rootViewController: HomeViewController())
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.rootViewController = vc
+        window?.makeKeyAndVisible()
     }
 }

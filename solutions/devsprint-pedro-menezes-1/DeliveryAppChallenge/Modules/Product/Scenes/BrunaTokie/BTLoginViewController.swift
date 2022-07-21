@@ -18,12 +18,9 @@ class BTLoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyLogin()
-
-        #if DEBUG
-        emailTextField.text = "clean.code@devpass.com"
-        passwordTextField.text = "111111"
-        #endif
-
+        
+        placeHolderTextField()
+        
         self.setupView()
         self.validateButton()
     }
@@ -31,7 +28,14 @@ class BTLoginViewController: UIViewController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-
+    
+    func placeHolderTextField() {
+#if DEBUG
+        emailTextField.text = "clean.code@devpass.com"
+        passwordTextField.text = "111111"
+#endif
+    }
+    
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
             let vc = UINavigationController(rootViewController: HomeViewController())
@@ -51,7 +55,7 @@ class BTLoginViewController: UIViewController {
             present(alertController, animated: true)
             return
         }
-
+        
         showLoading()
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
@@ -116,9 +120,9 @@ extension BTLoginViewController {
         loginButton.backgroundColor = .blue
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.isEnabled = true
-
+        
         showPasswordButton.tintColor = .lightGray
-
+        
         createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
         createAccountButton.layer.borderWidth = 1
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
@@ -132,7 +136,7 @@ extension BTLoginViewController {
         view.isUserInteractionEnabled = true
         validateButton()
     }
-
+    
     @objc
     func didClickView() {
         view.endEditing(true)
