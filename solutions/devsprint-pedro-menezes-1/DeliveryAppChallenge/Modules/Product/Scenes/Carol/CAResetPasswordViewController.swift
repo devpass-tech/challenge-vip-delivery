@@ -29,25 +29,6 @@ class CAResetPasswordViewController: UIViewController {
         dismiss(animated: true)
     }
 
-    @IBAction func recoverPasswordButton(_ sender: Any) {
-        verifyIfPasswordIsAlreadyRecovered()
-        
-        let isEmailValid = verifyIfEmailIsValid()
-        
-        if isEmailValid {
-            tryRecoverPassword()
-        } else {
-            applyInvalidEmailStyle()
-        }
-    }
-    
-    func verifyIfPasswordIsAlreadyRecovered() {
-        if isPasswordRecovered {
-            dismiss(animated: true)
-            return
-        }
-    }
-    
     @IBAction func loginButton(_ sender: Any) {
         dismiss(animated: true)
     }
@@ -65,16 +46,41 @@ class CAResetPasswordViewController: UIViewController {
         present(newVc, animated: true)
     }
     
+    @IBAction func recoverPasswordButton(_ sender: Any) {
+        verifyIfPasswordIsAlreadyRecovered()
+        
+        let isEmailValid = verifyIfEmailIsValid()
+        
+        if isEmailValid {
+            onValidEmailTyped()
+        } else {
+            onInvalidEmailTyped()
+        }
+    }
+    
+    func onInvalidEmailTyped() {
+        emailTextfield.setErrorColor()
+        textLabel.textColor = .red
+        textLabel.text = "Verifique o e-mail informado"
+    }
+    
+    func verifyIfPasswordIsAlreadyRecovered() {
+        if isPasswordRecovered {
+            dismiss(animated: true)
+            return
+        }
+    }
+    
     func verifyIfEmailIsValid() -> Bool {
-        let isEmailValid = emailTextfield.text!.isEmpty ||
+        let emailContainsAnyInvalidCondition = !emailTextfield.text!.isEmpty ||
             !emailTextfield.text!.contains(".") ||
             !emailTextfield.text!.contains("@") ||
             emailTextfield.text!.count <= 5
         
-        return isEmailValid
+        return !emailContainsAnyInvalidCondition
     }
     
-    func tryRecoverPassword() {
+    func onValidEmailTyped() {
         self.view.endEditing(true)
         
         verifyIfConnectivityIsOk()
@@ -103,12 +109,6 @@ class CAResetPasswordViewController: UIViewController {
                 self.presentErrorAlert()
             }
         }
-    }
-    
-    func applyInvalidEmailStyle() {
-        emailTextfield.setErrorColor()
-        textLabel.textColor = .red
-        textLabel.text = "Verifique o e-mail informado"
     }
     
     func presentSuccessStyle() {
