@@ -8,8 +8,7 @@
 import Foundation
 import UIKit
 
-
-class LoginUserCoordinator {
+struct LoginUserCoordinator {
     let controler = UIViewController()
 
      func changeScreenHome() {
