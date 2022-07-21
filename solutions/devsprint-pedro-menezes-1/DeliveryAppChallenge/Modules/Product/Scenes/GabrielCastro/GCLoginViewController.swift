@@ -1,9 +1,13 @@
 import UIKit
 
-class GCLoginViewController: UIViewController {
+
+
+
+class GCLoginViewController: UIViewController, LoginApiDelegate {
     
     
     //MARK: Vars
+    
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
     
@@ -20,15 +24,18 @@ class GCLoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyLogin()
-        
+        loginDefault()
+        setupView()
+        validateButton()
+    }
+    
+    func loginDefault() {
 #if DEBUG
         emailTextField.text = "clean.code@devpass.com"
         passwordTextField.text = "111111"
 #endif
-        
-        self.setupView()
-        self.validateButton()
     }
+    
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -36,63 +43,31 @@ class GCLoginViewController: UIViewController {
     
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            let vc = UINavigationController(rootViewController: HomeViewController())
-            let scenes = UIApplication.shared.connectedScenes
-            let windowScene = scenes.first as? UIWindowScene
-            let window = windowScene?.windows.first
-            window?.rootViewController = vc
-            window?.makeKeyAndVisible()
+            Coordinator().showViewController(vc: UINavigationController(rootViewController: HomeViewController()))
         }
+    }
+    
+    func IsInternetConnected(_ controller: UIViewController) -> Bool {
+        if ConnectivityManager.shared.isConnected {
+            return true
+        } else {
+            Globals.showNoInternetCOnnection(controller: controller)
+        }
+        return false
     }
     
     
     @IBAction func loginButton(_ sender: Any) {
-        validateInternetConnection()
-        showLoading()
-        apiRequest()
-    }
-    
-    func apiRequest() {
-        let parameters: [String: String] = ["email": emailTextField.text!,
-                                            "password": passwordTextField.text!]
-        let endpoint = Endpoints.Auth.login
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
-            DispatchQueue.main.async {
-                self.stopLoading()
-                switch result {
-                case .success(let data):
-                    let decoder = JSONDecoder()
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        self.setupScenes()
-                        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    } else {
-                        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                    }
-                case .failure:
-                    self.setErrorLogin("E-mail ou senha incorretos")
-                    Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                }
-            }
-        }
-    }
-    
-    func validateInternetConnection() {
-        if !ConnectivityManager.shared.isConnected {
-            Globals.showNoInternetCOnnection(controller: self)
+        if IsInternetConnected(self) == true {
+            showLoading()
+            LoginApi().apiRequest(emailParameter: emailTextField, passwordParameter: passwordTextField)
+        } else {
             return
         }
     }
     
-    func setupScenes() {
-        let vc = UINavigationController(rootViewController: HomeViewController())
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        window?.rootViewController = vc
-        window?.makeKeyAndVisible()
-    }
-    
     @IBAction func showPassword(_ sender: Any) {
+        
         if(showPassword == true) {
             passwordTextField.isSecureTextEntry = false
             setupButtonImage(button: showPasswordButton, image: "eye.slash")
@@ -131,18 +106,15 @@ extension GCLoginViewController {
     
     func setupView() {
         setupLoginButton()
-        setupShowPasswordButton()
-        setupHeightLabelError(0)
+        showPasswordButton.tintColor = .lightGray
         setupCreateAccountButton()
-        setupEmailTextField()
-        setupPasswordTextField()
+        setupTextFields()
         gestureDidClickView()
-        
+        heightLabelError.constant = 0
+        validateButton()
     }
     
-    func setupHeightLabelError(_ height: CGFloat) {
-        heightLabelError.constant = height
-    }
+    
     func setupLoginButton() {
         loginButton.layer.cornerRadius = loginButton.frame.height / 2
         loginButton.backgroundColor = .blue
@@ -150,9 +122,6 @@ extension GCLoginViewController {
         loginButton.isEnabled = true
     }
     
-    func setupShowPasswordButton() {
-        showPasswordButton.tintColor = .lightGray
-    }
     
     func setupCreateAccountButton() {
         createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
@@ -162,19 +131,16 @@ extension GCLoginViewController {
         createAccountButton.backgroundColor = .white
     }
     
-    func setupEmailTextField() {
+    func setupTextFields() {
         emailTextField.setDefaultColor()
-    }
-    
-    func setupPasswordTextField() {
         passwordTextField.setDefaultColor()
     }
+    
     
     func gestureDidClickView() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
-        validateButton()
     }
     
     @objc
@@ -218,14 +184,14 @@ extension GCLoginViewController {
     
     func setErrorLogin(_ message: String) {
         errorInLogin = true
-        setupHeightLabelError(20)
+        heightLabelError.constant = 20
         errorLabel.text = message
         emailTextField.setErrorColor()
         passwordTextField.setErrorColor()
     }
     
     func resetErrorLogin(_ textField: UITextField) {
-        setupHeightLabelError(0)
+        heightLabelError.constant = 0
         if textField == emailTextField {
             emailTextField.setEditingColor()
             passwordTextField.setDefaultColor()
@@ -239,7 +205,7 @@ extension GCLoginViewController {
 extension GCLoginViewController {
     
     func validateButton() {
-        if validateEmail() == true {
+        if validateEmail() {
             enableButton()
         } else {
             disableButton()
@@ -248,20 +214,19 @@ extension GCLoginViewController {
     
     
     func validateEmail() -> Bool {
-        
-        guard let email = emailTextField.text, let atIndex = email.firstIndex(of: "@") else {return false}
-            let substring = email[atIndex...]
-            if !email.contains(".") ||
-                !email.contains("@") ||
-                email.count <= 5 ||
-                !substring.contains(".") {
-                return false
-            } else {
-                return true
+        guard let email = emailTextField.text, let atIndex = email.firstIndex(of: "@") else {
+            return false
+        }
+        let substring = email[atIndex...]
+        if !email.contains(".") ||
+            !email.contains("@") ||
+            email.count <= 5 ||
+            !substring.contains(".") {
+            return false
+        } else {
+            return true
         }
     }
-    
-    
     
     func disableButton() {
         loginButton.backgroundColor = .gray
