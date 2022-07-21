@@ -72,7 +72,7 @@ class CAResetPasswordViewController: UIViewController {
     }
     
     func verifyIfEmailIsValid() -> Bool {
-        let emailContainsAnyInvalidCondition = !emailTextfield.text!.isEmpty ||
+        let emailContainsAnyInvalidCondition = emailTextfield.text!.isEmpty ||
             !emailTextfield.text!.contains(".") ||
             !emailTextfield.text!.contains("@") ||
             emailTextfield.text!.count <= 5
