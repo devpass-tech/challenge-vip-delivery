@@ -10,6 +10,7 @@ final class GSLoginViewController: UIViewController {
     @IBOutlet weak var showPasswordButton: UIButton!
     
     private var coordinator: GSCoordinating = GSCoordinator()
+    private var serviceLayer: GSNetworkRequesting = GSNetworkManager()
     
     var showPassword = true
     var errorInLogin = false
@@ -195,40 +196,19 @@ private extension GSLoginViewController {
     
     func makeAuthenticationRequest() {
         showLoading()
-        let parameters = getParameters()
-        let endpoint = Endpoints.Auth.login
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { [weak self] result in
+        let email = emailTextField.text ?? ""
+        let password = passwordTextField.text ?? ""
+        let userData = UserEmailAndPasswordData(email: email, password: password)
+        serviceLayer.makeAuthenticationRequest(userData: userData) { [weak self] result in
             guard let self = self else { return }
             self.stopLoading()
-            self.handleResponseResult(result: result)
-        }
-    }
-    
-    
-    func getParameters() -> [String: String] {
-        let parameters: [String: String] = ["email": emailTextField.text ?? "",
-                                            "password": passwordTextField.text ?? ""]
-        return parameters
-    }
-    
-    func handleResponseResult(result: Result<Data, Error>) {
-        DispatchQueue.main.async {
             switch result {
             case .success(let data):
-                self.decodeJsonFrom(data: data)
+                self.coordinator.startNavigatingFlow()
+                UserDefaultsManager.UserInfos.shared.save(session: data, user: nil)
             case .failure:
                 self.showErrorMessage()
             }
-        }
-    }
-    
-    func decodeJsonFrom(data: Data) {
-        let decoder = JSONDecoder()
-        if let session = try? decoder.decode(Session.self, from: data) {
-            coordinator.startNavigatingFlow()
-            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-        } else {
-            showErrorMessage()
         }
     }
     

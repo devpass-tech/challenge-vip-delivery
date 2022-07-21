@@ -150,6 +150,9 @@
 		A4C4BEA82882160B00CF1E09 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA72882160B00CF1E09 /* Session.swift */; };
 		A4C4BEAA2882164200CF1E09 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA92882164200CF1E09 /* Endpoints.swift */; };
 		C57ED6E42888C0B3004BF505 /* GSCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57ED6E32888C0B3004BF505 /* GSCoordinator.swift */; };
+		C57ED6E62889F972004BF505 /* GSNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57ED6E52889F972004BF505 /* GSNetworkManager.swift */; };
+		C57ED6E8288A005E004BF505 /* NetworkRequestErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57ED6E7288A005E004BF505 /* NetworkRequestErrors.swift */; };
+		C57ED6EA288A006F004BF505 /* UserEmailAndPasswordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57ED6E9288A006F004BF505 /* UserEmailAndPasswordData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -312,6 +315,9 @@
 		A4C4BEA72882160B00CF1E09 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		A4C4BEA92882164200CF1E09 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		C57ED6E32888C0B3004BF505 /* GSCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSCoordinator.swift; sourceTree = "<group>"; };
+		C57ED6E52889F972004BF505 /* GSNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSNetworkManager.swift; sourceTree = "<group>"; };
+		C57ED6E7288A005E004BF505 /* NetworkRequestErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestErrors.swift; sourceTree = "<group>"; };
+		C57ED6E9288A006F004BF505 /* UserEmailAndPasswordData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEmailAndPasswordData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -792,6 +798,9 @@
 				A45BAE3628864E9E00E5AAE6 /* GSLoginViewController.swift */,
 				A45BAE3028864E9D00E5AAE6 /* GSResetPasswordViewController.swift */,
 				C57ED6E32888C0B3004BF505 /* GSCoordinator.swift */,
+				C57ED6E52889F972004BF505 /* GSNetworkManager.swift */,
+				C57ED6E7288A005E004BF505 /* NetworkRequestErrors.swift */,
+				C57ED6E9288A006F004BF505 /* UserEmailAndPasswordData.swift */,
 			);
 			path = GabrielaSillis;
 			sourceTree = "<group>";
@@ -1032,6 +1041,7 @@
 				98FAF50A280E08F90075B35B /* SceneDelegate.swift in Sources */,
 				98FAF509280E08EC0075B35B /* AppDelegate.swift in Sources */,
 				980D5767280E079400DDAF20 /* SettingsView.swift in Sources */,
+				C57ED6EA288A006F004BF505 /* UserEmailAndPasswordData.swift in Sources */,
 				A45BAE1E28864A2300E5AAE6 /* BACreateAccountViewController.swift in Sources */,
 				980D5766280E077F00DDAF20 /* AddressView.swift in Sources */,
 				A4BEBB7028850881008DCC76 /* UserDefaultsManager.swift in Sources */,
@@ -1056,6 +1066,7 @@
 				A45BAE912886564C00E5AAE6 /* RLCreateAccountViewController.swift in Sources */,
 				A45BAE4B28864F9800E5AAE6 /* GCLoginViewController.swift in Sources */,
 				A45BAE73288654BA00E5AAE6 /* MJResetPasswordViewController.swift in Sources */,
+				C57ED6E62889F972004BF505 /* GSNetworkManager.swift in Sources */,
 				A4C4BEAA2882164200CF1E09 /* Endpoints.swift in Sources */,
 				980D574C280DFF7700DDAF20 /* SampleResponse.swift in Sources */,
 				A45BAE622886523100E5AAE6 /* LAResetPasswordViewController.swift in Sources */,
@@ -1110,6 +1121,7 @@
 				A45BAE812886558700E5AAE6 /* PTLoginViewController.swift in Sources */,
 				980D574E280DFF7700DDAF20 /* DataModel.swift in Sources */,
 				A45BAE542886513D00E5AAE6 /* IBResetPasswordViewController.swift in Sources */,
+				C57ED6E8288A005E004BF505 /* NetworkRequestErrors.swift in Sources */,
 				A450D9AC2880EE88003CCEBC /* LoadingController.swift in Sources */,
 				A45BAE2C28864B3A00E5AAE6 /* CACreateAccountViewController.swift in Sources */,
 				A45BAE9F2886577E00E5AAE6 /* THResetPasswordViewController.swift in Sources */,
