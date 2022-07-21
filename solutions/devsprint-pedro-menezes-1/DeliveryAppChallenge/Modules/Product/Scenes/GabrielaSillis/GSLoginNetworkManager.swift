@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias UserSessionResult = Result<Session, NetworkRequestErrors>
+typealias UserSessionResult = Result<Session, GSNetworkRequestErrors>
 
 protocol GSLoginNetworkRequesting {
     func makeLoginAuthenticationRequest(userData: UserEmailAndPasswordData, completion: @escaping (UserSessionResult) -> Void)
@@ -25,7 +25,7 @@ final class GSLoginNetworkManager: GSLoginNetworkRequesting {
                     let result = try self.returnsJsonDecodedFrom(data: data)
                     completion(.success(result))
                 } catch  {
-                    completion(.failure(NetworkRequestErrors.errorToDecode))
+                    completion(.failure(GSNetworkRequestErrors.errorToDecode))
                 }
             case .failure:
                 completion(.failure(.badRequest))
@@ -47,7 +47,7 @@ private extension GSLoginNetworkManager {
             let session = try decoder.decode(Session.self, from: data)
             return session
         } catch {
-            throw NetworkRequestErrors.errorToDecode
+            throw GSNetworkRequestErrors.errorToDecode
         }
     }
 }

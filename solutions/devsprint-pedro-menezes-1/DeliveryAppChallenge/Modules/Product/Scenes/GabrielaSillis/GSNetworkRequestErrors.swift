@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum NetworkRequestErrors: Error {
+enum GSNetworkRequestErrors: Error {
     case errorToDecode
     case badRequest
 }

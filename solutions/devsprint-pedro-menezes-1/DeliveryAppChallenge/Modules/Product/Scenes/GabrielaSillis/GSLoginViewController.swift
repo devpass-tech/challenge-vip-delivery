@@ -37,7 +37,7 @@ final class GSLoginViewController: UIViewController {
         checkDeviceConnectivityAnduRequestAuthentication()
     }
     
-    @IBAction func showPassword(_ sender: Any) {
+    @IBAction func showPasswordInputButton(_ sender: Any) {
         shouldShowOrHiddenPasswordInput()
         showPassword.toggle()
     }
@@ -198,7 +198,7 @@ private extension GSLoginViewController {
                 controller: self)
             return
         }
-        viewModel.makeAuthenticationRequest()
+        viewModel.makeLoginAuthenticationRequest()
     }
     
     func sendTextFieldDataToViewModel() {
@@ -232,14 +232,14 @@ private extension GSLoginViewController {
 }
 
 extension GSLoginViewController: GSLoginViewModelDelegate {
-    func successAuthenticationRequest(session: Session) {
+    func successLoginAuthenticationRequest(session: Session) {
         DispatchQueue.main.async {
             self.coordinator.startNavigatingFlow()
             UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
         }
     }
     
-    func failureAuthenticationRequest() {
+    func failureLoginAuthenticationRequest() {
         DispatchQueue.main.async {
             self.showErrorMessage()
         }

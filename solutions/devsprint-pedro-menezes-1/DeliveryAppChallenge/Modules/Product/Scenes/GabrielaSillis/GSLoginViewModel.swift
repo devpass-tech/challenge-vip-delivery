@@ -8,14 +8,14 @@
 import Foundation
 
 protocol GSLoginViewModelDelegate: AnyObject {
-    func successAuthenticationRequest(session: Session)
-    func failureAuthenticationRequest()
+    func successLoginAuthenticationRequest(session: Session)
+    func failureLoginAuthenticationRequest()
     func startLoadingView()
     func stopLoadingView()
 }
 
 protocol GSLoginViewModelProtocol {
-    func makeAuthenticationRequest()
+    func makeLoginAuthenticationRequest()
     func getUserEmailAndPasswordTextField(email: String, password: String)
     func delegate(_ delegate: GSLoginViewModelDelegate?)
 }
@@ -25,13 +25,13 @@ final class GSLoginViewModel: GSLoginViewModelProtocol {
     private let serviceLayer: GSLoginNetworkRequesting = GSLoginNetworkManager()
     private var userEmailAndPassword: UserEmailAndPasswordData?
     
-    func makeAuthenticationRequest() {
+    func makeLoginAuthenticationRequest() {
         delegate?.startLoadingView()
         guard let userData = try? unwrapUserEmailAndPassword() else { return }
         serviceLayer.makeLoginAuthenticationRequest(userData: userData) { [weak self] result in
             guard let self = self else { return }
             self.delegate?.stopLoadingView()
-            self.handleRequestResponse(result: result)
+            self.handleAuthenticationRequestResponse(result: result)
         }
     }
     
@@ -56,12 +56,12 @@ private extension GSLoginViewModel {
         throw UnwrapError.errorToUnwrap
     }
     
-    func handleRequestResponse(result: UserSessionResult) {
+    func handleAuthenticationRequestResponse(result: UserSessionResult) {
         switch result {
         case .success(let session):
-            self.delegate?.successAuthenticationRequest(session: session)
+            self.delegate?.successLoginAuthenticationRequest(session: session)
         case .failure:
-            self.delegate?.failureAuthenticationRequest()
+            self.delegate?.failureLoginAuthenticationRequest()
         }
     }
 }
