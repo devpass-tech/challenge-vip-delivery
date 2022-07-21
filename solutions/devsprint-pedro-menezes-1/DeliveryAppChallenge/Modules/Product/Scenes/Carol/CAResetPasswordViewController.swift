@@ -47,8 +47,14 @@ class CAResetPasswordViewController: UIViewController {
     }
     
     @IBAction func recoverPasswordButton(_ sender: Any) {
-        verifyIfPasswordIsAlreadyRecovered()
-        
+        if(isPasswordRecovered) {
+            dismiss(animated: true)
+        } else {
+            validateForm()
+        }
+    }
+    
+    func validateForm() {
         let isEmailValid = verifyIfEmailIsValid()
         
         if isEmailValid {
@@ -64,13 +70,6 @@ class CAResetPasswordViewController: UIViewController {
         textLabel.text = "Verifique o e-mail informado"
     }
     
-    func verifyIfPasswordIsAlreadyRecovered() {
-        if isPasswordRecovered {
-            dismiss(animated: true)
-            return
-        }
-    }
-    
     func verifyIfEmailIsValid() -> Bool {
         let emailContainsAnyInvalidCondition = emailTextfield.text!.isEmpty ||
             !emailTextfield.text!.contains(".") ||
@@ -83,15 +82,10 @@ class CAResetPasswordViewController: UIViewController {
     func onValidEmailTyped() {
         self.view.endEditing(true)
         
-        verifyIfConnectivityIsOk()
-        
-        recoverPassword()
-    }
-    
-    func verifyIfConnectivityIsOk() {
         if !ConnectivityManager.shared.isConnected {
             Globals.showNoInternetCOnnection(controller: self)
-            return
+        } else {
+            recoverPassword()
         }
     }
     
