@@ -14,7 +14,7 @@ class CAResetPasswordViewController: UIViewController {
     
     var email = ""
     var loadingScreen = LoadingController()
-    var recoveryEmail = false
+    var isPasswordRecovered = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,40 +30,21 @@ class CAResetPasswordViewController: UIViewController {
     }
 
     @IBAction func recoverPasswordButton(_ sender: Any) {
-        if recoveryEmail {
+        verifyIfPasswordIsAlreadyRecovered()
+        
+        let isEmailValid = verifyIfEmailIsValid()
+        
+        if isEmailValid {
+            tryRecoverPassword()
+        } else {
+            applyInvalidEmailStyle()
+        }
+    }
+    
+    func verifyIfPasswordIsAlreadyRecovered() {
+        if isPasswordRecovered {
             dismiss(animated: true)
             return
-        }
-
-        if validateForm() {
-            self.view.endEditing(true)
-            if !ConnectivityManager.shared.isConnected {
-                Globals.showNoInternetCOnnection(controller: self)
-                return
-            }
-
-            let emailUser = emailTextfield.text!.trimmingCharacters(in: .whitespaces)
-            
-            let parameters = [
-                "email": emailUser
-            ]
-            
-            BadNetworkLayer.shared.resetPassword(self, parameters: parameters) { (success) in
-                if success {
-                    self.recoveryEmail = true
-                    self.emailTextfield.isHidden = true
-                    self.textLabel.isHidden = true
-                    self.viewSuccess.isHidden = false
-                    self.emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
-                    self.recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
-                    self.recoverPasswordButton.setTitle("Voltar", for: .normal)
-                } else {
-                    let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "OK", style: .default)
-                    alertController.addAction(action)
-                    self.present(alertController, animated: true)
-                }
-            }
         }
     }
     
@@ -84,20 +65,79 @@ class CAResetPasswordViewController: UIViewController {
         present(newVc, animated: true)
     }
     
-    func validateForm() -> Bool {
-        let status = emailTextfield.text!.isEmpty ||
+    func verifyIfEmailIsValid() -> Bool {
+        let isEmailValid = emailTextfield.text!.isEmpty ||
             !emailTextfield.text!.contains(".") ||
             !emailTextfield.text!.contains("@") ||
             emailTextfield.text!.count <= 5
         
-        if status {
-            emailTextfield.setErrorColor()
-            textLabel.textColor = .red
-            textLabel.text = "Verifique o e-mail informado"
-            return false
-        }
+        return isEmailValid
+    }
+    
+    func tryRecoverPassword() {
+        self.view.endEditing(true)
         
-        return true
+        verifyIfConnectivityIsOk()
+        
+        recoverPassword()
+    }
+    
+    func verifyIfConnectivityIsOk() {
+        if !ConnectivityManager.shared.isConnected {
+            Globals.showNoInternetCOnnection(controller: self)
+            return
+        }
+    }
+    
+    func recoverPassword() {
+        let userEmail = emailTextfield.text!.trimmingCharacters(in: .whitespaces)
+        
+        let parameters = [
+            "email": userEmail
+        ]
+        
+        BadNetworkLayer.shared.resetPassword(self, parameters: parameters) { (success) in
+            if success {
+                self.presentSuccessStyle()
+            } else {
+                self.presentErrorAlert()
+            }
+        }
+    }
+    
+    func applyInvalidEmailStyle() {
+        emailTextfield.setErrorColor()
+        textLabel.textColor = .red
+        textLabel.text = "Verifique o e-mail informado"
+    }
+    
+    func presentSuccessStyle() {
+        self.isPasswordRecovered = true
+        
+        self.emailTextfield.isHidden = true
+        self.textLabel.isHidden = true
+        self.viewSuccess.isHidden = false
+        
+        self.emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
+        
+        self.recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
+        self.recoverPasswordButton.setTitle("Voltar", for: .normal)
+    }
+    
+    func presentErrorAlert() {
+        let alertController = UIAlertController(
+            title: "Ops..",
+            message: "Algo de errado aconteceu. Tente novamente mais tarde.",
+            preferredStyle: .alert
+        )
+        
+        let action = UIAlertAction(
+            title: "OK",
+            style: .default
+        )
+        
+        alertController.addAction(action)
+        self.present(alertController, animated: true)
     }
 }
 
@@ -105,45 +145,48 @@ class CAResetPasswordViewController: UIViewController {
 extension CAResetPasswordViewController {
     
     func setupView() {
+        setupRecoverPasswordButton()
+        setupLoginButton()
+        setupHelpButton()
+        setupCreateAccountButton()
+        setupEmailField()
+        
+        validateEmailField()
+    }
+    
+    func setupRecoverPasswordButton() {
         recoverPasswordButton.layer.cornerRadius = recoverPasswordButton.bounds.height / 2
         recoverPasswordButton.backgroundColor = .blue
         recoverPasswordButton.setTitleColor(.white, for: .normal)
-
-        loginButton.layer.cornerRadius = createAccountButton.frame.height / 2
-        loginButton.layer.borderWidth = 1
-        loginButton.layer.borderColor = UIColor.blue.cgColor
-        loginButton.setTitleColor(.blue, for: .normal)
-        loginButton.backgroundColor = .white
-        
-        helpButton.layer.cornerRadius = createAccountButton.frame.height / 2
-        helpButton.layer.borderWidth = 1
-        helpButton.layer.borderColor = UIColor.blue.cgColor
-        helpButton.setTitleColor(.blue, for: .normal)
-        helpButton.backgroundColor = .white
-        
-        createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
-        createAccountButton.layer.borderWidth = 1
-        createAccountButton.layer.borderColor = UIColor.blue.cgColor
-        createAccountButton.setTitleColor(.blue, for: .normal)
-        createAccountButton.backgroundColor = .white
-        
+    }
+    
+    func setupLoginButton() {
+        loginButton.setupStyle(cornerRadiusHeight: createAccountButton.frame.height)
+    }
+    
+    func setupHelpButton() {
+        helpButton.setupStyle(cornerRadiusHeight: createAccountButton.frame.height)
+    }
+    
+    func setupCreateAccountButton() {
+        createAccountButton.setupStyle(cornerRadiusHeight: createAccountButton.frame.height)
+    }
+    
+    func setupEmailField() {
         emailTextfield.setDefaultColor()
-        
         if !email.isEmpty {
             emailTextfield.text = email
             emailTextfield.isEnabled = false
         }
-        validateButton()
     }
     
-    //email
     @IBAction func emailBeginEditing(_ sender: Any) {
         emailTextfield.setEditingColor()
     }
     
     @IBAction func emailEditing(_ sender: Any) {
         emailTextfield.setEditingColor()
-        validateButton()
+        validateEmailField()
     }
     
     @IBAction func emailEndEditing(_ sender: Any) {
@@ -153,7 +196,7 @@ extension CAResetPasswordViewController {
 
 extension CAResetPasswordViewController {
     
-    func validateButton() {
+    func validateEmailField() {
         if !emailTextfield.text!.isEmpty {
             enableCreateButton()
         } else {
