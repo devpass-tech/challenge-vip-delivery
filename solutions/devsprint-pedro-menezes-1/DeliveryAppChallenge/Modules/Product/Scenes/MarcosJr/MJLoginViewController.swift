@@ -34,20 +34,19 @@ class MJLoginViewController: UIViewController {
         #endif
     }
     
-    func updateRootViewController(viewController: UIViewController){
-        let navigation = UINavigationController(rootViewController: viewController)
+    func updateRootViewController(navigationController: UINavigationController){
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
         let window = windowScene?.windows.first
         
-        window?.rootViewController = navigation
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 
     func verifyLoginAndUpdateRootViewController() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            let vc = HomeViewController()
-            updateRootViewController(viewController: vc)
+            let vc = UINavigationController(rootViewController: HomeViewController())
+            updateRootViewController(navigationController: vc)
         }
     }
     
@@ -78,21 +77,24 @@ class MJLoginViewController: UIViewController {
     }
     
     func handleLoginSuccess(userData: Data) {
-        guard let session = decodeUser(userData) else {
-            return
+        do {
+            let session = try decodeUser(userData)
+            let vc = UINavigationController(rootViewController: HomeViewController())
+            updateRootViewController(navigationController: vc)
+            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+        } catch {
+            handleLoginFailure()
         }
-        let vc = HomeViewController()
-        updateRootViewController(viewController: vc)
-        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
     }
     
-    func decodeUser(_ userData: Data) -> Session? {
+    func decodeUser(_ userData: Data) throws -> Session {
         let decoder = JSONDecoder()
-        guard let session = try? decoder.decode(Session.self, from: userData) else {
-            Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-            return nil
+        do {
+            let session = try decoder.decode(Session.self, from: userData)
+            return session
+        } catch {
+            throw error
         }
-        return session
     }
     
     func handleLoginFailure() {
@@ -235,11 +237,11 @@ extension MJLoginViewController {
 extension MJLoginViewController {
     
     func validateButton() {
-        if !emailTextField.text!.contains(".") ||
-            !emailTextField.text!.contains("@") ||
-            emailTextField.text!.count <= 5 {
-            disableButton()
-        } else {
+        let emailContainsDot = emailTextField.text!.contains(".")
+        let emailContainsAt = emailTextField.text!.contains("@")
+        let emailSizeGreaterThanFive = emailTextField.text!.count > 5
+        
+        if !emailContainsDot || !emailContainsAt || !emailSizeGreaterThanFive {
             if let atIndex = emailTextField.text!.firstIndex(of: "@") {
                 let substring = emailTextField.text![atIndex...]
                 substring.contains(".") ? enableButton() : disableButton()
