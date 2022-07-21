@@ -27,19 +27,20 @@ class PTResetPasswordViewController: UIViewController {
             dismiss(animated: true)
             return
         }
-        
-        if isInValidEmail() {
-            self.view.endEditing(true)
+        else if isInValidEmail() {
             handleEmailError()
             
         } else {
-            if !ConnectivityManager.shared.isConnected {
-                Globals.showNoInternetCOnnection(controller: self)
-                return
-            }
-            let parameters = removeWhiteSpaces(email: emailTextfield.text)
-            fetchResetPassword(parameters: parameters)
+            startPasswordReseting()
         }
+    }
+    func startPasswordReseting () {
+        if !ConnectivityManager.shared.isConnected {
+            Globals.showNoInternetCOnnection(controller: self)
+            return
+        }
+        let parameters = removeWhiteSpaces(email: emailTextfield.text)
+        fetchResetPassword(parameters: parameters)
     }
     
     func removeWhiteSpaces(email: String?) -> String {
@@ -99,7 +100,7 @@ extension PTResetPasswordViewController {
         validateEmail()
         validateButton()
     }
-        
+    
     private func setupViewRecoverPasswordButton() {
         recoverPasswordButton.layer.cornerRadius = recoverPasswordButton.bounds.height / 2
         recoverPasswordButton.backgroundColor = .blue
@@ -163,17 +164,14 @@ extension PTResetPasswordViewController {
 extension PTResetPasswordViewController {
     
     func isInValidEmail() -> Bool {
-        if emailTextfield.text!.isEmpty || !emailTextfield.text!.contains(".") ||
-            !emailTextfield.text!.contains("@") || emailTextfield.text!.count <= 5 {
-            
-            handleEmailError()
-            return true
-        } else {
-            return false
-        }
+        return emailTextfield.text!.isEmpty ||
+        !emailTextfield.text!.contains(".") ||
+        !emailTextfield.text!.contains("@") ||
+        emailTextfield.text!.count <= 5
     }
     
     func handleEmailError () {
+        self.view.endEditing(true)
         emailTextfield.setErrorColor()
         textLabel.textColor = .red
         textLabel.text = "Verifique o e-mail informado"
