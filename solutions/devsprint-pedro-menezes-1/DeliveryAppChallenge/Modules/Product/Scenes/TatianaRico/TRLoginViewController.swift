@@ -1,37 +1,58 @@
 import UIKit
 
 class TRLoginViewController: UIViewController {
-    
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
-    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var createAccountButton: UIButton!
-    
-    var showPassword = true
     @IBOutlet weak var showPasswordButton: UIButton!
+    
     var errorInLogin = false
+    var showPassword = true
+    var coordinator = LoginUserCoordinator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyLogin()
-
-        #if DEBUG
+        
+#if DEBUG
         emailTextField.text = "clean.code@devpass.com"
         passwordTextField.text = "111111"
-        #endif
-
+#endif
         self.setupView()
         self.validateButton()
+    }
+    
+    @IBAction func loginButton(_ sender: Any) {
+        if !ConnectivityManager.shared.isConnected {
+            alertConection(titleAlert: StringsHelper.SEM_CONEXAO, messageAlert: StringsHelper.CONECTE_SE_A_INTERNET, actionMsgAlert: StringsHelper.OK)
+            return
+        }
+        
+        showLoading()
+        requestLogin()
+    }
+    
+    @IBAction func showPassword(_ sender: Any) {
+        self.showPassword ? self.userShowPasswordOurNot(showPassword: false, nameImage: "eye.slash") : self.userShowPasswordOurNot(showPassword: true, nameImage: "eye")
+        showPassword = !showPassword
+    }
+    
+    @IBAction func resetPasswordButton(_ sender: Any) {
+        self.coordinator.userResetPassword()
+    }
+    
+    
+    @IBAction func createAccountButton(_ sender: Any) {
+        self.coordinator.newAccount()
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-
+    
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
             let vc = UINavigationController(rootViewController: HomeViewController())
@@ -43,91 +64,61 @@ class TRLoginViewController: UIViewController {
         }
     }
     
-    func alertConection() {
-        let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
-        let actin = UIAlertAction(title: "Ok", style: .default)
+    func alertConection(titleAlert: String, messageAlert: String, actionMsgAlert: String) {
+        let alertController = UIAlertController(title: titleAlert, message: messageAlert, preferredStyle: .alert)
+        let actin = UIAlertAction(title: actionMsgAlert, style: .default)
         alertController.addAction(actin)
         present(alertController, animated: true)
     }
     
-    @IBAction func loginButton(_ sender: Any) {
-        if !ConnectivityManager.shared.isConnected {
-            alertConection()
-            return
-        }
-
-        showLoading()
+    func requestLogin() {
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
         let endpoint = Endpoints.Auth.login
-        requestLogin(endpoint: endpoint, parameters: parameters)
-    }
-    
-    func requestLogin(endpoint: String, parameters: [String:String]) {
         AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
             DispatchQueue.main.async {
                 self.stopLoading()
-                switch result {
-                case .success(let data):
-                    let decoder = JSONDecoder()
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        self.goToHome()
-                        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    } else {
-                        self.alertMensagem(target: self, title: "Ops..", message: "Houve um problema, tente novamente mais tarde.")
-                    }
-                case .failure:
-                    self.setErrorLogin("E-mail ou senha incorretos")
-                    self.alertMensagem(target: self, title: "Ops..", message: "Houve um problema, tente novamente mais tarde.")
-                }
+                self.handleLoginResult(result)
             }
         }
     }
     
-   private func alertMensagem(target: UIViewController, title: String, message: String) {
+    
+    func handleLoginResult(_ result: Result<Data, Error>) {
+        switch result {
+        case .success(let data):
+            handleLoginSucess(data: data)
+        case .failure:
+            handleLoginFailure()
+        }
+    }
+    
+    func handleLoginSucess(data: Data) {
+        do {
+            let json = try JSONDecoder().decode(Session.self, from: data)
+            self.coordinator.changeScreenHome()
+            UserDefaultsManager.UserInfos.shared.save(session: json , user: nil)
+        } catch {
+            handleLoginMsgError()
+        }
+    }
+    
+    func handleLoginMsgError() {
+        self.alertMensagem(target: self, title: StringsHelper.OPS, message: StringsHelper.HOUVE_UM_PROBLEMA)
+    }
+    
+    func handleLoginFailure() {
+        self.setErrorLogin(StringsHelper.EMAIL_SENHA_INCORRETO)
+        self.alertMensagem(target: self, title:StringsHelper.OPS, message: StringsHelper.HOUVE_UM_PROBLEMA)
+    }
+    
+    private func alertMensagem(target: UIViewController, title: String, message: String) {
         Globals.alertMessage(title: title, message: message, targetVC: target)
     }
     
-    private func goToHome() {
-        let vc = UINavigationController(rootViewController: HomeViewController())
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        window?.rootViewController = vc
-        window?.makeKeyAndVisible()
-    }
-    
-    @IBAction func showPassword(_ sender: Any) {
-        if(showPassword == true) {
-            passwordTextField.isSecureTextEntry = false
-            showPasswordButton.setImage(UIImage.init(systemName: "eye.slash")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        } else {
-            passwordTextField.isSecureTextEntry = true
-            showPasswordButton.setImage(UIImage.init(systemName: "eye")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        }
-        showPassword = !showPassword
-    }
-    
-    @IBAction func resetPasswordButton(_ sender: Any) {
-        self.goToResetPassword()
-    }
-    
-    
-    @IBAction func createAccountButton(_ sender: Any) {
-        self.goToCreatAccount()
-    }
-    
-    func goToResetPassword() {
-        let storyboard = UIStoryboard(name: "TRUser", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "TRResetPasswordViewController") as! TRResetPasswordViewController
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
-    }
-    
-    func goToCreatAccount() {
-        let controller = TRCreateAccountViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+    private func userShowPasswordOurNot(showPassword: Bool, nameImage: String) {
+        passwordTextField.isSecureTextEntry = showPassword
+        showPasswordButton.setImage(UIImage.init(systemName: nameImage)?.withRenderingMode(.alwaysTemplate), for: .normal)
     }
 }
 
@@ -137,16 +128,20 @@ extension TRLoginViewController {
     func setupView() {
         heightLabelError.constant = 0
         showPasswordButton.tintColor = .lightGray
-
-        setupLoginButton()
-        setupAccountButton()
+        
+        setupLoginButtonLayout()
+        setupAccountButtonLayout()
         validateButton()
-        emailTextField.setDefaultColor()
-        passwordTextField.setDefaultColor()
+        setupTextFielLayout()
         gestureClickView()
     }
     
-    func setupAccountButton() {
+    func setupTextFielLayout() {
+        emailTextField.setDefaultColor()
+        passwordTextField.setDefaultColor()
+    }
+    
+    func setupAccountButtonLayout() {
         createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
         createAccountButton.layer.borderWidth = 1
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
@@ -154,7 +149,7 @@ extension TRLoginViewController {
         createAccountButton.backgroundColor = .white
     }
     
-    func setupLoginButton() {
+    func setupLoginButtonLayout() {
         loginButton.layer.cornerRadius = loginButton.frame.height / 2
         loginButton.backgroundColor = .blue
         loginButton.setTitleColor(.white, for: .normal)
@@ -166,9 +161,8 @@ extension TRLoginViewController {
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
     }
-
-    @objc
-    func didClickView() {
+    
+    @objc func didClickView() {
         view.endEditing(true)
     }
     
@@ -229,21 +223,22 @@ extension TRLoginViewController {
 extension TRLoginViewController {
     
     func validateButton() {
-        if !emailTextField.text!.contains(".") ||
-            !emailTextField.text!.contains("@") ||
-            emailTextField.text!.count <= 5 {
-            disableButton()
-        } else {
-            if let atIndex = emailTextField.text!.firstIndex(of: "@") {
-                let substring = emailTextField.text![atIndex...]
-                if substring.contains(".") {
-                    enableButton()
-                } else {
-                    disableButton()
-                }
+        let emailHasDot = emailTextField.text?.contains(".") ?? false
+        let emailHasAt = emailTextField.text?.contains("@") ?? false
+        let emailHasValidSize = emailTextField.text?.count ?? 0 > 5
+        let emailIsValid = emailHasDot && emailHasAt && emailHasValidSize
+        
+        let atIndexFirst = emailTextField.text!.firstIndex(of: "@")
+        
+        if emailIsValid && (atIndexFirst != nil) {
+            let substring = emailTextField.text![atIndexFirst!...]
+            if substring.contains(".") {
+                enableButton()
             } else {
                 disableButton()
             }
+        } else {
+            disableButton()
         }
     }
     
