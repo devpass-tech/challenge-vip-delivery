@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		65219CA12889881400220964 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65219CA02889881400220964 /* Coordinator.swift */; };
-		65219CA428899FA400220964 /* LoginApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65219CA328899FA400220964 /* LoginApi.swift */; };
 		980D5748280DFF7700DDAF20 /* SampleRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */; };
 		980D5749280DFF7700DDAF20 /* SampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5735280DFF7700DDAF20 /* SampleRequest.swift */; };
 		980D574A280DFF7700DDAF20 /* SampleApiDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */; };
@@ -165,7 +164,6 @@
 
 /* Begin PBXFileReference section */
 		65219CA02889881400220964 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		65219CA328899FA400220964 /* LoginApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginApi.swift; sourceTree = "<group>"; };
 		980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRepositoryImpl.swift; sourceTree = "<group>"; };
 		980D5735280DFF7700DDAF20 /* SampleRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRequest.swift; sourceTree = "<group>"; };
 		980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleApiDataSource.swift; sourceTree = "<group>"; };
@@ -345,7 +343,6 @@
 		65219CA82889A4B500220964 /* API Requests */ = {
 			isa = PBXGroup;
 			children = (
-				65219CA328899FA400220964 /* LoginApi.swift */,
 			);
 			path = "API Requests";
 			sourceTree = "<group>";
@@ -1135,7 +1132,6 @@
 				A450D9B02880EF43003CCEBC /* UIViewController+extensions.swift in Sources */,
 				A45BAE71288654BA00E5AAE6 /* MJLoginViewController.swift in Sources */,
 				A45BAE9C2886577E00E5AAE6 /* THLoginViewController.swift in Sources */,
-				65219CA428899FA400220964 /* LoginApi.swift in Sources */,
 				A45BAE2F28864D3800E5AAE6 /* AppCoordinator.swift in Sources */,
 				98EA0561272A0963007B0228 /* RestaurantDetailsViewController.swift in Sources */,
 				A45BAE3728864E9E00E5AAE6 /* GSResetPasswordViewController.swift in Sources */,

@@ -1,13 +1,9 @@
 import UIKit
 
-
-
-
-class GCLoginViewController: UIViewController, LoginApiDelegate {
-    
-    
+class GCLoginViewController: UIViewController {
+  
     //MARK: Vars
-    
+            
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
     
@@ -29,13 +25,52 @@ class GCLoginViewController: UIViewController, LoginApiDelegate {
         validateButton()
     }
     
+    
+    func LoginApiRequest() {
+        
+        guard let email = emailTextField.text, let password = passwordTextField.text else {return}
+        let parameters: [String: String] = ["email": email,
+                                            "password": password]
+        let endpoint = Endpoints.Auth.login
+        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
+            DispatchQueue.main.async {
+                self.stopLoading()
+                switch result {
+                case .success(let data):
+                    self.handleSuccess(data: data)
+                    
+                case .failure:
+                    self.handleFailure(self)
+                }
+            }
+        }
+    }
+    
+    
+    func handleSuccess(data: Data) {
+        do {
+        let decoder = JSONDecoder()
+         let session = try decoder.decode(Session.self, from: data)
+            Coordinator().showViewController(vc: UINavigationController(rootViewController: HomeViewController()))
+            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+        } catch let erro {
+            print(erro.localizedDescription)
+            Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
+    }
+}
+    
+    func handleFailure(_ controller: UIViewController) {
+        self.setErrorLogin("E-mail ou senha incorretos")
+        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: controller)
+    }
+
+    
     func loginDefault() {
 #if DEBUG
         emailTextField.text = "clean.code@devpass.com"
         passwordTextField.text = "111111"
 #endif
     }
-    
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -47,41 +82,42 @@ class GCLoginViewController: UIViewController, LoginApiDelegate {
         }
     }
     
-    func IsInternetConnected(_ controller: UIViewController) -> Bool {
+    func isInternetConnected(_ controller: UIViewController) -> Bool {
         if ConnectivityManager.shared.isConnected {
             return true
         } else {
-            Globals.showNoInternetCOnnection(controller: controller)
+            Globals.showNoInternetCOnnection(controller: controller)    
+            return false
         }
-        return false
     }
     
     
     @IBAction func loginButton(_ sender: Any) {
-        if IsInternetConnected(self) == true {
+        if isInternetConnected(self) {
             showLoading()
-            LoginApi().apiRequest(emailParameter: emailTextField, passwordParameter: passwordTextField)
+            LoginApiRequest()
         } else {
             return
         }
     }
     
     @IBAction func showPassword(_ sender: Any) {
-        
+       
         if(showPassword == true) {
-            passwordTextField.isSecureTextEntry = false
-            setupButtonImage(button: showPasswordButton, image: "eye.slash")
-        } else {
             passwordTextField.isSecureTextEntry = true
-            setupButtonImage(button: showPasswordButton, image: "eye")
+            setupPasswordButtonImage()
+        } else {
+            passwordTextField.isSecureTextEntry = false
+            setupPasswordButtonImage()
         }
         showPassword = !showPassword
     }
     
-    func setupButtonImage(button : UIButton, image: String) {
-        button.setImage(UIImage.init(systemName: image)?.withRenderingMode(.alwaysTemplate), for: .normal)
+    func setupPasswordButtonImage() {
+        let imageName = showPassword ? "eye.slash" : "eye"
+        let image = UIImage.init(systemName: imageName)?.withRenderingMode(.alwaysTemplate)
+        showPasswordButton.setImage(image, for: .normal)
     }
-    
     
     @IBAction func resetPasswordButton(_ sender: Any) {
         showGCResetPasswordViewController()
