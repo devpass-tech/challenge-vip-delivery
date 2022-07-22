@@ -25,45 +25,49 @@ class GCLoginViewController: UIViewController {
         validateButton()
     }
     
-    
-    func LoginApiRequest() {
+    func LoginApiRequest(with endpoint: String, and parameters: [String: String]) {
         
-        guard let email = emailTextField.text, let password = passwordTextField.text else {return}
-        let parameters: [String: String] = ["email": email,
-                                            "password": password]
-        let endpoint = Endpoints.Auth.login
         AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
+            self.handleRequest(result: result)
+        }
+    }
+    
+    func handleRequest(result: Result<Data, Error>) {
             DispatchQueue.main.async {
                 self.stopLoading()
                 switch result {
                 case .success(let data):
-                    self.handleSuccess(data: data)
-                    
+                    self.decodeUser(with: data)
                 case .failure:
-                    self.handleFailure(self)
+                    self.showRequestError()
                 }
             }
         }
-    }
-    
-    
-    func handleSuccess(data: Data) {
-        do {
-        let decoder = JSONDecoder()
-         let session = try decoder.decode(Session.self, from: data)
-            Coordinator().showViewController(vc: UINavigationController(rootViewController: HomeViewController()))
-            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-        } catch let erro {
-            print(erro.localizedDescription)
-            Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-    }
-}
-    
-    func handleFailure(_ controller: UIViewController) {
-        self.setErrorLogin("E-mail ou senha incorretos")
-        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: controller)
-    }
 
+        func decodeUser(with data: Data) {
+            let decoder = JSONDecoder()
+            do {
+                let session = try decoder.decode(Session.self, from: data)
+                self.showViewController(vc: HomeViewController())
+                UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+            } catch {
+                Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
+            }
+        }
+
+        func showRequestError() {
+            self.setErrorLogin("E-mail ou senha incorretos")
+            Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
+        }
+
+    func showViewController(vc: UIViewController) {
+        let vc = vc
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.rootViewController = vc
+        window?.makeKeyAndVisible()
+    }
     
     func loginDefault() {
 #if DEBUG
@@ -78,7 +82,7 @@ class GCLoginViewController: UIViewController {
     
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            Coordinator().showViewController(vc: UINavigationController(rootViewController: HomeViewController()))
+            self.showViewController(vc: UINavigationController(rootViewController: HomeViewController()))
         }
     }
     
@@ -95,7 +99,10 @@ class GCLoginViewController: UIViewController {
     @IBAction func loginButton(_ sender: Any) {
         if isInternetConnected(self) {
             showLoading()
-            LoginApiRequest()
+            let parameters: [String: String] = ["email": emailTextField.text!,
+                                               "password": passwordTextField.text!]
+                    let endpoint = Endpoints.Auth.login
+            LoginApiRequest(with: endpoint, and: parameters)
         } else {
             return
         }
