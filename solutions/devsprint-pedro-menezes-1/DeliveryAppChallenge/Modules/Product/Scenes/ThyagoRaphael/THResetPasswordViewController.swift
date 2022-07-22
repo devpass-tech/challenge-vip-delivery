@@ -5,6 +5,7 @@ class THResetPasswordViewController: UIViewController {
     var email = ""
     var loadingScreen = LoadingController()
     var recoveryEmail = false
+    var coordinator = THResetPasswordCoordinator()
     
     // MARK: - Outlets
     @IBOutlet weak var emailTextfield: UITextField!
@@ -47,21 +48,13 @@ class THResetPasswordViewController: UIViewController {
 
             let emailUser = emailTextfield.text!.trimmingCharacters(in: .whitespaces)
             
-            let parameters = [
-                "email": emailUser
-            ]
+            let parameters = [ "email" : emailUser ]
             
             BadNetworkLayer.shared.resetPassword(self, parameters: parameters) { (success) in
                 if success {
-                    self.recoveryEmail = true
-                    self.emailTextfield.isHidden = true
-                    self.textLabel.isHidden = true
-                    self.viewSuccess.isHidden = false
-                    self.emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
-                    self.recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
-                    self.recoverPasswordButton.setTitle("Voltar", for: .normal)
+                    self.resetPasswordSuccess()
                 } else {
-                    self.showAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", messageAction: "Ok")
+                    self.coordinator.showAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", messageAction: "Ok")
                 }
             }
         }
@@ -72,16 +65,11 @@ class THResetPasswordViewController: UIViewController {
     }
     
     @IBAction func helpButton(_ sender: Any) {
-        let vc = THContactUsViewController()
-        vc.modalPresentationStyle = .popover
-        vc.modalTransitionStyle = .coverVertical
-        self.present(vc, animated: true, completion: nil)
+        self.coordinator.THContactUSViewController()
     }
     
     @IBAction func createAccountButton(_ sender: Any) {
-        let newVc = THCreateAccountViewController()
-        newVc.modalPresentationStyle = .fullScreen
-        present(newVc, animated: true)
+        self.coordinator.THCreateAccontouViewController()
     }
     
     func validateForm() -> Bool {
@@ -127,35 +115,35 @@ extension THResetPasswordViewController {
 
 extension THResetPasswordViewController {
     func validateButton() {
-        !emailTextfield.text!.isEmpty ? enableCreateButton() : disableCreateButton()
+        let isEmailEmpty = (emailTextfield.text ?? "").isEmpty
+        let isButtonEnabled = !isEmailEmpty
+        toggleCreateButtonStatus(isButtonEnabled)
     }
 
-    func disableCreateButton() {
-        recoverPasswordButton.backgroundColor = .gray
-        recoverPasswordButton.setTitleColor(.white, for: .normal)
-        recoverPasswordButton.isEnabled = false
+    func toggleCreateButtonStatus(_ isEnabled: Bool) {
+        recoverPasswordButton.backgroundColor = isEnabled ? .blue : .gray
+        let titleColor: UIColor = .white
+        recoverPasswordButton.setTitleColor(titleColor, for: .normal)
+        recoverPasswordButton.isEnabled = isEnabled
     }
-    
-    func enableCreateButton() {
-        recoverPasswordButton.backgroundColor = .blue
-        recoverPasswordButton.setTitleColor(.white, for: .normal)
-        recoverPasswordButton.isEnabled = true
-    }
-}
 
-extension THResetPasswordViewController {
     func validateEmailEmpty() {
-        if !email.isEmpty {
+        let emailEmpty = email.isEmpty
+        let emailValidate = !emailEmpty
+        if emailValidate {
             emailTextfield.text = email
             emailTextfield.isEnabled = false
         }
     }
     
-    func showAlertController(title: String, message: String, messageAction: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: messageAction, style: .default)
-        alertController.addAction(action)
-        self.present(alertController, animated: true)
+    func resetPasswordSuccess() {
+        self.recoveryEmail = true
+        self.emailTextfield.isHidden = true
+        self.textLabel.isHidden = true
+        self.viewSuccess.isHidden = false
+        self.emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
+        self.recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
+        self.recoverPasswordButton.setTitle("Voltar", for: .normal)
     }
 }
 
