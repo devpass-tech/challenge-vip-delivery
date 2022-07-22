@@ -1,7 +1,9 @@
 import UIKit
 
 class GCLoginViewController: UIViewController {
-    
+  
+    //MARK: Vars
+            
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
     
@@ -18,87 +20,123 @@ class GCLoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyLogin()
+        loginDefault()
+        setupView()
+        validateButton()
+    }
+    
+    func LoginApiRequest(with endpoint: String, and parameters: [String: String]) {
+        
+        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
+            self.handleRequest(result: result)
+        }
+    }
+    
+    func handleRequest(result: Result<Data, Error>) {
+            DispatchQueue.main.async {
+                self.stopLoading()
+                switch result {
+                case .success(let data):
+                    self.decodeUser(with: data)
+                case .failure:
+                    self.showRequestError()
+                }
+            }
+        }
 
-        #if DEBUG
+        func decodeUser(with data: Data) {
+            let decoder = JSONDecoder()
+            do {
+                let session = try decoder.decode(Session.self, from: data)
+                self.showViewController(vc: HomeViewController())
+                UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+            } catch {
+                Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
+            }
+        }
+
+        func showRequestError() {
+            self.setErrorLogin("E-mail ou senha incorretos")
+            Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
+        }
+
+    func showViewController(vc: UIViewController) {
+        let vc = vc
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.rootViewController = vc
+        window?.makeKeyAndVisible()
+    }
+    
+    func loginDefault() {
+#if DEBUG
         emailTextField.text = "clean.code@devpass.com"
         passwordTextField.text = "111111"
-        #endif
-
-        self.setupView()
-        self.validateButton()
+#endif
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-
+    
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            let vc = UINavigationController(rootViewController: HomeViewController())
-            let scenes = UIApplication.shared.connectedScenes
-            let windowScene = scenes.first as? UIWindowScene
-            let window = windowScene?.windows.first
-            window?.rootViewController = vc
-            window?.makeKeyAndVisible()
+            self.showViewController(vc: UINavigationController(rootViewController: HomeViewController()))
         }
     }
     
-    @IBAction func loginButton(_ sender: Any) {
-        if !ConnectivityManager.shared.isConnected {
-            let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
-            let actin = UIAlertAction(title: "Ok", style: .default)
-            alertController.addAction(actin)
-            present(alertController, animated: true)
-            return
+    func isInternetConnected(_ controller: UIViewController) -> Bool {
+        if ConnectivityManager.shared.isConnected {
+            return true
+        } else {
+            Globals.showNoInternetCOnnection(controller: controller)    
+            return false
         }
-
-        showLoading()
-        let parameters: [String: String] = ["email": emailTextField.text!,
-                                            "password": passwordTextField.text!]
-        let endpoint = Endpoints.Auth.login
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
-            DispatchQueue.main.async {
-                self.stopLoading()
-                switch result {
-                case .success(let data):
-                    let decoder = JSONDecoder()
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        let vc = UINavigationController(rootViewController: HomeViewController())
-                        let scenes = UIApplication.shared.connectedScenes
-                        let windowScene = scenes.first as? UIWindowScene
-                        let window = windowScene?.windows.first
-                        window?.rootViewController = vc
-                        window?.makeKeyAndVisible()
-                        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    } else {
-                        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                    }
-                case .failure:
-                    self.setErrorLogin("E-mail ou senha incorretos")
-                    Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                }
-            }
+    }
+    
+    
+    @IBAction func loginButton(_ sender: Any) {
+     
+        if ConnectivityManager.shared.isConnected {
+            showLoading()
+            let parameters: [String: String] = ["email": emailTextField.text!,
+                                               "password": passwordTextField.text!]
+                    let endpoint = Endpoints.Auth.login
+            LoginApiRequest(with: endpoint, and: parameters)
+        } else {
+            Globals.showNoInternetCOnnection(controller: self)
         }
     }
     
     @IBAction func showPassword(_ sender: Any) {
+       
         if(showPassword == true) {
-            passwordTextField.isSecureTextEntry = false
-            showPasswordButton.setImage(UIImage.init(systemName: "eye.slash")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        } else {
             passwordTextField.isSecureTextEntry = true
-            showPasswordButton.setImage(UIImage.init(systemName: "eye")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            setupPasswordButtonImage()
+        } else {
+            passwordTextField.isSecureTextEntry = false
+            setupPasswordButtonImage()
         }
         showPassword = !showPassword
     }
     
+    func setupPasswordButtonImage() {
+        let imageName = showPassword ? "eye.slash" : "eye"
+        let image = UIImage.init(systemName: imageName)?.withRenderingMode(.alwaysTemplate)
+        showPasswordButton.setImage(image, for: .normal)
+    }
+    
     @IBAction func resetPasswordButton(_ sender: Any) {
+        showGCResetPasswordViewController()
+    }
+    
+    func showGCResetPasswordViewController() {
         let storyboard = UIStoryboard(name: "GCUser", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "GCResetPasswordViewController") as! GCResetPasswordViewController
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }
-    
     
     @IBAction func createAccountButton(_ sender: Any) {
         let controller = GCCreateAccountViewController()
@@ -111,28 +149,44 @@ class GCLoginViewController: UIViewController {
 extension GCLoginViewController {
     
     func setupView() {
+        setupLoginButton()
+        showPasswordButton.tintColor = .lightGray
+        setupCreateAccountButton()
+        setupTextFields()
+        gestureDidClickView()
         heightLabelError.constant = 0
+        validateButton()
+    }
+    
+    
+    func setupLoginButton() {
         loginButton.layer.cornerRadius = loginButton.frame.height / 2
         loginButton.backgroundColor = .blue
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.isEnabled = true
-
-        showPasswordButton.tintColor = .lightGray
-
+    }
+    
+    
+    func setupCreateAccountButton() {
         createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
         createAccountButton.layer.borderWidth = 1
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
         createAccountButton.setTitleColor(.blue, for: .normal)
         createAccountButton.backgroundColor = .white
-        
+    }
+    
+    func setupTextFields() {
         emailTextField.setDefaultColor()
         passwordTextField.setDefaultColor()
+    }
+    
+    
+    func gestureDidClickView() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
-        validateButton()
     }
-
+    
     @objc
     func didClickView() {
         view.endEditing(true)
@@ -195,21 +249,26 @@ extension GCLoginViewController {
 extension GCLoginViewController {
     
     func validateButton() {
-        if !emailTextField.text!.contains(".") ||
-            !emailTextField.text!.contains("@") ||
-            emailTextField.text!.count <= 5 {
-            disableButton()
+        if validateEmail() {
+            enableButton()
         } else {
-            if let atIndex = emailTextField.text!.firstIndex(of: "@") {
-                let substring = emailTextField.text![atIndex...]
-                if substring.contains(".") {
-                    enableButton()
-                } else {
-                    disableButton()
-                }
-            } else {
-                disableButton()
-            }
+            disableButton()
+        }
+    }
+    
+    
+    func validateEmail() -> Bool {
+        guard let email = emailTextField.text, let atIndex = email.firstIndex(of: "@") else {
+            return false
+        }
+        let substring = email[atIndex...]
+        if !email.contains(".") ||
+            !email.contains("@") ||
+            email.count <= 5 ||
+            !substring.contains(".") {
+            return false
+        } else {
+            return true
         }
     }
     
