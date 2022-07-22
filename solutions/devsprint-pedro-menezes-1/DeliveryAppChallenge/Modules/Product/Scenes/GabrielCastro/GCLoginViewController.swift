@@ -97,14 +97,15 @@ class GCLoginViewController: UIViewController {
     
     
     @IBAction func loginButton(_ sender: Any) {
-        if isInternetConnected(self) {
+     
+        if ConnectivityManager.shared.isConnected {
             showLoading()
             let parameters: [String: String] = ["email": emailTextField.text!,
                                                "password": passwordTextField.text!]
                     let endpoint = Endpoints.Auth.login
             LoginApiRequest(with: endpoint, and: parameters)
         } else {
-            return
+            Globals.showNoInternetCOnnection(controller: self)
         }
     }
     

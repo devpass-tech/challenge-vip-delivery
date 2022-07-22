@@ -1,9 +1,0 @@
-import UIKit
-
-
-
-struct Coordinator {
-    
-   
-    
-}

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		65219CA12889881400220964 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65219CA02889881400220964 /* Coordinator.swift */; };
 		980D5748280DFF7700DDAF20 /* SampleRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */; };
 		980D5749280DFF7700DDAF20 /* SampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5735280DFF7700DDAF20 /* SampleRequest.swift */; };
 		980D574A280DFF7700DDAF20 /* SampleApiDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */; };
@@ -163,7 +162,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		65219CA02889881400220964 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRepositoryImpl.swift; sourceTree = "<group>"; };
 		980D5735280DFF7700DDAF20 /* SampleRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRequest.swift; sourceTree = "<group>"; };
 		980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleApiDataSource.swift; sourceTree = "<group>"; };
@@ -335,7 +333,6 @@
 		65219CA22889932400220964 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
-				65219CA02889881400220964 /* Coordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -1069,7 +1066,6 @@
 				A45BAE2B28864B3A00E5AAE6 /* CAResetPasswordViewController.swift in Sources */,
 				980D5752280DFF7700DDAF20 /* SamplePresenter.swift in Sources */,
 				980D5751280DFF7700DDAF20 /* SampleViewController.swift in Sources */,
-				65219CA12889881400220964 /* Coordinator.swift in Sources */,
 				A45BAE912886564C00E5AAE6 /* RLCreateAccountViewController.swift in Sources */,
 				A45BAE4B28864F9800E5AAE6 /* GCLoginViewController.swift in Sources */,
 				A45BAE73288654BA00E5AAE6 /* MJResetPasswordViewController.swift in Sources */,
