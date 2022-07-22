@@ -51,21 +51,28 @@ class RLLoginViewController: UIViewController {
     }
     
     @IBAction func loginButton(_ sender: Any) {
-        verifyIsHadConnection()
-        showLoading()
+        let userIsConnected = verifyIfUserHasConnection()
+        if userIsConnected {
+            showLoading()
 
-        let parameters: [String: String] = ["email": emailTextField.text!,
-                                            "password": passwordTextField.text!]
-        let endpoint = Endpoints.Auth.login
+            let parameters: [String: String] = ["email": emailTextField.text!,
+                                                "password": passwordTextField.text!]
+            let endpoint = Endpoints.Auth.login
 
-        makeLoginRequest(with: endpoint, and: parameters)
-    }
-
-    func verifyIsHadConnection() {
-        if !ConnectivityManager.shared.isConnected {
+            makeLoginRequest(with: endpoint, and: parameters)
+        } else {
             showNoConnectionAlert()
         }
     }
+
+    func verifyIfUserHasConnection() -> Bool {
+        if ConnectivityManager.shared.isConnected {
+            return true
+        } else {
+            return false
+        }
+    }
+    
 
     func showNoConnectionAlert() {
         let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
@@ -110,22 +117,14 @@ class RLLoginViewController: UIViewController {
     }
     
     @IBAction func showPassword(_ sender: Any) {
-        if(showPassword == true) {
-            configureLayout(toShowPassword: true)
-        } else {
-            configureLayout(toShowPassword: false)
-        }
+        showPassword ? configureLayout(toShowPassword: true) : configureLayout(toShowPassword: false)
         showPassword = !showPassword
     }
 
     func configureLayout(toShowPassword: Bool) {
-        if toShowPassword {
-            passwordTextField.isSecureTextEntry = false
-            showPasswordButton.setImage(UIImage.init(systemName: "eye.slash")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        } else {
-            passwordTextField.isSecureTextEntry = true
-            showPasswordButton.setImage(UIImage.init(systemName: "eye")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        }
+        let passwordButtonImage = UIImage(named: toShowPassword ? "eye.slash" : "eye")?.withRenderingMode(.alwaysOriginal)
+        passwordTextField.isSecureTextEntry = toShowPassword ? false : true
+        showPasswordButton.setImage(passwordButtonImage, for: .normal)
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
@@ -156,14 +155,10 @@ extension RLLoginViewController {
     
     func setupView() {
         heightLabelError.constant = 0
-
         configureLoginButton()
         configureShowPasswordButton()
         configureCreateAccountButton()
-
-        emailTextField.setDefaultColor()
-        passwordTextField.setDefaultColor()
-
+        configureTextFields()
         setViewBehavior()
         validateButton()
     }
@@ -185,6 +180,11 @@ extension RLLoginViewController {
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
         createAccountButton.setTitleColor(.blue, for: .normal)
         createAccountButton.backgroundColor = .white
+    }
+
+    func configureTextFields() {
+        emailTextField.setDefaultColor()
+        passwordTextField.setDefaultColor()
     }
 
     func setViewBehavior() {
@@ -259,26 +259,30 @@ extension RLLoginViewController {
 extension RLLoginViewController {
     
     func validateButton() {
-        if isEmailValid() {
+        if textDoNotContainsEmailRequirements() {
             disableButton()
         } else {
-            if let atIndex = emailTextField.text!.firstIndex(of: "@") {
-                let substring = emailTextField.text![atIndex...]
-                if substring.contains(".") {
-                    enableButton()
-                } else {
-                    disableButton()
-                }
-            } else {
-                disableButton()
-            }
+            verifyEmailFormat()
         }
     }
 
-    func isEmailValid() -> Bool {
+    func textDoNotContainsEmailRequirements() -> Bool {
         return !emailTextField.text!.contains(".") ||
         !emailTextField.text!.contains("@") ||
         emailTextField.text!.count <= 5
+    }
+
+    func verifyEmailFormat() {
+        if let atIndex = emailTextField.text!.firstIndex(of: "@") {
+            let substring = emailTextField.text![atIndex...]
+            if substring.contains(".") {
+                enableButton()
+            } else {
+                disableButton()
+            }
+        } else {
+            disableButton()
+        }
     }
     
     func disableButton() {
