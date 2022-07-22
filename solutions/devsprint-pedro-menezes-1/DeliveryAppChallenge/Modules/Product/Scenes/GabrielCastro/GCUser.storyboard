@@ -205,7 +205,7 @@
                     </view>
                     <connections>
                         <outlet property="createAccountButton" destination="uKm-uT-dQ9" id="2Xb-kI-ee4"/>
-                        <outlet property="emailTextField" destination="wLc-7E-1DN" id="oTn-YG-tih"/>
+                        <outlet property="emailTextField" destination="wLc-7E-1DN" id="crM-IV-qNd"/>
                         <outlet property="errorLabel" destination="s9f-4z-1ns" id="zYg-Uw-krx"/>
                         <outlet property="heightLabelError" destination="PWw-FV-szD" id="etu-X2-EO6"/>
                         <outlet property="loginButton" destination="aNl-jh-pTH" id="icO-kU-knP"/>
