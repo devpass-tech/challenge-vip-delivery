@@ -332,6 +332,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		65219CA22889932400220964 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		65219CA82889A4B500220964 /* API Requests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "API Requests";
+			sourceTree = "<group>";
+		};
 		980D5732280DFF7700DDAF20 /* Sample */ = {
 			isa = PBXGroup;
 			children = (
@@ -686,6 +700,8 @@
 		A45BADD228863E9D00E5AAE6 /* GabrielCastro */ = {
 			isa = PBXGroup;
 			children = (
+				65219CA82889A4B500220964 /* API Requests */,
+				65219CA22889932400220964 /* Coordinator */,
 				A45BAE3E28864F9800E5AAE6 /* GCUser.storyboard */,
 				A45BAE3F28864F9800E5AAE6 /* GCContactUsViewController.swift */,
 				A45BAE4328864F9800E5AAE6 /* GCContactUsViewController.xib */,
