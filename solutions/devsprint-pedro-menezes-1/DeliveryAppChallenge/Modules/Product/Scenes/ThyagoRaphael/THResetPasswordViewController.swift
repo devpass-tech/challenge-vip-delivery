@@ -21,6 +21,7 @@ class THResetPasswordViewController: UIViewController {
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        coordinator.controller = self
         setupView()
     }
     

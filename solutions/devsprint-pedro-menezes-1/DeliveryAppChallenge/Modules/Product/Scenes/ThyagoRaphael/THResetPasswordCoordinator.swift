@@ -8,25 +8,25 @@
 import UIKit
 
 class THResetPasswordCoordinator {
-    let controller = UIViewController()
+    var controller: UIViewController?
     
     func showAlertController(title: String, message: String, messageAction: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: messageAction, style: .default)
         alertController.addAction(action)
-        controller.present(alertController, animated: true)
+        controller?.present(alertController, animated: true)
     }
     
     func THContactUSViewController() {
-        let vc = THContactUsViewController()
-        vc.modalPresentationStyle = .popover
-        vc.modalTransitionStyle = .coverVertical
-        controller.present(vc, animated: true, completion: nil)
+        let viewController = THContactUsViewController()
+        viewController.modalPresentationStyle = .popover
+        viewController.modalTransitionStyle = .coverVertical
+        controller?.present(viewController, animated: true)
     }
     
     func THCreateAccontouViewController() {
-        let newVc = THCreateAccountViewController()
-        newVc.modalPresentationStyle = .fullScreen
-        controller.present(newVc, animated: true)
+        let newViewController = THCreateAccountViewController()
+        newViewController.modalPresentationStyle = .fullScreen
+        controller?.present(newViewController, animated: true)
     }
 }
