@@ -97,7 +97,45 @@ class BTResetPasswordViewController: UIViewController {
             return false
         }
 
-        return true
+    private func createErrorAlert() {
+        let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(action)
+        self.present(alertController, animated: true)
+    }
+
+    private func newPasswordCreatedSuccess() {
+        self.recoveryEmail = true
+        self.emailTextfield.isHidden = true
+        self.textLabel.isHidden = true
+        self.viewSuccess.isHidden = false
+        self.emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
+        self.recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
+        self.recoverPasswordButton.setTitle("Voltar", for: .normal)
+    }
+
+    private func isEmailTextFieldValid() -> Bool {
+        let emailNotEmpty = emailTextfield.text?.isEmpty ?? false
+        let emailContainsDot = emailTextfield.text?.contains(".") ?? false
+        let emailContainsAt = emailTextfield.text?.contains("@") ?? false
+        let emailHasValidSize = emailTextfield.text?.count ?? 0 > 5
+        let emailIsValid = emailNotEmpty && emailContainsDot && emailContainsAt && emailHasValidSize
+        return emailIsValid
+    }
+
+    private func isValidatedForm() {
+        let emailIsValid = isEmailTextFieldValid()
+        if emailIsValid {
+            self.startPasswordRecovering()
+        } else {
+            self.formNotValidated()
+        }
+    }
+
+    private func formNotValidated() {
+        emailTextfield.setErrorColor()
+        textLabel.textColor = .red
+        textLabel.text = "Verifique o e-mail informado"
     }
 }
 
