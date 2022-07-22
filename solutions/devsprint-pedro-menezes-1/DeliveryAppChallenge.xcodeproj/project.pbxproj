@@ -149,7 +149,7 @@
 		A4C4BEA628820DAE00CF1E09 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA528820DAE00CF1E09 /* User.swift */; };
 		A4C4BEA82882160B00CF1E09 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA72882160B00CF1E09 /* Session.swift */; };
 		A4C4BEAA2882164200CF1E09 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA92882164200CF1E09 /* Endpoints.swift */; };
-		B9F2D6AD2888C9BE0022EC88 /* LoginUserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */; };
+		F0FCFA4F288A40AE00B85171 /* BTLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FCFA4E288A40AE00B85171 /* BTLoginCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -311,7 +311,7 @@
 		A4C4BEA528820DAE00CF1E09 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A4C4BEA72882160B00CF1E09 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		A4C4BEA92882164200CF1E09 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
-		B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserCoordinator.swift; sourceTree = "<group>"; };
+		F0FCFA4E288A40AE00B85171 /* BTLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTLoginCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -848,6 +848,7 @@
 				A45BAE062886456A00E5AAE6 /* BTCreateAccountViewController.swift */,
 				A45BAE032886456A00E5AAE6 /* BTCreateAccountViewController.xib */,
 				A45BAE022886456A00E5AAE6 /* BTLoginViewController.swift */,
+				F0FCFA4E288A40AE00B85171 /* BTLoginCoordinator.swift */,
 				A45BAE042886456A00E5AAE6 /* BTResetPasswordViewController.swift */,
 			);
 			path = BrunaTokie;
@@ -1108,6 +1109,7 @@
 				A45BAE572886513D00E5AAE6 /* IBContactUsViewController.swift in Sources */,
 				A45BADF5288643A500E5AAE6 /* TRResetPasswordViewController.swift in Sources */,
 				A45BAE4828864F9800E5AAE6 /* GCResetPasswordViewController.swift in Sources */,
+				F0FCFA4F288A40AE00B85171 /* BTLoginCoordinator.swift in Sources */,
 				98F1296E272F363200B88A87 /* HomeView.swift in Sources */,
 				A45BAE832886558700E5AAE6 /* PTResetPasswordViewController.swift in Sources */,
 				98F1296A272F327100B88A87 /* CategoryCellView.swift in Sources */,
