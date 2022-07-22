@@ -30,12 +30,10 @@ class BTResetPasswordViewController: UIViewController {
     }
 
     @IBAction func recoverPasswordButton(_ sender: Any) {
-        if !isRecoveryEmail() {
+        if recoveryEmail {
             dismiss(animated: true)
         } else {
-            if isValidatedForm() {
-                self.startPasswordRecovering()
-            }
+            isValidatedForm()
         }
     }
     
@@ -54,14 +52,6 @@ class BTResetPasswordViewController: UIViewController {
         let newVc = BTCreateAccountViewController()
         newVc.modalPresentationStyle = .fullScreen
         present(newVc, animated: true)
-    }
-
-    private func isRecoveryEmail() -> Bool {
-        if recoveryEmail {
-            return false
-        } else {
-            return true
-        }
     }
 
     private func startPasswordRecovering() {
@@ -109,16 +99,18 @@ class BTResetPasswordViewController: UIViewController {
         self.recoverPasswordButton.setTitle("Voltar", for: .normal)
     }
     
-    private func isValidatedForm() -> Bool {
-        let isValid = !(emailTextfield.text!.isEmpty ||
-            !emailTextfield.text!.contains(".") ||
-            !emailTextfield.text!.contains("@") ||
-            emailTextfield.text!.count <= 5)
+    private func isValidatedForm() {
+        let emailNotEmpty = emailTextfield.text?.isEmpty ?? false
+        let emailContainsDot = emailTextfield.text?.contains(".") ?? false
+        let emailContainsAt = emailTextfield.text?.contains("@") ?? false
+        let emailHasValidSize = emailTextfield.text?.count ?? 0 > 5
+        let emailIsValid = emailNotEmpty && emailContainsDot && emailContainsAt && emailHasValidSize
 
-        if !isValid {
-            formNotValidated()
+        if emailIsValid {
+            self.startPasswordRecovering()
+        } else {
+            self.formNotValidated()
         }
-        return isValid
     }
 
     private func formNotValidated() {
@@ -133,22 +125,35 @@ class BTResetPasswordViewController: UIViewController {
 extension BTResetPasswordViewController {
     
     func setupView() {
+        setupRecoverPasswordButton()
+        setupLoginButton()
+        setupHelpButton()
+        setupCreateAccountButton()
+        setupTextField()
+    }
+
+    private func setupRecoverPasswordButton() {
         recoverPasswordButton.layer.cornerRadius = recoverPasswordButton.bounds.height / 2
         recoverPasswordButton.backgroundColor = .blue
         recoverPasswordButton.setTitleColor(.white, for: .normal)
+    }
 
+    private func setupLoginButton() {
         loginButton.layer.cornerRadius = createAccountButton.frame.height / 2
         loginButton.layer.borderWidth = 1
         loginButton.layer.borderColor = UIColor.blue.cgColor
         loginButton.setTitleColor(.blue, for: .normal)
         loginButton.backgroundColor = .white
-        
+    }
+    private func setupHelpButton() {
         helpButton.layer.cornerRadius = createAccountButton.frame.height / 2
         helpButton.layer.borderWidth = 1
         helpButton.layer.borderColor = UIColor.blue.cgColor
         helpButton.setTitleColor(.blue, for: .normal)
         helpButton.backgroundColor = .white
-        
+    }
+
+    private func setupCreateAccountButton() {
         createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
         createAccountButton.layer.borderWidth = 1
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
@@ -157,11 +162,11 @@ extension BTResetPasswordViewController {
     }
 
     private func setupTextField() {
-        !email.isEmpty ? emailNotEmpty() : validateButton()
+        email.isEmpty ? validateButton() : setupFilledEmail()
         emailTextfield.setDefaultColor()
     }
 
-    private func emailNotEmpty() {
+    private func setupFilledEmail() {
         emailTextfield.text = email
         emailTextfield.isEnabled = false
     }
