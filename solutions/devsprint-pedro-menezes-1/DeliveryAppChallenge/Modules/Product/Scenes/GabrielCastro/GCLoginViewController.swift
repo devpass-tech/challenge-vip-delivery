@@ -1,8 +1,13 @@
 import UIKit
 
+protocol GCCoordinatorDelegate: AnyObject {
+    func showViewController(vc: UIViewController)
+}
+
 final class GCLoginViewController: UIViewController {
   
     //MARK: Vars
+    weak var gcCoordinatorDelegate: GCCoordinatorDelegate?
             
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
@@ -23,6 +28,7 @@ final class GCLoginViewController: UIViewController {
         loginDefault()
         setupView()
         validateButton()
+        
     }
     
     
@@ -50,7 +56,7 @@ final class GCLoginViewController: UIViewController {
             let decoder = JSONDecoder()
             do {
                 let session = try decoder.decode(Session.self, from: data)
-                self.showViewController(vc: HomeViewController())
+                gcCoordinatorDelegate?.showViewController(vc: HomeViewController())
                 UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
             } catch {
                 Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
@@ -77,18 +83,11 @@ final class GCLoginViewController: UIViewController {
     
     private func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            self.showViewController(vc: UINavigationController(rootViewController: HomeViewController()))
+            gcCoordinatorDelegate?.showViewController(vc: UINavigationController(rootViewController: HomeViewController()))
         }
     }
     
-    private func showViewController(vc: UIViewController) {
-        let vc = vc
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        window?.rootViewController = vc
-        window?.makeKeyAndVisible()
-    }
+    
     
     private func isInternetConnected(_ controller: UIViewController) -> Bool {
         if ConnectivityManager.shared.isConnected {
