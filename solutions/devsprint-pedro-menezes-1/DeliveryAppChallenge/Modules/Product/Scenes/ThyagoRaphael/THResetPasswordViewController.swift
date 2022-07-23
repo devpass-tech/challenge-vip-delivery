@@ -38,26 +38,10 @@ class THResetPasswordViewController: UIViewController {
         if recoveryEmail {
             dismiss(animated: true)
             return
-        }
-
-        if validateForm() {
-            self.view.endEditing(true)
-            if !ConnectivityManager.shared.isConnected {
-                Globals.showNoInternetCOnnection(controller: self)
-                return
-            }
-
-            let emailUser = emailTextfield.text!.trimmingCharacters(in: .whitespaces)
-            
-            let parameters = [ "email" : emailUser ]
-            
-            BadNetworkLayer.shared.resetPassword(self, parameters: parameters) { (success) in
-                if success {
-                    self.resetPasswordSuccess()
-                } else {
-                    self.coordinator.showAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", messageAction: "Ok")
-                }
-            }
+        } else if isValidEmail() {
+            validateEmailError()
+        } else {
+            haveConnection()
         }
     }
     
@@ -73,33 +57,6 @@ class THResetPasswordViewController: UIViewController {
         self.coordinator.THCreateAccontouViewController()
     }
     
-    func validateForm() -> Bool {
-        let status = emailTextfield.text!.isEmpty ||
-            !emailTextfield.text!.contains(".") ||
-            !emailTextfield.text!.contains("@") ||
-            emailTextfield.text!.count <= 5
-        
-        if status {
-            emailTextfield.setErrorColor()
-            textLabel.textColor = .red
-            textLabel.text = "Verifique o e-mail informado"
-            return false
-        }
-        
-        return true
-    }
-}
-
-// MARK: - Comportamentos de layout
-extension THResetPasswordViewController {
-    func setupView() {
-        buildComponentsLayout()
-        emailTextfield.setDefaultColor()
-        validateEmailEmpty()
-        validateButton()
-    }
-    
-    //email
     @IBAction func emailBeginEditing(_ sender: Any) {
         emailTextfield.setEditingColor()
     }
@@ -114,7 +71,46 @@ extension THResetPasswordViewController {
     }
 }
 
+// MARK: - Extensions
+// MARK: - Methods
 extension THResetPasswordViewController {
+    func haveConnection() {
+        self.view.endEditing(true)
+        if !ConnectivityManager.shared.isConnected {
+            Globals.showNoInternetCOnnection(controller: self)
+            return
+        }
+        fetchResetPassword()
+    }
+    
+    func fetchResetPassword() {
+        let emailUser = emailTextfield.text!.trimmingCharacters(in: .whitespaces)
+        let parameters = [ "email" : emailUser ]
+        
+        BadNetworkLayer.shared.resetPassword(self, parameters: parameters) { (success) in
+            if success {
+                self.resetPasswordSuccess()
+            } else {
+                self.coordinator.showAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", messageAction: "Ok")
+            }
+        }
+    }
+    
+    func isValidEmail() -> Bool {
+        let emailIsEmpty = emailTextfield.text!.isEmpty
+        let isNotEmailContainDot = !emailTextfield.text!.contains(".")
+        let isNotEmailContainAt = !emailTextfield.text!.contains("@")
+        let isEmailSmaller = emailTextfield.text!.count <= 5
+        let statusEmail = emailIsEmpty || isNotEmailContainDot || isNotEmailContainAt || isEmailSmaller
+        return statusEmail
+    }
+    
+    func validateEmailError() {
+        emailTextfield.setErrorColor()
+        textLabel.textColor = .red
+        textLabel.text = "Verifique o e-mail informado"
+    }
+    
     func validateButton() {
         let isEmailEmpty = (emailTextfield.text ?? "").isEmpty
         let isButtonEnabled = !isEmailEmpty
@@ -148,7 +144,15 @@ extension THResetPasswordViewController {
     }
 }
 
+// MARK: - UI Components
 extension THResetPasswordViewController {
+    func setupView() {
+        buildComponentsLayout()
+        emailTextfield.setDefaultColor()
+        validateEmailEmpty()
+        validateButton()
+    }
+    
     func buildComponentsLayout() {
         setupRecoverPasswordButton()
         setupLoginButton()
