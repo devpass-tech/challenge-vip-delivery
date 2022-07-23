@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02A7F8FB288C5B2100285FCC /* LALoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F8FA288C5B2100285FCC /* LALoginCoordinator.swift */; };
+		02A7F8FE288C982C00285FCC /* Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F8FD288C982C00285FCC /* Validations.swift */; };
 		980D5748280DFF7700DDAF20 /* SampleRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */; };
 		980D5749280DFF7700DDAF20 /* SampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5735280DFF7700DDAF20 /* SampleRequest.swift */; };
 		980D574A280DFF7700DDAF20 /* SampleApiDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */; };
@@ -162,6 +164,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02A7F8FA288C5B2100285FCC /* LALoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LALoginCoordinator.swift; sourceTree = "<group>"; };
+		02A7F8FD288C982C00285FCC /* Validations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validations.swift; sourceTree = "<group>"; };
 		980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRepositoryImpl.swift; sourceTree = "<group>"; };
 		980D5735280DFF7700DDAF20 /* SampleRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRequest.swift; sourceTree = "<group>"; };
 		980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleApiDataSource.swift; sourceTree = "<group>"; };
@@ -330,6 +334,59 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02A7F8F5288C59BB00285FCC /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				A45BAE5C2886523100E5AAE6 /* LALoginViewController.swift */,
+				02A7F8FA288C5B2100285FCC /* LALoginCoordinator.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		02A7F8F6288C59C200285FCC /* ContactUs */ = {
+			isa = PBXGroup;
+			children = (
+				A45BAE5A2886523100E5AAE6 /* LAContactUsViewController.swift */,
+				A45BAE5D2886523100E5AAE6 /* LAContactUsViewController.xib */,
+			);
+			path = ContactUs;
+			sourceTree = "<group>";
+		};
+		02A7F8F7288C59CD00285FCC /* CreateAccount */ = {
+			isa = PBXGroup;
+			children = (
+				A45BAE5E2886523100E5AAE6 /* LACreateAccountViewController.swift */,
+				A45BAE602886523100E5AAE6 /* LACreateAccountViewController.xib */,
+			);
+			path = CreateAccount;
+			sourceTree = "<group>";
+		};
+		02A7F8F8288C59EA00285FCC /* ResetPassword */ = {
+			isa = PBXGroup;
+			children = (
+				A45BAE5B2886523100E5AAE6 /* LAResetPasswordViewController.swift */,
+			);
+			path = ResetPassword;
+			sourceTree = "<group>";
+		};
+		02A7F8F9288C5A3400285FCC /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				A45BAE5F2886523100E5AAE6 /* LAUser.storyboard */,
+				02A7F8F5288C59BB00285FCC /* Login */,
+				02A7F8F8288C59EA00285FCC /* ResetPassword */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		02A7F8FC288C981400285FCC /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				02A7F8FD288C982C00285FCC /* Validations.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		980D5732280DFF7700DDAF20 /* Sample */ = {
 			isa = PBXGroup;
 			children = (
@@ -698,13 +755,10 @@
 		A45BADD328863FE700E5AAE6 /* LeonardoAlmeida */ = {
 			isa = PBXGroup;
 			children = (
-				A45BAE5F2886523100E5AAE6 /* LAUser.storyboard */,
-				A45BAE5A2886523100E5AAE6 /* LAContactUsViewController.swift */,
-				A45BAE5D2886523100E5AAE6 /* LAContactUsViewController.xib */,
-				A45BAE5E2886523100E5AAE6 /* LACreateAccountViewController.swift */,
-				A45BAE602886523100E5AAE6 /* LACreateAccountViewController.xib */,
-				A45BAE5C2886523100E5AAE6 /* LALoginViewController.swift */,
-				A45BAE5B2886523100E5AAE6 /* LAResetPasswordViewController.swift */,
+				02A7F8FC288C981400285FCC /* Utils */,
+				02A7F8F9288C5A3400285FCC /* Authentication */,
+				02A7F8F6288C59C200285FCC /* ContactUs */,
+				02A7F8F7288C59CD00285FCC /* CreateAccount */,
 			);
 			path = LeonardoAlmeida;
 			sourceTree = "<group>";
@@ -1037,6 +1091,7 @@
 				983271C1272752AF0010C63A /* HomeViewController.swift in Sources */,
 				980D5754280DFF7700DDAF20 /* SampleUseCases.swift in Sources */,
 				A45BAE632886523100E5AAE6 /* LALoginViewController.swift in Sources */,
+				02A7F8FB288C5B2100285FCC /* LALoginCoordinator.swift in Sources */,
 				A45BAE1C28864A2300E5AAE6 /* BAContactUsViewController.swift in Sources */,
 				A45BAE4928864F9800E5AAE6 /* GCCreateAccountViewController.swift in Sources */,
 				980D574F280DFF7700DDAF20 /* GetDataUseCase.swift in Sources */,
@@ -1110,6 +1165,7 @@
 				A45BAE2C28864B3A00E5AAE6 /* CACreateAccountViewController.swift in Sources */,
 				A45BAE9F2886577E00E5AAE6 /* THResetPasswordViewController.swift in Sources */,
 				A450D9B02880EF43003CCEBC /* UIViewController+extensions.swift in Sources */,
+				02A7F8FE288C982C00285FCC /* Validations.swift in Sources */,
 				A45BAE71288654BA00E5AAE6 /* MJLoginViewController.swift in Sources */,
 				A45BAE9C2886577E00E5AAE6 /* THLoginViewController.swift in Sources */,
 				A45BAE2F28864D3800E5AAE6 /* AppCoordinator.swift in Sources */,
