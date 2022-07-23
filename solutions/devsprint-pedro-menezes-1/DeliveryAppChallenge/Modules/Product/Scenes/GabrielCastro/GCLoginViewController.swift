@@ -1,6 +1,6 @@
 import UIKit
 
-class GCLoginViewController: UIViewController {
+final class GCLoginViewController: UIViewController {
   
     //MARK: Vars
             
@@ -25,14 +25,16 @@ class GCLoginViewController: UIViewController {
         validateButton()
     }
     
-    func LoginApiRequest(with endpoint: String, and parameters: [String: String]) {
+    
+    private func LoginApiRequest(with endpoint: String, and parameters: [String: String]) {
+        // usar reset password como referencia
         
         AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
             self.handleRequest(result: result)
         }
     }
     
-    func handleRequest(result: Result<Data, Error>) {
+    private func handleRequest(result: Result<Data, Error>) {
             DispatchQueue.main.async {
                 self.stopLoading()
                 switch result {
@@ -44,7 +46,7 @@ class GCLoginViewController: UIViewController {
             }
         }
 
-        func decodeUser(with data: Data) {
+       private func decodeUser(with data: Data) {
             let decoder = JSONDecoder()
             do {
                 let session = try decoder.decode(Session.self, from: data)
@@ -55,12 +57,31 @@ class GCLoginViewController: UIViewController {
             }
         }
 
-        func showRequestError() {
+       private  func showRequestError() {
             self.setErrorLogin("E-mail ou senha incorretos")
             Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
         }
 
-    func showViewController(vc: UIViewController) {
+    
+    
+    private func loginDefault() {
+#if DEBUG
+        emailTextField.text = "clean.code@devpass.com"
+        passwordTextField.text = "111111"
+#endif
+    }
+    
+    public override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    private func verifyLogin() {
+        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
+            self.showViewController(vc: UINavigationController(rootViewController: HomeViewController()))
+        }
+    }
+    
+    private func showViewController(vc: UIViewController) {
         let vc = vc
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
@@ -69,24 +90,7 @@ class GCLoginViewController: UIViewController {
         window?.makeKeyAndVisible()
     }
     
-    func loginDefault() {
-#if DEBUG
-        emailTextField.text = "clean.code@devpass.com"
-        passwordTextField.text = "111111"
-#endif
-    }
-    
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
-    func verifyLogin() {
-        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            self.showViewController(vc: UINavigationController(rootViewController: HomeViewController()))
-        }
-    }
-    
-    func isInternetConnected(_ controller: UIViewController) -> Bool {
+    private func isInternetConnected(_ controller: UIViewController) -> Bool {
         if ConnectivityManager.shared.isConnected {
             return true
         } else {
@@ -121,7 +125,7 @@ class GCLoginViewController: UIViewController {
         showPassword = !showPassword
     }
     
-    func setupPasswordButtonImage() {
+    private func setupPasswordButtonImage() {
         let imageName = showPassword ? "eye.slash" : "eye"
         let image = UIImage.init(systemName: imageName)?.withRenderingMode(.alwaysTemplate)
         showPasswordButton.setImage(image, for: .normal)
@@ -131,7 +135,7 @@ class GCLoginViewController: UIViewController {
         showGCResetPasswordViewController()
     }
     
-    func showGCResetPasswordViewController() {
+    private func showGCResetPasswordViewController() {
         let storyboard = UIStoryboard(name: "GCUser", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "GCResetPasswordViewController") as! GCResetPasswordViewController
         vc.modalPresentationStyle = .fullScreen
@@ -148,7 +152,7 @@ class GCLoginViewController: UIViewController {
 // MARK: - Comportamentos de layout
 extension GCLoginViewController {
     
-    func setupView() {
+    private func setupView() {
         setupLoginButton()
         showPasswordButton.tintColor = .lightGray
         setupCreateAccountButton()
@@ -159,7 +163,7 @@ extension GCLoginViewController {
     }
     
     
-    func setupLoginButton() {
+    private func setupLoginButton() {
         loginButton.layer.cornerRadius = loginButton.frame.height / 2
         loginButton.backgroundColor = .blue
         loginButton.setTitleColor(.white, for: .normal)
@@ -167,7 +171,7 @@ extension GCLoginViewController {
     }
     
     
-    func setupCreateAccountButton() {
+    private func setupCreateAccountButton() {
         createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
         createAccountButton.layer.borderWidth = 1
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
@@ -175,13 +179,13 @@ extension GCLoginViewController {
         createAccountButton.backgroundColor = .white
     }
     
-    func setupTextFields() {
+    private func setupTextFields() {
         emailTextField.setDefaultColor()
         passwordTextField.setDefaultColor()
     }
     
     
-    func gestureDidClickView() {
+    private func gestureDidClickView() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
@@ -226,7 +230,7 @@ extension GCLoginViewController {
         passwordTextField.setDefaultColor()
     }
     
-    func setErrorLogin(_ message: String) {
+    private func setErrorLogin(_ message: String) {
         errorInLogin = true
         heightLabelError.constant = 20
         errorLabel.text = message
@@ -234,7 +238,7 @@ extension GCLoginViewController {
         passwordTextField.setErrorColor()
     }
     
-    func resetErrorLogin(_ textField: UITextField) {
+    private func resetErrorLogin(_ textField: UITextField) {
         heightLabelError.constant = 0
         if textField == emailTextField {
             emailTextField.setEditingColor()
@@ -248,7 +252,7 @@ extension GCLoginViewController {
 
 extension GCLoginViewController {
     
-    func validateButton() {
+    private func validateButton() {
         if validateEmail() {
             enableButton()
         } else {
@@ -257,7 +261,7 @@ extension GCLoginViewController {
     }
     
     
-    func validateEmail() -> Bool {
+    private func validateEmail() -> Bool {
         guard let email = emailTextField.text, let atIndex = email.firstIndex(of: "@") else {
             return false
         }
@@ -272,12 +276,12 @@ extension GCLoginViewController {
         }
     }
     
-    func disableButton() {
+    private func disableButton() {
         loginButton.backgroundColor = .gray
         loginButton.isEnabled = false
     }
     
-    func enableButton() {
+    private func enableButton() {
         loginButton.backgroundColor = .blue
         loginButton.isEnabled = true
     }
