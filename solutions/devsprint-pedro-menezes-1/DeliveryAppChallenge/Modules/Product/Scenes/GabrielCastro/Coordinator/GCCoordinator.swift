@@ -13,6 +13,12 @@ protocol GCCoordinatorDelegate: AnyObject {
 
 final class GCCoordinator: GCLoginViewControllerDelegate  {
     
+    weak var controller: UIViewController?
+    
+    init(controller: UIViewController) {
+        self.controller = controller
+    }
+    
     weak var gCCoordinatorDelegate: GCCoordinatorDelegate?
     
     internal func showViewController(vc: UIViewController) {
@@ -28,5 +34,12 @@ final class GCCoordinator: GCLoginViewControllerDelegate  {
         gCCoordinatorDelegate?.setErrorLogin("E-mail ou senha incorretos")
          Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: targetVC)
      }
+    
+    internal func showGCResetPasswordViewController() {
+        let storyboard = UIStoryboard(name: "GCUser", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "GCResetPasswordViewController") as! GCResetPasswordViewController
+        vc.modalPresentationStyle = .fullScreen
+        controller?.present(vc, animated: true)
+    }
 
 }

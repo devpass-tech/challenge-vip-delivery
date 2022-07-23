@@ -3,6 +3,7 @@ import UIKit
 protocol GCLoginViewControllerDelegate: AnyObject {
     func showViewController(vc: UIViewController)
     func showRequestError(_ targetVC: UIViewController)
+    func showGCResetPasswordViewController()
 }
 
 final class GCLoginViewController: UIViewController {
