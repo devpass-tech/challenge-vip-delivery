@@ -1,13 +1,14 @@
 import UIKit
 
-protocol GCCoordinatorDelegate: AnyObject {
+protocol GCLoginViewControllerDelegate: AnyObject {
     func showViewController(vc: UIViewController)
+    func showRequestError(_ targetVC: UIViewController)
 }
 
 final class GCLoginViewController: UIViewController {
   
     //MARK: Vars
-    weak var gcCoordinatorDelegate: GCCoordinatorDelegate?
+    weak var gCLoginViewControllerDelegate: GCLoginViewControllerDelegate?
             
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
@@ -47,7 +48,7 @@ final class GCLoginViewController: UIViewController {
                 case .success(let data):
                     self.decodeUser(with: data)
                 case .failure:
-                    self.showRequestError()
+                    self.gCLoginViewControllerDelegate?.showRequestError(self)
                 }
             }
         }
@@ -56,17 +57,13 @@ final class GCLoginViewController: UIViewController {
             let decoder = JSONDecoder()
             do {
                 let session = try decoder.decode(Session.self, from: data)
-                gcCoordinatorDelegate?.showViewController(vc: HomeViewController())
+                gCLoginViewControllerDelegate?.showViewController(vc: HomeViewController())
                 UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
             } catch {
                 Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
             }
         }
 
-       private  func showRequestError() {
-            self.setErrorLogin("E-mail ou senha incorretos")
-            Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-        }
 
     
     
@@ -83,7 +80,7 @@ final class GCLoginViewController: UIViewController {
     
     private func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            gcCoordinatorDelegate?.showViewController(vc: UINavigationController(rootViewController: HomeViewController()))
+            gCLoginViewControllerDelegate?.showViewController(vc: UINavigationController(rootViewController: HomeViewController()))
         }
     }
     
@@ -229,13 +226,7 @@ extension GCLoginViewController {
         passwordTextField.setDefaultColor()
     }
     
-    private func setErrorLogin(_ message: String) {
-        errorInLogin = true
-        heightLabelError.constant = 20
-        errorLabel.text = message
-        emailTextField.setErrorColor()
-        passwordTextField.setErrorColor()
-    }
+    
     
     private func resetErrorLogin(_ textField: UITextField) {
         heightLabelError.constant = 0
@@ -283,5 +274,15 @@ extension GCLoginViewController {
     private func enableButton() {
         loginButton.backgroundColor = .blue
         loginButton.isEnabled = true
+    }
+}
+
+extension GCLoginViewController: GCCoordinatorDelegate {
+    internal func setErrorLogin(_ message: String) {
+        errorInLogin = true
+        heightLabelError.constant = 20
+        errorLabel.text = message
+        emailTextField.setErrorColor()
+        passwordTextField.setErrorColor()
     }
 }

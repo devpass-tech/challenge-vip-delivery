@@ -7,7 +7,13 @@
 
 import UIKit
 
-final class GCCoordinator: GCCoordinatorDelegate {
+protocol GCCoordinatorDelegate: AnyObject {
+    func setErrorLogin(_ message: String)
+}
+
+final class GCCoordinator: GCLoginViewControllerDelegate  {
+    
+    weak var gCCoordinatorDelegate: GCCoordinatorDelegate?
     
     internal func showViewController(vc: UIViewController) {
         let vc = vc
@@ -17,4 +23,10 @@ final class GCCoordinator: GCCoordinatorDelegate {
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }
+    
+    internal  func showRequestError(_ targetVC: UIViewController) {
+        gCCoordinatorDelegate?.setErrorLogin("E-mail ou senha incorretos")
+         Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: targetVC)
+     }
+
 }
