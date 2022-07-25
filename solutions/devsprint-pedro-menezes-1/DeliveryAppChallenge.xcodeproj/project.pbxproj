@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		02A7F8FB288C5B2100285FCC /* LALoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F8FA288C5B2100285FCC /* LALoginCoordinator.swift */; };
 		02A7F8FE288C982C00285FCC /* Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F8FD288C982C00285FCC /* Validations.swift */; };
+		02A7F917288EEC5B00285FCC /* StepToLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F916288EEC5B00285FCC /* StepToLogin.swift */; };
+		02A7F919288EEC8000285FCC /* StatusStepToLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F918288EEC8000285FCC /* StatusStepToLogin.swift */; };
 		980D5748280DFF7700DDAF20 /* SampleRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */; };
 		980D5749280DFF7700DDAF20 /* SampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5735280DFF7700DDAF20 /* SampleRequest.swift */; };
 		980D574A280DFF7700DDAF20 /* SampleApiDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */; };
@@ -166,6 +168,8 @@
 /* Begin PBXFileReference section */
 		02A7F8FA288C5B2100285FCC /* LALoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LALoginCoordinator.swift; sourceTree = "<group>"; };
 		02A7F8FD288C982C00285FCC /* Validations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validations.swift; sourceTree = "<group>"; };
+		02A7F916288EEC5B00285FCC /* StepToLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepToLogin.swift; sourceTree = "<group>"; };
+		02A7F918288EEC8000285FCC /* StatusStepToLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusStepToLogin.swift; sourceTree = "<group>"; };
 		980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRepositoryImpl.swift; sourceTree = "<group>"; };
 		980D5735280DFF7700DDAF20 /* SampleRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRequest.swift; sourceTree = "<group>"; };
 		980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleApiDataSource.swift; sourceTree = "<group>"; };
@@ -385,6 +389,15 @@
 				02A7F8FD288C982C00285FCC /* Validations.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		02A7F915288EEC2F00285FCC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				02A7F916288EEC5B00285FCC /* StepToLogin.swift */,
+				02A7F918288EEC8000285FCC /* StatusStepToLogin.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		980D5732280DFF7700DDAF20 /* Sample */ = {
@@ -755,6 +768,7 @@
 		A45BADD328863FE700E5AAE6 /* LeonardoAlmeida */ = {
 			isa = PBXGroup;
 			children = (
+				02A7F915288EEC2F00285FCC /* Models */,
 				02A7F8FC288C981400285FCC /* Utils */,
 				02A7F8F9288C5A3400285FCC /* Authentication */,
 				02A7F8F6288C59C200285FCC /* ContactUs */,
@@ -1099,6 +1113,7 @@
 				980D5756280DFF7700DDAF20 /* SampleView.swift in Sources */,
 				A45BAE72288654BA00E5AAE6 /* MJCreateAccountViewController.swift in Sources */,
 				98FC5AB82732C1EF002412EA /* MenuItemView.swift in Sources */,
+				02A7F919288EEC8000285FCC /* StatusStepToLogin.swift in Sources */,
 				98FC5AAE2732BA2E002412EA /* RestaurantInfoView.swift in Sources */,
 				A45BAE2A28864B3A00E5AAE6 /* CAContactUsViewController.swift in Sources */,
 				A45BAE8C2886564C00E5AAE6 /* RLLoginViewController.swift in Sources */,
@@ -1170,6 +1185,7 @@
 				A45BAE9C2886577E00E5AAE6 /* THLoginViewController.swift in Sources */,
 				A45BAE2F28864D3800E5AAE6 /* AppCoordinator.swift in Sources */,
 				98EA0561272A0963007B0228 /* RestaurantDetailsViewController.swift in Sources */,
+				02A7F917288EEC5B00285FCC /* StepToLogin.swift in Sources */,
 				A45BAE3728864E9E00E5AAE6 /* GSResetPasswordViewController.swift in Sources */,
 				980D574A280DFF7700DDAF20 /* SampleApiDataSource.swift in Sources */,
 				A450D9B62880FB08003CCEBC /* Globals.swift in Sources */,

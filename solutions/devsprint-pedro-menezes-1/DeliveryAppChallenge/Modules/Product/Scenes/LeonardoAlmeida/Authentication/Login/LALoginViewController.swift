@@ -1,5 +1,7 @@
 import UIKit
 
+
+
 class LALoginViewController: UIViewController {
     
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
@@ -18,17 +20,10 @@ class LALoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        let userIsLogged = verifyIfUserIsLogged()
-        if(userIsLogged) {
-            LALoginCoordinator.shared.navigateToHomeRoot()
-        }
-
-        #if DEBUG
-        emailTextField.text = "clean.code@devpass.com"
-        passwordTextField.text = "Abcde"
-        #endif
-
+        
+        self.verifyUserLoggedAndNavegateToHome()
+        self.initTextFieldValue()
+        
         self.configView()
         self.validateForm()
     }
@@ -42,29 +37,43 @@ class LALoginViewController: UIViewController {
 extension LALoginViewController {
     
     func configView() {
+        self.configInitView()
+        self.configLoginButton()
+        self.configCreateAccountButton()
+        self.configGestureTapInView()
+    }
+    
+    func configInitView() {
         heightLabelError.constant = 0
+        showPasswordButton.tintColor = .lightGray
         
+        emailTextField.setDefaultColor()
+        emailTextField.delegate = self
+        passwordTextField.setDefaultColor()
+        passwordTextField.delegate = self
+    }
+    
+    func configLoginButton() {
         loginButton.layer.cornerRadius = loginButton.frame.height / 2
         loginButton.backgroundColor = .blue
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.isEnabled = true
-
-        showPasswordButton.tintColor = .lightGray
-
+    }
+    
+    func configCreateAccountButton() {
         createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
         createAccountButton.layer.borderWidth = 1
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
         createAccountButton.setTitleColor(.blue, for: .normal)
         createAccountButton.backgroundColor = .white
-        
-        emailTextField.setDefaultColor()
-        passwordTextField.setDefaultColor()
-        
+    }
+    
+    func configGestureTapInView() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
     }
-
+    
     @objc
     func didClickView() {
         view.endEditing(true)
@@ -76,79 +85,103 @@ extension LALoginViewController {
         showPasswordButton.setImage((imageIcon ?? UIImage()).withRenderingMode(.alwaysTemplate), for: .normal)
     }
     
-
+    
 }
 
 // MARK: - Edição de Campos
-extension LALoginViewController {
-    @IBAction func emailBeginEditing(_ sender: Any) {
-        if formLoginIsInvalid {
-            resetErrorLogin(emailTextField)
-        } else {
-            emailTextField.setEditingColor()
+extension LALoginViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch(textField) {
+        case emailTextField:
+            passwordTextField.becomeFirstResponder()
+        default:
+            view.endEditing(true)
         }
+        
+        return true
     }
     
-    @IBAction func passwordBeginEditing(_ sender: Any) {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if formLoginIsInvalid {
-            resetErrorLogin(passwordTextField)
+            resetErrorLogin(textField)
         } else {
-            passwordTextField.setEditingColor()
+            textField.setEditingColor()
         }
+        
+        return true
     }
     
     func resetErrorLogin(_ textField: UITextField) {
         heightLabelError.constant = 0
-        if textField == emailTextField {
+        
+        switch(textField) {
+        case emailTextField:
             emailTextField.setEditingColor()
             passwordTextField.setDefaultColor()
-        } else {
+        default:
             emailTextField.setDefaultColor()
             passwordTextField.setDefaultColor()
         }
     }
     
-    @IBAction func emailEditing(_ sender: Any) {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
         validateForm()
     }
     
-    @IBAction func emailEndEditing(_ sender: Any) {
-        emailTextField.setDefaultColor()
-    }
-    
-    @IBAction func passwordEditing(_ sender: Any) {
-        validateForm()
-    }
-    
-    @IBAction func passwordEndEditing(_ sender: Any) {
-        passwordTextField.setDefaultColor()
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        textField.setDefaultColor()
+        
+        return true
     }
 }
 
 // MARK: - Funções
 extension LALoginViewController {
     
-    func verifyIfUserIsLogged() -> Bool {
-        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            return true
+    func initTextFieldValue() {
+#if DEBUG
+        emailTextField.text = "clean.code@devpass.com"
+        passwordTextField.text = "Abcde"
+#endif
+    }
+    
+    func verifyUserLoggedAndNavegateToHome() {
+        let userIsLogged = verifyIfUserIsLogged()
+        if userIsLogged {
+            LALoginCoordinator.shared.navigateToHomeRoot()
         }
-        
-        return false
+    }
+    
+    func verifyIfUserIsLogged() -> Bool {
+        let userSession = UserDefaultsManager.UserInfos.shared.readSesion()
+        let hasUserLogged = userSession != nil
+        return hasUserLogged
     }
     
     @IBAction func handleLoginButton(_ sender: Any) {
-        guard let emailText = emailTextField.text, let passwordText = passwordTextField.text else {
+        let nextStep = getNextStepToLogin()
+        switch nextStep.status {
+        case .invalidData:
             Globals.alertMessage(title: "Ops..", message: "Verifique os dados informados e tente novamente!", targetVC: self)
-            return
+        case .noInternet:
+            Globals.showNoInternetCOnnection(controller: self)
+        case .loginRequest:
+            handleLoginRequest(email: nextStep.email, password: nextStep.password)
+        }
+    }
+    
+    private func getNextStepToLogin() -> StepToLogin {
+        guard let emailText = emailTextField.text, let passwordText = passwordTextField.text else {
+            return StepToLogin(status: .invalidData, email: "", password: "")
         }
         
         let deviceIsDisconnectedInternet = !ConnectivityManager.shared.isConnected
         if deviceIsDisconnectedInternet {
-            Globals.showNoInternetCOnnection(controller: self)
-            return
+            return StepToLogin(status: .noInternet, email: "", password: "")
         }
         
-        handleLoginRequest(email: emailText, password: passwordText)
+        return StepToLogin(status: .loginRequest, email: emailText, password: passwordText)
     }
     
     private func handleLoginRequest(email: String, password: String) {
@@ -161,10 +194,10 @@ extension LALoginViewController {
             DispatchQueue.main.async {
                 self.stopLoading()
                 switch result {
-                    case .success(let data):
-                        self.handleLoginSuccess(with: data)
-                    case .failure:
-                        self.handleLoginFailure()
+                case .success(let data):
+                    self.handleLoginSuccess(with: data)
+                case .failure:
+                    self.handleLoginFailure()
                 }
             }
         }
@@ -219,10 +252,11 @@ extension LALoginViewController {
         
         let emailIsValid = Validations.shared.isEmail(emailText)
         let passwordIsValid = passwordText.count > 0
+        let formIsValid = emailIsValid && passwordIsValid
         
-        if(emailIsValid && passwordIsValid) {
+        if formIsValid {
             enableFormButton()
-			return
+            return
         }
         
         disableFormButton()
