@@ -26,3 +26,5 @@ Desenvolveremos as diversas camadas que formam os módulos da aplicação: Inter
 A Devpass é uma comunidade de pessoas desenvolvedoras de alto potencial acelerando suas carreiras através de desenvolvimento de produtos reais, como o Hereminders, e conexões com as principais lideranças de tecnologia do país, através de mentorias particulares e Tech Talks.
 
 Se interessou? Acesse www.devpass.com.br e se inscreva na nossa lista para ficar por dentro das novidades!
+# devPassLagosta
+# devPassLagosta

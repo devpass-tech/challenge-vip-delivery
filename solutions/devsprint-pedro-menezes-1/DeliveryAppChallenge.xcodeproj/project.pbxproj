@@ -153,6 +153,8 @@
 		A4C4BEA628820DAE00CF1E09 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA528820DAE00CF1E09 /* User.swift */; };
 		A4C4BEA82882160B00CF1E09 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA72882160B00CF1E09 /* Session.swift */; };
 		A4C4BEAA2882164200CF1E09 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA92882164200CF1E09 /* Endpoints.swift */; };
+		F6F961CD288A2C4D00218522 /* THResetPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */; };
+		B9F2D6AD2888C9BE0022EC88 /* LoginUserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -318,6 +320,8 @@
 		A4C4BEA528820DAE00CF1E09 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A4C4BEA72882160B00CF1E09 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		A4C4BEA92882164200CF1E09 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THResetPasswordCoordinator.swift; sourceTree = "<group>"; };
+		B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -398,6 +402,20 @@
 				02A7F918288EEC8000285FCC /* StatusStepToLogin.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		65219CA22889932400220964 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		65219CA82889A4B500220964 /* API Requests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "API Requests";
 			sourceTree = "<group>";
 		};
 		980D5732280DFF7700DDAF20 /* Sample */ = {
@@ -754,6 +772,8 @@
 		A45BADD228863E9D00E5AAE6 /* GabrielCastro */ = {
 			isa = PBXGroup;
 			children = (
+				65219CA82889A4B500220964 /* API Requests */,
+				65219CA22889932400220964 /* Coordinator */,
 				A45BAE3E28864F9800E5AAE6 /* GCUser.storyboard */,
 				A45BAE3F28864F9800E5AAE6 /* GCContactUsViewController.swift */,
 				A45BAE4328864F9800E5AAE6 /* GCContactUsViewController.xib */,
@@ -794,13 +814,14 @@
 		A45BADD52886408F00E5AAE6 /* ThyagoRaphael */ = {
 			isa = PBXGroup;
 			children = (
-				A45BAE972886577E00E5AAE6 /* THUser.storyboard */,
 				A45BAE962886577E00E5AAE6 /* THContactUsViewController.swift */,
 				A45BAE922886577D00E5AAE6 /* THContactUsViewController.xib */,
 				A45BAE942886577E00E5AAE6 /* THCreateAccountViewController.swift */,
 				A45BAE932886577D00E5AAE6 /* THCreateAccountViewController.xib */,
 				A45BAE952886577E00E5AAE6 /* THLoginViewController.swift */,
 				A45BAE982886577E00E5AAE6 /* THResetPasswordViewController.swift */,
+				A45BAE972886577E00E5AAE6 /* THUser.storyboard */,
+				F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */,
 			);
 			path = ThyagoRaphael;
 			sourceTree = "<group>";
@@ -913,6 +934,7 @@
 				A45BADED288643A400E5AAE6 /* TRCreateAccountViewController.xib */,
 				A45BADEE288643A400E5AAE6 /* TRLoginViewController.swift */,
 				A45BADEF288643A400E5AAE6 /* TRResetPasswordViewController.swift */,
+				B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */,
 			);
 			path = TatianaRico;
 			sourceTree = "<group>";
@@ -1090,6 +1112,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A45BAE902886564C00E5AAE6 /* RLContactUsViewController.swift in Sources */,
+				B9F2D6AD2888C9BE0022EC88 /* LoginUserCoordinator.swift in Sources */,
 				A45BAE0C2886456A00E5AAE6 /* BTCreateAccountViewController.swift in Sources */,
 				A45BAE9D2886577E00E5AAE6 /* THContactUsViewController.swift in Sources */,
 				A4C4BEA628820DAE00CF1E09 /* User.swift in Sources */,
@@ -1132,6 +1155,7 @@
 				980D5748280DFF7700DDAF20 /* SampleRepositoryImpl.swift in Sources */,
 				A45BAE7F2886558700E5AAE6 /* PTContactUsViewController.swift in Sources */,
 				98F12975272F48E400B88A87 /* AddressCellView.swift in Sources */,
+				F6F961CD288A2C4D00218522 /* THResetPasswordCoordinator.swift in Sources */,
 				A45BAE532886513D00E5AAE6 /* IBLoginViewController.swift in Sources */,
 				980D575F280E015600DDAF20 /* NetworkError.swift in Sources */,
 				98F12970272F41AE00B88A87 /* RestaurantCellView.swift in Sources */,
