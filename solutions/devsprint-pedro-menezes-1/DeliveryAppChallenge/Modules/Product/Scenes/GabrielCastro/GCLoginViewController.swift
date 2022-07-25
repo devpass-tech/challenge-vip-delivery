@@ -1,16 +1,19 @@
 import UIKit
+// ViewModel: Logica
+// ViewController: UIKit
+// Service: api request
 
-protocol GCLoginViewControllerDelegate: AnyObject {
-    func showViewController(vc: UIViewController)
-    func showRequestError(_ targetVC: UIViewController)
-    func showGCResetPasswordViewController()
-}
+//get: obter
+//set: configurar o valor
+
 
 final class GCLoginViewController: UIViewController {
-  
+    
     //MARK: Vars
-    weak var gCLoginViewControllerDelegate: GCLoginViewControllerDelegate?
-            
+    
+    var viewModel = GCLoginViewModel()
+    var coordinator: GCCoordinator?
+    
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
     
@@ -33,9 +36,10 @@ final class GCLoginViewController: UIViewController {
         
     }
     
-    
+    //to do: passar para um service
     private func LoginApiRequest(with endpoint: String, and parameters: [String: String]) {
         // usar reset password como referencia
+        
         
         AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
             self.handleRequest(result: result)
@@ -43,31 +47,31 @@ final class GCLoginViewController: UIViewController {
     }
     
     private func handleRequest(result: Result<Data, Error>) {
-            DispatchQueue.main.async {
-                self.stopLoading()
-                switch result {
-                case .success(let data):
-                    self.decodeUser(with: data)
-                case .failure:
-                    self.gCLoginViewControllerDelegate?.showRequestError(self)
-                }
+        DispatchQueue.main.async {
+            self.stopLoading()
+            switch result {
+            case .success(let data):
+                self.decodeUser(with: data)
+            case .failure:
+                self.showRequestError()
             }
         }
-
-       private func decodeUser(with data: Data) {
-            let decoder = JSONDecoder()
-            do {
-                let session = try decoder.decode(Session.self, from: data)
-                gCLoginViewControllerDelegate?.showViewController(vc: HomeViewController())
-                UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-            } catch {
-                Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-            }
+    }
+    
+    private func decodeUser(with data: Data) {
+        let decoder = JSONDecoder()
+        do {
+            let session = try decoder.decode(Session.self, from: data)
+            coordinator?.showViewController(vc: HomeViewController())
+            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+        } catch {
+            Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
         }
-
-
+    }
     
     
+    
+    // to do: tirar da viewcontroller, e colocar numa viewmodel
     private func loginDefault() {
 #if DEBUG
         emailTextField.text = "clean.code@devpass.com"
@@ -81,37 +85,41 @@ final class GCLoginViewController: UIViewController {
     
     private func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            gCLoginViewControllerDelegate?.showViewController(vc: UINavigationController(rootViewController: HomeViewController()))
+            coordinator?.showViewController(vc: HomeViewController())
         }
     }
-    
-    
     
     private func isInternetConnected(_ controller: UIViewController) -> Bool {
         if ConnectivityManager.shared.isConnected {
             return true
         } else {
-            Globals.showNoInternetCOnnection(controller: controller)    
+            Globals.showNoInternetCOnnection(controller: controller)
             return false
         }
     }
     
+    private  func showRequestError() {
+        self.setErrorLogin("E-mail ou senha incorretos")
+        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
+    }
+    
     
     @IBAction func loginButton(_ sender: Any) {
-     
+        //
         if ConnectivityManager.shared.isConnected {
             showLoading()
             let parameters: [String: String] = ["email": emailTextField.text!,
-                                               "password": passwordTextField.text!]
-                    let endpoint = Endpoints.Auth.login
+                                                "password": passwordTextField.text!]
+            let endpoint = Endpoints.Auth.login
             LoginApiRequest(with: endpoint, and: parameters)
         } else {
             Globals.showNoInternetCOnnection(controller: self)
         }
     }
     
+    // to do: deixar a logica fora da viewcontroller
     @IBAction func showPassword(_ sender: Any) {
-       
+        
         if(showPassword == true) {
             passwordTextField.isSecureTextEntry = true
             setupPasswordButtonImage()
@@ -130,9 +138,10 @@ final class GCLoginViewController: UIViewController {
     
     @IBAction func resetPasswordButton(_ sender: Any) {
         showGCResetPasswordViewController()
+        //coordinator?.showGCResetPasswordViewController(presentController: self)
     }
     
-    private func showGCResetPasswordViewController() {
+    internal func showGCResetPasswordViewController() {
         let storyboard = UIStoryboard(name: "GCUser", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "GCResetPasswordViewController") as! GCResetPasswordViewController
         vc.modalPresentationStyle = .fullScreen
@@ -188,6 +197,15 @@ extension GCLoginViewController {
         view.isUserInteractionEnabled = true
     }
     
+    func setErrorLogin(_ message: String) {
+        errorInLogin = true
+        heightLabelError.constant = 20
+        errorLabel.text = message
+        emailTextField.setErrorColor()
+        passwordTextField.setErrorColor()
+    }
+    
+    
     @objc
     func didClickView() {
         view.endEditing(true)
@@ -227,8 +245,6 @@ extension GCLoginViewController {
         passwordTextField.setDefaultColor()
     }
     
-    
-    
     private func resetErrorLogin(_ textField: UITextField) {
         heightLabelError.constant = 0
         if textField == emailTextField {
@@ -244,27 +260,15 @@ extension GCLoginViewController {
 extension GCLoginViewController {
     
     private func validateButton() {
-        if validateEmail() {
-            enableButton()
-        } else {
-            disableButton()
+        guard let email = emailTextField.text else { return }
+        viewModel.isValidEmail = { [weak self] isValidEmail in
+            if isValidEmail {
+                self?.enableButton()
+            } else {
+                self?.disableButton()
+            }
         }
-    }
-    
-    
-    private func validateEmail() -> Bool {
-        guard let email = emailTextField.text, let atIndex = email.firstIndex(of: "@") else {
-            return false
-        }
-        let substring = email[atIndex...]
-        if !email.contains(".") ||
-            !email.contains("@") ||
-            email.count <= 5 ||
-            !substring.contains(".") {
-            return false
-        } else {
-            return true
-        }
+        viewModel.validateEmail(textField: email)
     }
     
     private func disableButton() {
@@ -276,14 +280,5 @@ extension GCLoginViewController {
         loginButton.backgroundColor = .blue
         loginButton.isEnabled = true
     }
-}
-
-extension GCLoginViewController: GCCoordinatorDelegate {
-    internal func setErrorLogin(_ message: String) {
-        errorInLogin = true
-        heightLabelError.constant = 20
-        errorLabel.text = message
-        emailTextField.setErrorColor()
-        passwordTextField.setErrorColor()
-    }
+    
 }

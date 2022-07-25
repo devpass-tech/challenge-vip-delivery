@@ -7,21 +7,14 @@
 
 import UIKit
 
-protocol GCCoordinatorDelegate: AnyObject {
-    func setErrorLogin(_ message: String)
-}
-
-final class GCCoordinator: GCLoginViewControllerDelegate  {
-    
-    weak var controller: UIViewController?
+final class GCCoordinator  {
     
     init(controller: UIViewController) {
-        self.controller = controller
+        self.showViewController(vc: controller)
+        self.showGCResetPasswordViewController(presentController: controller)
     }
-    
-    weak var gCCoordinatorDelegate: GCCoordinatorDelegate?
-    
-    internal func showViewController(vc: UIViewController) {
+        
+     func showViewController(vc: UIViewController) {
         let vc = vc
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
@@ -30,16 +23,11 @@ final class GCCoordinator: GCLoginViewControllerDelegate  {
         window?.makeKeyAndVisible()
     }
     
-    internal  func showRequestError(_ targetVC: UIViewController) {
-        gCCoordinatorDelegate?.setErrorLogin("E-mail ou senha incorretos")
-         Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: targetVC)
-     }
-    
-    internal func showGCResetPasswordViewController() {
+    func showGCResetPasswordViewController(presentController: UIViewController) {
         let storyboard = UIStoryboard(name: "GCUser", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "GCResetPasswordViewController") as! GCResetPasswordViewController
         vc.modalPresentationStyle = .fullScreen
-        controller?.present(vc, animated: true)
+        presentController.present(vc, animated: true)
     }
 
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6547C458288C191000468CED /* GCCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6547C457288C191000468CED /* GCCoordinator.swift */; };
+		6547C45B288C295F00468CED /* GCLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6547C45A288C295F00468CED /* GCLoginViewModel.swift */; };
 		980D5748280DFF7700DDAF20 /* SampleRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */; };
 		980D5749280DFF7700DDAF20 /* SampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5735280DFF7700DDAF20 /* SampleRequest.swift */; };
 		980D574A280DFF7700DDAF20 /* SampleApiDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */; };
@@ -164,6 +165,7 @@
 
 /* Begin PBXFileReference section */
 		6547C457288C191000468CED /* GCCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCCoordinator.swift; sourceTree = "<group>"; };
+		6547C45A288C295F00468CED /* GCLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCLoginViewModel.swift; sourceTree = "<group>"; };
 		980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRepositoryImpl.swift; sourceTree = "<group>"; };
 		980D5735280DFF7700DDAF20 /* SampleRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRequest.swift; sourceTree = "<group>"; };
 		980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleApiDataSource.swift; sourceTree = "<group>"; };
@@ -345,6 +347,14 @@
 			children = (
 			);
 			path = "API Requests";
+			sourceTree = "<group>";
+		};
+		6547C459288C292F00468CED /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6547C45A288C295F00468CED /* GCLoginViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		980D5732280DFF7700DDAF20 /* Sample */ = {
@@ -701,6 +711,7 @@
 		A45BADD228863E9D00E5AAE6 /* GabrielCastro */ = {
 			isa = PBXGroup;
 			children = (
+				6547C459288C292F00468CED /* ViewModel */,
 				65219CA82889A4B500220964 /* API Requests */,
 				65219CA22889932400220964 /* Coordinator */,
 				A45BAE3E28864F9800E5AAE6 /* GCUser.storyboard */,
@@ -1096,6 +1107,7 @@
 				A4C4BEA328820D8400CF1E09 /* TextfieldReturnKeyManager.swift in Sources */,
 				980D5763280E018200DDAF20 /* NetworkManager.swift in Sources */,
 				A45BAE8E2886564C00E5AAE6 /* RLResetPasswordViewController.swift in Sources */,
+				6547C45B288C295F00468CED /* GCLoginViewModel.swift in Sources */,
 				A45BAE3A28864E9E00E5AAE6 /* GSCreateAccountViewController.swift in Sources */,
 				A4C4BEA82882160B00CF1E09 /* Session.swift in Sources */,
 				980D574B280DFF7700DDAF20 /* SampleDataSource.swift in Sources */,
