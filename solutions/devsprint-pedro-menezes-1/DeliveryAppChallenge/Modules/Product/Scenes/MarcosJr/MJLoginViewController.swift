@@ -17,13 +17,8 @@ class MJLoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        verifyLogin()
-
-        #if DEBUG
-        emailTextField.text = "clean.code@devpass.com"
-        passwordTextField.text = "111111"
-        #endif
-
+        verifyLoginAndUpdateRootViewController()
+        shouldSetupDebugMode()
         self.setupView()
         self.validateButton()
     }
@@ -31,64 +26,104 @@ class MJLoginViewController: UIViewController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
+    func shouldSetupDebugMode() {
+        #if DEBUG
+        emailTextField.text = "clean.code@devpass.com"
+        passwordTextField.text = "111111"
+        #endif
+    }
+    
+    func updateRootViewController(navigationController: UINavigationController){
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
+    }
 
-    func verifyLogin() {
+    func verifyLoginAndUpdateRootViewController() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
             let vc = UINavigationController(rootViewController: HomeViewController())
-            let scenes = UIApplication.shared.connectedScenes
-            let windowScene = scenes.first as? UIWindowScene
-            let window = windowScene?.windows.first
-            window?.rootViewController = vc
-            window?.makeKeyAndVisible()
+            updateRootViewController(navigationController: vc)
         }
     }
     
-    @IBAction func loginButton(_ sender: Any) {
-        if !ConnectivityManager.shared.isConnected {
-            let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
-            let actin = UIAlertAction(title: "Ok", style: .default)
-            alertController.addAction(actin)
-            present(alertController, animated: true)
-            return
-        }
-
-        showLoading()
+    func loginRequest() {
+        let endpoint = Endpoints.Auth.login
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
-        let endpoint = Endpoints.Auth.login
+        
+        getUserData(endpoint: endpoint, parameters: parameters)
+    }
+    
+    func getUserData(endpoint: String, parameters: [String: String]) {
         AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
             DispatchQueue.main.async {
                 self.stopLoading()
-                switch result {
-                case .success(let data):
-                    let decoder = JSONDecoder()
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        let vc = UINavigationController(rootViewController: HomeViewController())
-                        let scenes = UIApplication.shared.connectedScenes
-                        let windowScene = scenes.first as? UIWindowScene
-                        let window = windowScene?.windows.first
-                        window?.rootViewController = vc
-                        window?.makeKeyAndVisible()
-                        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    } else {
-                        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                    }
-                case .failure:
-                    self.setErrorLogin("E-mail ou senha incorretos")
-                    Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                }
+                self.handleLogindResult(result)
             }
         }
     }
     
-    @IBAction func showPassword(_ sender: Any) {
-        if(showPassword == true) {
-            passwordTextField.isSecureTextEntry = false
-            showPasswordButton.setImage(UIImage.init(systemName: "eye.slash")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        } else {
-            passwordTextField.isSecureTextEntry = true
-            showPasswordButton.setImage(UIImage.init(systemName: "eye")?.withRenderingMode(.alwaysTemplate), for: .normal)
+    func handleLogindResult(_ result: Result<Data, Error>) {
+        switch result {
+        case .success(let data):
+            handleLoginSuccess(userData: data)
+        case .failure:
+            handleLoginFailure()
         }
+    }
+    
+    func handleLoginSuccess(userData: Data) {
+        do {
+            let session = try decodeUser(userData)
+            let vc = UINavigationController(rootViewController: HomeViewController())
+            updateRootViewController(navigationController: vc)
+            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+        } catch {
+            handleLoginFailure()
+        }
+    }
+    
+    func decodeUser(_ userData: Data) throws -> Session {
+        let decoder = JSONDecoder()
+        do {
+            let session = try decoder.decode(Session.self, from: userData)
+            return session
+        } catch {
+            throw error
+        }
+    }
+    
+    func handleLoginFailure() {
+        setErrorLogin("E-mail ou senha incorretos")
+        Globals.alertMessage(title: "Ops..",
+                             message: "Houve um problema, tente novamente mais tarde.",
+                             targetVC: self)
+    }
+    
+    func showAllert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let actin = UIAlertAction(title: "Ok", style: .default)
+        alertController.addAction(actin)
+        present(alertController, animated: true)
+    }
+    
+    @IBAction func loginButton(_ sender: Any) {
+        if ConnectivityManager.shared.isConnected {
+            showLoading()
+            loginRequest()
+        } else {
+            showAllert(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente")
+        }
+    }
+    
+    @IBAction func changePasswordPresentationStatus(_ sender: Any) {
+        let image = showPassword == true ? "eye" : "eye.slash"
+        passwordTextField.isSecureTextEntry = !showPassword
+        showPasswordButton.setImage(UIImage.init(systemName: image)?.withRenderingMode(.alwaysTemplate), for: .normal)
         showPassword = !showPassword
     }
     
@@ -112,25 +147,37 @@ extension MJLoginViewController {
     
     func setupView() {
         heightLabelError.constant = 0
+        setupColors()
+        setupLoginButton()
+        setupCreateAccountButton()
+        setupGesture()
+        validateButton()
+    }
+    
+    func setupColors() {
+        emailTextField.setDefaultColor()
+        passwordTextField.setDefaultColor()
+    }
+    
+    func setupLoginButton() {
         loginButton.layer.cornerRadius = loginButton.frame.height / 2
         loginButton.backgroundColor = .blue
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.isEnabled = true
-
-        showPasswordButton.tintColor = .lightGray
-
+    }
+    
+    func setupCreateAccountButton() {
         createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
         createAccountButton.layer.borderWidth = 1
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
         createAccountButton.setTitleColor(.blue, for: .normal)
         createAccountButton.backgroundColor = .white
-        
-        emailTextField.setDefaultColor()
-        passwordTextField.setDefaultColor()
+    }
+    
+    func setupGesture() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
-        validateButton()
     }
 
     @objc
@@ -182,31 +229,22 @@ extension MJLoginViewController {
     
     func resetErrorLogin(_ textField: UITextField) {
         heightLabelError.constant = 0
-        if textField == emailTextField {
-            emailTextField.setEditingColor()
-            passwordTextField.setDefaultColor()
-        } else {
-            emailTextField.setDefaultColor()
-            passwordTextField.setDefaultColor()
-        }
+        textField == emailTextField ? emailTextField.setEditingColor() : emailTextField.setDefaultColor()
+        passwordTextField.setDefaultColor()
     }
 }
 
 extension MJLoginViewController {
     
     func validateButton() {
-        if !emailTextField.text!.contains(".") ||
-            !emailTextField.text!.contains("@") ||
-            emailTextField.text!.count <= 5 {
-            disableButton()
-        } else {
+        let emailContainsDot = emailTextField.text!.contains(".")
+        let emailContainsAt = emailTextField.text!.contains("@")
+        let emailSizeGreaterThanFive = emailTextField.text!.count > 5
+        
+        if !emailContainsDot || !emailContainsAt || !emailSizeGreaterThanFive {
             if let atIndex = emailTextField.text!.firstIndex(of: "@") {
                 let substring = emailTextField.text![atIndex...]
-                if substring.contains(".") {
-                    enableButton()
-                } else {
-                    disableButton()
-                }
+                substring.contains(".") ? enableButton() : disableButton()
             } else {
                 disableButton()
             }

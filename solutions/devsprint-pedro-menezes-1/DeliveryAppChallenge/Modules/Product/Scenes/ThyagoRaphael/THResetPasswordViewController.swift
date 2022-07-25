@@ -1,7 +1,13 @@
 import UIKit
 
 class THResetPasswordViewController: UIViewController {
-
+    // MARK: - Properties
+    var email = ""
+    var loadingScreen = LoadingController()
+    var recoveryEmail = false
+    var coordinator = THResetPasswordCoordinator()
+    
+    // MARK: - Outlets
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var recoverPasswordButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
@@ -11,13 +17,11 @@ class THResetPasswordViewController: UIViewController {
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var viewSuccess: UIView!
     @IBOutlet weak var emailLabel: UILabel!
-    
-    var email = ""
-    var loadingScreen = LoadingController()
-    var recoveryEmail = false
 
+    // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        coordinator.controller = self
         setupView()
     }
     
@@ -25,6 +29,7 @@ class THResetPasswordViewController: UIViewController {
         return .lightContent
     }
 
+    // MARK: Actions
     @IBAction func closeButtonAction(_ sender: Any) {
         dismiss(animated: true)
     }
@@ -33,37 +38,10 @@ class THResetPasswordViewController: UIViewController {
         if recoveryEmail {
             dismiss(animated: true)
             return
-        }
-
-        if validateForm() {
-            self.view.endEditing(true)
-            if !ConnectivityManager.shared.isConnected {
-                Globals.showNoInternetCOnnection(controller: self)
-                return
-            }
-
-            let emailUser = emailTextfield.text!.trimmingCharacters(in: .whitespaces)
-            
-            let parameters = [
-                "email": emailUser
-            ]
-            
-            BadNetworkLayer.shared.resetPassword(self, parameters: parameters) { (success) in
-                if success {
-                    self.recoveryEmail = true
-                    self.emailTextfield.isHidden = true
-                    self.textLabel.isHidden = true
-                    self.viewSuccess.isHidden = false
-                    self.emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
-                    self.recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
-                    self.recoverPasswordButton.setTitle("Voltar", for: .normal)
-                } else {
-                    let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "OK", style: .default)
-                    alertController.addAction(action)
-                    self.present(alertController, animated: true)
-                }
-            }
+        } else if isValidEmail() {
+            validateEmailError()
+        } else {
+            haveConnection()
         }
     }
     
@@ -72,71 +50,13 @@ class THResetPasswordViewController: UIViewController {
     }
     
     @IBAction func helpButton(_ sender: Any) {
-        let vc = THContactUsViewController()
-        vc.modalPresentationStyle = .popover
-        vc.modalTransitionStyle = .coverVertical
-        self.present(vc, animated: true, completion: nil)
+        self.coordinator.THContactUSViewController()
     }
     
     @IBAction func createAccountButton(_ sender: Any) {
-        let newVc = THCreateAccountViewController()
-        newVc.modalPresentationStyle = .fullScreen
-        present(newVc, animated: true)
+        self.coordinator.THCreateAccontouViewController()
     }
     
-    func validateForm() -> Bool {
-        let status = emailTextfield.text!.isEmpty ||
-            !emailTextfield.text!.contains(".") ||
-            !emailTextfield.text!.contains("@") ||
-            emailTextfield.text!.count <= 5
-        
-        if status {
-            emailTextfield.setErrorColor()
-            textLabel.textColor = .red
-            textLabel.text = "Verifique o e-mail informado"
-            return false
-        }
-        
-        return true
-    }
-}
-
-// MARK: - Comportamentos de layout
-extension THResetPasswordViewController {
-    
-    func setupView() {
-        recoverPasswordButton.layer.cornerRadius = recoverPasswordButton.bounds.height / 2
-        recoverPasswordButton.backgroundColor = .blue
-        recoverPasswordButton.setTitleColor(.white, for: .normal)
-
-        loginButton.layer.cornerRadius = createAccountButton.frame.height / 2
-        loginButton.layer.borderWidth = 1
-        loginButton.layer.borderColor = UIColor.blue.cgColor
-        loginButton.setTitleColor(.blue, for: .normal)
-        loginButton.backgroundColor = .white
-        
-        helpButton.layer.cornerRadius = createAccountButton.frame.height / 2
-        helpButton.layer.borderWidth = 1
-        helpButton.layer.borderColor = UIColor.blue.cgColor
-        helpButton.setTitleColor(.blue, for: .normal)
-        helpButton.backgroundColor = .white
-        
-        createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
-        createAccountButton.layer.borderWidth = 1
-        createAccountButton.layer.borderColor = UIColor.blue.cgColor
-        createAccountButton.setTitleColor(.blue, for: .normal)
-        createAccountButton.backgroundColor = .white
-        
-        emailTextfield.setDefaultColor()
-        
-        if !email.isEmpty {
-            emailTextfield.text = email
-            emailTextfield.isEnabled = false
-        }
-        validateButton()
-    }
-    
-    //email
     @IBAction func emailBeginEditing(_ sender: Any) {
         emailTextfield.setEditingColor()
     }
@@ -151,25 +71,122 @@ extension THResetPasswordViewController {
     }
 }
 
+// MARK: - Extensions
+// MARK: - Methods
 extension THResetPasswordViewController {
+    func haveConnection() {
+        self.view.endEditing(true)
+        if !ConnectivityManager.shared.isConnected {
+            Globals.showNoInternetCOnnection(controller: self)
+            return
+        }
+        fetchResetPassword()
+    }
     
-    func validateButton() {
-        if !emailTextfield.text!.isEmpty {
-            enableCreateButton()
-        } else {
-            disableCreateButton()
+    func fetchResetPassword() {
+        let emailUser = emailTextfield.text!.trimmingCharacters(in: .whitespaces)
+        let parameters = [ "email" : emailUser ]
+        
+        BadNetworkLayer.shared.resetPassword(self, parameters: parameters) { (success) in
+            if success {
+                self.resetPasswordSuccess()
+            } else {
+                self.coordinator.showAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", messageAction: "Ok")
+            }
         }
     }
     
-    func disableCreateButton() {
-        recoverPasswordButton.backgroundColor = .gray
-        recoverPasswordButton.setTitleColor(.white, for: .normal)
-        recoverPasswordButton.isEnabled = false
+    func isValidEmail() -> Bool {
+        let emailIsEmpty = emailTextfield.text!.isEmpty
+        let isNotEmailContainDot = !emailTextfield.text!.contains(".")
+        let isNotEmailContainAt = !emailTextfield.text!.contains("@")
+        let isEmailSmaller = emailTextfield.text!.count <= 5
+        let statusEmail = emailIsEmpty || isNotEmailContainDot || isNotEmailContainAt || isEmailSmaller
+        return statusEmail
     }
     
-    func enableCreateButton() {
+    func validateEmailError() {
+        emailTextfield.setErrorColor()
+        textLabel.textColor = .red
+        textLabel.text = "Verifique o e-mail informado"
+    }
+    
+    func validateButton() {
+        let isEmailEmpty = (emailTextfield.text ?? "").isEmpty
+        let isButtonEnabled = !isEmailEmpty
+        toggleCreateButtonStatus(isButtonEnabled)
+    }
+
+    func toggleCreateButtonStatus(_ isEnabled: Bool) {
+        recoverPasswordButton.backgroundColor = isEnabled ? .blue : .gray
+        let titleColor: UIColor = .white
+        recoverPasswordButton.setTitleColor(titleColor, for: .normal)
+        recoverPasswordButton.isEnabled = isEnabled
+    }
+
+    func validateEmailEmpty() {
+        let emailEmpty = email.isEmpty
+        let emailValidate = !emailEmpty
+        if emailValidate {
+            emailTextfield.text = email
+            emailTextfield.isEnabled = false
+        }
+    }
+    
+    func resetPasswordSuccess() {
+        self.recoveryEmail = true
+        self.emailTextfield.isHidden = true
+        self.textLabel.isHidden = true
+        self.viewSuccess.isHidden = false
+        self.emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
+        self.recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
+        self.recoverPasswordButton.setTitle("Voltar", for: .normal)
+    }
+}
+
+// MARK: - UI Components
+extension THResetPasswordViewController {
+    func setupView() {
+        buildComponentsLayout()
+        emailTextfield.setDefaultColor()
+        validateEmailEmpty()
+        validateButton()
+    }
+    
+    func buildComponentsLayout() {
+        setupRecoverPasswordButton()
+        setupLoginButton()
+        setupHelpButton()
+        setupCreateAccountButton()
+    }
+    
+    func setupRecoverPasswordButton() {
+        recoverPasswordButton.layer.cornerRadius = recoverPasswordButton.bounds.height / 2
         recoverPasswordButton.backgroundColor = .blue
         recoverPasswordButton.setTitleColor(.white, for: .normal)
-        recoverPasswordButton.isEnabled = true
+    }
+    
+    func setupLoginButton() {
+        loginButton.layer.cornerRadius = createAccountButton.frame.height / 2
+        loginButton.layer.borderWidth = 1
+        loginButton.layer.borderColor = UIColor.blue.cgColor
+        loginButton.setTitleColor(.blue, for: .normal)
+        loginButton.backgroundColor = .white
+    }
+
+    func setupHelpButton() {
+        helpButton.layer.cornerRadius = createAccountButton.frame.height / 2
+        helpButton.layer.borderWidth = 1
+        helpButton.layer.borderColor = UIColor.blue.cgColor
+        helpButton.setTitleColor(.blue, for: .normal)
+        helpButton.backgroundColor = .white
+    }
+    
+    func setupCreateAccountButton() {
+        createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
+        createAccountButton.layer.borderWidth = 1
+        createAccountButton.layer.borderColor = UIColor.blue.cgColor
+        createAccountButton.setTitleColor(.blue, for: .normal)
+        createAccountButton.backgroundColor = .white
     }
 }

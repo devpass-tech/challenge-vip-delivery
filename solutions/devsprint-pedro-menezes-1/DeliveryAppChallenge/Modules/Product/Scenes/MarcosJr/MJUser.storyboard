@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uHU-dp-7pV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21208.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uHU-dp-7pV">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21191"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -144,7 +145,7 @@
                                                 </constraints>
                                                 <state key="normal" image="eye" catalog="system"/>
                                                 <connections>
-                                                    <action selector="showPassword:" destination="uHU-dp-7pV" eventType="touchUpInside" id="uoE-Yx-wxe"/>
+                                                    <action selector="changePasswordPresentationStatus:" destination="uHU-dp-7pV" eventType="touchUpInside" id="NTc-HQ-gJe"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -229,7 +230,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="smoke.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="AaN-3f-MXP">
-                                        <rect key="frame" x="20" y="71.5" width="374" height="71.5"/>
+                                        <rect key="frame" x="20" y="72" width="374" height="71.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="75" id="PBZ-5O-zL1"/>
                                         </constraints>
@@ -425,9 +426,9 @@ E-mail enviado para:</string>
         </scene>
     </scenes>
     <resources>
-        <image name="brain" catalog="system" width="128" height="104"/>
-        <image name="eye" catalog="system" width="128" height="81"/>
-        <image name="smoke.fill" catalog="system" width="128" height="93"/>
+        <image name="brain" catalog="system" width="128" height="107"/>
+        <image name="eye" catalog="system" width="128" height="79"/>
+        <image name="smoke.fill" catalog="system" width="128" height="95"/>
         <image name="xmark.app.fill" catalog="system" width="128" height="114"/>
         <namedColor name="black soft">
             <color red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
