@@ -9,11 +9,11 @@ import Foundation
 
 typealias UserSessionResult = Result<Session, GSNetworkRequestErrors>
 
-protocol GSLoginNetworkRequesting {
+protocol GSLoginServiceRequesting {
     func makeLoginAuthenticationRequest(userData: UserEmailAndPasswordData, completion: @escaping (UserSessionResult) -> Void)
 }
 
-final class GSLoginNetworkManager: GSLoginNetworkRequesting {
+final class GSLoginService: GSLoginServiceRequesting {
     func makeLoginAuthenticationRequest(userData: UserEmailAndPasswordData, completion: @escaping (UserSessionResult) -> Void) {
         let parameters = getParametersLoginAuthentication(email: userData.email, password: userData.password)
         let endpoint = Endpoints.Auth.login
@@ -34,7 +34,7 @@ final class GSLoginNetworkManager: GSLoginNetworkRequesting {
     }
 }
 
-private extension GSLoginNetworkManager {
+private extension GSLoginService {
     func getParametersLoginAuthentication(email: String, password: String) -> [String: String] {
         let parameters: [String: String] = ["email": email,
                                             "password": password]

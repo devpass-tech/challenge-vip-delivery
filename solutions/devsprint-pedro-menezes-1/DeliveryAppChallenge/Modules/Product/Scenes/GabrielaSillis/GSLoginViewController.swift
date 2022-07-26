@@ -9,8 +9,8 @@ final class GSLoginViewController: UIViewController {
     @IBOutlet weak var createAccountButton: UIButton!
     @IBOutlet weak var showPasswordButton: UIButton!
     
-    private var coordinator: GSCoordinating = GSCoordinator()
-    private var serviceLayer: GSLoginNetworkRequesting = GSLoginNetworkManager()
+    private var coordinator: GSLoginCoordinating = GSLoginCoordinator()
+    private var serviceLayer: GSLoginServiceRequesting = GSLoginService()
     private let viewModel: GSLoginViewModelProtocol = GSLoginViewModel()
     
     var showPassword = true

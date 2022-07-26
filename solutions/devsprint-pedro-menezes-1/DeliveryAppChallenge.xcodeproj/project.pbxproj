@@ -149,8 +149,8 @@
 		A4C4BEA628820DAE00CF1E09 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA528820DAE00CF1E09 /* User.swift */; };
 		A4C4BEA82882160B00CF1E09 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA72882160B00CF1E09 /* Session.swift */; };
 		A4C4BEAA2882164200CF1E09 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA92882164200CF1E09 /* Endpoints.swift */; };
-		C57ED6E42888C0B3004BF505 /* GSCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57ED6E32888C0B3004BF505 /* GSCoordinator.swift */; };
-		C57ED6E62889F972004BF505 /* GSLoginNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57ED6E52889F972004BF505 /* GSLoginNetworkManager.swift */; };
+		C57ED6E42888C0B3004BF505 /* GSLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57ED6E32888C0B3004BF505 /* GSLoginCoordinator.swift */; };
+		C57ED6E62889F972004BF505 /* GSLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57ED6E52889F972004BF505 /* GSLoginService.swift */; };
 		C57ED6E8288A005E004BF505 /* GSNetworkRequestErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57ED6E7288A005E004BF505 /* GSNetworkRequestErrors.swift */; };
 		C57ED6EA288A006F004BF505 /* UserEmailAndPasswordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57ED6E9288A006F004BF505 /* UserEmailAndPasswordData.swift */; };
 		C57ED6EC288A0472004BF505 /* GSLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57ED6EB288A0472004BF505 /* GSLoginViewModel.swift */; };
@@ -315,8 +315,8 @@
 		A4C4BEA528820DAE00CF1E09 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A4C4BEA72882160B00CF1E09 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		A4C4BEA92882164200CF1E09 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
-		C57ED6E32888C0B3004BF505 /* GSCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSCoordinator.swift; sourceTree = "<group>"; };
-		C57ED6E52889F972004BF505 /* GSLoginNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSLoginNetworkManager.swift; sourceTree = "<group>"; };
+		C57ED6E32888C0B3004BF505 /* GSLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSLoginCoordinator.swift; sourceTree = "<group>"; };
+		C57ED6E52889F972004BF505 /* GSLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSLoginService.swift; sourceTree = "<group>"; };
 		C57ED6E7288A005E004BF505 /* GSNetworkRequestErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSNetworkRequestErrors.swift; sourceTree = "<group>"; };
 		C57ED6E9288A006F004BF505 /* UserEmailAndPasswordData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEmailAndPasswordData.swift; sourceTree = "<group>"; };
 		C57ED6EB288A0472004BF505 /* GSLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSLoginViewModel.swift; sourceTree = "<group>"; };
@@ -799,8 +799,8 @@
 				A45BAE3228864E9E00E5AAE6 /* GSCreateAccountViewController.xib */,
 				A45BAE3628864E9E00E5AAE6 /* GSLoginViewController.swift */,
 				A45BAE3028864E9D00E5AAE6 /* GSResetPasswordViewController.swift */,
-				C57ED6E32888C0B3004BF505 /* GSCoordinator.swift */,
-				C57ED6E52889F972004BF505 /* GSLoginNetworkManager.swift */,
+				C57ED6E32888C0B3004BF505 /* GSLoginCoordinator.swift */,
+				C57ED6E52889F972004BF505 /* GSLoginService.swift */,
 				C57ED6E7288A005E004BF505 /* GSNetworkRequestErrors.swift */,
 				C57ED6E9288A006F004BF505 /* UserEmailAndPasswordData.swift */,
 				C57ED6EB288A0472004BF505 /* GSLoginViewModel.swift */,
@@ -1069,7 +1069,7 @@
 				A45BAE912886564C00E5AAE6 /* RLCreateAccountViewController.swift in Sources */,
 				A45BAE4B28864F9800E5AAE6 /* GCLoginViewController.swift in Sources */,
 				A45BAE73288654BA00E5AAE6 /* MJResetPasswordViewController.swift in Sources */,
-				C57ED6E62889F972004BF505 /* GSLoginNetworkManager.swift in Sources */,
+				C57ED6E62889F972004BF505 /* GSLoginService.swift in Sources */,
 				A4C4BEAA2882164200CF1E09 /* Endpoints.swift in Sources */,
 				980D574C280DFF7700DDAF20 /* SampleResponse.swift in Sources */,
 				A45BAE622886523100E5AAE6 /* LAResetPasswordViewController.swift in Sources */,
@@ -1106,7 +1106,7 @@
 				A45BAE572886513D00E5AAE6 /* IBContactUsViewController.swift in Sources */,
 				A45BADF5288643A500E5AAE6 /* TRResetPasswordViewController.swift in Sources */,
 				A45BAE4828864F9800E5AAE6 /* GCResetPasswordViewController.swift in Sources */,
-				C57ED6E42888C0B3004BF505 /* GSCoordinator.swift in Sources */,
+				C57ED6E42888C0B3004BF505 /* GSLoginCoordinator.swift in Sources */,
 				98F1296E272F363200B88A87 /* HomeView.swift in Sources */,
 				A45BAE832886558700E5AAE6 /* PTResetPasswordViewController.swift in Sources */,
 				98F1296A272F327100B88A87 /* CategoryCellView.swift in Sources */,

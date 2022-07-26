@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol GSCoordinating {
+protocol GSLoginCoordinating {
     func startNavigatingFlow()
     func displayErrorAlertView()
     func navigatingToResetPassword()
@@ -15,7 +15,7 @@ protocol GSCoordinating {
     var controller: UIViewController? { get set }
 }
 
-struct GSCoordinator: GSCoordinating {
+struct GSLoginCoordinator: GSLoginCoordinating {
     var controller: UIViewController?
     
     func startNavigatingFlow() {

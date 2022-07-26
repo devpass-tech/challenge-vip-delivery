@@ -22,7 +22,7 @@ protocol GSLoginViewModelProtocol {
 
 final class GSLoginViewModel: GSLoginViewModelProtocol {
     private weak var delegate: GSLoginViewModelDelegate?
-    private let serviceLayer: GSLoginNetworkRequesting = GSLoginNetworkManager()
+    private let serviceLayer: GSLoginServiceRequesting = GSLoginService()
     private var userEmailAndPassword: UserEmailAndPasswordData?
     
     func makeLoginAuthenticationRequest() {
