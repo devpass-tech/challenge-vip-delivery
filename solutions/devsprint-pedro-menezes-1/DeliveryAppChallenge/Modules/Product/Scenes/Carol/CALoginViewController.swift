@@ -45,14 +45,14 @@ class CALoginViewController: UIViewController {
     
     @IBAction func loginButton(_ sender: Any) {
         if !ConnectivityManager.shared.isConnected {
-            let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
-            let actin = UIAlertAction(title: "Ok", style: .default)
-            alertController.addAction(actin)
-            present(alertController, animated: true)
-            return
+            presentConnectivityError()
+        } else {
+            showLoading()
+            login()
         }
-
-        showLoading()
+    }
+    
+    private func login() {
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
         let endpoint = Endpoints.Auth.login
@@ -61,24 +61,40 @@ class CALoginViewController: UIViewController {
                 self.stopLoading()
                 switch result {
                 case .success(let data):
-                    let decoder = JSONDecoder()
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        let vc = UINavigationController(rootViewController: HomeViewController())
-                        let scenes = UIApplication.shared.connectedScenes
-                        let windowScene = scenes.first as? UIWindowScene
-                        let window = windowScene?.windows.first
-                        window?.rootViewController = vc
-                        window?.makeKeyAndVisible()
-                        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    } else {
-                        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                    }
+                    onLoginSuccess(data)
                 case .failure:
-                    self.setErrorLogin("E-mail ou senha incorretos")
-                    Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
+                    self.onLoginFailure()
                 }
             }
         }
+    }
+    
+    private func presentConnectivityError() {
+        let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default)
+        
+        alertController.addAction(action)
+        present(alertController, animated: true)
+    }
+    
+    private func onLoginSuccess(data: Success) {
+        let decoder = JSONDecoder()
+        if let session = try? decoder.decode(Session.self, from: data) {
+            let vc = UINavigationController(rootViewController: HomeViewController())
+            let scenes = UIApplication.shared.connectedScenes
+            let windowScene = scenes.first as? UIWindowScene
+            let window = windowScene?.windows.first
+            window?.rootViewController = vc
+            window?.makeKeyAndVisible()
+            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+        } else {
+            Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
+        }
+    }
+    
+    private func onLoginFailure() {
+        self.setErrorLogin("E-mail ou senha incorretos")
+        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
     }
     
     @IBAction func showPassword(_ sender: Any) {
@@ -112,25 +128,27 @@ extension CALoginViewController {
     
     func setupView() {
         heightLabelError.constant = 0
+        setupLoginButton()
+
+        showPasswordButton.tintColor = .lightGray
+
+        createAccountButton.setupStyle(createAccountButton)
+        
+        emailTextField.setDefaultColor()
+        passwordTextField.setDefaultColor()
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
+        view.addGestureRecognizer(gesture)
+        view.isUserInteractionEnabled = true
+        
+        validateButton()
+    }
+    
+    private func setupLoginButton() {
         loginButton.layer.cornerRadius = loginButton.frame.height / 2
         loginButton.backgroundColor = .blue
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.isEnabled = true
-
-        showPasswordButton.tintColor = .lightGray
-
-        createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
-        createAccountButton.layer.borderWidth = 1
-        createAccountButton.layer.borderColor = UIColor.blue.cgColor
-        createAccountButton.setTitleColor(.blue, for: .normal)
-        createAccountButton.backgroundColor = .white
-        
-        emailTextField.setDefaultColor()
-        passwordTextField.setDefaultColor()
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
-        view.addGestureRecognizer(gesture)
-        view.isUserInteractionEnabled = true
-        validateButton()
     }
 
     @objc
