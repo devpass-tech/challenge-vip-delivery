@@ -7,9 +7,11 @@
 
 
 // to do: implementar outras logicas de login no ViewModel
-class GCLoginViewModel {
+final class GCLoginViewModel {
     
     var isValidEmail: ((Bool) -> Void)?
+    var isPasswordEnable: ((Bool) -> Void)?
+    var showPassword = true
     
     func validateEmail(textField: String) {
         guard let atIndex = textField.firstIndex(of: "@") else {

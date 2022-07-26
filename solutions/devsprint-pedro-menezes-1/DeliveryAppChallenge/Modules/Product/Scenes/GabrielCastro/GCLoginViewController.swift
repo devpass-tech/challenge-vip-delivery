@@ -12,7 +12,7 @@ final class GCLoginViewController: UIViewController {
     //MARK: Vars
     
     var viewModel = GCLoginViewModel()
-    var coordinator: GCCoordinator?
+    let gcLoginCoordinator = GCLoginCoordinator()
     
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
@@ -36,11 +36,10 @@ final class GCLoginViewController: UIViewController {
         
     }
     
+    
     //to do: passar para um service
+    // usar reset password como referencia
     private func LoginApiRequest(with endpoint: String, and parameters: [String: String]) {
-        // usar reset password como referencia
-        
-        
         AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
             self.handleRequest(result: result)
         }
@@ -62,14 +61,12 @@ final class GCLoginViewController: UIViewController {
         let decoder = JSONDecoder()
         do {
             let session = try decoder.decode(Session.self, from: data)
-            coordinator?.showViewController(vc: HomeViewController())
+            gcLoginCoordinator.showViewController(vc: HomeViewController())
             UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
         } catch {
             Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
         }
     }
-    
-    
     
     // to do: tirar da viewcontroller, e colocar numa viewmodel
     private func loginDefault() {
@@ -85,16 +82,7 @@ final class GCLoginViewController: UIViewController {
     
     private func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            coordinator?.showViewController(vc: HomeViewController())
-        }
-    }
-    
-    private func isInternetConnected(_ controller: UIViewController) -> Bool {
-        if ConnectivityManager.shared.isConnected {
-            return true
-        } else {
-            Globals.showNoInternetCOnnection(controller: controller)
-            return false
+            gcLoginCoordinator.showViewController(vc: HomeViewController())
         }
     }
     
@@ -105,7 +93,6 @@ final class GCLoginViewController: UIViewController {
     
     
     @IBAction func loginButton(_ sender: Any) {
-        //
         if ConnectivityManager.shared.isConnected {
             showLoading()
             let parameters: [String: String] = ["email": emailTextField.text!,
@@ -119,7 +106,6 @@ final class GCLoginViewController: UIViewController {
     
     // to do: deixar a logica fora da viewcontroller
     @IBAction func showPassword(_ sender: Any) {
-        
         if(showPassword == true) {
             passwordTextField.isSecureTextEntry = true
             setupPasswordButtonImage()
@@ -137,15 +123,7 @@ final class GCLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        showGCResetPasswordViewController()
-        //coordinator?.showGCResetPasswordViewController(presentController: self)
-    }
-    
-    internal func showGCResetPasswordViewController() {
-        let storyboard = UIStoryboard(name: "GCUser", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "GCResetPasswordViewController") as! GCResetPasswordViewController
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        gcLoginCoordinator.showGCResetPasswordViewController(presentController: self)
     }
     
     @IBAction func createAccountButton(_ sender: Any) {
@@ -197,7 +175,7 @@ extension GCLoginViewController {
         view.isUserInteractionEnabled = true
     }
     
-    func setErrorLogin(_ message: String) {
+    private func setErrorLogin(_ message: String) {
         errorInLogin = true
         heightLabelError.constant = 20
         errorLabel.text = message
@@ -206,8 +184,7 @@ extension GCLoginViewController {
     }
     
     
-    @objc
-    func didClickView() {
+    @objc func didClickView() {
         view.endEditing(true)
     }
     

@@ -7,19 +7,15 @@
 
 import UIKit
 
-final class GCCoordinator  {
+final class GCLoginCoordinator  {
     
-    init(controller: UIViewController) {
-        self.showViewController(vc: controller)
-        self.showGCResetPasswordViewController(presentController: controller)
-    }
-        
-     func showViewController(vc: UIViewController) {
+    
+    func showViewController(vc: UIViewController) {
         let vc = vc
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
         let window = windowScene?.windows.first
-        window?.rootViewController = vc
+        window?.rootViewController = UINavigationController(rootViewController: vc)
         window?.makeKeyAndVisible()
     }
     
@@ -29,5 +25,5 @@ final class GCCoordinator  {
         vc.modalPresentationStyle = .fullScreen
         presentController.present(vc, animated: true)
     }
-
+    
 }
