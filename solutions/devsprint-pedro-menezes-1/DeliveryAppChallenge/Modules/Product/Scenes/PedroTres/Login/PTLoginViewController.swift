@@ -203,22 +203,19 @@ extension PTLoginViewController {
 extension PTLoginViewController {
     
     func validateButton() {
-        if !emailTextField.text!.contains(".") ||
-            !emailTextField.text!.contains("@") ||
-            emailTextField.text!.count <= 5 {
-            disableButton()
-        } else {
-            if let atIndex = emailTextField.text!.firstIndex(of: "@") {
-                let substring = emailTextField.text![atIndex...]
-                if substring.contains(".") {
-                    enableButton()
-                } else {
-                    disableButton()
-                }
-            } else {
-                disableButton()
-            }
+        let email = emailTextField.text
+        let isEmailValid = isValidEmail(email)
+        
+        isEmailValid ? enableButton() : disableButton()
+    }
+    
+    private func isValidEmail(_ email: String?) -> Bool {
+        guard let email = email else {
+            return false
         }
+        return !email.contains(".") ||
+        !email.contains("@") ||
+        email.count <= 5
     }
     
     func disableButton() {
