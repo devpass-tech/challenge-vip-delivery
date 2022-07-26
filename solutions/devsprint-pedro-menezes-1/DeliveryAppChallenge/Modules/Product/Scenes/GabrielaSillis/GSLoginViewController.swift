@@ -179,7 +179,7 @@ private extension GSLoginViewController {
     func configureTextFieldWithDefaultValue() {
         #if DEBUG
         self.emailTextField.text = "clean.code@devpass.com"
-        self.passwordTextField.text = "111111" 
+        self.passwordTextField.text = "111111"
         #endif
     }
     
@@ -190,8 +190,8 @@ private extension GSLoginViewController {
     }
     
     func checkDeviceConnectivityAnduRequestAuthentication() {
-        let deviceDoNotHaveConnectivity = !ConnectivityManager.shared.isConnected
-        if deviceDoNotHaveConnectivity {
+        let isDeviceConnectedToInternet = !ConnectivityManager.shared.isConnected
+        if isDeviceConnectedToInternet {
             Globals.showNoInternetCOnnection(
                 controller: self)
             return
