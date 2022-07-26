@@ -15,15 +15,17 @@ class PTLoginViewController: UIViewController {
     @IBOutlet weak var showPasswordButton: UIButton!
     var errorInLogin = false
     
+    private let service = PTLoginWorker()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyLogin()
-
-        #if DEBUG
+        
+#if DEBUG
         emailTextField.text = "clean.code@devpass.com"
         passwordTextField.text = "111111"
-        #endif
-
+#endif
+        
         self.setupView()
         self.validateButton()
     }
@@ -31,7 +33,7 @@ class PTLoginViewController: UIViewController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-
+    
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
             let vc = UINavigationController(rootViewController: HomeViewController())
@@ -51,34 +53,9 @@ class PTLoginViewController: UIViewController {
             present(alertController, animated: true)
             return
         }
-
+        
         showLoading()
-        let parameters: [String: String] = ["email": emailTextField.text!,
-                                            "password": passwordTextField.text!]
-        let endpoint = Endpoints.Auth.login
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
-            DispatchQueue.main.async {
-                self.stopLoading()
-                switch result {
-                case .success(let data):
-                    let decoder = JSONDecoder()
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        let vc = UINavigationController(rootViewController: HomeViewController())
-                        let scenes = UIApplication.shared.connectedScenes
-                        let windowScene = scenes.first as? UIWindowScene
-                        let window = windowScene?.windows.first
-                        window?.rootViewController = vc
-                        window?.makeKeyAndVisible()
-                        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    } else {
-                        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                    }
-                case .failure:
-                    self.setErrorLogin("E-mail ou senha incorretos")
-                    Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                }
-            }
-        }
+        fetchLogin()
     }
     
     @IBAction func showPassword(_ sender: Any) {
@@ -105,6 +82,37 @@ class PTLoginViewController: UIViewController {
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
+    
+    private func navigateToHome(){
+        let vc = UINavigationController(rootViewController: HomeViewController())
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.rootViewController = vc
+        window?.makeKeyAndVisible()
+    }
+    
+    private func fetchLogin() {
+        let parameters: [String: String] = ["email": emailTextField.text!,
+                                            "password": passwordTextField.text!]
+        
+        service.fetchLogin(vc: self, parameters: parameters) { result in
+            DispatchQueue.main.async {
+                self.stopLoading()
+                
+                switch result {
+                case .success(let result):
+                    self.navigateToHome()
+                    UserDefaultsManager.UserInfos.shared.save(session: result, user: nil)
+                    break
+                case .failure:
+                    self.setErrorLogin("E-mail ou senha incorretos")
+                    Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
+                    break
+                }
+            }
+        }
+    }
 }
 
 // MARK: - Comportamentos de layout
@@ -116,9 +124,9 @@ extension PTLoginViewController {
         loginButton.backgroundColor = .blue
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.isEnabled = true
-
+        
         showPasswordButton.tintColor = .lightGray
-
+        
         createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
         createAccountButton.layer.borderWidth = 1
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
@@ -132,7 +140,7 @@ extension PTLoginViewController {
         view.isUserInteractionEnabled = true
         validateButton()
     }
-
+    
     @objc
     func didClickView() {
         view.endEditing(true)

@@ -149,8 +149,9 @@
 		A4C4BEA628820DAE00CF1E09 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA528820DAE00CF1E09 /* User.swift */; };
 		A4C4BEA82882160B00CF1E09 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA72882160B00CF1E09 /* Session.swift */; };
 		A4C4BEAA2882164200CF1E09 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA92882164200CF1E09 /* Endpoints.swift */; };
-		F6F961CD288A2C4D00218522 /* THResetPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */; };
 		B9F2D6AD2888C9BE0022EC88 /* LoginUserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */; };
+		BB00B3C928900B9C00D31B16 /* PTLoginWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB00B3C828900B9C00D31B16 /* PTLoginWorker.swift */; };
+		F6F961CD288A2C4D00218522 /* THResetPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -312,8 +313,9 @@
 		A4C4BEA528820DAE00CF1E09 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A4C4BEA72882160B00CF1E09 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		A4C4BEA92882164200CF1E09 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
-		F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THResetPasswordCoordinator.swift; sourceTree = "<group>"; };
 		B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserCoordinator.swift; sourceTree = "<group>"; };
+		BB00B3C828900B9C00D31B16 /* PTLoginWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTLoginWorker.swift; sourceTree = "<group>"; };
+		F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THResetPasswordCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -831,12 +833,12 @@
 		A45BADDB2886410600E5AAE6 /* PedroTres */ = {
 			isa = PBXGroup;
 			children = (
+				BB00B3C728900B8C00D31B16 /* Login */,
 				A45BAE772886558700E5AAE6 /* PTUser.storyboard */,
 				A45BAE782886558700E5AAE6 /* PTContactUsViewController.swift */,
 				A45BAE7B2886558700E5AAE6 /* PTContactUsViewController.xib */,
 				A45BAE762886558700E5AAE6 /* PTCreateAccountViewController.swift */,
 				A45BAE792886558700E5AAE6 /* PTCreateAccountViewController.xib */,
-				A45BAE7A2886558700E5AAE6 /* PTLoginViewController.swift */,
 				A45BAE7C2886558700E5AAE6 /* PTResetPasswordViewController.swift */,
 			);
 			path = PedroTres;
@@ -904,6 +906,15 @@
 				A4BEBB6D288504B8008DCC76 /* ContactUsModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		BB00B3C728900B8C00D31B16 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				A45BAE7A2886558700E5AAE6 /* PTLoginViewController.swift */,
+				BB00B3C828900B9C00D31B16 /* PTLoginWorker.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1108,6 +1119,7 @@
 				980D5750280DFF7700DDAF20 /* SampleInteractor.swift in Sources */,
 				980D5761280E016C00DDAF20 /* URLSessionProtocol.swift in Sources */,
 				98F1296C272F328200B88A87 /* CategoryListView.swift in Sources */,
+				BB00B3C928900B9C00D31B16 /* PTLoginWorker.swift in Sources */,
 				980D574D280DFF7700DDAF20 /* SampleRepository.swift in Sources */,
 				A45BAE572886513D00E5AAE6 /* IBContactUsViewController.swift in Sources */,
 				A45BADF5288643A500E5AAE6 /* TRResetPasswordViewController.swift in Sources */,
