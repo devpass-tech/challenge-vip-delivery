@@ -17,13 +17,13 @@ protocol GSLoginViewModelDelegate: AnyObject {
 protocol GSLoginViewModelProtocol {
     func makeLoginAuthenticationRequest()
     func getUserEmailAndPasswordTextField(email: String, password: String)
-    func delegate(_ delegate: GSLoginViewModelDelegate?)
+    var delegate: GSLoginViewModelDelegate? { get set }
 }
 
 final class GSLoginViewModel: GSLoginViewModelProtocol {
-    private weak var delegate: GSLoginViewModelDelegate?
     private let serviceLayer: GSLoginServiceRequesting = GSLoginService()
     private var userEmailAndPassword: UserEmailAndPasswordData?
+    weak var delegate: GSLoginViewModelDelegate?
     
     func makeLoginAuthenticationRequest() {
         delegate?.startLoadingView()
@@ -37,10 +37,6 @@ final class GSLoginViewModel: GSLoginViewModelProtocol {
     
     func getUserEmailAndPasswordTextField(email: String, password: String) {
         userEmailAndPassword = UserEmailAndPasswordData(email: email, password: password)
-    }
-    
-    func delegate(_ delegate: GSLoginViewModelDelegate?) {
-        self.delegate = delegate
     }
 }
 

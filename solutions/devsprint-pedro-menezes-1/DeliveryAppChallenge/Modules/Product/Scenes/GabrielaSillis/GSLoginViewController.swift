@@ -11,7 +11,7 @@ final class GSLoginViewController: UIViewController {
     
     private var coordinator: GSLoginCoordinating = GSLoginCoordinator()
     private var serviceLayer: GSLoginServiceRequesting = GSLoginService()
-    private let viewModel: GSLoginViewModelProtocol = GSLoginViewModel()
+    private var viewModel: GSLoginViewModelProtocol = GSLoginViewModel()
     
     var showPassword = true
     var errorInLogin = false
@@ -21,7 +21,7 @@ final class GSLoginViewController: UIViewController {
         verifyIfUserIsAlreadyLoggedIn()
         coordinator.controller = self
         configureTextFieldWithDefaultValue()
-        viewModel.delegate(self)
+        viewModel.delegate = self
         setupView()
         validateButton()
     }
