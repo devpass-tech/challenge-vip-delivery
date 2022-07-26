@@ -20,9 +20,7 @@ final class GSLoginViewController: UIViewController {
         super.viewDidLoad()
         verifyIfUserIsAlreadyLoggedIn()
         coordinator.controller = self
-#if DEBUG
         configureTextFieldWithDefaultValue()
-#endif
         viewModel.delegate(self)
         setupView()
         validateButton()
@@ -178,11 +176,11 @@ extension GSLoginViewController {
 }
 
 private extension GSLoginViewController {
-    func configureTextFieldWithDefaultValue(
-        emailTextField: String = "clean.code@devpass.com",
-        passwordTextField: String = "111111") {
-        self.emailTextField.text = emailTextField
-        self.passwordTextField.text = passwordTextField
+    func configureTextFieldWithDefaultValue() {
+        #if DEBUG
+        self.emailTextField.text = "clean.code@devpass.com"
+        self.passwordTextField.text = "111111" 
+        #endif
     }
     
     func verifyIfUserIsAlreadyLoggedIn() {
