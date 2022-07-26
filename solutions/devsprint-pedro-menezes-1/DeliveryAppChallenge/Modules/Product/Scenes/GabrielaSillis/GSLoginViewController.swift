@@ -36,7 +36,7 @@ final class GSLoginViewController: UIViewController {
     }
     
     @IBAction func showPasswordInputButton(_ sender: Any) {
-        shouldShowOrHiddenPasswordInput()
+        toggleTaxtFieldPasswordInput()
         showPassword.toggle()
     }
     
@@ -210,22 +210,16 @@ private extension GSLoginViewController {
         coordinator.displayErrorAlertView()
     }
     
-    func shouldShowOrHiddenPasswordInput() {
-        if showPassword {
-            isPasswordTextFieldSecureTextEntry(false)
-            configureImageButton(imageName: "eye.slash")
-        } else {
-            isPasswordTextFieldSecureTextEntry(true)
-            configureImageButton(imageName: "eye")
-        }
+    func toggleTaxtFieldPasswordInput() {
+        showPassword ?
+        configureTextFieldPassword(isSecureTextEntry: false, imageName: "eye.slash") :
+        configureTextFieldPassword(isSecureTextEntry: true, imageName: "eye")
     }
     
-    func isPasswordTextFieldSecureTextEntry(_ isSecureTextEntry: Bool) {
+    func configureTextFieldPassword(isSecureTextEntry: Bool, imageName: String) {
+        let imageView = UIImage(systemName: imageName)
+        showPasswordButton.setImage(imageView?.withRenderingMode(.alwaysTemplate), for: .normal)
         passwordTextField.isSecureTextEntry = isSecureTextEntry
-    }
-    
-    func configureImageButton(imageName: String) {
-        showPasswordButton.setImage(UIImage.init(systemName: imageName)?.withRenderingMode(.alwaysTemplate), for: .normal)
     }
 }
 
