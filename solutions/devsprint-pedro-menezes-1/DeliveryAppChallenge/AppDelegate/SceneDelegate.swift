@@ -17,9 +17,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        let vc = AppCoordinator.shared.getRootViewController()
-        self.window?.rootViewController = UINavigationController(rootViewController: vc)
+        self.window?.rootViewController = setRootViewController()
         self.window?.windowScene = windowScene
         self.window?.makeKeyAndVisible()
+    }
+}
+
+extension SceneDelegate {
+    
+    func setRootViewController() -> UIViewController {
+        if isUserLogged() {
+            let homeViewController = UINavigationController(rootViewController: HomeViewController())
+            return homeViewController
+        } else {
+            let loginViewController = AppCoordinator.shared.getRootViewController()
+            return loginViewController
+        }
+    }
+    func isUserLogged() -> Bool {
+        let userSession = UserDefaultsManager.UserInfos.shared.readSesion()
+        let isUserLogged = userSession != nil
+        return isUserLogged
     }
 }

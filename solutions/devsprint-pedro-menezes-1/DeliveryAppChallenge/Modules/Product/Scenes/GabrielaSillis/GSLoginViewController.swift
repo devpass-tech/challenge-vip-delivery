@@ -18,7 +18,6 @@ final class GSLoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        verifyIfUserIsAlreadyLoggedIn()
         coordinator.controller = self
         configureTextFieldWithDefaultValue()
         viewModel.delegate = self
@@ -181,12 +180,6 @@ private extension GSLoginViewController {
         self.emailTextField.text = "clean.code@devpass.com"
         self.passwordTextField.text = "111111"
         #endif
-    }
-    
-    func verifyIfUserIsAlreadyLoggedIn() {
-        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            coordinator.startNavigatingFlow()
-        }
     }
     
     func checkDeviceConnectivityAnduRequestAuthentication() {
