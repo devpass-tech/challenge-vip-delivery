@@ -205,7 +205,7 @@ private extension GSLoginViewController {
         viewModel.getUserEmailAndPasswordTextField(email: email, password: password)
     }
     
-    func showErrorMessage() {
+    func displayAlertViewToShowErrorMessage() {
         self.setErrorLogin("E-mail ou senha incorretos")
         coordinator.displayErrorAlertView()
     }
@@ -239,7 +239,7 @@ extension GSLoginViewController: GSLoginViewModelDelegate {
     
     func failureLoginAuthenticationRequest() {
         DispatchQueue.main.async {
-            self.showErrorMessage()
+            self.displayAlertViewToShowErrorMessage()
         }
     }
     
