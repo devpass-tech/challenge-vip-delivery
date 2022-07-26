@@ -8,8 +8,8 @@
 import Foundation
 
 protocol GSLoginViewModelDelegate: AnyObject {
-    func successLoginAuthenticationRequest(session: Session)
-    func failureLoginAuthenticationRequest()
+    func succeedLoginAuthentication(with session: Session)
+    func failsLoginAuthentication()
     func startLoadingView()
     func stopLoadingView()
 }
@@ -59,9 +59,9 @@ private extension GSLoginViewModel {
     func handleAuthenticationRequestResponse(result: UserSessionResult) {
         switch result {
         case .success(let session):
-            self.delegate?.successLoginAuthenticationRequest(session: session)
+            self.delegate?.succeedLoginAuthentication(with: session)
         case .failure:
-            self.delegate?.failureLoginAuthenticationRequest()
+            self.delegate?.failsLoginAuthentication()
         }
     }
 }

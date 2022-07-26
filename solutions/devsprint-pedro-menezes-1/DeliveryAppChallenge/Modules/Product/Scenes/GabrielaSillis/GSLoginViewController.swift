@@ -224,14 +224,14 @@ private extension GSLoginViewController {
 }
 
 extension GSLoginViewController: GSLoginViewModelDelegate {
-    func successLoginAuthenticationRequest(session: Session) {
+    func succeedLoginAuthentication(with session: Session) {
         DispatchQueue.main.async {
             self.coordinator.startNavigatingFlow()
             UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
         }
     }
     
-    func failureLoginAuthenticationRequest() {
+    func failsLoginAuthentication() {
         DispatchQueue.main.async {
             self.displayAlertViewToShowErrorMessage()
         }
