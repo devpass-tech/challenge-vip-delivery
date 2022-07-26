@@ -10,13 +10,23 @@ import Foundation
 final class HomeViewInteractor {
     
     let presenter: HomeViewPresenterProtocol
+    let useCase: HomeViewUseCaseProtocol
     
-    init(presenter: HomeViewPresenterProtocol) {
+    init(presenter: HomeViewPresenterProtocol, useCase: HomeViewUseCaseProtocol) {
         self.presenter = presenter
+        self.useCase = useCase
     }
     
 }
 
 extension HomeViewInteractor: HomeViewInteractorProtocol {
-    
+    func fetchData() {
+        // Chama o caso de uso 
+        useCase.execute { [weak self] result in
+            switch result {
+            case .success: self?.presenter.fetchedSuccessData()
+            case .failure: self?.presenter.fetchedErrorData()
+            }
+        }
+    }
 }

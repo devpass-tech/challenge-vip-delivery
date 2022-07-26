@@ -13,7 +13,9 @@ enum HomeViewConfigurator: FeatureFactory {
     
     static func make(with dependencies: Dependencies) -> UIViewController {
         let presenter = HomeViewPresenter()
-        let interactor = HomeViewInteractor(presenter: presenter)
+        let repository = HomeViewRepository(network: NetworkManager())
+        let useCase = HomeViewUseCase(repository: repository)
+        let interactor = HomeViewInteractor(presenter: presenter, useCase: useCase)
         let controller = HomeViewController(interactor: interactor)
         presenter.controller = controller
         return controller

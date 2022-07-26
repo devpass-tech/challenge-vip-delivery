@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Montamos nosso endpoint que contem os dados necessário para requisição
 struct HomeViewEndpoint: NetworkRequest {
     var pathURL: String = "home_restaurant_list.json"
     var method: HTTPMethod = .get

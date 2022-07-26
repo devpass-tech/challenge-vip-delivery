@@ -8,15 +8,15 @@
 import Foundation
 
 protocol HomeViewInteractorProtocol {
-    
+    func fetchData()
 }
 
 protocol HomeViewPresenterProtocol {
-    
+    func fetchedSuccessData()
+    func fetchedErrorData()
 }
 
 protocol HomeViewControllerOutput: AnyObject {
-    
+    func showData()
+    func showError()
 }
-
-

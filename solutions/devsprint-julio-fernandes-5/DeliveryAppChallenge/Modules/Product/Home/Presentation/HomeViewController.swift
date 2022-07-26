@@ -26,11 +26,23 @@ final class HomeViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        interactor.fetchData()
+    }
+    
     override func loadView() {
         self.view = HomeView()
     }
 }
 
 extension HomeViewController: HomeViewControllerOutput {
+    func showData() {
+        print(">>>> Dados exibidos com sucesso")
+    }
+    
+    func showError() {
+        print(">>>> Erro ao baixar os dados")
+    }
     
 }

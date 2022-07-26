@@ -12,5 +12,11 @@ final class HomeViewPresenter {
 }
 
 extension HomeViewPresenter: HomeViewPresenterProtocol {
+    func fetchedSuccessData() {
+        controller?.showData()
+    }
     
+    func fetchedErrorData() {
+        controller?.showError()
+    }
 }
