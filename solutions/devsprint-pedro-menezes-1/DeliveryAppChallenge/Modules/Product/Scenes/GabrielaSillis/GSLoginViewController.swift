@@ -31,7 +31,7 @@ final class GSLoginViewController: UIViewController {
     
     @IBAction func loginButton(_ sender: Any) {
         sendTextFieldDataToViewModel()
-        checkDeviceConnectivityAnduRequestAuthentication()
+        viewModel.checkDeviceConnectivityAndRequestAuthentication()
     }
     
     @IBAction func showPasswordInputButton(_ sender: Any) {
@@ -182,16 +182,6 @@ private extension GSLoginViewController {
         #endif
     }
     
-    func checkDeviceConnectivityAnduRequestAuthentication() {
-        let isDeviceConnectedToInternet = !ConnectivityManager.shared.isConnected
-        if isDeviceConnectedToInternet {
-            Globals.showNoInternetCOnnection(
-                controller: self)
-            return
-        }
-        viewModel.makeLoginAuthenticationRequest()
-    }
-    
     func sendTextFieldDataToViewModel() {
         let email = emailTextField.text ?? ""
         let password = passwordTextField.text ?? ""
@@ -217,6 +207,12 @@ private extension GSLoginViewController {
 }
 
 extension GSLoginViewController: GSLoginViewModelDelegate {
+    func failsToConnectInternet() {
+        DispatchQueue.main.async {
+            Globals.showNoInternetCOnnection(controller: self)
+        }
+    }
+    
     func succeedLoginAuthentication(with session: Session) {
         DispatchQueue.main.async {
             self.coordinator.startNavigatingFlow()

@@ -12,10 +12,11 @@ protocol GSLoginViewModelDelegate: AnyObject {
     func failsLoginAuthentication()
     func startLoadingView()
     func stopLoadingView()
+    func failsToConnectInternet()
 }
 
 protocol GSLoginViewModelProtocol {
-    func makeLoginAuthenticationRequest()
+    func checkDeviceConnectivityAndRequestAuthentication()
     func getUserEmailAndPasswordTextField(email: String, password: String)
     var delegate: GSLoginViewModelDelegate? { get set }
 }
@@ -25,6 +26,25 @@ final class GSLoginViewModel: GSLoginViewModelProtocol {
     private var userEmailAndPassword: UserEmailAndPasswordData?
     weak var delegate: GSLoginViewModelDelegate?
     
+    func getUserEmailAndPasswordTextField(email: String, password: String) {
+        userEmailAndPassword = UserEmailAndPasswordData(email: email, password: password)
+    }
+    
+    func checkDeviceConnectivityAndRequestAuthentication() {
+        let isDeviceConnectedToInternet = !ConnectivityManager.shared.isConnected
+        if isDeviceConnectedToInternet {
+            delegate?.failsToConnectInternet()
+            return
+        }
+        makeLoginAuthenticationRequest()
+    }
+}
+
+private extension GSLoginViewModel {
+    enum UnwrapError: Error {
+        case errorToUnwrap
+    }
+    
     func makeLoginAuthenticationRequest() {
         delegate?.startLoadingView()
         guard let userData = try? unwrapUserEmailAndPassword() else { return }
@@ -33,16 +53,6 @@ final class GSLoginViewModel: GSLoginViewModelProtocol {
             self.delegate?.stopLoadingView()
             self.handleAuthenticationRequestResponse(result: result)
         }
-    }
-    
-    func getUserEmailAndPasswordTextField(email: String, password: String) {
-        userEmailAndPassword = UserEmailAndPasswordData(email: email, password: password)
-    }
-}
-
-private extension GSLoginViewModel {
-    enum UnwrapError: Error {
-        case errorToUnwrap
     }
     
     func unwrapUserEmailAndPassword() throws -> UserEmailAndPasswordData {
