@@ -11,12 +11,15 @@ class MJLoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var createAccountButton: UIButton!
     
-    var showPassword = true
+    private var showPassword = true
     @IBOutlet weak var showPasswordButton: UIButton!
-    var errorInLogin = false
+    private var errorInLogin = false
+    private var loginCoordinator: MJLoginCoordinator?
+    private let viewModel = MJLoginViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loginCoordinator = MJLoginCoordinator(viewController: self)
         verifyLoginAndUpdateRootViewController()
         shouldSetupDebugMode()
         self.setupView()
@@ -33,68 +36,28 @@ class MJLoginViewController: UIViewController {
         passwordTextField.text = "111111"
         #endif
     }
-    
-    func updateRootViewController(navigationController: UINavigationController){
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        
-        window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
-    }
 
     func verifyLoginAndUpdateRootViewController() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
             let vc = UINavigationController(rootViewController: HomeViewController())
-            updateRootViewController(navigationController: vc)
+            loginCoordinator?.updateRootViewController(navigationController: vc)
         }
     }
     
     func loginRequest() {
-        let endpoint = Endpoints.Auth.login
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
         
-        getUserData(endpoint: endpoint, parameters: parameters)
-    }
-    
-    func getUserData(endpoint: String, parameters: [String: String]) {
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
+        BadNetworkLayer.shared.login(self, parameters: parameters) { result in
             DispatchQueue.main.async {
-                self.stopLoading()
-                self.handleLogindResult(result)
+                result == nil ? self.handleLoginFailure() : self.handleLoginSuccess()
             }
         }
     }
     
-    func handleLogindResult(_ result: Result<Data, Error>) {
-        switch result {
-        case .success(let data):
-            handleLoginSuccess(userData: data)
-        case .failure:
-            handleLoginFailure()
-        }
-    }
-    
-    func handleLoginSuccess(userData: Data) {
-        do {
-            let session = try decodeUser(userData)
-            let vc = UINavigationController(rootViewController: HomeViewController())
-            updateRootViewController(navigationController: vc)
-            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-        } catch {
-            handleLoginFailure()
-        }
-    }
-    
-    func decodeUser(_ userData: Data) throws -> Session {
-        let decoder = JSONDecoder()
-        do {
-            let session = try decoder.decode(Session.self, from: userData)
-            return session
-        } catch {
-            throw error
-        }
+    func handleLoginSuccess() {
+        let vc = UINavigationController(rootViewController: HomeViewController())
+        loginCoordinator?.updateRootViewController(navigationController: vc)
     }
     
     func handleLoginFailure() {
@@ -237,18 +200,10 @@ extension MJLoginViewController {
 extension MJLoginViewController {
     
     func validateButton() {
-        let emailContainsDot = emailTextField.text!.contains(".")
-        let emailContainsAt = emailTextField.text!.contains("@")
-        let emailSizeGreaterThanFive = emailTextField.text!.count > 5
-        
-        if !emailContainsDot || !emailContainsAt || !emailSizeGreaterThanFive {
-            if let atIndex = emailTextField.text!.firstIndex(of: "@") {
-                let substring = emailTextField.text![atIndex...]
-                substring.contains(".") ? enableButton() : disableButton()
-            } else {
-                disableButton()
-            }
+        guard let email = emailTextField.text else {
+            return
         }
+        viewModel.isEmailValid(email) == true ? enableButton() : disableButton()
     }
     
     func disableButton() {
