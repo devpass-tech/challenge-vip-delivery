@@ -56,12 +56,13 @@ class CALoginViewController: UIViewController {
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
         let endpoint = Endpoints.Auth.login
+        
         AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
             DispatchQueue.main.async {
                 self.stopLoading()
                 switch result {
                 case .success(let data):
-                    onLoginSuccess(data)
+                    self.onLoginSuccess(data)
                 case .failure:
                     self.onLoginFailure()
                 }
@@ -77,23 +78,29 @@ class CALoginViewController: UIViewController {
         present(alertController, animated: true)
     }
     
-    private func onLoginSuccess(data: Success) {
+    private func onLoginSuccess(_ data: Data) {
         let decoder = JSONDecoder()
         if let session = try? decoder.decode(Session.self, from: data) {
             let vc = UINavigationController(rootViewController: HomeViewController())
             let scenes = UIApplication.shared.connectedScenes
             let windowScene = scenes.first as? UIWindowScene
             let window = windowScene?.windows.first
+            
             window?.rootViewController = vc
             window?.makeKeyAndVisible()
+            
             UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
         } else {
-            Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
+            showGenericErrorAlert()
         }
     }
     
     private func onLoginFailure() {
         self.setErrorLogin("E-mail ou senha incorretos")
+        showGenericErrorAlert()
+    }
+    
+    private func showGenericErrorAlert() {
         Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
     }
     
@@ -128,20 +135,24 @@ extension CALoginViewController {
     
     func setupView() {
         heightLabelError.constant = 0
-        setupLoginButton()
+        setupButtons()
+        setupTextField()
 
-        showPasswordButton.tintColor = .lightGray
-
-        createAccountButton.setupStyle(createAccountButton)
-        
-        emailTextField.setDefaultColor()
-        passwordTextField.setDefaultColor()
-        
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
-        view.addGestureRecognizer(gesture)
-        view.isUserInteractionEnabled = true
+        setupViewInteractions()
         
         validateButton()
+    }
+    
+    private func setupButtons() {
+        setupLoginButton()
+        showPasswordButton.tintColor = .lightGray
+        createAccountButton.setupStyle(cornerRadiusHeight: createAccountButton.layer.cornerRadius)
+    }
+    
+    
+    private func setupTextField() {
+        emailTextField.setDefaultColor()
+        passwordTextField.setDefaultColor()
     }
     
     private func setupLoginButton() {
@@ -149,6 +160,12 @@ extension CALoginViewController {
         loginButton.backgroundColor = .blue
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.isEnabled = true
+    }
+    
+    private func setupViewInteractions() {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
+        view.addGestureRecognizer(gesture)
+        view.isUserInteractionEnabled = true
     }
 
     @objc
@@ -213,21 +230,16 @@ extension CALoginViewController {
 extension CALoginViewController {
     
     func validateButton() {
-        if !emailTextField.text!.contains(".") ||
-            !emailTextField.text!.contains("@") ||
-            emailTextField.text!.count <= 5 {
+        let emailContainsAnyInvalidCondition = !emailTextField.text!.contains(".") ||
+        !emailTextField.text!.contains("@") ||
+        emailTextField.text!.count <= 5
+        
+        if emailContainsAnyInvalidCondition {
             disableButton()
         } else {
-            if let atIndex = emailTextField.text!.firstIndex(of: "@") {
+            guard let atIndex = emailTextField.text!.firstIndex(of: "@") else { return disableButton() }
                 let substring = emailTextField.text![atIndex...]
-                if substring.contains(".") {
-                    enableButton()
-                } else {
-                    disableButton()
-                }
-            } else {
-                disableButton()
-            }
+                substring.contains(".") ? enableButton() : disableButton()
         }
     }
     
