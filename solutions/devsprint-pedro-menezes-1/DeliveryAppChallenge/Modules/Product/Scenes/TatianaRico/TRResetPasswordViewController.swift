@@ -47,11 +47,11 @@ class TRResetPasswordViewController: UIViewController {
     }
     
     @IBAction func helpButton(_ sender: Any) {
-        self.coordinator?.contactViewController()
+        self.coordinator.contactViewController()
     }
     
     @IBAction func createAccountButton(_ sender: Any) {
-        self.coordinator?.createAccountViewController()
+        self.coordinator.createAccountViewController()
     }
     
     func isValidateEmail() -> Bool {
@@ -78,7 +78,7 @@ class TRResetPasswordViewController: UIViewController {
             if success {
                 self.resetSucessPassword()
             } else {
-                self.coordinator?.alertMsg(title: StringsHelper.OPS, msg: StringsHelper.SOMETHING_WENT_WRONG, titleAction: StringsHelper.OK)
+                self.coordinator.alertMsg(title: StringsHelper.OPS, msg: StringsHelper.SOMETHING_WENT_WRONG, titleAction: StringsHelper.OK)
             }
         }
     }
