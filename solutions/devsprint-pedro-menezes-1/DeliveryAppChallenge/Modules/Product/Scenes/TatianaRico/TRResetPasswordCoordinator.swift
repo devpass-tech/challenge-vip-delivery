@@ -9,7 +9,11 @@ import Foundation
 import UIKit
 
 class TRResetPasswordCoordinator {
-    let viewController = UIViewController()
+    var viewController: UIViewController
+    
+    init(viewController: UIViewController) {
+        self.viewController = viewController
+    }
     
     func contactViewController() {
             viewController.modalPresentationStyle = .popover

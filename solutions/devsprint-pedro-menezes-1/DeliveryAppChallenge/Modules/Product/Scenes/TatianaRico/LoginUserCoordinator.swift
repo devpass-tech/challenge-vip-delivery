@@ -9,7 +9,11 @@ import Foundation
 import UIKit
 
 struct LoginUserCoordinator {
-    let controler = UIViewController()
+    var controler: UIViewController
+    
+    init(controler: UIViewController) {
+        self.controler = controler
+    }
 
      func changeScreenHome() {
         let vc = UINavigationController(rootViewController: HomeViewController())
