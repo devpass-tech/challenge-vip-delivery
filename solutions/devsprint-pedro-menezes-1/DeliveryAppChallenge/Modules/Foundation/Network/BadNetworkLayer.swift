@@ -1,8 +1,15 @@
 import Foundation
 import UIKit
 
-class BadNetworkLayer {
+protocol NetworkLayer {
+    func login(_ targetVc: UIViewController,
+               parameters: [String : String],
+               completionHandler: @escaping (Session?) -> Void)
+}
+
+class BadNetworkLayer: NetworkLayer {
     static let shared = BadNetworkLayer()
+
     func checkPassword(_ targetVc: UIViewController,
                        parameters: [String : String],
                        completionHandler: @escaping (Bool) -> Void) {
@@ -98,9 +105,11 @@ struct Messaging {
 
 
 
+protocol ConnectivityManaging {
+    var isConnected: Bool { get }
+}
 
-
-struct ConnectivityManager {
+struct ConnectivityManager: ConnectivityManaging {
     static let shared = ConnectivityManager()
 
     var isConnected: Bool {
@@ -108,9 +117,6 @@ struct ConnectivityManager {
         return randomInt > 2
     }
 }
-
-
-
 
 struct AF {
     enum Methods {

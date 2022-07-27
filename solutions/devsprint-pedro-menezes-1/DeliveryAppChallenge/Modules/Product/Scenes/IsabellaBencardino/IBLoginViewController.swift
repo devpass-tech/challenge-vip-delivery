@@ -223,3 +223,44 @@ extension IBLoginViewController {
         loginButton.isEnabled = true
     }
 }
+
+protocol LoginServiceDelegate {
+    func didSuccedLogin()
+    func didFailLogin()
+    func noInternet()
+}
+
+struct LoginService {
+    var controller: UIViewController = UIViewController()
+    var delegate: LoginServiceDelegate?
+
+    private let connectivityManager: ConnectivityManaging
+    private let networkLayer: NetworkLayer
+
+    init(
+        connectivityManager: ConnectivityManaging = ConnectivityManager.shared,
+        networkLayer: NetworkLayer = BadNetworkLayer()
+    ) {
+        self.connectivityManager = connectivityManager
+        self.networkLayer = networkLayer
+    }
+
+    func login() {
+        if connectivityManager.isConnected {
+            networkLayer.login(controller, parameters: [:]) { session in
+                if session != nil {
+                    delegate?.didSuccedLogin()
+                } else {
+                    delegate?.didFailLogin()
+                }
+            }
+        } else {
+            delegate?.noInternet()
+        }
+    }
+}
+
+//sem internet > chamada delegate noInternet
+//se tiver internet > bate na api
+//se bateu na api e deu sucesso > chamada delegate succed
+//se bateu na api e deu falha > chama delegate falha

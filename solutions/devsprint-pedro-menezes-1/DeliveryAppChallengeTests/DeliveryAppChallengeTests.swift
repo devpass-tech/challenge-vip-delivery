@@ -10,24 +10,73 @@ import XCTest
 
 class DeliveryAppChallengeTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    let connectivityManagerSpy = ConnectivityManagerSpy()
+    let delegateObserver = LoginServiceDelegateSpy()
+    let networkLayerSpy = NetworkLayerSpy()
+
+    lazy var sut = LoginService(
+        connectivityManager: connectivityManagerSpy,
+        networkLayer: networkLayerSpy
+    )
+
+    func testLogin_WhenIsNotConnected_ShouldCallNoInternetDelegate() {
+        //given
+        sut.delegate = delegateObserver
+        connectivityManagerSpy.isConnectedSetter = false
+
+        //when
+        sut.login()
+
+        //then
+        XCTAssertEqual(delegateObserver.noInternetCounter, 1)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testLogin_WhenIsConnected_ShouldCallLoginAPI() {
+        //given
+        connectivityManagerSpy.isConnectedSetter = true
+
+        //when
+        sut.login()
+
+        //then
+        XCTAssertEqual(networkLayerSpy.loginCounter, 1)
+
+    }
+}
+
+
+
+class ConnectivityManagerSpy: ConnectivityManaging {
+    var isConnectedSetter = false
+
+    var isConnected: Bool {
+        return isConnectedSetter
+    }
+}
+
+class LoginServiceDelegateSpy: LoginServiceDelegate {
+    private(set) var didSuccedLoginCounter = 0
+    private(set) var didFailLoginCounter = 0
+    private(set) var noInternetCounter = 0
+
+
+    func didSuccedLogin() {
+        didSuccedLoginCounter += 1
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func didFailLogin() {
+        didFailLoginCounter += 1
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func noInternet() {
+        noInternetCounter += 1
     }
+}
 
+class NetworkLayerSpy: NetworkLayer {
+    private(set) var loginCounter = 0
+
+    func login(_ targetVc: UIViewController, parameters: [String : String], completionHandler: @escaping (Session?) -> Void) {
+        loginCounter += 1
+    }
 }
