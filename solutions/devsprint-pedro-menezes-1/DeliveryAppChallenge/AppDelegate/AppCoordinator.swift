@@ -4,7 +4,7 @@ struct AppCoordinator {
     static let shared = AppCoordinator()
 
     func getRootViewController() -> UIViewController {
-        let cleanCoder = NewCleanCoders.gabrielCastro
+        let cleanCoder = NewCleanCoders.rodrigoLemos
 //
         switch cleanCoder {
         case .brunaTokie:
