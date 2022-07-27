@@ -16,11 +16,8 @@ class TRLoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyLogin()
+        placeholderTextFieldInicial()
         
-#if DEBUG
-        emailTextField.text = "clean.code@devpass.com"
-        passwordTextField.text = "111111"
-#endif
         self.setupView()
         self.validateButton()
     }
@@ -42,7 +39,7 @@ class TRLoginViewController: UIViewController {
         passwordTextField.isSecureTextEntry = showPassword
         showPassword = !showPassword
     }
-  
+    
     @IBAction func resetPasswordButton(_ sender: Any) {
         self.coordinator.userResetPassword()
     }
@@ -60,6 +57,13 @@ class TRLoginViewController: UIViewController {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
             coordinator.verifyLogin()
         }
+    }
+    
+    private func placeholderTextFieldInicial() {
+        #if DEBUG
+        emailTextField.text = "clean.code@devpass.com"
+        passwordTextField.text = "111111"
+        #endif
     }
     
     func alertConection(titleAlert: String, messageAlert: String, actionMsgAlert: String) {
@@ -243,13 +247,13 @@ extension TRLoginViewController {
 }
 
 extension TRLoginViewController{
-enum StringsHelper {
-    static var CONNECT_INTERNET = "Conecte-se à internet para tentar novamente"
-    static var EMAIL_PASSWORD_INCORRECT = "E-mail ou senha incorretos"
-    static var THERE_WAS_PROBLEM = "Houve um problema, tente novamente mais tarde."
-    static var OK = "ok"
-    static var OPS = "Ops.."
-    static var NOT_CONEXAO = "Sem conexão"
-    
-}
+    enum StringsHelper {
+        static var CONNECT_INTERNET = "Conecte-se à internet para tentar novamente"
+        static var EMAIL_PASSWORD_INCORRECT = "E-mail ou senha incorretos"
+        static var THERE_WAS_PROBLEM = "Houve um problema, tente novamente mais tarde."
+        static var OK = "ok"
+        static var OPS = "Ops.."
+        static var NOT_CONEXAO = "Sem conexão"
+        
+    }
 }

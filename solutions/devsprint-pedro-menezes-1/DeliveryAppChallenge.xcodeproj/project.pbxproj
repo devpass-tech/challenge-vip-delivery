@@ -149,6 +149,7 @@
 		A4C4BEA628820DAE00CF1E09 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA528820DAE00CF1E09 /* User.swift */; };
 		A4C4BEA82882160B00CF1E09 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA72882160B00CF1E09 /* Session.swift */; };
 		A4C4BEAA2882164200CF1E09 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA92882164200CF1E09 /* Endpoints.swift */; };
+		B980995D28906BA300A85D19 /* TRResetPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B980995C28906BA300A85D19 /* TRResetPasswordCoordinator.swift */; };
 		B9F2D6AD2888C9BE0022EC88 /* LoginUserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */; };
 /* End PBXBuildFile section */
 
@@ -311,6 +312,7 @@
 		A4C4BEA528820DAE00CF1E09 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A4C4BEA72882160B00CF1E09 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		A4C4BEA92882164200CF1E09 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		B980995C28906BA300A85D19 /* TRResetPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRResetPasswordCoordinator.swift; sourceTree = "<group>"; };
 		B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -864,6 +866,7 @@
 				A45BADEE288643A400E5AAE6 /* TRLoginViewController.swift */,
 				A45BADEF288643A400E5AAE6 /* TRResetPasswordViewController.swift */,
 				B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */,
+				B980995C28906BA300A85D19 /* TRResetPasswordCoordinator.swift */,
 			);
 			path = TatianaRico;
 			sourceTree = "<group>";
@@ -1134,6 +1137,7 @@
 				A45BAE9C2886577E00E5AAE6 /* THLoginViewController.swift in Sources */,
 				A45BAE2F28864D3800E5AAE6 /* AppCoordinator.swift in Sources */,
 				98EA0561272A0963007B0228 /* RestaurantDetailsViewController.swift in Sources */,
+				B980995D28906BA300A85D19 /* TRResetPasswordCoordinator.swift in Sources */,
 				A45BAE3728864E9E00E5AAE6 /* GSResetPasswordViewController.swift in Sources */,
 				980D574A280DFF7700DDAF20 /* SampleApiDataSource.swift in Sources */,
 				A450D9B62880FB08003CCEBC /* Globals.swift in Sources */,
