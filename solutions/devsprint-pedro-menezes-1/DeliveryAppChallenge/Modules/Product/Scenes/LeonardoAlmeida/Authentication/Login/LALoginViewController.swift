@@ -1,7 +1,5 @@
 import UIKit
 
-
-
 class LALoginViewController: UIViewController {
     
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
@@ -84,8 +82,6 @@ extension LALoginViewController {
         passwordTextField.isSecureTextEntry = passwordFieldIsSecure
         showPasswordButton.setImage((imageIcon ?? UIImage()).withRenderingMode(.alwaysTemplate), for: .normal)
     }
-    
-    
 }
 
 // MARK: - Edição de Campos
@@ -186,31 +182,20 @@ extension LALoginViewController {
     
     private func handleLoginRequest(email: String, password: String) {
         let parametersAuthRequest = ["email": email, "password": password]
-        let authEndpoint = Endpoints.Auth.login
         
-        showLoading()
-        
-        AF.request(authEndpoint, method: .get, parameters: parametersAuthRequest, headers: nil) { result in
-            DispatchQueue.main.async {
-                self.stopLoading()
-                switch result {
-                case .success(let data):
-                    self.handleLoginSuccess(with: data)
-                case .failure:
-                    self.handleLoginFailure()
-                }
+        LABadNetworkLayer.shared.login(self, parameters: parametersAuthRequest) { result in
+            guard let session = result else {
+                self.handleLoginFailure()
+                return
             }
+            
+            self.handleLoginSuccess(with: session)
         }
     }
     
-    private func handleLoginSuccess(with data: Data) {
-        let decoder = JSONDecoder()
-        if let session = try? decoder.decode(Session.self, from: data) {
-            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-            LALoginCoordinator.shared.navigateToHomeRoot()
-        } else {
-            Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-        }
+    private func handleLoginSuccess(with session: Session) {
+        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+        LALoginCoordinator.shared.navigateToHomeRoot()
     }
     
     private func handleLoginFailure() {

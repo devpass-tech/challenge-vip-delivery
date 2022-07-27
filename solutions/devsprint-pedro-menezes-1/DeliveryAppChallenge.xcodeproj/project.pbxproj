@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		026F27812891D06D0099F7BD /* LABadNetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026F27802891D06D0099F7BD /* LABadNetworkLayer.swift */; };
 		02A7F8FB288C5B2100285FCC /* LALoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F8FA288C5B2100285FCC /* LALoginCoordinator.swift */; };
 		02A7F8FE288C982C00285FCC /* Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F8FD288C982C00285FCC /* Validations.swift */; };
 		02A7F917288EEC5B00285FCC /* StepToLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F916288EEC5B00285FCC /* StepToLogin.swift */; };
@@ -167,6 +168,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		026F27802891D06D0099F7BD /* LABadNetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LABadNetworkLayer.swift; sourceTree = "<group>"; };
 		02A7F8FA288C5B2100285FCC /* LALoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LALoginCoordinator.swift; sourceTree = "<group>"; };
 		02A7F8FD288C982C00285FCC /* Validations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validations.swift; sourceTree = "<group>"; };
 		02A7F916288EEC5B00285FCC /* StepToLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepToLogin.swift; sourceTree = "<group>"; };
@@ -340,6 +342,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		026F277F2891D0480099F7BD /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				026F27802891D06D0099F7BD /* LABadNetworkLayer.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		02A7F8F5288C59BB00285FCC /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -785,6 +795,7 @@
 		A45BADD328863FE700E5AAE6 /* LeonardoAlmeida */ = {
 			isa = PBXGroup;
 			children = (
+				026F277F2891D0480099F7BD /* Network */,
 				02A7F915288EEC2F00285FCC /* Models */,
 				02A7F8FC288C981400285FCC /* Utils */,
 				02A7F8F9288C5A3400285FCC /* Authentication */,
@@ -1118,6 +1129,7 @@
 				98FAF509280E08EC0075B35B /* AppDelegate.swift in Sources */,
 				980D5767280E079400DDAF20 /* SettingsView.swift in Sources */,
 				A45BAE1E28864A2300E5AAE6 /* BACreateAccountViewController.swift in Sources */,
+				026F27812891D06D0099F7BD /* LABadNetworkLayer.swift in Sources */,
 				980D5766280E077F00DDAF20 /* AddressView.swift in Sources */,
 				A4BEBB7028850881008DCC76 /* UserDefaultsManager.swift in Sources */,
 				A450D9AE2880EEF8003CCEBC /* BadNetworkLayer.swift in Sources */,
