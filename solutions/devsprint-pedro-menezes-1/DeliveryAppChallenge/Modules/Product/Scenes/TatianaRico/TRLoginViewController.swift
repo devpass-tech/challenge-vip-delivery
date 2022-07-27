@@ -54,7 +54,7 @@ class TRLoginViewController: UIViewController {
     
     private   func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            coordinator?.goToHomeViewController()
+            coordinator.goToHomeViewController()
         }
     }
     
