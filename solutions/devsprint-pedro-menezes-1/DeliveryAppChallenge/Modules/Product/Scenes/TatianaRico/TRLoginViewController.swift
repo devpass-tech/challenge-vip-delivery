@@ -20,7 +20,7 @@ class TRLoginViewController: UIViewController {
         placeholderTextFieldInicial()
         self.coordinator = LoginUserCoordinator(controler: self)
         self.setupView()
-        self.validateButton()
+        self.checkStatusButtonAndChangeColor()
     }
     
     @IBAction func loginButton(_ sender: Any) {
@@ -56,7 +56,7 @@ class TRLoginViewController: UIViewController {
     
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            coordinator?.verifyLogin()
+            coordinator?.goToHomeViewController()
         }
     }
     
@@ -89,7 +89,7 @@ class TRLoginViewController: UIViewController {
     }
     
     func handleLoginFailure() {
-        self.setErrorLogin(StringsHelper.EMAIL_PASSWORD_INCORRECT)
+        self.isErrorLogin(StringsHelper.EMAIL_PASSWORD_INCORRECT)
         self.alertMensagem(target: self, title:StringsHelper.OPS, message: StringsHelper.THERE_WAS_PROBLEM)
     }
     
@@ -107,7 +107,7 @@ extension TRLoginViewController {
         
         setupLoginButtonLayout()
         setupAccountButtonLayout()
-        validateButton()
+        checkStatusButtonAndChangeColor()
         setupTextFielLayout()
         gestureClickView()
     }
@@ -145,14 +145,14 @@ extension TRLoginViewController {
     //email
     @IBAction func emailBeginEditing(_ sender: Any) {
         if errorInLogin {
-            resetErrorLogin(emailTextField)
+            isErrorResetLogin(emailTextField)
         } else {
             emailTextField.setEditingColor()
         }
     }
     
     @IBAction func emailEditing(_ sender: Any) {
-        validateButton()
+        checkStatusButtonAndChangeColor()
     }
     
     @IBAction func emailEndEditing(_ sender: Any) {
@@ -162,21 +162,21 @@ extension TRLoginViewController {
     //senha
     @IBAction func passwordBeginEditing(_ sender: Any) {
         if errorInLogin {
-            resetErrorLogin(passwordTextField)
+            isErrorResetLogin(passwordTextField)
         } else {
             passwordTextField.setEditingColor()
         }
     }
     
     @IBAction func passwordEditing(_ sender: Any) {
-        validateButton()
+        checkStatusButtonAndChangeColor()
     }
     
     @IBAction func passwordEndEditing(_ sender: Any) {
         passwordTextField.setDefaultColor()
     }
     
-    func setErrorLogin(_ message: String) {
+    func isErrorLogin(_ message: String) {
         errorInLogin = true
         heightLabelError.constant = 20
         errorLabel.text = message
@@ -184,7 +184,7 @@ extension TRLoginViewController {
         passwordTextField.setErrorColor()
     }
     
-    func resetErrorLogin(_ textField: UITextField) {
+    func isErrorResetLogin(_ textField: UITextField) {
         heightLabelError.constant = 0
         if textField == emailTextField {
             emailTextField.setEditingColor()
@@ -198,22 +198,18 @@ extension TRLoginViewController {
 
 extension TRLoginViewController {
     
-    func validateButton() {
+    func checkStatusButtonAndChangeColor() {
+        self.statusButton(color: .gray, isEnabled: false)
         if self.viewModel.validateEmail(textField: emailTextField.text ?? "") {
-            enableButton()
+            self.statusButton(color: .blue, isEnabled: true)
         } else {
-            disableButton()
+            self.statusButton(color: .gray, isEnabled: false)
         }
     }
     
-    func disableButton() {
-        loginButton.backgroundColor = .gray
-        loginButton.isEnabled = false
-    }
-    
-    func enableButton() {
-        loginButton.backgroundColor = .blue
-        loginButton.isEnabled = true
+    func statusButton(color: UIColor, isEnabled: Bool) {
+        loginButton.backgroundColor = color
+        loginButton.isEnabled = isEnabled
     }
 }
 
