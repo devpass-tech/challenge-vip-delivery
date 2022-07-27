@@ -8,23 +8,27 @@
 
 // to do: implementar outras logicas de login no ViewModel
 final class GCLoginViewModel {
-    
-    var isValidEmail: ((Bool) -> Void)?
-    
-    func validateEmail(textField: String) {
+            
+    func validateEmail(textField: String) -> Bool {
         guard let atIndex = textField.firstIndex(of: "@") else {
-            isValidEmail?(false)
-            return
+            return false
         }
+        let emailHasDot = textField.contains(".")
+        let emailHasAt = textField.contains("@")
+        let emailIsHigherOrEqualToFive = textField.count >= 5
         let substring = textField[atIndex...]
-        if !textField.contains(".") ||
-            !textField.contains("@") ||
-            textField.count <= 5 ||
-            !substring.contains(".") {
-            isValidEmail?(false)
+        let substringHasDot = substring.contains(".")
+        
+        if  emailHasDot &&
+            emailHasAt &&
+            emailIsHigherOrEqualToFive &&
+            substringHasDot {
+            return true
         } else {
-            isValidEmail?(true)
+            return false
         }
     }
     
 }
+    
+

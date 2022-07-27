@@ -1,11 +1,4 @@
 import UIKit
-// ViewModel: Logica
-// ViewController: UIKit
-// Service: api request
-
-//get: obter
-//set: configurar o valor
-
 
 final class GCLoginViewController: UIViewController {
     
@@ -238,14 +231,11 @@ extension GCLoginViewController {
     
     private func validateButton() {
         guard let email = emailTextField.text else { return }
-        viewModel.isValidEmail = { [weak self] isValidEmail in
-            if isValidEmail {
-                self?.enableButton()
-            } else {
-                self?.disableButton()
-            }
+        if viewModel.validateEmail(textField: email) {
+            self.enableButton()
+        } else {
+            self.disableButton()
         }
-        viewModel.validateEmail(textField: email)
     }
     
     private func disableButton() {
