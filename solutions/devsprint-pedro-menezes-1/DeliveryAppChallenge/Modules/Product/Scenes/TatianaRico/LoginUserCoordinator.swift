@@ -28,13 +28,13 @@ struct LoginUserCoordinator {
         let storyboard = UIStoryboard(name: "TRUser", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "TRResetPasswordViewController") as! TRResetPasswordViewController
         vc.modalPresentationStyle = .fullScreen
-        controler?.present(vc, animated: true)
+        controler.present(vc, animated: true)
     }
     
     func newAccount() {
         let controller = TRCreateAccountViewController()
         controller.modalPresentationStyle = .fullScreen
-        controler?.present(controller, animated: true)
+        controler.present(controller, animated: true)
     }
     
     func verifyLogin() {
