@@ -86,6 +86,39 @@ class BadNetworkLayer {
     }
 }
 
+//    private func LoginApiRequest(with endpoint: String, and parameters: [String: String]) {
+//        // usar reset password como referencia
+//
+//
+//        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
+//            self.handleRequest(result: result)
+//        }
+//    }
+//
+//    private func handleRequest(result: Result<Data, Error>) {
+//        DispatchQueue.main.async {
+//            self.stopLoading()
+//            switch result {
+//            case .success(let data):
+//                self.decodeUser(with: data)
+//            case .failure:
+//                self.showRequestError()
+//            }
+//        }
+//    }
+    
+//    private func decodeUser(with data: Data) {
+//        let decoder = JSONDecoder()
+//        do {
+//            let session = try decoder.decode(Session.self, from: data)
+//            gcLoginCoordinator.showViewController(vc: HomeViewController())
+//            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+//        } catch {
+//            Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
+//        }
+//    }
+
+
 
 struct Messaging {
     static let messaging = Messaging()
