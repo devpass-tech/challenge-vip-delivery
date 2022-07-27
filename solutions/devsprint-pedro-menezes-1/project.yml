@@ -3,7 +3,6 @@ options:
   bundleIdPrefix: com.devpass
   deploymentTarget:
     iOS: 15.0
-  postGenCommand: pod install
 
 targets:
   DeliveryAppChallenge:
