@@ -156,7 +156,7 @@
 		A4C4BEA82882160B00CF1E09 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA72882160B00CF1E09 /* Session.swift */; };
 		A4C4BEAA2882164200CF1E09 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA92882164200CF1E09 /* Endpoints.swift */; };
 		B980995D28906BA300A85D19 /* TRResetPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B980995C28906BA300A85D19 /* TRResetPasswordCoordinator.swift */; };
-		B9A97BB62891F0320029E637 /* TRLoginUserCoordinato.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A97BB52891F0320029E637 /* TRLoginUserCoordinato.swift */; };
+		B9A97BB62891F0320029E637 /* TRLoginUserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A97BB52891F0320029E637 /* TRLoginUserCoordinator.swift */; };
 		D8A5F2382888BB4000C3B53D /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A5F2372888BB4000C3B53D /* ButtonExtension.swift */; };
 		F6F961CD288A2C4D00218522 /* THResetPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */; };
 /* End PBXBuildFile section */
@@ -327,7 +327,7 @@
 		A4C4BEA72882160B00CF1E09 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		A4C4BEA92882164200CF1E09 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		B980995C28906BA300A85D19 /* TRResetPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRResetPasswordCoordinator.swift; sourceTree = "<group>"; };
-		B9A97BB52891F0320029E637 /* TRLoginUserCoordinato.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRLoginUserCoordinato.swift; sourceTree = "<group>"; };
+		B9A97BB52891F0320029E637 /* TRLoginUserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRLoginUserCoordinator.swift; sourceTree = "<group>"; };
 		D8A5F2372888BB4000C3B53D /* ButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExtension.swift; sourceTree = "<group>"; };
 		F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THResetPasswordCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -962,7 +962,7 @@
 				A45BADEE288643A400E5AAE6 /* TRLoginViewController.swift */,
 				A45BADEF288643A400E5AAE6 /* TRResetPasswordViewController.swift */,
 				B980995C28906BA300A85D19 /* TRResetPasswordCoordinator.swift */,
-				B9A97BB52891F0320029E637 /* TRLoginUserCoordinato.swift */,
+				B9A97BB52891F0320029E637 /* TRLoginUserCoordinator.swift */,
 			);
 			path = TatianaRico;
 			sourceTree = "<group>";
@@ -1244,7 +1244,7 @@
 				A45BAE3728864E9E00E5AAE6 /* GSResetPasswordViewController.swift in Sources */,
 				980D574A280DFF7700DDAF20 /* SampleApiDataSource.swift in Sources */,
 				A450D9B62880FB08003CCEBC /* Globals.swift in Sources */,
-				B9A97BB62891F0320029E637 /* TRLoginUserCoordinato.swift in Sources */,
+				B9A97BB62891F0320029E637 /* TRLoginUserCoordinator.swift in Sources */,
 				98F12972272F41BE00B88A87 /* RestaurantListView.swift in Sources */,
 				A45BAE652886523100E5AAE6 /* LACreateAccountViewController.swift in Sources */,
 				A45BAE6F288654BA00E5AAE6 /* MJContactUsViewController.swift in Sources */,
