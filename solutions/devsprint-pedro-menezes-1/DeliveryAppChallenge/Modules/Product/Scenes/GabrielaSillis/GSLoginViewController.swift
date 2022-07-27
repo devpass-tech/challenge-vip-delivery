@@ -215,7 +215,7 @@ extension GSLoginViewController: GSLoginViewModelDelegate {
     
     func succeedLoginAuthentication(with session: Session) {
         DispatchQueue.main.async {
-            self.coordinator.startNavigatingFlow()
+            self.coordinator.starHomeFlow()
             UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
         }
     }

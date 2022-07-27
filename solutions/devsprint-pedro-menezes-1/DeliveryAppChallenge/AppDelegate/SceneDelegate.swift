@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = setRootViewController()
+        self.window?.rootViewController = getRootViewController()
         self.window?.windowScene = windowScene
         self.window?.makeKeyAndVisible()
     }
@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 extension SceneDelegate {
     
-    func setRootViewController() -> UIViewController {
+    func getRootViewController() -> UIViewController {
         if isUserLogged() {
             let homeViewController = UINavigationController(rootViewController: HomeViewController())
             return homeViewController

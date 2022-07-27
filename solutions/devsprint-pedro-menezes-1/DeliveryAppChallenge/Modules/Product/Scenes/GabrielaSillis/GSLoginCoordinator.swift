@@ -8,7 +8,7 @@
 import UIKit
 
 protocol GSLoginCoordinating {
-    func startNavigatingFlow()
+    func starHomeFlow()
     func displayErrorAlertView()
     func navigatingToResetPassword()
     func navigatingToCreateAccount()
@@ -18,7 +18,7 @@ protocol GSLoginCoordinating {
 struct GSLoginCoordinator: GSLoginCoordinating {
     var controller: UIViewController?
     
-    func startNavigatingFlow() {
+    func starHomeFlow() {
         let viewController = UINavigationController(rootViewController: HomeViewController())
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
@@ -43,7 +43,9 @@ struct GSLoginCoordinator: GSLoginCoordinating {
     
     func navigatingToResetPassword() {
         let storyboard = UIStoryboard(name: "GSUser", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "GSResetPasswordViewController") as! GSResetPasswordViewController
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "GSResetPasswordViewController") as? GSResetPasswordViewController else {
+            fatalError("storyboard not found")
+        }
         vc.modalPresentationStyle = .fullScreen
         controller?.present(vc, animated: true)
     }
