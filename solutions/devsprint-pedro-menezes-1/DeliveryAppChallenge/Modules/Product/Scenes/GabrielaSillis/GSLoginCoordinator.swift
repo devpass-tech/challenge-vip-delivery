@@ -8,7 +8,7 @@
 import UIKit
 
 protocol GSLoginCoordinating {
-    func starHomeFlow()
+    func startHomeFlow()
     func displayErrorAlertView()
     func navigatingToResetPassword()
     func navigatingToCreateAccount()
@@ -18,7 +18,7 @@ protocol GSLoginCoordinating {
 struct GSLoginCoordinator: GSLoginCoordinating {
     var controller: UIViewController?
     
-    func starHomeFlow() {
+    func startHomeFlow() {
         let viewController = UINavigationController(rootViewController: HomeViewController())
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
