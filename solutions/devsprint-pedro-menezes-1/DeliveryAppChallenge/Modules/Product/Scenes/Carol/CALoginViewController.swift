@@ -81,18 +81,21 @@ class CALoginViewController: UIViewController {
     private func onLoginSuccess(_ data: Data) {
         let decoder = JSONDecoder()
         if let session = try? decoder.decode(Session.self, from: data) {
-            let vc = UINavigationController(rootViewController: HomeViewController())
-            let scenes = UIApplication.shared.connectedScenes
-            let windowScene = scenes.first as? UIWindowScene
-            let window = windowScene?.windows.first
-            
-            window?.rootViewController = vc
-            window?.makeKeyAndVisible()
-            
+            navigateToHome()
             UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
         } else {
             showGenericErrorAlert()
         }
+    }
+    
+    private func navigateToHome() {
+        let vc = UINavigationController(rootViewController: HomeViewController())
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        
+        window?.rootViewController = vc
+        window?.makeKeyAndVisible()
     }
     
     private func onLoginFailure() {
