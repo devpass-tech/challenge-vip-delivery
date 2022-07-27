@@ -85,7 +85,6 @@ class TRLoginViewController: UIViewController {
         }
     }
     
-    
     func handleLoginResult(_ result: Result<Data, Error>) {
         switch result {
         case .success(let data):
