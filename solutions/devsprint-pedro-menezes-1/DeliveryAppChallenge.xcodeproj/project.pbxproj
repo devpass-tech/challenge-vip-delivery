@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4701FD792891D83D0083DDC6 /* MJLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4701FD782891D83D0083DDC6 /* MJLoginCoordinator.swift */; };
+		4701FD7F2891E2D60083DDC6 /* MJLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4701FD7E2891E2D60083DDC6 /* MJLoginViewModel.swift */; };
 		980D5748280DFF7700DDAF20 /* SampleRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */; };
 		980D5749280DFF7700DDAF20 /* SampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5735280DFF7700DDAF20 /* SampleRequest.swift */; };
 		980D574A280DFF7700DDAF20 /* SampleApiDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */; };
@@ -162,6 +164,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4701FD782891D83D0083DDC6 /* MJLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MJLoginCoordinator.swift; sourceTree = "<group>"; };
+		4701FD7E2891E2D60083DDC6 /* MJLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MJLoginViewModel.swift; sourceTree = "<group>"; };
 		980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRepositoryImpl.swift; sourceTree = "<group>"; };
 		980D5735280DFF7700DDAF20 /* SampleRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRequest.swift; sourceTree = "<group>"; };
 		980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleApiDataSource.swift; sourceTree = "<group>"; };
@@ -330,6 +334,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4701FD772891D8010083DDC6 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				A45BAE6A288654BA00E5AAE6 /* MJLoginViewController.swift */,
+				4701FD782891D83D0083DDC6 /* MJLoginCoordinator.swift */,
+				4701FD7E2891E2D60083DDC6 /* MJLoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		980D5732280DFF7700DDAF20 /* Sample */ = {
 			isa = PBXGroup;
 			children = (
@@ -796,12 +810,12 @@
 		A45BADDA288640F800E5AAE6 /* MarcosJr */ = {
 			isa = PBXGroup;
 			children = (
+				4701FD772891D8010083DDC6 /* Login */,
 				A45BAE6E288654BA00E5AAE6 /* MJUser.storyboard */,
 				A45BAE68288654BA00E5AAE6 /* MJContactUsViewController.swift */,
 				A45BAE6D288654BA00E5AAE6 /* MJContactUsViewController.xib */,
 				A45BAE6B288654BA00E5AAE6 /* MJCreateAccountViewController.swift */,
 				A45BAE69288654BA00E5AAE6 /* MJCreateAccountViewController.xib */,
-				A45BAE6A288654BA00E5AAE6 /* MJLoginViewController.swift */,
 				A45BAE6C288654BA00E5AAE6 /* MJResetPasswordViewController.swift */,
 			);
 			path = MarcosJr;
@@ -1067,6 +1081,7 @@
 				98F12970272F41AE00B88A87 /* RestaurantCellView.swift in Sources */,
 				98EA055E272A0949007B0228 /* RestaurantListViewController.swift in Sources */,
 				A45BAE592886513D00E5AAE6 /* IBCreateAccountViewController.swift in Sources */,
+				4701FD792891D83D0083DDC6 /* MJLoginCoordinator.swift in Sources */,
 				A45BAE1A28864A2300E5AAE6 /* BAResetPasswordViewController.swift in Sources */,
 				A45BADF0288643A400E5AAE6 /* TRContactUsViewController.swift in Sources */,
 				A4C4BEA128820D4B00CF1E09 /* KeyboardAppearenceManager.swift in Sources */,
@@ -1096,6 +1111,7 @@
 				A45BADF2288643A500E5AAE6 /* TRCreateAccountViewController.swift in Sources */,
 				A450D9A92880EE37003CCEBC /* UITextfield+extensions.swift in Sources */,
 				98FC5AAB2732B938002412EA /* RestaurantDetailsView.swift in Sources */,
+				4701FD7F2891E2D60083DDC6 /* MJLoginViewModel.swift in Sources */,
 				A4BEBB6E288504B8008DCC76 /* ContactUsModel.swift in Sources */,
 				A45BADF4288643A500E5AAE6 /* TRLoginViewController.swift in Sources */,
 				A45BAE612886523100E5AAE6 /* LAContactUsViewController.swift in Sources */,
