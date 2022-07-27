@@ -11,16 +11,13 @@ class TRLoginViewController: UIViewController {
     
     var errorInLogin = false
     var showPassword = true
-    var coordinator = LoginUserCoordinator()
+    var coordinator: LoginUserCoordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyLogin()
-        
-#if DEBUG
-        emailTextField.text = "clean.code@devpass.com"
-        passwordTextField.text = "111111"
-#endif
+        placeholderTextFieldInicial()
+        self.coordinator = LoginUserCoordinator(controler: self)
         self.setupView()
         self.validateButton()
     }
@@ -42,14 +39,14 @@ class TRLoginViewController: UIViewController {
         passwordTextField.isSecureTextEntry = showPassword
         showPassword = !showPassword
     }
-  
+    
     @IBAction func resetPasswordButton(_ sender: Any) {
-        self.coordinator.userResetPassword()
+        self.coordinator?.userResetPassword()
     }
     
     
     @IBAction func createAccountButton(_ sender: Any) {
-        self.coordinator.newAccount()
+        self.coordinator?.newAccount()
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -58,8 +55,15 @@ class TRLoginViewController: UIViewController {
     
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            coordinator.verifyLogin()
+            coordinator?.verifyLogin()
         }
+    }
+    
+    private func placeholderTextFieldInicial() {
+        #if DEBUG
+        emailTextField.text = "clean.code@devpass.com"
+        passwordTextField.text = "111111"
+        #endif
     }
     
     func alertConection(titleAlert: String, messageAlert: String, actionMsgAlert: String) {
@@ -94,7 +98,7 @@ class TRLoginViewController: UIViewController {
     func handleLoginSucess(data: Data) {
         do {
             let json = try JSONDecoder().decode(Session.self, from: data)
-            self.coordinator.changeScreenHome()
+            self.coordinator?.changeScreenHome()
             UserDefaultsManager.UserInfos.shared.save(session: json , user: nil)
         } catch {
             handleLoginFailure()
@@ -243,13 +247,13 @@ extension TRLoginViewController {
 }
 
 extension TRLoginViewController{
-enum StringsHelper {
-    static var CONNECT_INTERNET = "Conecte-se à internet para tentar novamente"
-    static var EMAIL_PASSWORD_INCORRECT = "E-mail ou senha incorretos"
-    static var THERE_WAS_PROBLEM = "Houve um problema, tente novamente mais tarde."
-    static var OK = "ok"
-    static var OPS = "Ops.."
-    static var NOT_CONEXAO = "Sem conexão"
-    
-}
+    enum StringsHelper {
+        static var CONNECT_INTERNET = "Conecte-se à internet para tentar novamente"
+        static var EMAIL_PASSWORD_INCORRECT = "E-mail ou senha incorretos"
+        static var THERE_WAS_PROBLEM = "Houve um problema, tente novamente mais tarde."
+        static var OK = "ok"
+        static var OPS = "Ops.."
+        static var NOT_CONEXAO = "Sem conexão"
+        
+    }
 }
