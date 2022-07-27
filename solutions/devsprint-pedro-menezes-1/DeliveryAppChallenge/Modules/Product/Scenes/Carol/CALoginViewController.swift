@@ -25,7 +25,7 @@ class CALoginViewController: UIViewController {
         #endif
 
         self.setupView()
-        self.validateButton()
+        self.validateEmail()
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -47,12 +47,12 @@ class CALoginViewController: UIViewController {
         if !ConnectivityManager.shared.isConnected {
             presentConnectivityError()
         } else {
-            showLoading()
             login()
         }
     }
     
     private func login() {
+        showLoading()
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
         let endpoint = Endpoints.Auth.login
@@ -143,7 +143,7 @@ extension CALoginViewController {
 
         setupViewInteractions()
         
-        validateButton()
+        validateEmail()
     }
     
     private func setupButtons() {
@@ -186,7 +186,7 @@ extension CALoginViewController {
     }
     
     @IBAction func emailEditing(_ sender: Any) {
-        validateButton()
+        validateEmail()
     }
     
     @IBAction func emailEndEditing(_ sender: Any) {
@@ -203,7 +203,7 @@ extension CALoginViewController {
     }
     
     @IBAction func passwordEditing(_ sender: Any) {
-        validateButton()
+        validateEmail()
     }
     
     @IBAction func passwordEndEditing(_ sender: Any) {
@@ -232,18 +232,23 @@ extension CALoginViewController {
 
 extension CALoginViewController {
     
-    func validateButton() {
-        let emailContainsAnyInvalidCondition = !emailTextField.text!.contains(".") ||
+    func validateEmail() {
+        let emailContainsAnyInvalidCondition =
+        !emailTextField.text!.contains(".") ||
         !emailTextField.text!.contains("@") ||
         emailTextField.text!.count <= 5
         
         if emailContainsAnyInvalidCondition {
             disableButton()
         } else {
-            guard let atIndex = emailTextField.text!.firstIndex(of: "@") else { return disableButton() }
-                let substring = emailTextField.text![atIndex...]
-                substring.contains(".") ? enableButton() : disableButton()
+            validateEmailIndex()
         }
+    }
+    
+    func validateEmailIndex() {
+        guard let atIndex = emailTextField.text!.firstIndex(of: "@") else { return disableButton() }
+            let substring = emailTextField.text![atIndex...]
+            substring.contains(".") ? enableButton() : disableButton()
     }
     
     func disableButton() {
