@@ -144,7 +144,7 @@
                                                 </constraints>
                                                 <state key="normal" image="eye" catalog="system"/>
                                                 <connections>
-                                                    <action selector="showPassword:" destination="uHU-dp-7pV" eventType="touchUpInside" id="uoE-Yx-wxe"/>
+                                                    <action selector="showPasswordInputButton:" destination="uHU-dp-7pV" eventType="touchUpInside" id="OYn-zZ-snn"/>
                                                 </connections>
                                             </button>
                                         </subviews>
