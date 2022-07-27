@@ -12,6 +12,7 @@ class TRLoginViewController: UIViewController {
     var errorInLogin = false
     var showPassword = true
     var coordinator: TRLoginUserCoordinator = TRLoginUserCoordinator()
+    var viewModel = TRLoginViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +20,7 @@ class TRLoginViewController: UIViewController {
         placeholderTextFieldInicial()
         self.setupView()
         self.validateButton()
+        coordinator.controler = self
     }
     
     @IBAction func loginButton(_ sender: Any) {
@@ -73,12 +75,13 @@ class TRLoginViewController: UIViewController {
     func requestLogin() {
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
-        let endpoint = Endpoints.Auth.login
-        showLoading()
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
+        BadNetworkLayer.shared.login(self, parameters: parameters) { session in
             DispatchQueue.main.async {
-                self.stopLoading()
-                self.handleLoginResult(result)
+                if (session != nil) {
+                    self.coordinator.changeScreenHome()
+                } else {
+                    self.handleLoginFailure()
+                }
             }
         }
     }
@@ -214,20 +217,8 @@ extension TRLoginViewController {
 extension TRLoginViewController {
     
     func validateButton() {
-        let emailHasDot = emailTextField.text?.contains(".") ?? false
-        let emailHasAt = emailTextField.text?.contains("@") ?? false
-        let emailHasValidSize = emailTextField.text?.count ?? 0 > 5
-        let emailIsValid = emailHasDot && emailHasAt && emailHasValidSize
-        
-        let atIndexFirst = emailTextField.text!.firstIndex(of: "@")
-        
-        if emailIsValid && (atIndexFirst != nil) {
-            let substring = emailTextField.text![atIndexFirst!...]
-            if substring.contains(".") {
-                enableButton()
-            } else {
-                disableButton()
-            }
+        if self.viewModel.validateEmail(textField: emailTextField.text ?? "") {
+            enableButton()
         } else {
             disableButton()
         }

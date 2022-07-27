@@ -19,6 +19,7 @@ class TRResetPasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        coordinator.viewController = self
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
