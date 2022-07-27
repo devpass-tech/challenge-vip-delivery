@@ -19,8 +19,8 @@ class TRLoginViewController: UIViewController {
         verifyLogin()
         placeholderTextFieldInicial()
         self.setupView()
-        self.validateButton()
         coordinator.controler = self
+        self.checkStatusButtonAndChangeColor()
     }
     
     @IBAction func loginButton(_ sender: Any) {
@@ -52,17 +52,17 @@ class TRLoginViewController: UIViewController {
         return .lightContent
     }
     
-    func verifyLogin() {
+    private   func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            coordinator.verifyLogin()
+            coordinator.goToHomeViewController()
         }
     }
     
     private func placeholderTextFieldInicial() {
-        #if DEBUG
+#if DEBUG
         emailTextField.text = "clean.code@devpass.com"
         passwordTextField.text = "111111"
-        #endif
+#endif
     }
     
     func alertConection(titleAlert: String, messageAlert: String, actionMsgAlert: String) {
@@ -72,7 +72,7 @@ class TRLoginViewController: UIViewController {
         present(alertController, animated: true)
     }
     
-    func requestLogin() {
+    private func requestLogin() {
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
         BadNetworkLayer.shared.login(self, parameters: parameters) { session in
@@ -86,28 +86,8 @@ class TRLoginViewController: UIViewController {
         }
     }
     
-    
-    func handleLoginResult(_ result: Result<Data, Error>) {
-        switch result {
-        case .success(let data):
-            handleLoginSucess(data: data)
-        case .failure:
-            handleLoginFailure()
-        }
-    }
-    
-    func handleLoginSucess(data: Data) {
-        do {
-            let json = try JSONDecoder().decode(Session.self, from: data)
-            self.coordinator.changeScreenHome()
-            UserDefaultsManager.UserInfos.shared.save(session: json , user: nil)
-        } catch {
-            handleLoginFailure()
-        }
-    }
-    
-    func handleLoginFailure() {
-        self.setErrorLogin(StringsHelper.EMAIL_PASSWORD_INCORRECT)
+    private func handleLoginFailure() {
+        self.isErrorLogin(StringsHelper.EMAIL_PASSWORD_INCORRECT)
         self.alertMensagem(target: self, title:StringsHelper.OPS, message: StringsHelper.THERE_WAS_PROBLEM)
     }
     
@@ -119,23 +99,23 @@ class TRLoginViewController: UIViewController {
 // MARK: - Comportamentos de layout
 extension TRLoginViewController {
     
-    func setupView() {
+    private func setupView() {
         heightLabelError.constant = 0
         showPasswordButton.tintColor = .lightGray
         
         setupLoginButtonLayout()
         setupAccountButtonLayout()
-        validateButton()
+        checkStatusButtonAndChangeColor()
         setupTextFielLayout()
         gestureClickView()
     }
     
-    func setupTextFielLayout() {
+    private func setupTextFielLayout() {
         emailTextField.setDefaultColor()
         passwordTextField.setDefaultColor()
     }
     
-    func setupAccountButtonLayout() {
+    private func setupAccountButtonLayout() {
         createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
         createAccountButton.layer.borderWidth = 1
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
@@ -143,14 +123,14 @@ extension TRLoginViewController {
         createAccountButton.backgroundColor = .white
     }
     
-    func setupLoginButtonLayout() {
+    private func setupLoginButtonLayout() {
         loginButton.layer.cornerRadius = loginButton.frame.height / 2
         loginButton.backgroundColor = .blue
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.isEnabled = true
     }
     
-    func gestureClickView() {
+    private func gestureClickView() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
@@ -163,14 +143,14 @@ extension TRLoginViewController {
     //email
     @IBAction func emailBeginEditing(_ sender: Any) {
         if errorInLogin {
-            resetErrorLogin(emailTextField)
+            isErrorResetLogin(emailTextField)
         } else {
             emailTextField.setEditingColor()
         }
     }
     
     @IBAction func emailEditing(_ sender: Any) {
-        validateButton()
+        checkStatusButtonAndChangeColor()
     }
     
     @IBAction func emailEndEditing(_ sender: Any) {
@@ -180,21 +160,21 @@ extension TRLoginViewController {
     //senha
     @IBAction func passwordBeginEditing(_ sender: Any) {
         if errorInLogin {
-            resetErrorLogin(passwordTextField)
+            isErrorResetLogin(passwordTextField)
         } else {
             passwordTextField.setEditingColor()
         }
     }
     
     @IBAction func passwordEditing(_ sender: Any) {
-        validateButton()
+        checkStatusButtonAndChangeColor()
     }
     
     @IBAction func passwordEndEditing(_ sender: Any) {
         passwordTextField.setDefaultColor()
     }
     
-    func setErrorLogin(_ message: String) {
+    private func isErrorLogin(_ message: String) {
         errorInLogin = true
         heightLabelError.constant = 20
         errorLabel.text = message
@@ -202,7 +182,7 @@ extension TRLoginViewController {
         passwordTextField.setErrorColor()
     }
     
-    func resetErrorLogin(_ textField: UITextField) {
+    private func isErrorResetLogin(_ textField: UITextField) {
         heightLabelError.constant = 0
         if textField == emailTextField {
             emailTextField.setEditingColor()
@@ -215,23 +195,18 @@ extension TRLoginViewController {
 }
 
 extension TRLoginViewController {
-    
-    func validateButton() {
+    private func checkStatusButtonAndChangeColor() {
+        self.statusButton(color: .gray, isEnabled: false)
         if self.viewModel.validateEmail(textField: emailTextField.text ?? "") {
-            enableButton()
+            self.statusButton(color: .blue, isEnabled: true)
         } else {
-            disableButton()
+            self.statusButton(color: .gray, isEnabled: false)
         }
     }
     
-    func disableButton() {
-        loginButton.backgroundColor = .gray
-        loginButton.isEnabled = false
-    }
-    
-    func enableButton() {
-        loginButton.backgroundColor = .blue
-        loginButton.isEnabled = true
+    private func statusButton(color: UIColor, isEnabled: Bool) {
+        loginButton.backgroundColor = color
+        loginButton.isEnabled = isEnabled
     }
 }
 

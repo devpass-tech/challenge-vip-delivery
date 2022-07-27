@@ -33,7 +33,7 @@ struct TRLoginUserCoordinator {
         controler?.present(controller, animated: true)
     }
     
-    func verifyLogin() {
+    func goToHomeViewController() {
         let vc = UINavigationController(rootViewController: HomeViewController())
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
