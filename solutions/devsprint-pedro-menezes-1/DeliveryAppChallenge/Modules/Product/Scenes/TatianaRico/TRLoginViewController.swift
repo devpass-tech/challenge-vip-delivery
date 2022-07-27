@@ -11,15 +11,15 @@ class TRLoginViewController: UIViewController {
     
     var errorInLogin = false
     var showPassword = true
-    var coordinator: LoginUserCoordinator?
+    var coordinator: TRLoginUserCoordinator = TRLoginUserCoordinator()
     var viewModel = TRLoginViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyLogin()
         placeholderTextFieldInicial()
-        self.coordinator = LoginUserCoordinator(controler: self)
         self.setupView()
+        coordinator.controler = self
         self.checkStatusButtonAndChangeColor()
     }
     
@@ -28,8 +28,6 @@ class TRLoginViewController: UIViewController {
             alertConection(titleAlert: StringsHelper.NOT_CONEXAO, messageAlert: StringsHelper.CONNECT_INTERNET, actionMsgAlert: StringsHelper.OK)
             return
         }
-        
-        showLoading()
         requestLogin()
     }
     
@@ -42,12 +40,12 @@ class TRLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        self.coordinator?.userResetPassword()
+        self.coordinator.userResetPassword()
     }
     
     
     @IBAction func createAccountButton(_ sender: Any) {
-        self.coordinator?.newAccount()
+        self.coordinator.newAccount()
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -80,7 +78,7 @@ class TRLoginViewController: UIViewController {
         BadNetworkLayer.shared.login(self, parameters: parameters) { session in
             DispatchQueue.main.async {
                 if (session != nil) {
-                    self.coordinator?.changeScreenHome()
+                    self.coordinator.changeScreenHome()
                 } else {
                     self.handleLoginFailure()
                 }

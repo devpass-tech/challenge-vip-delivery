@@ -1,20 +1,16 @@
 //
-//  LoginUserCoordinator.swift
+//  TRLoginUserCoordinator.swift
 //  DeliveryAppChallenge
 //
-//  Created by Tatiana Rico on 20/07/22.
+//  Created by Tatiana Rico on 27/07/22.
 //
 
 import Foundation
 import UIKit
 
-struct LoginUserCoordinator {
-    var controler: UIViewController
+struct TRLoginUserCoordinator {
+    var controler: UIViewController?
     
-    init(controler: UIViewController) {
-        self.controler = controler
-    }
-
      func changeScreenHome() {
         let vc = UINavigationController(rootViewController: HomeViewController())
         let scenes = UIApplication.shared.connectedScenes
@@ -28,13 +24,13 @@ struct LoginUserCoordinator {
         let storyboard = UIStoryboard(name: "TRUser", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "TRResetPasswordViewController") as! TRResetPasswordViewController
         vc.modalPresentationStyle = .fullScreen
-        controler.present(vc, animated: true)
+        controler?.present(vc, animated: true)
     }
     
     func newAccount() {
         let controller = TRCreateAccountViewController()
         controller.modalPresentationStyle = .fullScreen
-        controler.present(controller, animated: true)
+        controler?.present(controller, animated: true)
     }
     
     func goToHomeViewController() {
