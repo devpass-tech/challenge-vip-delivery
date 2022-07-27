@@ -78,5 +78,6 @@ struct AppCoordinator {
         case tatianaRico
         case thyagoRaphael
     }
+
 }
 

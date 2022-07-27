@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import DeliveryAppChallenge
+@testable import DeliveryApp
 
 class DeliveryAppChallengeTests: XCTestCase {
 
