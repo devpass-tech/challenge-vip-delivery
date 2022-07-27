@@ -11,14 +11,13 @@ class TRLoginViewController: UIViewController {
     
     var errorInLogin = false
     var showPassword = true
-    var coordinator: LoginUserCoordinator?
+    var coordinator: TRLoginUserCoordinator = TRLoginUserCoordinator()
     var viewModel = TRLoginViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyLogin()
         placeholderTextFieldInicial()
-        self.coordinator = LoginUserCoordinator(controler: self)
         self.setupView()
         self.validateButton()
     }
@@ -28,8 +27,6 @@ class TRLoginViewController: UIViewController {
             alertConection(titleAlert: StringsHelper.NOT_CONEXAO, messageAlert: StringsHelper.CONNECT_INTERNET, actionMsgAlert: StringsHelper.OK)
             return
         }
-        
-        showLoading()
         requestLogin()
     }
     
@@ -42,12 +39,12 @@ class TRLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        self.coordinator?.userResetPassword()
+        self.coordinator.userResetPassword()
     }
     
     
     @IBAction func createAccountButton(_ sender: Any) {
-        self.coordinator?.newAccount()
+        self.coordinator.newAccount()
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -56,7 +53,7 @@ class TRLoginViewController: UIViewController {
     
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            coordinator?.verifyLogin()
+            coordinator.verifyLogin()
         }
     }
     
@@ -85,6 +82,26 @@ class TRLoginViewController: UIViewController {
                     self.handleLoginFailure()
                 }
             }
+        }
+    }
+    
+    
+    func handleLoginResult(_ result: Result<Data, Error>) {
+        switch result {
+        case .success(let data):
+            handleLoginSucess(data: data)
+        case .failure:
+            handleLoginFailure()
+        }
+    }
+    
+    func handleLoginSucess(data: Data) {
+        do {
+            let json = try JSONDecoder().decode(Session.self, from: data)
+            self.coordinator.changeScreenHome()
+            UserDefaultsManager.UserInfos.shared.save(session: json , user: nil)
+        } catch {
+            handleLoginFailure()
         }
     }
     
