@@ -20,6 +20,7 @@ class TRLoginViewController: UIViewController {
         placeholderTextFieldInicial()
         self.setupView()
         self.validateButton()
+        coordinator.controler = self
     }
     
     @IBAction func loginButton(_ sender: Any) {
@@ -77,7 +78,7 @@ class TRLoginViewController: UIViewController {
         BadNetworkLayer.shared.login(self, parameters: parameters) { session in
             DispatchQueue.main.async {
                 if (session != nil) {
-                    self.coordinator?.changeScreenHome()
+                    self.coordinator.changeScreenHome()
                 } else {
                     self.handleLoginFailure()
                 }
