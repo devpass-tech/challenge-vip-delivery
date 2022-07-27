@@ -68,6 +68,19 @@ class BAResetPasswordViewController: UIViewController {
         createAccountButton.backgroundColor = .white
     }
     
+    private func closeView() {
+        self.view.endEditing(true)
+    }
+    
+    private func sendToAPI() {
+        let emailUser = emailTextfield.text!.trimmingCharacters(in: .whitespaces)
+        
+        let parameters = [
+            "email": emailUser
+        ]
+        recoverPassword(with: parameters)
+    }
+    
     // MARK: - Actions
 
     @IBAction func closeButtonAction(_ sender: Any) {
@@ -81,15 +94,9 @@ class BAResetPasswordViewController: UIViewController {
         }
 
         if validateForm() {
-            self.view.endEditing(true)
+            closeView()
             checkIfHasInternetConnection()
-
-            let emailUser = emailTextfield.text!.trimmingCharacters(in: .whitespaces)
-            
-            let parameters = [
-                "email": emailUser
-            ]
-            recoverPassword(with: parameters)
+            sendToAPI()
         }
     }
     
@@ -126,21 +133,32 @@ class BAResetPasswordViewController: UIViewController {
         return true
     }
     
+    private func successInRecoveringPassword() {
+        recoveryEmail = true
+        emailTextfield.isHidden = true
+        textLabel.isHidden = true
+        viewSuccess.isHidden = false
+        emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
+        recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
+        recoverPasswordButton.setTitle("Voltar", for: .normal)
+    }
+    
+    private func showErrorMessage() {
+        let alertController = UIAlertController(title: "Ops..",
+                                                message: "Algo de errado aconteceu. Tente novamente mais tarde.",
+                                                preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK",
+                                   style: .default)
+        alertController.addAction(action)
+        self.present(alertController, animated: true)
+    }
+    
     private func recoverPassword(with parameters: [String : String]) {
         BadNetworkLayer.shared.resetPassword(self, parameters: parameters) { success in
             if success {
-                self.recoveryEmail = true
-                self.emailTextfield.isHidden = true
-                self.textLabel.isHidden = true
-                self.viewSuccess.isHidden = false
-                self.emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
-                self.recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
-                self.recoverPasswordButton.setTitle("Voltar", for: .normal)
+                self.successInRecoveringPassword()
             } else {
-                let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
-                let action = UIAlertAction(title: "OK", style: .default)
-                alertController.addAction(action)
-                self.present(alertController, animated: true)
+                self.showErrorMessage()
             }
         }
     }
