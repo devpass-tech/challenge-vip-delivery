@@ -11,13 +11,12 @@ class TRLoginViewController: UIViewController {
     
     var errorInLogin = false
     var showPassword = true
-    var coordinator: LoginUserCoordinator?
+    var coordinator: TRLoginUserCoordinator = TRLoginUserCoordinator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyLogin()
         placeholderTextFieldInicial()
-        self.coordinator = LoginUserCoordinator(controler: self)
         self.setupView()
         self.validateButton()
     }
@@ -27,8 +26,6 @@ class TRLoginViewController: UIViewController {
             alertConection(titleAlert: StringsHelper.NOT_CONEXAO, messageAlert: StringsHelper.CONNECT_INTERNET, actionMsgAlert: StringsHelper.OK)
             return
         }
-        
-        showLoading()
         requestLogin()
     }
     
@@ -41,12 +38,12 @@ class TRLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        self.coordinator?.userResetPassword()
+        self.coordinator.userResetPassword()
     }
     
     
     @IBAction func createAccountButton(_ sender: Any) {
-        self.coordinator?.newAccount()
+        self.coordinator.newAccount()
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -55,7 +52,7 @@ class TRLoginViewController: UIViewController {
     
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            coordinator?.verifyLogin()
+            coordinator.verifyLogin()
         }
     }
     
@@ -77,6 +74,7 @@ class TRLoginViewController: UIViewController {
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
         let endpoint = Endpoints.Auth.login
+        showLoading()
         AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
             DispatchQueue.main.async {
                 self.stopLoading()
@@ -98,7 +96,7 @@ class TRLoginViewController: UIViewController {
     func handleLoginSucess(data: Data) {
         do {
             let json = try JSONDecoder().decode(Session.self, from: data)
-            self.coordinator?.changeScreenHome()
+            self.coordinator.changeScreenHome()
             UserDefaultsManager.UserInfos.shared.save(session: json , user: nil)
         } catch {
             handleLoginFailure()

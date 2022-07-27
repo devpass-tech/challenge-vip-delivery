@@ -14,12 +14,11 @@ class TRResetPasswordViewController: UIViewController {
     var loadingScreen = LoadingController()
     var recoveryEmail = false
     
-    var coordinator: TRResetPasswordCoordinator?
+    var coordinator: TRResetPasswordCoordinator = TRResetPasswordCoordinator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        self.coordinator = TRResetPasswordCoordinator(viewController: self)
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {

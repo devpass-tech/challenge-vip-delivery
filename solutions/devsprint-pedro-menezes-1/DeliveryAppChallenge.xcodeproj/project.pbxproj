@@ -150,7 +150,7 @@
 		A4C4BEA82882160B00CF1E09 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA72882160B00CF1E09 /* Session.swift */; };
 		A4C4BEAA2882164200CF1E09 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA92882164200CF1E09 /* Endpoints.swift */; };
 		B980995D28906BA300A85D19 /* TRResetPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B980995C28906BA300A85D19 /* TRResetPasswordCoordinator.swift */; };
-		B9F2D6AD2888C9BE0022EC88 /* LoginUserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */; };
+		B9F2D6AD2888C9BE0022EC88 /* TRLoginUserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F2D6AC2888C9BE0022EC88 /* TRLoginUserCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -313,7 +313,7 @@
 		A4C4BEA72882160B00CF1E09 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		A4C4BEA92882164200CF1E09 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		B980995C28906BA300A85D19 /* TRResetPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRResetPasswordCoordinator.swift; sourceTree = "<group>"; };
-		B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserCoordinator.swift; sourceTree = "<group>"; };
+		B9F2D6AC2888C9BE0022EC88 /* TRLoginUserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRLoginUserCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -865,7 +865,7 @@
 				A45BADED288643A400E5AAE6 /* TRCreateAccountViewController.xib */,
 				A45BADEE288643A400E5AAE6 /* TRLoginViewController.swift */,
 				A45BADEF288643A400E5AAE6 /* TRResetPasswordViewController.swift */,
-				B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */,
+				B9F2D6AC2888C9BE0022EC88 /* TRLoginUserCoordinator.swift */,
 				B980995C28906BA300A85D19 /* TRResetPasswordCoordinator.swift */,
 			);
 			path = TatianaRico;
@@ -1044,7 +1044,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A45BAE902886564C00E5AAE6 /* RLContactUsViewController.swift in Sources */,
-				B9F2D6AD2888C9BE0022EC88 /* LoginUserCoordinator.swift in Sources */,
+				B9F2D6AD2888C9BE0022EC88 /* TRLoginUserCoordinator.swift in Sources */,
 				A45BAE0C2886456A00E5AAE6 /* BTCreateAccountViewController.swift in Sources */,
 				A45BAE9D2886577E00E5AAE6 /* THContactUsViewController.swift in Sources */,
 				A4C4BEA628820DAE00CF1E09 /* User.swift in Sources */,
