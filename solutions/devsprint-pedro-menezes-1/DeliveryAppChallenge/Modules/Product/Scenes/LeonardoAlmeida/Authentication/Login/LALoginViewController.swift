@@ -161,27 +161,27 @@ extension LALoginViewController {
     
     @IBAction func handleLoginButton(_ sender: Any) {
         let nextStep = getNextStepToLogin()
-        switch nextStep.status {
+        switch nextStep {
         case .invalidData:
             Globals.alertMessage(title: "Ops..", message: "Verifique os dados informados e tente novamente!", targetVC: self)
         case .noInternet:
             Globals.showNoInternetCOnnection(controller: self)
-        case .loginRequest:
-            handleLoginRequest(email: nextStep.email, password: nextStep.password)
+        case .loginRequest(let email, let password):
+            handleLoginRequest(email: email, password: password)
         }
     }
     
     private func getNextStepToLogin() -> StepToLogin {
         guard let emailText = emailTextField.text, let passwordText = passwordTextField.text else {
-            return StepToLogin(status: .invalidData, email: "", password: "")
+            return .invalidData
         }
         
         let deviceIsDisconnectedInternet = !ConnectivityManager.shared.isConnected
         if deviceIsDisconnectedInternet {
-            return StepToLogin(status: .noInternet, email: "", password: "")
+            return .noInternet
         }
         
-        return StepToLogin(status: .loginRequest, email: emailText, password: passwordText)
+        return .loginRequest(email: emailText, password: passwordText)
     }
     
     private func handleLoginRequest(email: String, password: String) {
@@ -254,12 +254,7 @@ extension LALoginViewController {
         let passwordIsValid = passwordText.count > 0
         let formIsValid = emailIsValid && passwordIsValid
         
-        if formIsValid {
-            enableFormButton()
-            return
-        }
-        
-        disableFormButton()
+        formIsValid ? enableFormButton() : disableFormButton()
     }
     
     func disableFormButton() {

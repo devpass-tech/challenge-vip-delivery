@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct StepToLogin {
-    let status: StatusStepToLogin
-    let email: String
-    let password: String
+
+enum StepToLogin {
+    case invalidData
+    case noInternet
+    case loginRequest(email: String, password: String)
 }

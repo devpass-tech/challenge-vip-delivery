@@ -10,7 +10,6 @@
 		02A7F8FB288C5B2100285FCC /* LALoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F8FA288C5B2100285FCC /* LALoginCoordinator.swift */; };
 		02A7F8FE288C982C00285FCC /* Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F8FD288C982C00285FCC /* Validations.swift */; };
 		02A7F917288EEC5B00285FCC /* StepToLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F916288EEC5B00285FCC /* StepToLogin.swift */; };
-		02A7F919288EEC8000285FCC /* StatusStepToLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F918288EEC8000285FCC /* StatusStepToLogin.swift */; };
 		980D5748280DFF7700DDAF20 /* SampleRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */; };
 		980D5749280DFF7700DDAF20 /* SampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5735280DFF7700DDAF20 /* SampleRequest.swift */; };
 		980D574A280DFF7700DDAF20 /* SampleApiDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */; };
@@ -153,8 +152,8 @@
 		A4C4BEA628820DAE00CF1E09 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA528820DAE00CF1E09 /* User.swift */; };
 		A4C4BEA82882160B00CF1E09 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA72882160B00CF1E09 /* Session.swift */; };
 		A4C4BEAA2882164200CF1E09 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA92882164200CF1E09 /* Endpoints.swift */; };
-		F6F961CD288A2C4D00218522 /* THResetPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */; };
 		B9F2D6AD2888C9BE0022EC88 /* LoginUserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */; };
+		F6F961CD288A2C4D00218522 /* THResetPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,7 +170,6 @@
 		02A7F8FA288C5B2100285FCC /* LALoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LALoginCoordinator.swift; sourceTree = "<group>"; };
 		02A7F8FD288C982C00285FCC /* Validations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validations.swift; sourceTree = "<group>"; };
 		02A7F916288EEC5B00285FCC /* StepToLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepToLogin.swift; sourceTree = "<group>"; };
-		02A7F918288EEC8000285FCC /* StatusStepToLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusStepToLogin.swift; sourceTree = "<group>"; };
 		980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRepositoryImpl.swift; sourceTree = "<group>"; };
 		980D5735280DFF7700DDAF20 /* SampleRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRequest.swift; sourceTree = "<group>"; };
 		980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleApiDataSource.swift; sourceTree = "<group>"; };
@@ -320,8 +318,8 @@
 		A4C4BEA528820DAE00CF1E09 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A4C4BEA72882160B00CF1E09 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		A4C4BEA92882164200CF1E09 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
-		F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THResetPasswordCoordinator.swift; sourceTree = "<group>"; };
 		B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserCoordinator.swift; sourceTree = "<group>"; };
+		F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THResetPasswordCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -399,7 +397,6 @@
 			isa = PBXGroup;
 			children = (
 				02A7F916288EEC5B00285FCC /* StepToLogin.swift */,
-				02A7F918288EEC8000285FCC /* StatusStepToLogin.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1136,7 +1133,6 @@
 				980D5756280DFF7700DDAF20 /* SampleView.swift in Sources */,
 				A45BAE72288654BA00E5AAE6 /* MJCreateAccountViewController.swift in Sources */,
 				98FC5AB82732C1EF002412EA /* MenuItemView.swift in Sources */,
-				02A7F919288EEC8000285FCC /* StatusStepToLogin.swift in Sources */,
 				98FC5AAE2732BA2E002412EA /* RestaurantInfoView.swift in Sources */,
 				A45BAE2A28864B3A00E5AAE6 /* CAContactUsViewController.swift in Sources */,
 				A45BAE8C2886564C00E5AAE6 /* RLLoginViewController.swift in Sources */,
