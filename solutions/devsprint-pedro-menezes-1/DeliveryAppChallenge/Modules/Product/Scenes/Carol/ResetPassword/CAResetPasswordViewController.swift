@@ -15,9 +15,13 @@ class CAResetPasswordViewController: UIViewController {
     var email = ""
     var loadingScreen = LoadingController()
     var isPasswordRecovered = false
+    
+    let coordinator = CAResetPasswordCoordinator()
+    let isEmailValid = CAIsEmailValidUseCase()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        coordinator.controller = self
         setupView()
     }
     
@@ -34,16 +38,11 @@ class CAResetPasswordViewController: UIViewController {
     }
     
     @IBAction func helpButton(_ sender: Any) {
-        let vc = CAContactUsViewController()
-        vc.modalPresentationStyle = .popover
-        vc.modalTransitionStyle = .coverVertical
-        self.present(vc, animated: true, completion: nil)
+        coordinator.navigateToCAContactUsViewController()
     }
     
     @IBAction func createAccountButton(_ sender: Any) {
-        let newVc = CACreateAccountViewController()
-        newVc.modalPresentationStyle = .fullScreen
-        present(newVc, animated: true)
+        coordinator.navigateToCACreateAccountViewController()
     }
     
     @IBAction func recoverPasswordButton(_ sender: Any) {
@@ -55,7 +54,8 @@ class CAResetPasswordViewController: UIViewController {
     }
     
     func validateForm() {
-        let isEmailValid = verifyIfEmailIsValid()
+        let email = emailTextfield.text
+        let isEmailValid = isEmailValid.simpleValidation(email)
         
         if isEmailValid {
             onValidEmailTyped()
@@ -68,15 +68,6 @@ class CAResetPasswordViewController: UIViewController {
         emailTextfield.setErrorColor()
         textLabel.textColor = .red
         textLabel.text = "Verifique o e-mail informado"
-    }
-    
-    func verifyIfEmailIsValid() -> Bool {
-        let emailContainsAnyInvalidCondition = emailTextfield.text!.isEmpty ||
-            !emailTextfield.text!.contains(".") ||
-            !emailTextfield.text!.contains("@") ||
-            emailTextfield.text!.count <= 5
-        
-        return !emailContainsAnyInvalidCondition
     }
     
     func onValidEmailTyped() {
@@ -119,19 +110,7 @@ class CAResetPasswordViewController: UIViewController {
     }
     
     func presentErrorAlert() {
-        let alertController = UIAlertController(
-            title: "Ops..",
-            message: "Algo de errado aconteceu. Tente novamente mais tarde.",
-            preferredStyle: .alert
-        )
-        
-        let action = UIAlertAction(
-            title: "OK",
-            style: .default
-        )
-        
-        alertController.addAction(action)
-        self.present(alertController, animated: true)
+        coordinator.presentGenericErrorAlert()
     }
 }
 
