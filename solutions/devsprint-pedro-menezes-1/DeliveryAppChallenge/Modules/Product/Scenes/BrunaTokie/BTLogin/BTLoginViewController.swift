@@ -16,10 +16,6 @@ class BTLoginViewController: UIViewController {
     var errorInLogin = false
     let coordinator = BTLoginCoordinator()
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyLogin()
@@ -36,7 +32,7 @@ class BTLoginViewController: UIViewController {
         if ConnectivityManager.shared.isConnected {
             requestLogin()
         } else {
-            let alert = coordinator.createAlertWhenConectionFailed(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", actionTitle: "Ok")
+            coordinator.createAlertWhenConectionFailed(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", actionTitle: "Ok")
         }
     }
 
