@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		026F27812891D06D0099F7BD /* LABadNetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026F27802891D06D0099F7BD /* LABadNetworkLayer.swift */; };
 		02A7F8FB288C5B2100285FCC /* LALoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F8FA288C5B2100285FCC /* LALoginCoordinator.swift */; };
-		02A7F8FE288C982C00285FCC /* Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F8FD288C982C00285FCC /* Validations.swift */; };
+		02A7F8FE288C982C00285FCC /* LAEmailValidatorUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F8FD288C982C00285FCC /* LAEmailValidatorUseCase.swift */; };
 		02A7F917288EEC5B00285FCC /* StepToLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F916288EEC5B00285FCC /* StepToLogin.swift */; };
 		6547C458288C191000468CED /* GCLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6547C457288C191000468CED /* GCLoginCoordinator.swift */; };
 		6547C45B288C295F00468CED /* GCLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6547C45A288C295F00468CED /* GCLoginViewModel.swift */; };
@@ -155,9 +155,8 @@
 		A4C4BEA628820DAE00CF1E09 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA528820DAE00CF1E09 /* User.swift */; };
 		A4C4BEA82882160B00CF1E09 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA72882160B00CF1E09 /* Session.swift */; };
 		A4C4BEAA2882164200CF1E09 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA92882164200CF1E09 /* Endpoints.swift */; };
-		D8A5F2382888BB4000C3B53D /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A5F2372888BB4000C3B53D /* ButtonExtension.swift */; };
-		F6F961CD288A2C4D00218522 /* THResetPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */; };
 		B9F2D6AD2888C9BE0022EC88 /* LoginUserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */; };
+		D8A5F2382888BB4000C3B53D /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A5F2372888BB4000C3B53D /* ButtonExtension.swift */; };
 		F6F961CD288A2C4D00218522 /* THResetPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */; };
 /* End PBXBuildFile section */
 
@@ -174,7 +173,7 @@
 /* Begin PBXFileReference section */
 		026F27802891D06D0099F7BD /* LABadNetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LABadNetworkLayer.swift; sourceTree = "<group>"; };
 		02A7F8FA288C5B2100285FCC /* LALoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LALoginCoordinator.swift; sourceTree = "<group>"; };
-		02A7F8FD288C982C00285FCC /* Validations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validations.swift; sourceTree = "<group>"; };
+		02A7F8FD288C982C00285FCC /* LAEmailValidatorUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAEmailValidatorUseCase.swift; sourceTree = "<group>"; };
 		02A7F916288EEC5B00285FCC /* StepToLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepToLogin.swift; sourceTree = "<group>"; };
 		6547C457288C191000468CED /* GCLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCLoginCoordinator.swift; sourceTree = "<group>"; };
 		6547C45A288C295F00468CED /* GCLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCLoginViewModel.swift; sourceTree = "<group>"; };
@@ -326,9 +325,8 @@
 		A4C4BEA528820DAE00CF1E09 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A4C4BEA72882160B00CF1E09 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		A4C4BEA92882164200CF1E09 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
-		D8A5F2372888BB4000C3B53D /* ButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExtension.swift; sourceTree = "<group>"; };
-		F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THResetPasswordCoordinator.swift; sourceTree = "<group>"; };
 		B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserCoordinator.swift; sourceTree = "<group>"; };
+		D8A5F2372888BB4000C3B53D /* ButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExtension.swift; sourceTree = "<group>"; };
 		F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THResetPasswordCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -406,7 +404,7 @@
 		02A7F8FC288C981400285FCC /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				02A7F8FD288C982C00285FCC /* Validations.swift */,
+				02A7F8FD288C982C00285FCC /* LAEmailValidatorUseCase.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1234,7 +1232,7 @@
 				A45BAE9F2886577E00E5AAE6 /* THResetPasswordViewController.swift in Sources */,
 				D8A5F2382888BB4000C3B53D /* ButtonExtension.swift in Sources */,
 				A450D9B02880EF43003CCEBC /* UIViewController+extensions.swift in Sources */,
-				02A7F8FE288C982C00285FCC /* Validations.swift in Sources */,
+				02A7F8FE288C982C00285FCC /* LAEmailValidatorUseCase.swift in Sources */,
 				A45BAE71288654BA00E5AAE6 /* MJLoginViewController.swift in Sources */,
 				A45BAE9C2886577E00E5AAE6 /* THLoginViewController.swift in Sources */,
 				A45BAE2F28864D3800E5AAE6 /* AppCoordinator.swift in Sources */,
