@@ -149,6 +149,7 @@
 		A4C4BEA628820DAE00CF1E09 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA528820DAE00CF1E09 /* User.swift */; };
 		A4C4BEA82882160B00CF1E09 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA72882160B00CF1E09 /* Session.swift */; };
 		A4C4BEAA2882164200CF1E09 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA92882164200CF1E09 /* Endpoints.swift */; };
+		F026C8B128923A4B006414B6 /* TextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F026C8B028923A4B006414B6 /* TextFieldExtension.swift */; };
 		F0FCFA4F288A40AE00B85171 /* BTLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FCFA4E288A40AE00B85171 /* BTLoginCoordinator.swift */; };
 /* End PBXBuildFile section */
 
@@ -311,6 +312,7 @@
 		A4C4BEA528820DAE00CF1E09 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A4C4BEA72882160B00CF1E09 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		A4C4BEA92882164200CF1E09 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		F026C8B028923A4B006414B6 /* TextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtension.swift; sourceTree = "<group>"; };
 		F0FCFA4E288A40AE00B85171 /* BTLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTLoginCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -842,12 +844,13 @@
 		A45BADDC2886411200E5AAE6 /* BrunaTokie */ = {
 			isa = PBXGroup;
 			children = (
+				F026C8B5289245AE006414B6 /* Extensions */,
 				A45BAE102886499000E5AAE6 /* BTUser.storyboard */,
 				A45BAE072886456A00E5AAE6 /* BTContactUsViewController.swift */,
 				A45BAE052886456A00E5AAE6 /* BTContactUsViewController.xib */,
 				A45BAE062886456A00E5AAE6 /* BTCreateAccountViewController.swift */,
 				A45BAE032886456A00E5AAE6 /* BTCreateAccountViewController.xib */,
-				A45BAE022886456A00E5AAE6 /* BTLoginViewController.swift */,
+				F026C8B228924060006414B6 /* BTLogin */,
 				F0FCFA4E288A40AE00B85171 /* BTLoginCoordinator.swift */,
 				A45BAE042886456A00E5AAE6 /* BTResetPasswordViewController.swift */,
 			);
@@ -864,7 +867,6 @@
 				A45BADED288643A400E5AAE6 /* TRCreateAccountViewController.xib */,
 				A45BADEE288643A400E5AAE6 /* TRLoginViewController.swift */,
 				A45BADEF288643A400E5AAE6 /* TRResetPasswordViewController.swift */,
-				B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */,
 			);
 			path = TatianaRico;
 			sourceTree = "<group>";
@@ -902,6 +904,22 @@
 				A4BEBB6D288504B8008DCC76 /* ContactUsModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		F026C8B228924060006414B6 /* BTLogin */ = {
+			isa = PBXGroup;
+			children = (
+				A45BAE022886456A00E5AAE6 /* BTLoginViewController.swift */,
+			);
+			path = BTLogin;
+			sourceTree = "<group>";
+		};
+		F026C8B5289245AE006414B6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F026C8B028923A4B006414B6 /* TextFieldExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1042,9 +1060,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A45BAE902886564C00E5AAE6 /* RLContactUsViewController.swift in Sources */,
-				B9F2D6AD2888C9BE0022EC88 /* LoginUserCoordinator.swift in Sources */,
 				A45BAE0C2886456A00E5AAE6 /* BTCreateAccountViewController.swift in Sources */,
 				A45BAE9D2886577E00E5AAE6 /* THContactUsViewController.swift in Sources */,
+				F026C8B128923A4B006414B6 /* TextFieldExtension.swift in Sources */,
 				A4C4BEA628820DAE00CF1E09 /* User.swift in Sources */,
 				A45BAE4628864F9800E5AAE6 /* GCContactUsViewController.swift in Sources */,
 				98FAF50A280E08F90075B35B /* SceneDelegate.swift in Sources */,
