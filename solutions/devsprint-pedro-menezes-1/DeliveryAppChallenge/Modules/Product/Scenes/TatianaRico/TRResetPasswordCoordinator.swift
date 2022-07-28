@@ -30,4 +30,11 @@ final class TRResetPasswordCoordinator {
         alertController.addAction(action)
         viewController?.present(alertController, animated: true)
     }
+    
+    public func alertConection(titleAlert: String, messageAlert: String, messageActionAlert: String) {
+        let alertController = UIAlertController(title: titleAlert, message: messageAlert, preferredStyle: .alert)
+        let actionAlert = UIAlertAction(title: messageActionAlert, style: .default)
+        alertController.addAction(actionAlert)
+        viewController?.present(alertController, animated: true)
+    }
 }

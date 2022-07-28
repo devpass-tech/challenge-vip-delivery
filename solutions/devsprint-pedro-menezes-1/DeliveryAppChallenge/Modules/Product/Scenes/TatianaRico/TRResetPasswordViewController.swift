@@ -74,7 +74,7 @@ class TRResetPasswordViewController: UIViewController {
         if  conection {
             startResetPassword()
         } else {
-            coordinator.showNoInternetCOnnection(controller: self)
+            coordinator.alertConection(titleAlert: StringsHelper.noConection, messageAlert: StringsHelper.connectInternetAndTryAgain, messageActionAlert: StringsHelper.OK)
         }
     }
     
@@ -201,5 +201,7 @@ extension TRResetPasswordViewController {
         static let SOMETHING_WENT_WRONG = "Algo de errado aconteceu. Tente novamente mais tarde."
         static let OK = "ok"
         static let OPS = "Ops.."
+        static let noConection = "Sem conexão"
+        static let connectInternetAndTryAgain = "Conecte-se à internet para tentar novamente"
     }
 }
