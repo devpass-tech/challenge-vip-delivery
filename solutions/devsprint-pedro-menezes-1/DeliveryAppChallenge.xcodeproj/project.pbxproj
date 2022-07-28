@@ -246,7 +246,6 @@
 		CB8DB3223187202615725A39 /* LAUser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D10BF2863B8103CD7D303780 /* LAUser.storyboard */; };
 		CBC83847AD922FB4D58015CE /* TRCreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D4022468D70D95835CC0FA /* TRCreateAccountViewController.swift */; };
 		D0196477096A871B18E37177 /* PTCreateAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 658041D56A148E71AE154B16 /* PTCreateAccountViewController.xib */; };
-		D244404818EE5D57A28F0AFA /* LoginErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08527FC90D102483B3E9C9B /* LoginErrors.swift */; };
 		D4A7E2BF03A5BFD9B6DEFA5D /* BAContactUsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D78794EAA1610440E5F23B2 /* BAContactUsViewController.xib */; };
 		D54FF5E5B5ABFC787EEAC0B7 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F58EF8A0ED80CF4CAB2303 /* RatingView.swift */; };
 		D6FF46B618AC86F3460DDA3D /* GSCreateAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96344902C01AD14354F3E2F9 /* GSCreateAccountViewController.xib */; };
@@ -499,7 +498,6 @@
 		AD0FD0AD12F110E4C5752202 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AF62356EB2A257EDC829F7A4 /* StepToLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepToLogin.swift; sourceTree = "<group>"; };
 		B02A9D80C40854C22D0E0905 /* CategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListView.swift; sourceTree = "<group>"; };
-		B08527FC90D102483B3E9C9B /* LoginErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginErrors.swift; sourceTree = "<group>"; };
 		B2D13626BACF268DBAF24D69 /* MenuCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellView.swift; sourceTree = "<group>"; };
 		B38E08DBAFF32A47D64E428A /* ContactUsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsModel.swift; sourceTree = "<group>"; };
 		B3C35C64A210D50D4DED237E /* IBUser.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IBUser.storyboard; sourceTree = "<group>"; };
@@ -790,14 +788,6 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		4678DB78DDCB916FA4D1739F /* LoginErrors */ = {
-			isa = PBXGroup;
-			children = (
-				B08527FC90D102483B3E9C9B /* LoginErrors.swift */,
-			);
-			path = LoginErrors;
-			sourceTree = "<group>";
-		};
 		47BB7EB623D132BDEDE4FBD9 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -817,7 +807,6 @@
 				C3964B9D12847E622DE9ECCC /* GCResetPasswordViewController.swift */,
 				A728A1F21850D5BC99BF6206 /* GCUser.storyboard */,
 				52722F5B4570C2B99741C5DB /* Coordinator */,
-				4678DB78DDCB916FA4D1739F /* LoginErrors */,
 				47BB7EB623D132BDEDE4FBD9 /* ViewModel */,
 			);
 			path = GabrielCastro;
@@ -1632,6 +1621,7 @@
 				85E1F6BE98796811FEF8D48D /* LALoginViewController.swift in Sources */,
 				E6791E894CAE5B2E5920D2F0 /* LAResetPasswordViewController.swift in Sources */,
 				8D4F3F106E61854582B3EF09 /* LoadingController.swift in Sources */,
+				888C6D3552F17DA7CDE48F37 /* LoginUserCoordinator.swift in Sources */,
 				D244404818EE5D57A28F0AFA /* LoginErrors.swift in Sources */,
 				44FAE25AA6AB778974B79A6F /* MJContactUsViewController.swift in Sources */,
 				6FEE4C5CB1F8A7806EC86147 /* MJCreateAccountViewController.swift in Sources */,
