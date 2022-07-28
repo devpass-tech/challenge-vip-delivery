@@ -12,7 +12,7 @@ class TRLoginViewController: UIViewController {
     var errorInLogin = false
     var showPassword = true
     var coordinator: TRLoginUserCoordinator = TRLoginUserCoordinator()
-    var viewModel = TRLoginViewModel()
+    let viewModel = TRLoginViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,7 +95,6 @@ class TRLoginViewController: UIViewController {
 
 // MARK: - Comportamentos de layout
 extension TRLoginViewController {
-    
     private func setupView() {
         heightLabelError.constant = 0
         showPasswordButton.tintColor = .lightGray
