@@ -17,18 +17,14 @@ class TRLoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyLogin()
-        placeholderTextFieldInicial()
+        showPlaceholderTextField()
         self.setupView()
         coordinator.controler = self
-        self.checkStatusButtonAndChangeColor()
+        self.refreshButtonStatus()
     }
     
     @IBAction func loginButton(_ sender: Any) {
-        if !ConnectivityManager.shared.isConnected {
-            alertConection(titleAlert: StringsHelper.NOT_CONEXAO, messageAlert: StringsHelper.CONNECT_INTERNET, actionMsgAlert: StringsHelper.OK)
-            return
-        }
-        requestLogin()
+        verifyStatusInternetConnection()
     }
     
     @IBAction func showPassword(_ sender: Any) {
@@ -58,37 +54,38 @@ class TRLoginViewController: UIViewController {
         }
     }
     
-    private func placeholderTextFieldInicial() {
+    private func showPlaceholderTextField() {
 #if DEBUG
         emailTextField.text = "clean.code@devpass.com"
         passwordTextField.text = "111111"
 #endif
     }
     
-    func alertConection(titleAlert: String, messageAlert: String, actionMsgAlert: String) {
-        let alertController = UIAlertController(title: titleAlert, message: messageAlert, preferredStyle: .alert)
-        let actin = UIAlertAction(title: actionMsgAlert, style: .default)
-        alertController.addAction(actin)
-        present(alertController, animated: true)
+    private func verifyStatusInternetConnection() {
+        let conection = ConnectivityManager.shared.isConnected
+        if  conection {
+            startLoginRequest()
+        } else {
+            self.stopLoading()
+            coordinator.alertConection(titleAlert: StringsHelper.NOT_CONEXAO, messageAlert: StringsHelper.CONNECT_INTERNET, messageActionAlert: StringsHelper.OK)        }
     }
     
-    private func requestLogin() {
+    private func startLoginRequest() {
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
         BadNetworkLayer.shared.login(self, parameters: parameters) { session in
-            DispatchQueue.main.async {
-                if (session != nil) {
+                let didLoginSucced = session != nil
+                if didLoginSucced {
                     self.coordinator.changeScreenHome()
                 } else {
                     self.handleLoginFailure()
                 }
-            }
         }
     }
     
     private func handleLoginFailure() {
         self.isErrorLogin(StringsHelper.EMAIL_PASSWORD_INCORRECT)
-        self.alertMensagem(target: self, title:StringsHelper.OPS, message: StringsHelper.THERE_WAS_PROBLEM)
+        alertMensagem(target: self, title:StringsHelper.OPS, message: StringsHelper.THERE_WAS_PROBLEM)
     }
     
     private func alertMensagem(target: UIViewController, title: String, message: String) {
@@ -105,7 +102,7 @@ extension TRLoginViewController {
         
         setupLoginButtonLayout()
         setupAccountButtonLayout()
-        checkStatusButtonAndChangeColor()
+        refreshButtonStatus()
         setupTextFielLayout()
         gestureClickView()
     }
@@ -143,14 +140,14 @@ extension TRLoginViewController {
     //email
     @IBAction func emailBeginEditing(_ sender: Any) {
         if errorInLogin {
-            isErrorResetLogin(emailTextField)
+            resetLoginAfterError(emailTextField)
         } else {
             emailTextField.setEditingColor()
         }
     }
     
     @IBAction func emailEditing(_ sender: Any) {
-        checkStatusButtonAndChangeColor()
+        refreshButtonStatus()
     }
     
     @IBAction func emailEndEditing(_ sender: Any) {
@@ -160,14 +157,14 @@ extension TRLoginViewController {
     //senha
     @IBAction func passwordBeginEditing(_ sender: Any) {
         if errorInLogin {
-            isErrorResetLogin(passwordTextField)
+            resetLoginAfterError(passwordTextField)
         } else {
             passwordTextField.setEditingColor()
         }
     }
     
     @IBAction func passwordEditing(_ sender: Any) {
-        checkStatusButtonAndChangeColor()
+        refreshButtonStatus()
     }
     
     @IBAction func passwordEndEditing(_ sender: Any) {
@@ -182,7 +179,7 @@ extension TRLoginViewController {
         passwordTextField.setErrorColor()
     }
     
-    private func isErrorResetLogin(_ textField: UITextField) {
+    private func resetLoginAfterError(_ textField: UITextField) {
         heightLabelError.constant = 0
         if textField == emailTextField {
             emailTextField.setEditingColor()
@@ -195,16 +192,14 @@ extension TRLoginViewController {
 }
 
 extension TRLoginViewController {
-    private func checkStatusButtonAndChangeColor() {
-        self.statusButton(color: .gray, isEnabled: false)
-        if self.viewModel.validateEmail(textField: emailTextField.text ?? "") {
-            self.statusButton(color: .blue, isEnabled: true)
-        } else {
-            self.statusButton(color: .gray, isEnabled: false)
-        }
+    private func refreshButtonStatus() {
+        self.changeButtonStatus(color: .gray, isEnabled: false)
+        let email = emailTextField.text
+        
+        self.viewModel.validateEmail(textField: email ?? "") ? self.changeButtonStatus(color: .blue, isEnabled: true) : self.changeButtonStatus(color: .gray, isEnabled: false)
     }
     
-    private func statusButton(color: UIColor, isEnabled: Bool) {
+    private func changeButtonStatus(color: UIColor, isEnabled: Bool) {
         loginButton.backgroundColor = color
         loginButton.isEnabled = isEnabled
     }
@@ -212,12 +207,12 @@ extension TRLoginViewController {
 
 extension TRLoginViewController{
     enum StringsHelper {
-        static var CONNECT_INTERNET = "Conecte-se à internet para tentar novamente"
-        static var EMAIL_PASSWORD_INCORRECT = "E-mail ou senha incorretos"
-        static var THERE_WAS_PROBLEM = "Houve um problema, tente novamente mais tarde."
-        static var OK = "ok"
-        static var OPS = "Ops.."
-        static var NOT_CONEXAO = "Sem conexão"
+        static let CONNECT_INTERNET = "Conecte-se à internet para tentar novamente"
+        static let EMAIL_PASSWORD_INCORRECT = "E-mail ou senha incorretos"
+        static let THERE_WAS_PROBLEM = "Houve um problema, tente novamente mais tarde."
+        static let OK = "ok"
+        static let OPS = "Ops.."
+        static let NOT_CONEXAO = "Sem conexão"
         
     }
 }

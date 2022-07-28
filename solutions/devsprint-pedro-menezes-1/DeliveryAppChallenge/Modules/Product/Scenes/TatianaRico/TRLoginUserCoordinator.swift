@@ -22,7 +22,7 @@ struct TRLoginUserCoordinator {
     
     func userResetPassword() {
         let storyboard = UIStoryboard(name: "TRUser", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "TRResetPasswordViewController") as! TRResetPasswordViewController
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "TRResetPasswordViewController") as? TRResetPasswordViewController else { return }
         vc.modalPresentationStyle = .fullScreen
         controler?.present(vc, animated: true)
     }
@@ -40,5 +40,12 @@ struct TRLoginUserCoordinator {
         let window = windowScene?.windows.first
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
+    }
+    
+    func alertConection(titleAlert: String, messageAlert: String, messageActionAlert: String) {
+        let alertController = UIAlertController(title: titleAlert, message: messageAlert, preferredStyle: .alert)
+        let actionAlert = UIAlertAction(title: messageActionAlert, style: .default)
+        alertController.addAction(actionAlert)
+        controler?.present(alertController, animated: true)
     }
 }

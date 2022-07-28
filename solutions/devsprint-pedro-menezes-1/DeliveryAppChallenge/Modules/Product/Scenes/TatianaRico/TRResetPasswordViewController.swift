@@ -33,13 +33,11 @@ class TRResetPasswordViewController: UIViewController {
     @IBAction func recoverPasswordButton(_ sender: Any) {
         if recoveryEmail {
             dismiss(animated: true)
-        } else if isValidateEmail() {
-            self.view.endEditing(true)
-        } else if !ConnectivityManager.shared.isConnected {
-            Globals.showNoInternetCOnnection(controller: self)
             return
+        } else if startResetPasswordProcess() {
+            startResetPasswordProcessWithError()
         } else {
-            networkResetPassoword()
+            verifyStatusInternetConnection()
         }
     }
     
@@ -55,32 +53,47 @@ class TRResetPasswordViewController: UIViewController {
         self.coordinator.createAccountViewController()
     }
     
-    func isValidateEmail() -> Bool {
+    func startResetPasswordProcess() -> Bool {
         let emailHasDot = emailTextfield.text?.contains(".") ?? false
         let emailHasAt = emailTextfield.text?.contains("@") ?? false
         let emailHasValidSize = emailTextfield.text?.count ?? 0 > 5
         let emailIsValid = emailHasDot && emailHasAt && emailHasValidSize
-        
-        if !emailIsValid {
-            emailTextfield.setErrorColor()
-            textLabel.textColor = .red
-            textLabel.text = StringsHelper.checkEmail
-            return false
-        }
-        return true
+        return emailIsValid
     }
     
-    private func networkResetPassoword() {
+    func startResetPasswordProcessWithError() {
+        self.view.endEditing(true)
+        emailTextfield.setErrorColor()
+        textLabel.textColor = .red
+        textLabel.text = "Verifique o e-mail informado"
+    }
+    
+    func verifyStatusInternetConnection() {
+        let conection = ConnectivityManager.shared.isConnected
+        if  conection {
+            startResetPassword()
+        } else {
+            Globals.showNoInternetCOnnection(controller: self)
+        }
+    }
+    
+    private func startResetPassword() {
         let emailUser = emailTextfield.text!.trimmingCharacters(in: .whitespaces)
         
         let parameters = [ "email": emailUser ]
         
         BadNetworkLayer.shared.resetPassword(self, parameters: parameters) { (success) in
-            if success {
-                self.resetSucessPassword()
-            } else {
-                self.coordinator.alertMsg(title: StringsHelper.OPS, msg: StringsHelper.SOMETHING_WENT_WRONG, titleAction: StringsHelper.OK)
+            DispatchQueue.main.async {
+                self.handleSucessfulResponse(success)
             }
+        }
+    }
+    
+    func handleSucessfulResponse(_ success: Bool) {
+        if success {
+            self.resetSucessPassword()
+        } else {
+            self.coordinator.alertMsg(title: StringsHelper.OPS, msg: StringsHelper.SOMETHING_WENT_WRONG, titleAction: StringsHelper.OK)
         }
     }
     
@@ -161,21 +174,21 @@ extension TRResetPasswordViewController {
 }
 
 extension TRResetPasswordViewController {
-    func validateButton() {
+   private func validateButton() {
         let emailIsEmpty = emailTextfield.text
         
         emailIsEmpty?.isEmpty ?? false ? disableCreateButton() : enableCreateButton()
     }
     
-    func disableCreateButton() {
+   private func disableCreateButton() {
         configRecoverPassoworBtn(color: .gray, isEnabled: false, colorTitle: .white)
     }
     
-    func enableCreateButton() {
+   private func enableCreateButton() {
         configRecoverPassoworBtn(color: .blue, isEnabled: true, colorTitle: .white)
     }
     
-    func configRecoverPassoworBtn(color: UIColor, isEnabled: Bool, colorTitle: UIColor) {
+   private func configRecoverPassoworBtn(color: UIColor, isEnabled: Bool, colorTitle: UIColor) {
         recoverPasswordButton.backgroundColor = color
         recoverPasswordButton.setTitleColor(colorTitle, for: .normal)
         recoverPasswordButton.isEnabled = isEnabled
@@ -184,9 +197,9 @@ extension TRResetPasswordViewController {
 
 extension TRResetPasswordViewController {
     enum StringsHelper {
-        static var checkEmail = "Verifique o e-mail informado"
-        static var SOMETHING_WENT_WRONG = "Algo de errado aconteceu. Tente novamente mais tarde."
-        static var OK = "ok"
-        static var OPS = "Ops.."
+        static let checkEmail = "Verifique o e-mail informado"
+        static let SOMETHING_WENT_WRONG = "Algo de errado aconteceu. Tente novamente mais tarde."
+        static let OK = "ok"
+        static let OPS = "Ops.."
     }
 }
