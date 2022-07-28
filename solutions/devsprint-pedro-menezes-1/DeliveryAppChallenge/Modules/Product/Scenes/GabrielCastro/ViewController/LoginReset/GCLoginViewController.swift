@@ -5,9 +5,10 @@ import UIKit
     //MARK: Vars
     private var errorInLogin = false
     private var showPassword = true
-    private var viewModel = GCLoginViewModel()
+    private let viewModel = GCLoginViewModel()
     private let gcLoginCoordinator = GCLoginCoordinator()
     private let badNetworkLayer = BadNetworkLayer()
+    private let gcAlert = GCAlert()
      
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
@@ -15,7 +16,7 @@ import UIKit
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
-    @IBOutlet weak var loginButton: UIButton!   
+    @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var createAccountButton: UIButton!
     
     @IBOutlet weak var showPasswordButton: UIButton!
@@ -35,7 +36,6 @@ import UIKit
                  UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
              } else {
                  self.showRequestError()
-                 Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
              }
          }
 }
@@ -59,18 +59,20 @@ import UIKit
     
      func showRequestError() {
         self.setErrorLogin("E-mail ou senha incorretos")
-        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-    }
-    
-    
+         gcAlert.showAlertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
+     }
+ 
     @IBAction func loginButton(_ sender: Any) {
         if ConnectivityManager.shared.isConnected {
             showLoading()
             guard let email = emailTextField.text, let password = passwordTextField.text else { return }
             let parameters: [String: String] = ["email": email, "password": password]
             validateLogin(parameters: parameters)
+        } else {
+            gcAlert.showNoInternetCOnnection(controller: self)
         }
     }
+
     
     @IBAction func showPassword(_ sender: Any) {
         if(showPassword == true) {

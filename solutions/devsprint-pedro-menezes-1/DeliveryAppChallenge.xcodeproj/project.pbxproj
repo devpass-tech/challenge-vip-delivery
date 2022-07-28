@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6547C458288C191000468CED /* GCLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6547C457288C191000468CED /* GCLoginCoordinator.swift */; };
 		6547C45B288C295F00468CED /* GCLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6547C45A288C295F00468CED /* GCLoginViewModel.swift */; };
+		6547C46C289319A800468CED /* GCAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6547C46B289319A700468CED /* GCAlert.swift */; };
 		980D5748280DFF7700DDAF20 /* SampleRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */; };
 		980D5749280DFF7700DDAF20 /* SampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5735280DFF7700DDAF20 /* SampleRequest.swift */; };
 		980D574A280DFF7700DDAF20 /* SampleApiDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */; };
@@ -166,6 +167,7 @@
 /* Begin PBXFileReference section */
 		6547C457288C191000468CED /* GCLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCLoginCoordinator.swift; sourceTree = "<group>"; };
 		6547C45A288C295F00468CED /* GCLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCLoginViewModel.swift; sourceTree = "<group>"; };
+		6547C46B289319A700468CED /* GCAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCAlert.swift; sourceTree = "<group>"; };
 		980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRepositoryImpl.swift; sourceTree = "<group>"; };
 		980D5735280DFF7700DDAF20 /* SampleRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRequest.swift; sourceTree = "<group>"; };
 		980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleApiDataSource.swift; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 		6547C4662892F10F00468CED /* LoginReset */ = {
 			isa = PBXGroup;
 			children = (
+				6547C46A2893199600468CED /* Models */,
 				A45BAE3E28864F9800E5AAE6 /* GCUser.storyboard */,
 				A45BAE4428864F9800E5AAE6 /* GCLoginViewController.swift */,
 				A45BAE4128864F9800E5AAE6 /* GCResetPasswordViewController.swift */,
@@ -386,6 +389,14 @@
 				A45BAE4028864F9800E5AAE6 /* GCCreateAccountViewController.xib */,
 			);
 			path = CreateAccount;
+			sourceTree = "<group>";
+		};
+		6547C46A2893199600468CED /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6547C46B289319A700468CED /* GCAlert.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		980D5732280DFF7700DDAF20 /* Sample */ = {
@@ -1123,6 +1134,7 @@
 				A45BAE592886513D00E5AAE6 /* IBCreateAccountViewController.swift in Sources */,
 				A45BAE1A28864A2300E5AAE6 /* BAResetPasswordViewController.swift in Sources */,
 				A45BADF0288643A400E5AAE6 /* TRContactUsViewController.swift in Sources */,
+				6547C46C289319A800468CED /* GCAlert.swift in Sources */,
 				A4C4BEA128820D4B00CF1E09 /* KeyboardAppearenceManager.swift in Sources */,
 				980D5765280E019D00DDAF20 /* NetworkRequest.swift in Sources */,
 				6547C458288C191000468CED /* GCLoginCoordinator.swift in Sources */,
