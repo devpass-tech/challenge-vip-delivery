@@ -5,8 +5,6 @@
 //  Created by Gabriel de Castro Chaves on 23/07/22.
 //
 
-
-// to do: implementar outras logicas de login no ViewModel
 final class GCLoginViewModel {
             
     func validateEmail(textField: String) -> Bool {

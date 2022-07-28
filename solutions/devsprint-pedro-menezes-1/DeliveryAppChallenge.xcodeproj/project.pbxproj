@@ -342,19 +342,50 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
-		65219CA82889A4B500220964 /* API Requests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "API Requests";
-			sourceTree = "<group>";
-		};
 		6547C459288C292F00468CED /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				6547C45A288C295F00468CED /* GCLoginViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6547C4662892F10F00468CED /* LoginReset */ = {
+			isa = PBXGroup;
+			children = (
+				A45BAE3E28864F9800E5AAE6 /* GCUser.storyboard */,
+				A45BAE4428864F9800E5AAE6 /* GCLoginViewController.swift */,
+				A45BAE4128864F9800E5AAE6 /* GCResetPasswordViewController.swift */,
+			);
+			path = LoginReset;
+			sourceTree = "<group>";
+		};
+		6547C4672892F13200468CED /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6547C4692892F18100468CED /* CreateAccount */,
+				6547C4682892F16F00468CED /* ContactUs */,
+				6547C4662892F10F00468CED /* LoginReset */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		6547C4682892F16F00468CED /* ContactUs */ = {
+			isa = PBXGroup;
+			children = (
+				A45BAE3F28864F9800E5AAE6 /* GCContactUsViewController.swift */,
+				A45BAE4328864F9800E5AAE6 /* GCContactUsViewController.xib */,
+			);
+			path = ContactUs;
+			sourceTree = "<group>";
+		};
+		6547C4692892F18100468CED /* CreateAccount */ = {
+			isa = PBXGroup;
+			children = (
+				A45BAE4228864F9800E5AAE6 /* GCCreateAccountViewController.swift */,
+				A45BAE4028864F9800E5AAE6 /* GCCreateAccountViewController.xib */,
+			);
+			path = CreateAccount;
 			sourceTree = "<group>";
 		};
 		980D5732280DFF7700DDAF20 /* Sample */ = {
@@ -711,16 +742,9 @@
 		A45BADD228863E9D00E5AAE6 /* GabrielCastro */ = {
 			isa = PBXGroup;
 			children = (
+				6547C4672892F13200468CED /* ViewController */,
 				6547C459288C292F00468CED /* ViewModel */,
-				65219CA82889A4B500220964 /* API Requests */,
 				65219CA22889932400220964 /* Coordinator */,
-				A45BAE3E28864F9800E5AAE6 /* GCUser.storyboard */,
-				A45BAE3F28864F9800E5AAE6 /* GCContactUsViewController.swift */,
-				A45BAE4328864F9800E5AAE6 /* GCContactUsViewController.xib */,
-				A45BAE4228864F9800E5AAE6 /* GCCreateAccountViewController.swift */,
-				A45BAE4028864F9800E5AAE6 /* GCCreateAccountViewController.xib */,
-				A45BAE4428864F9800E5AAE6 /* GCLoginViewController.swift */,
-				A45BAE4128864F9800E5AAE6 /* GCResetPasswordViewController.swift */,
 			);
 			path = GabrielCastro;
 			sourceTree = "<group>";

@@ -1,12 +1,14 @@
 import UIKit
 
-final class GCLoginViewController: UIViewController {
+ final class GCLoginViewController: UIViewController {
     
     //MARK: Vars
-    
-    var viewModel = GCLoginViewModel()
-    let gcLoginCoordinator = GCLoginCoordinator()
-    
+    private var errorInLogin = false
+    private var showPassword = true
+    private var viewModel = GCLoginViewModel()
+    private let gcLoginCoordinator = GCLoginCoordinator()
+    private let badNetworkLayer = BadNetworkLayer()
+     
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
     
@@ -16,52 +18,28 @@ final class GCLoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var createAccountButton: UIButton!
     
-    var showPassword = true
     @IBOutlet weak var showPasswordButton: UIButton!
-    var errorInLogin = false
     
+    //MARK: View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyLogin()
         loginDefault()
         setupView()
         validateButton()
-        
     }
+     func validateLogin(parameters: [String: String]) {
+         badNetworkLayer.login(self, parameters: parameters) { session in
+             if let session = session {
+                 self.gcLoginCoordinator.showViewController(vc: HomeViewController())
+                 UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+             } else {
+                 self.showRequestError()
+                 Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
+             }
+         }
+}
     
-    
-    //to do: passar para um service
-    // usar reset password como referencia
-    private func LoginApiRequest(with endpoint: String, and parameters: [String: String]) {
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
-            self.handleRequest(result: result)
-        }
-    }
-    
-    private func handleRequest(result: Result<Data, Error>) {
-        DispatchQueue.main.async {
-            self.stopLoading()
-            switch result {
-            case .success(let data):
-                self.decodeUser(with: data)
-            case .failure:
-                self.showRequestError()
-            }
-        }
-    }
-    
-    private func decodeUser(with data: Data) {
-        let decoder = JSONDecoder()
-        do {
-            let session = try decoder.decode(Session.self, from: data)
-            gcLoginCoordinator.showViewController(vc: HomeViewController())
-            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-        } catch {
-            Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-        }
-    }
-    
-    // to do: tirar da viewcontroller, e colocar numa viewmodel
     private func loginDefault() {
 #if DEBUG
         emailTextField.text = "clean.code@devpass.com"
@@ -79,7 +57,7 @@ final class GCLoginViewController: UIViewController {
         }
     }
     
-    private  func showRequestError() {
+     func showRequestError() {
         self.setErrorLogin("E-mail ou senha incorretos")
         Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
     }
@@ -88,16 +66,12 @@ final class GCLoginViewController: UIViewController {
     @IBAction func loginButton(_ sender: Any) {
         if ConnectivityManager.shared.isConnected {
             showLoading()
-            let parameters: [String: String] = ["email": emailTextField.text!,
-                                                "password": passwordTextField.text!]
-            let endpoint = Endpoints.Auth.login
-            LoginApiRequest(with: endpoint, and: parameters)
-        } else {
-            Globals.showNoInternetCOnnection(controller: self)
+            guard let email = emailTextField.text, let password = passwordTextField.text else { return }
+            let parameters: [String: String] = ["email": email, "password": password]
+            validateLogin(parameters: parameters)
         }
     }
     
-    // to do: deixar a logica fora da viewcontroller
     @IBAction func showPassword(_ sender: Any) {
         if(showPassword == true) {
             passwordTextField.isSecureTextEntry = true
@@ -176,11 +150,23 @@ extension GCLoginViewController {
         passwordTextField.setErrorColor()
     }
     
+    private func resetErrorLogin(_ textField: UITextField) {
+        heightLabelError.constant = 0
+        if textField == emailTextField {
+            emailTextField.setEditingColor()
+            passwordTextField.setDefaultColor()
+        } else {
+            emailTextField.setDefaultColor()
+            passwordTextField.setDefaultColor()
+        }
+    }
+    
     
     @objc func didClickView() {
         view.endEditing(true)
     }
     
+    //MARK: IBActions
     //email
     @IBAction func emailBeginEditing(_ sender: Any) {
         if errorInLogin {
@@ -198,7 +184,7 @@ extension GCLoginViewController {
         emailTextField.setDefaultColor()
     }
     
-    //senha
+    //password
     @IBAction func passwordBeginEditing(_ sender: Any) {
         if errorInLogin {
             resetErrorLogin(passwordTextField)
@@ -215,17 +201,8 @@ extension GCLoginViewController {
         passwordTextField.setDefaultColor()
     }
     
-    private func resetErrorLogin(_ textField: UITextField) {
-        heightLabelError.constant = 0
-        if textField == emailTextField {
-            emailTextField.setEditingColor()
-            passwordTextField.setDefaultColor()
-        } else {
-            emailTextField.setDefaultColor()
-            passwordTextField.setDefaultColor()
-        }
-    }
 }
+
 
 extension GCLoginViewController {
     
