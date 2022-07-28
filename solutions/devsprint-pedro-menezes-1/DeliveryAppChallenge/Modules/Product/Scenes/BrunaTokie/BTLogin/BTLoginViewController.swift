@@ -116,7 +116,7 @@ class BTLoginViewController: UIViewController {
 
 // MARK: - Comportamentos de layout
 extension BTLoginViewController {
-    //Falta refatorar aqui
+
     private func setupView() {
         heightLabelError.constant = 0
         showPasswordButton.tintColor = .lightGray
