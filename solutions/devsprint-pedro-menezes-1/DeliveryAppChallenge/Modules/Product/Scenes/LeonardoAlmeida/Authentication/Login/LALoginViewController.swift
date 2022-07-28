@@ -13,8 +13,10 @@ class LALoginViewController: UIViewController {
     @IBOutlet weak private var createAccountButton: UIButton!
     @IBOutlet weak private var showPasswordButton: UIButton!
     
-    var passwordFieldIsSecure = true
-    var formLoginIsInvalid = false
+    private var passwordFieldIsSecure = true
+    private var formLoginIsInvalid = false
+    
+    private var badNetworkLayer: LABadNetworkLayer = LABadNetworkLayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -185,7 +187,7 @@ extension LALoginViewController {
     private func handleLoginRequest(email: String, password: String) {
         let parametersAuthRequest = ["email": email, "password": password]
         
-        LABadNetworkLayer.shared.login(self, parameters: parametersAuthRequest) { result in
+        badNetworkLayer.login(self, parameters: parametersAuthRequest) { result in
             guard let session = result else {
                 self.handleLoginFailure()
                 return
@@ -232,8 +234,8 @@ extension LALoginViewController {
 }
 
 // MARK: - Validação e Desativação de Formulário
-extension LALoginViewController {
-    private func validateForm() {
+private extension LALoginViewController {
+    func validateForm() {
         guard let emailText = emailTextField.text, let passwordText = passwordTextField.text else {
             disableFormButton()
             return
@@ -246,12 +248,12 @@ extension LALoginViewController {
         formIsValid ? enableFormButton() : disableFormButton()
     }
     
-    private func disableFormButton() {
+    func disableFormButton() {
         loginButton.backgroundColor = .gray
         loginButton.isEnabled = false
     }
     
-    private func enableFormButton() {
+    func enableFormButton() {
         loginButton.backgroundColor = .blue
         loginButton.isEnabled = true
     }
