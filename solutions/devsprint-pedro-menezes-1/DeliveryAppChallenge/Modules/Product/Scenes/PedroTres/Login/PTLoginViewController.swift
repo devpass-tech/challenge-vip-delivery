@@ -25,9 +25,8 @@ class PTLoginViewController: UIViewController {
         emailTextField.text = "clean.code@devpass.com"
         passwordTextField.text = "111111"
 #endif
-        
-        self.setupView()
-        self.validateButton()
+        heightLabelError.constant = 0
+        self.setup()
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -53,8 +52,6 @@ class PTLoginViewController: UIViewController {
             present(alertController, animated: true)
             return
         }
-        
-        showLoading()
         fetchLogin()
     }
     
@@ -93,6 +90,7 @@ class PTLoginViewController: UIViewController {
     }
     
     private func fetchLogin() {
+        showLoading()
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
         
@@ -103,10 +101,8 @@ class PTLoginViewController: UIViewController {
                 switch result {
                 case .success(let result):
                     self.handleSuccess(session: result)
-                    break
                 case .failure:
                     self.handleFailure()
-                    break
                 }
             }
         }
@@ -126,27 +122,39 @@ class PTLoginViewController: UIViewController {
 // MARK: - Comportamentos de layout
 extension PTLoginViewController {
     
-    func setupView() {
-        heightLabelError.constant = 0
+    private func setup() {
+        setupLoginButton()
+        setupCreateAccountButton()
+        setupStyle()
+        setupGestureRecognizer()
+        validateButton()
+    }
+        
+    private func setupLoginButton() {
         loginButton.layer.cornerRadius = loginButton.frame.height / 2
         loginButton.backgroundColor = .blue
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.isEnabled = true
-        
-        showPasswordButton.tintColor = .lightGray
-        
+    }
+    
+    private func setupCreateAccountButton() {
         createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
         createAccountButton.layer.borderWidth = 1
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
         createAccountButton.setTitleColor(.blue, for: .normal)
         createAccountButton.backgroundColor = .white
-        
+    }
+    
+    private func setupStyle(){
+        showPasswordButton.tintColor = .lightGray
         emailTextField.setDefaultColor()
         passwordTextField.setDefaultColor()
+    }
+        
+    private func setupGestureRecognizer() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
-        validateButton()
     }
     
     @objc
@@ -188,7 +196,7 @@ extension PTLoginViewController {
         passwordTextField.setDefaultColor()
     }
     
-    func setErrorLogin(_ message: String) {
+    private func setErrorLogin(_ message: String) {
         errorInLogin = true
         heightLabelError.constant = 20
         errorLabel.text = message
@@ -196,7 +204,7 @@ extension PTLoginViewController {
         passwordTextField.setErrorColor()
     }
     
-    func resetErrorLogin(_ textField: UITextField) {
+    private func resetErrorLogin(_ textField: UITextField) {
         heightLabelError.constant = 0
         if textField == emailTextField {
             emailTextField.setEditingColor()
@@ -210,7 +218,7 @@ extension PTLoginViewController {
 
 extension PTLoginViewController {
     
-    func validateButton() {
+    private func validateButton() {
         let email = emailTextField.text
         let isEmailValid = isValidEmail(email)
         
@@ -226,12 +234,12 @@ extension PTLoginViewController {
         email.count <= 5
     }
     
-    func disableButton() {
+    private func disableButton() {
         loginButton.backgroundColor = .gray
         loginButton.isEnabled = false
     }
     
-    func enableButton() {
+    private func enableButton() {
         loginButton.backgroundColor = .blue
         loginButton.isEnabled = true
     }
