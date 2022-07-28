@@ -119,6 +119,8 @@
 		B4F08AE6FA2D60D2705BB1C9 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FAE4161981D2997DFBDEED /* Globals.swift */; };
 		B5877A47B4577879B02AC7BE /* CAResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7921857FFE8BA73772CDE898 /* CAResetPasswordViewController.swift */; };
 		B715C5FF59802188823F2E90 /* LALoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07EF7081DA20EC70096F826 /* LALoginCoordinator.swift */; };
+		B78C6463289330D2001A16EF /* RLLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78C6462289330D2001A16EF /* RLLoginCoordinator.swift */; };
+		B78C6465289330E5001A16EF /* EmailValidatorUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78C6464289330E5001A16EF /* EmailValidatorUseCase.swift */; };
 		B80B4FDA2242215EB75CDD48 /* GCCreateAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4929D4199C4F2F4C097BB88A /* GCCreateAccountViewController.xib */; };
 		BA2E35116BBB77D56C675754 /* BTLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA337C5F2567FDD91B554F9 /* BTLoginViewController.swift */; };
 		BAC88F0428ADE38F17507E9B /* GCUser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A728A1F21850D5BC99BF6206 /* GCUser.storyboard */; };
@@ -282,6 +284,8 @@
 		B38E08DBAFF32A47D64E428A /* ContactUsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsModel.swift; sourceTree = "<group>"; };
 		B3C35C64A210D50D4DED237E /* IBUser.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IBUser.storyboard; sourceTree = "<group>"; };
 		B6186F5DE5318D49871631F5 /* BTCreateAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BTCreateAccountViewController.xib; sourceTree = "<group>"; };
+		B78C6462289330D2001A16EF /* RLLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLLoginCoordinator.swift; sourceTree = "<group>"; };
+		B78C6464289330E5001A16EF /* EmailValidatorUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidatorUseCase.swift; sourceTree = "<group>"; };
 		B7EAE1A30F41181992FB4E80 /* RestaurantListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListView.swift; sourceTree = "<group>"; };
 		B9A86D38102AEFB2EC054298 /* SamplePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplePresenter.swift; sourceTree = "<group>"; };
 		BA5508820C95BD0DA2FB7120 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -370,6 +374,8 @@
 				10625B9D0929F5C435DFF38B /* RLLoginViewController.swift */,
 				75AFA59C8054381DCAEAF6CC /* RLResetPasswordViewController.swift */,
 				76258F8C34ADE040C2991BDE /* RLUser.storyboard */,
+				B78C6462289330D2001A16EF /* RLLoginCoordinator.swift */,
+				B78C6464289330E5001A16EF /* EmailValidatorUseCase.swift */,
 			);
 			path = RodrigoLemos;
 			sourceTree = "<group>";
@@ -989,132 +995,6 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		"TEMP_24568346-DBAF-4842-A056-5D89E856568A" /* Pedro */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pedro;
-			sourceTree = "<group>";
-		};
-		"TEMP_2CCBC47A-1C5A-44E2-9BBE-44551F42FF4E" /* Sample */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Sample;
-			sourceTree = "<group>";
-		};
-		"TEMP_354A02D2-7743-44B6-B3C7-8F08E573222A" /* Product */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Product;
-			sourceTree = "<group>";
-		};
-		"TEMP_434136EF-429A-4568-8FEA-BCCD0E215D19" /* Gabriel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Gabriel;
-			sourceTree = "<group>";
-		};
-		"TEMP_4646936F-7915-4B7F-AAC3-0F8D8795C295" /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		"TEMP_4A9717ED-F4DB-41C5-9671-81FA86A3333F" /* Product */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Product;
-			sourceTree = "<group>";
-		};
-		"TEMP_5509247E-F223-4EE0-A23D-B29910B50431" /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Foundation;
-			sourceTree = "<group>";
-		};
-		"TEMP_55E0C4AA-96CB-42E0-81BC-40C06F2727C9" /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		"TEMP_691C63AE-66DD-42D8-A718-6EE36B79F694" /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		"TEMP_756BAFD0-8C17-455B-B0A1-851C54B748ED" /* Bruno */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Bruno;
-			sourceTree = "<group>";
-		};
-		"TEMP_84143865-9AD7-4D34-AF5E-AB06289D533A" /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		"TEMP_9ED27A01-4F5C-4965-B40D-BF6418A4F643" /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Foundation;
-			sourceTree = "<group>";
-		};
-		"TEMP_A5544ED1-E834-4529-B8F5-E38A848E279D" /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		"TEMP_D58501DB-67E4-4017-9895-21EB1E6FE039" /* Sample */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Sample;
-			sourceTree = "<group>";
-		};
-		"TEMP_E4C64CD1-2217-491F-B2E8-4F2DEC4ACE11" /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		"TEMP_E5E09AFB-A73A-47E2-B0B1-F862064C83E3" /* Product */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Product;
-			sourceTree = "<group>";
-		};
-		"TEMP_EEC5250C-0EF1-40D3-A9EC-047E4A3742BC" /* Sample */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Sample;
-			sourceTree = "<group>";
-		};
-		"TEMP_F66291D8-8A13-4542-955F-BBAA0185F76C" /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Foundation;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1156,8 +1036,6 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1200;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = C84A78A1E4116DBDDDD5EBDB /* Build configuration list for PBXProject "DeliveryAppChallenge" */;
 			compatibilityVersion = "Xcode 10.0";
@@ -1249,6 +1127,7 @@
 				2264108A628ADBBE64E9AB51 /* BACreateAccountViewController.swift in Sources */,
 				578EB6A081AAE79358329DDF /* BALoginViewController.swift in Sources */,
 				03E6AFCAF65A7374E4D3E865 /* BAResetPasswordViewController.swift in Sources */,
+				B78C6463289330D2001A16EF /* RLLoginCoordinator.swift in Sources */,
 				2803CFC90CF1BEFC4923E846 /* BTContactUsViewController.swift in Sources */,
 				68CB7C7222CE3EBF9BC2CE9B /* BTCreateAccountViewController.swift in Sources */,
 				BA2E35116BBB77D56C675754 /* BTLoginViewController.swift in Sources */,
@@ -1313,6 +1192,7 @@
 				3F0691B185EA34698574731C /* RLCreateAccountViewController.swift in Sources */,
 				5F5E06084BF0418BE0927DEA /* RLLoginViewController.swift in Sources */,
 				56BEE0EA70BA435B3F700564 /* RLResetPasswordViewController.swift in Sources */,
+				B78C6465289330E5001A16EF /* EmailValidatorUseCase.swift in Sources */,
 				D54FF5E5B5ABFC787EEAC0B7 /* RatingView.swift in Sources */,
 				2EAA78DEF809C6B5DF9D3A27 /* RestaurantCellView.swift in Sources */,
 				1863CE57C8A90D08A83C9ECD /* RestaurantDetailsView.swift in Sources */,
