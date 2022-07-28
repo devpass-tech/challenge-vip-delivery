@@ -102,16 +102,24 @@ class PTLoginViewController: UIViewController {
                 
                 switch result {
                 case .success(let result):
-                    self.navigateToHome()
-                    UserDefaultsManager.UserInfos.shared.save(session: result, user: nil)
+                    self.handleSuccess(session: result)
                     break
                 case .failure:
-                    self.setErrorLogin("E-mail ou senha incorretos")
-                    Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
+                    self.handleFailure()
                     break
                 }
             }
         }
+    }
+    
+    private func handleSuccess(session: Session) {
+        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+        self.navigateToHome()
+    }
+    
+    private func handleFailure() {
+        self.setErrorLogin("E-mail ou senha incorretos")
+        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
     }
 }
 

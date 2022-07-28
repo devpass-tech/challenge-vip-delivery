@@ -23,7 +23,7 @@ final class PTLoginWorker {
                 case .some(let result):
                     completion(.success(result))
                 case .none:
-                    print("Error to return session")
+                    completion(.failure(result as! Error))
                 }
             }
         }
