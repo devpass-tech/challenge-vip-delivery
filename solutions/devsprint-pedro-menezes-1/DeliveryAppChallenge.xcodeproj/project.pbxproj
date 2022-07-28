@@ -124,6 +124,7 @@
 		BAC88F0428ADE38F17507E9B /* GCUser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A728A1F21850D5BC99BF6206 /* GCUser.storyboard */; };
 		BACB9CAA3755A669ED772298 /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A14DA1DD6BE9CF19F084EEA /* User.storyboard */; };
 		BB7CEF4882D28246D080FC90 /* GetDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DF86A9382B17528BDCFC89 /* GetDataUseCase.swift */; };
+		BB956F3C28933A8F002E88BE /* PTCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB956F3B28933A8F002E88BE /* PTCoordinator.swift */; };
 		C10188106FB2BEA5A277CC39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BB666F3716F7419E42D7A6C /* LaunchScreen.storyboard */; };
 		C35EC820765034F86AC37B65 /* LAContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005B8952B19B6F417904CBB4 /* LAContactUsViewController.swift */; };
 		C470E46A57C6D22A3009FDD8 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C69E79470DED6CDE56719A7 /* AddressView.swift */; };
@@ -286,6 +287,7 @@
 		B9A86D38102AEFB2EC054298 /* SamplePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplePresenter.swift; sourceTree = "<group>"; };
 		BA5508820C95BD0DA2FB7120 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		BAC462BD590124C8CBA2C71F /* LACreateAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LACreateAccountViewController.xib; sourceTree = "<group>"; };
+		BB956F3B28933A8F002E88BE /* PTCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTCoordinator.swift; sourceTree = "<group>"; };
 		BCA5008321F0A55246D07915 /* SampleApiDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleApiDataSource.swift; sourceTree = "<group>"; };
 		BDC9BD45556960039884F370 /* GCLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCLoginViewModel.swift; sourceTree = "<group>"; };
 		BF1E5800AC86D5B10A7646CE /* PTContactUsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PTContactUsViewController.xib; sourceTree = "<group>"; };
@@ -697,6 +699,7 @@
 			children = (
 				BFBAF031BFF5CD1A1607ACDE /* PTLoginViewController.swift */,
 				10C0DB309460E14C24F8DA2E /* PTLoginWorker.swift */,
+				BB956F3B28933A8F002E88BE /* PTCoordinator.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -989,132 +992,6 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		"TEMP_24568346-DBAF-4842-A056-5D89E856568A" /* Pedro */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pedro;
-			sourceTree = "<group>";
-		};
-		"TEMP_2CCBC47A-1C5A-44E2-9BBE-44551F42FF4E" /* Sample */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Sample;
-			sourceTree = "<group>";
-		};
-		"TEMP_354A02D2-7743-44B6-B3C7-8F08E573222A" /* Product */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Product;
-			sourceTree = "<group>";
-		};
-		"TEMP_434136EF-429A-4568-8FEA-BCCD0E215D19" /* Gabriel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Gabriel;
-			sourceTree = "<group>";
-		};
-		"TEMP_4646936F-7915-4B7F-AAC3-0F8D8795C295" /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		"TEMP_4A9717ED-F4DB-41C5-9671-81FA86A3333F" /* Product */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Product;
-			sourceTree = "<group>";
-		};
-		"TEMP_5509247E-F223-4EE0-A23D-B29910B50431" /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Foundation;
-			sourceTree = "<group>";
-		};
-		"TEMP_55E0C4AA-96CB-42E0-81BC-40C06F2727C9" /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		"TEMP_691C63AE-66DD-42D8-A718-6EE36B79F694" /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		"TEMP_756BAFD0-8C17-455B-B0A1-851C54B748ED" /* Bruno */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Bruno;
-			sourceTree = "<group>";
-		};
-		"TEMP_84143865-9AD7-4D34-AF5E-AB06289D533A" /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		"TEMP_9ED27A01-4F5C-4965-B40D-BF6418A4F643" /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Foundation;
-			sourceTree = "<group>";
-		};
-		"TEMP_A5544ED1-E834-4529-B8F5-E38A848E279D" /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		"TEMP_D58501DB-67E4-4017-9895-21EB1E6FE039" /* Sample */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Sample;
-			sourceTree = "<group>";
-		};
-		"TEMP_E4C64CD1-2217-491F-B2E8-4F2DEC4ACE11" /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		"TEMP_E5E09AFB-A73A-47E2-B0B1-F862064C83E3" /* Product */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Product;
-			sourceTree = "<group>";
-		};
-		"TEMP_EEC5250C-0EF1-40D3-A9EC-047E4A3742BC" /* Sample */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Sample;
-			sourceTree = "<group>";
-		};
-		"TEMP_F66291D8-8A13-4542-955F-BBAA0185F76C" /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Foundation;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1156,8 +1033,6 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1200;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = C84A78A1E4116DBDDDD5EBDB /* Build configuration list for PBXProject "DeliveryAppChallenge" */;
 			compatibilityVersion = "Xcode 10.0";
@@ -1350,6 +1225,7 @@
 				2AC659BF5F4B205D5FECE36E /* TextfieldReturnKeyManager.swift in Sources */,
 				128E866E35563E1328AE7645 /* UITextfield+extensions.swift in Sources */,
 				4DC2989EE2DFCB1CA3321972 /* UIViewController+extensions.swift in Sources */,
+				BB956F3C28933A8F002E88BE /* PTCoordinator.swift in Sources */,
 				18928932C712285761525CA4 /* URLSessionProtocol.swift in Sources */,
 				DE6349CC5C443796F0D21929 /* User.swift in Sources */,
 				9878B4D81E5DFAEAD43719B7 /* UserDefaultsManager.swift in Sources */,

@@ -16,6 +16,7 @@ class PTLoginViewController: UIViewController {
     var errorInLogin = false
     
     private let service = PTLoginWorker()
+    private let coordinator = PTCoordinator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,12 +49,8 @@ class PTLoginViewController: UIViewController {
     }
     
     @IBAction private func resetPasswordButton(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "PTUser", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "PTResetPasswordViewController") as! PTResetPasswordViewController
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        coordinator.showPTResetPasswordViewController(presentController: self)
     }
-    
     
     @IBAction private func createAccountButton(_ sender: Any) {
         let controller = PTCreateAccountViewController()
