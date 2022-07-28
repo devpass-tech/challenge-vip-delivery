@@ -19,43 +19,24 @@ class PTLoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        verifyLogin()
-        
-#if DEBUG
-        emailTextField.text = "clean.code@devpass.com"
-        passwordTextField.text = "111111"
-#endif
+        setupUserDebug()
         heightLabelError.constant = 0
-        self.setup()
+        setupLayout()
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
-    func verifyLogin() {
-        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            let vc = UINavigationController(rootViewController: HomeViewController())
-            let scenes = UIApplication.shared.connectedScenes
-            let windowScene = scenes.first as? UIWindowScene
-            let window = windowScene?.windows.first
-            window?.rootViewController = vc
-            window?.makeKeyAndVisible()
+    @IBAction private func loginButton(_ sender: Any) {
+        if ConnectivityManager.shared.isConnected {
+            fetchLogin()
+        } else {
+            showAlert()
         }
     }
     
-    @IBAction func loginButton(_ sender: Any) {
-        if !ConnectivityManager.shared.isConnected {
-            let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
-            let actin = UIAlertAction(title: "Ok", style: .default)
-            alertController.addAction(actin)
-            present(alertController, animated: true)
-            return
-        }
-        fetchLogin()
-    }
-    
-    @IBAction func showPassword(_ sender: Any) {
+    @IBAction private func showPassword(_ sender: Any) {
         if(showPassword == true) {
             passwordTextField.isSecureTextEntry = false
             showPasswordButton.setImage(UIImage.init(systemName: "eye.slash")?.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -66,7 +47,7 @@ class PTLoginViewController: UIViewController {
         showPassword = !showPassword
     }
     
-    @IBAction func resetPasswordButton(_ sender: Any) {
+    @IBAction private func resetPasswordButton(_ sender: Any) {
         let storyboard = UIStoryboard(name: "PTUser", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "PTResetPasswordViewController") as! PTResetPasswordViewController
         vc.modalPresentationStyle = .fullScreen
@@ -74,22 +55,18 @@ class PTLoginViewController: UIViewController {
     }
     
     
-    @IBAction func createAccountButton(_ sender: Any) {
+    @IBAction private func createAccountButton(_ sender: Any) {
         let controller = PTCreateAccountViewController()
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
     
-    private func navigateToHome(){
-        let vc = UINavigationController(rootViewController: HomeViewController())
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        window?.rootViewController = vc
-        window?.makeKeyAndVisible()
-    }
     
-    private func fetchLogin() {
+}
+
+//MARK: - Regras de negócio
+private extension PTLoginViewController {
+    func fetchLogin() {
         showLoading()
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
@@ -108,36 +85,61 @@ class PTLoginViewController: UIViewController {
         }
     }
     
-    private func handleSuccess(session: Session) {
+    func showAlert() {
+        let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
+        let actin = UIAlertAction(title: "Ok", style: .default)
+        alertController.addAction(actin)
+        present(alertController, animated: true)
+    }
+    
+    func navigateToHome(){
+        let vc = UINavigationController(rootViewController: HomeViewController())
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.rootViewController = vc
+        window?.makeKeyAndVisible()
+    }
+    
+    func isValidEmail(_ email: String?) -> Bool {
+        guard let email = email else {
+            return false
+        }
+        return !email.contains(".") ||
+        !email.contains("@") ||
+        email.count <= 5
+    }
+    
+    func handleSuccess(session: Session) {
         UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
         self.navigateToHome()
     }
     
-    private func handleFailure() {
+    func handleFailure() {
         self.setErrorLogin("E-mail ou senha incorretos")
         Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
     }
 }
 
 // MARK: - Comportamentos de layout
-extension PTLoginViewController {
+private extension PTLoginViewController {
     
-    private func setup() {
+    func setupLayout() {
         setupLoginButton()
         setupCreateAccountButton()
         setupStyle()
         setupGestureRecognizer()
         validateButton()
     }
-        
-    private func setupLoginButton() {
+    
+    func setupLoginButton() {
         loginButton.layer.cornerRadius = loginButton.frame.height / 2
         loginButton.backgroundColor = .blue
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.isEnabled = true
     }
     
-    private func setupCreateAccountButton() {
+    func setupCreateAccountButton() {
         createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
         createAccountButton.layer.borderWidth = 1
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
@@ -145,13 +147,13 @@ extension PTLoginViewController {
         createAccountButton.backgroundColor = .white
     }
     
-    private func setupStyle(){
+    func setupStyle(){
         showPasswordButton.tintColor = .lightGray
         emailTextField.setDefaultColor()
         passwordTextField.setDefaultColor()
     }
-        
-    private func setupGestureRecognizer() {
+    
+    func setupGestureRecognizer() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
@@ -196,7 +198,7 @@ extension PTLoginViewController {
         passwordTextField.setDefaultColor()
     }
     
-    private func setErrorLogin(_ message: String) {
+    func setErrorLogin(_ message: String) {
         errorInLogin = true
         heightLabelError.constant = 20
         errorLabel.text = message
@@ -204,7 +206,7 @@ extension PTLoginViewController {
         passwordTextField.setErrorColor()
     }
     
-    private func resetErrorLogin(_ textField: UITextField) {
+    func resetErrorLogin(_ textField: UITextField) {
         heightLabelError.constant = 0
         if textField == emailTextField {
             emailTextField.setEditingColor()
@@ -214,33 +216,28 @@ extension PTLoginViewController {
             passwordTextField.setDefaultColor()
         }
     }
-}
-
-extension PTLoginViewController {
     
-    private func validateButton() {
+    func validateButton() {
         let email = emailTextField.text
         let isEmailValid = isValidEmail(email)
         
         isEmailValid ? enableButton() : disableButton()
     }
     
-    private func isValidEmail(_ email: String?) -> Bool {
-        guard let email = email else {
-            return false
-        }
-        return !email.contains(".") ||
-        !email.contains("@") ||
-        email.count <= 5
-    }
-    
-    private func disableButton() {
+    func disableButton() {
         loginButton.backgroundColor = .gray
         loginButton.isEnabled = false
     }
     
-    private func enableButton() {
+    func enableButton() {
         loginButton.backgroundColor = .blue
         loginButton.isEnabled = true
+    }
+    
+    func setupUserDebug() {
+    #if DEBUG
+        emailTextField.text = "clean.code@devpass.com"
+        passwordTextField.text = "111111"
+    #endif
     }
 }
