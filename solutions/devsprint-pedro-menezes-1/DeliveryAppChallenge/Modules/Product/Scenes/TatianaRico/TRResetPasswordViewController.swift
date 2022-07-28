@@ -13,8 +13,9 @@ class TRResetPasswordViewController: UIViewController {
     var email = ""
     var loadingScreen = LoadingController()
     var recoveryEmail = false
-    
+    let badNetwokLayer = BadNetworkLayer()
     var coordinator: TRResetPasswordCoordinator = TRResetPasswordCoordinator()
+    let globals = Globals()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,7 +74,7 @@ class TRResetPasswordViewController: UIViewController {
         if  conection {
             startResetPassword()
         } else {
-            Globals.showNoInternetCOnnection(controller: self)
+            coordinator.showNoInternetCOnnection(controller: self)
         }
     }
     
@@ -81,8 +82,7 @@ class TRResetPasswordViewController: UIViewController {
         let emailUser = emailTextfield.text!.trimmingCharacters(in: .whitespaces)
         
         let parameters = [ "email": emailUser ]
-        
-        BadNetworkLayer.shared.resetPassword(self, parameters: parameters) { (success) in
+        badNetwokLayer.resetPassword(self, parameters: parameters) { (success) in
             DispatchQueue.main.async {
                 self.handleSucessfulResponse(success)
             }

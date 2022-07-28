@@ -8,23 +8,23 @@
 import Foundation
 import UIKit
 
-class TRResetPasswordCoordinator {
-    var viewController: UIViewController?
+final class TRResetPasswordCoordinator {
+    public var viewController: UIViewController?
     
-    func contactViewController() {
+    public func contactViewController() {
         let vc = TRContactUsViewController()
         viewController?.modalPresentationStyle = .popover
         viewController?.modalTransitionStyle = .coverVertical
         viewController?.present(vc, animated: true)
     }
     
-    func createAccountViewController() {
+    public func createAccountViewController() {
         let newVc = TRCreateAccountViewController()
         newVc.modalPresentationStyle = .fullScreen
         viewController?.present(newVc, animated: true)
     }
     
-    func alertMsg(title: String, msg: String, titleAction: String) {
+    public func alertMsg(title: String, msg: String, titleAction: String) {
         let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
         let action = UIAlertAction(title: titleAction, style: .cancel)
         alertController.addAction(action)

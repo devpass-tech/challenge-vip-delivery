@@ -11,7 +11,7 @@ import UIKit
 struct TRLoginUserCoordinator {
     var controler: UIViewController?
     
-     func changeScreenHome() {
+    public func changeScreenHome() {
         let vc = UINavigationController(rootViewController: HomeViewController())
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
@@ -20,20 +20,20 @@ struct TRLoginUserCoordinator {
         window?.makeKeyAndVisible()
     }
     
-    func userResetPassword() {
+    public func userResetPassword() {
         let storyboard = UIStoryboard(name: "TRUser", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "TRResetPasswordViewController") as? TRResetPasswordViewController else { return }
         vc.modalPresentationStyle = .fullScreen
         controler?.present(vc, animated: true)
     }
     
-    func newAccount() {
+    public func newAccount() {
         let controller = TRCreateAccountViewController()
         controller.modalPresentationStyle = .fullScreen
         controler?.present(controller, animated: true)
     }
     
-    func goToHomeViewController() {
+    public func goToHomeViewController() {
         let vc = UINavigationController(rootViewController: HomeViewController())
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
@@ -42,7 +42,7 @@ struct TRLoginUserCoordinator {
         window?.makeKeyAndVisible()
     }
     
-    func alertConection(titleAlert: String, messageAlert: String, messageActionAlert: String) {
+    public func alertConection(titleAlert: String, messageAlert: String, messageActionAlert: String) {
         let alertController = UIAlertController(title: titleAlert, message: messageAlert, preferredStyle: .alert)
         let actionAlert = UIAlertAction(title: messageActionAlert, style: .default)
         alertController.addAction(actionAlert)
