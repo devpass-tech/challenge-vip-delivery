@@ -226,6 +226,8 @@
 		B4F08AE6FA2D60D2705BB1C9 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FAE4161981D2997DFBDEED /* Globals.swift */; };
 		B5877A47B4577879B02AC7BE /* CAResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7921857FFE8BA73772CDE898 /* CAResetPasswordViewController.swift */; };
 		B715C5FF59802188823F2E90 /* LALoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07EF7081DA20EC70096F826 /* LALoginCoordinator.swift */; };
+		B78C6463289330D2001A16EF /* RLLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78C6462289330D2001A16EF /* RLLoginCoordinator.swift */; };
+		B78C6465289330E5001A16EF /* EmailValidatorUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78C6464289330E5001A16EF /* EmailValidatorUseCase.swift */; };
 		B80B4FDA2242215EB75CDD48 /* GCCreateAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4929D4199C4F2F4C097BB88A /* GCCreateAccountViewController.xib */; };
 		B980995D28906BA300A85D19 /* TRResetPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B980995C28906BA300A85D19 /* TRResetPasswordCoordinator.swift */; };
 		B98099612891DBC500A85D19 /* TRLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98099602891DBC500A85D19 /* TRLoginViewModel.swift */; };
@@ -502,6 +504,8 @@
 		B38E08DBAFF32A47D64E428A /* ContactUsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsModel.swift; sourceTree = "<group>"; };
 		B3C35C64A210D50D4DED237E /* IBUser.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IBUser.storyboard; sourceTree = "<group>"; };
 		B6186F5DE5318D49871631F5 /* BTCreateAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BTCreateAccountViewController.xib; sourceTree = "<group>"; };
+		B78C6462289330D2001A16EF /* RLLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLLoginCoordinator.swift; sourceTree = "<group>"; };
+		B78C6464289330E5001A16EF /* EmailValidatorUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidatorUseCase.swift; sourceTree = "<group>"; };
 		B7EAE1A30F41181992FB4E80 /* RestaurantListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListView.swift; sourceTree = "<group>"; };
 		B980995C28906BA300A85D19 /* TRResetPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRResetPasswordCoordinator.swift; sourceTree = "<group>"; };
 		B98099602891DBC500A85D19 /* TRLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRLoginViewModel.swift; sourceTree = "<group>"; };
@@ -598,6 +602,8 @@
 				10625B9D0929F5C435DFF38B /* RLLoginViewController.swift */,
 				75AFA59C8054381DCAEAF6CC /* RLResetPasswordViewController.swift */,
 				76258F8C34ADE040C2991BDE /* RLUser.storyboard */,
+				B78C6462289330D2001A16EF /* RLLoginCoordinator.swift */,
+				B78C6464289330E5001A16EF /* EmailValidatorUseCase.swift */,
 			);
 			path = RodrigoLemos;
 			sourceTree = "<group>";
@@ -1577,6 +1583,7 @@
 				2264108A628ADBBE64E9AB51 /* BACreateAccountViewController.swift in Sources */,
 				578EB6A081AAE79358329DDF /* BALoginViewController.swift in Sources */,
 				03E6AFCAF65A7374E4D3E865 /* BAResetPasswordViewController.swift in Sources */,
+				B78C6463289330D2001A16EF /* RLLoginCoordinator.swift in Sources */,
 				2803CFC90CF1BEFC4923E846 /* BTContactUsViewController.swift in Sources */,
 				68CB7C7222CE3EBF9BC2CE9B /* BTCreateAccountViewController.swift in Sources */,
 				BA2E35116BBB77D56C675754 /* BTLoginViewController.swift in Sources */,
@@ -1643,6 +1650,7 @@
 				3F0691B185EA34698574731C /* RLCreateAccountViewController.swift in Sources */,
 				5F5E06084BF0418BE0927DEA /* RLLoginViewController.swift in Sources */,
 				56BEE0EA70BA435B3F700564 /* RLResetPasswordViewController.swift in Sources */,
+				B78C6465289330E5001A16EF /* EmailValidatorUseCase.swift in Sources */,
 				D54FF5E5B5ABFC787EEAC0B7 /* RatingView.swift in Sources */,
 				2EAA78DEF809C6B5DF9D3A27 /* RestaurantCellView.swift in Sources */,
 				1863CE57C8A90D08A83C9ECD /* RestaurantDetailsView.swift in Sources */,
