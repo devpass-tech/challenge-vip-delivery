@@ -1,16 +1,16 @@
 //
-//  LoginUserCoordinator.swift
+//  TRLoginUserCoordinator.swift
 //  DeliveryAppChallenge
 //
-//  Created by Tatiana Rico on 20/07/22.
+//  Created by Tatiana Rico on 27/07/22.
 //
 
 import Foundation
 import UIKit
 
-struct LoginUserCoordinator {
-    let controler = UIViewController()
-
+struct TRLoginUserCoordinator {
+    var controler: UIViewController?
+    
      func changeScreenHome() {
         let vc = UINavigationController(rootViewController: HomeViewController())
         let scenes = UIApplication.shared.connectedScenes
@@ -22,23 +22,30 @@ struct LoginUserCoordinator {
     
     func userResetPassword() {
         let storyboard = UIStoryboard(name: "TRUser", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "TRResetPasswordViewController") as! TRResetPasswordViewController
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "TRResetPasswordViewController") as? TRResetPasswordViewController else { return }
         vc.modalPresentationStyle = .fullScreen
-        controler.present(vc, animated: true)
+        controler?.present(vc, animated: true)
     }
     
     func newAccount() {
         let controller = TRCreateAccountViewController()
         controller.modalPresentationStyle = .fullScreen
-        controler.present(controller, animated: true)
+        controler?.present(controller, animated: true)
     }
     
-    func verifyLogin() {
+    func goToHomeViewController() {
         let vc = UINavigationController(rootViewController: HomeViewController())
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
         let window = windowScene?.windows.first
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
+    }
+    
+    func alertConection(titleAlert: String, messageAlert: String, messageActionAlert: String) {
+        let alertController = UIAlertController(title: titleAlert, message: messageAlert, preferredStyle: .alert)
+        let actionAlert = UIAlertAction(title: messageActionAlert, style: .default)
+        alertController.addAction(actionAlert)
+        controler?.present(alertController, animated: true)
     }
 }
