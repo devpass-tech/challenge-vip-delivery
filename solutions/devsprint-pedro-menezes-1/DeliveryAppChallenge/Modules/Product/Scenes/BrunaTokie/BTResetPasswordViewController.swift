@@ -99,18 +99,9 @@ class BTResetPasswordViewController: UIViewController {
         self.recoverPasswordButton.setTitle("Voltar", for: .normal)
     }
 
-    private func isEmailTextFieldValid() -> Bool {
-        let emailNotEmpty = emailTextfield.text?.isEmpty ?? false
-        let emailContainsDot = emailTextfield.text?.contains(".") ?? false
-        let emailContainsAt = emailTextfield.text?.contains("@") ?? false
-        let emailHasValidSize = emailTextfield.text?.count ?? 0 > 5
-        let emailIsValid = emailNotEmpty && emailContainsDot && emailContainsAt && emailHasValidSize
-        return emailIsValid
-    }
-
     private func isValidatedForm() {
-        let emailIsValid = isEmailTextFieldValid()
-        if emailIsValid {
+        let isEmailTextFieldValid = emailTextfield.isPasswordTextFieldValid(withText: emailTextfield.text)
+        if isEmailTextFieldValid {
             self.startPasswordRecovering()
         } else {
             self.formNotValidated()

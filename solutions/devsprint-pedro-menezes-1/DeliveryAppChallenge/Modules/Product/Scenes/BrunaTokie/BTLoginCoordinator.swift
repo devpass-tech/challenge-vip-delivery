@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 struct BTLoginCoordinator {
-    let viewController = UIViewController()
+    var viewController: UIViewController?
 
     func goToHomeView() {
         let vc = UINavigationController(rootViewController: HomeViewController())
@@ -13,24 +13,23 @@ struct BTLoginCoordinator {
         window?.makeKeyAndVisible()
     }
 
-    func createAlertWhenConectionFailed(title: String, message: String, actionTitle: String) -> UIAlertController {
+    func createAlertWhenConectionFailed(title: String, message: String, actionTitle: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let actin = UIAlertAction(title: actionTitle, style: .default)
-        alertController.addAction(actin)
-        return alertController
+        let action = UIAlertAction(title: actionTitle, style: .default)
+        alertController.addAction(action)
+        viewController?.present(alertController, animated: true)
     }
 
-    func goToResetPasswordView() -> UIViewController {
+    func goToResetPasswordView() {
         let storyboard = UIStoryboard(name: "BTUser", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "BTResetPasswordViewController") as! BTResetPasswordViewController
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "BTResetPasswordViewController") as? BTResetPasswordViewController else { return }
         vc.modalPresentationStyle = .fullScreen
-        return vc
+        viewController?.present(vc, animated: true)
     }
 
-    func goToCreateAccountView() -> UIViewController {
+    func goToCreateAccountView() {
         let controller = BTCreateAccountViewController()
-        controller.modalPresentationStyle = .fullScreen
-        return controller
+        viewController?.modalPresentationStyle = .fullScreen
     }
 
 }

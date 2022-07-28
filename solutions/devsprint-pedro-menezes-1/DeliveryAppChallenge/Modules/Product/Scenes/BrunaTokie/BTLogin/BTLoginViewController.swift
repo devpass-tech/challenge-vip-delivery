@@ -10,18 +10,22 @@ class BTLoginViewController: UIViewController {
     
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var createAccountButton: UIButton!
+    @IBOutlet weak var showPasswordButton: UIButton!
     
     var showPassword = true
-    @IBOutlet weak var showPasswordButton: UIButton!
     var errorInLogin = false
-    var coordinator = BTLoginCoordinator()
-    
+    let coordinator = BTLoginCoordinator()
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyLogin()
         self.setupTextFieldsEnabledDebugBuild()
         self.setupView()
-        self.validateButton()
+        self.validateEmailButton()
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -30,55 +34,44 @@ class BTLoginViewController: UIViewController {
 
     @IBAction func loginButton(_ sender: Any) {
         if ConnectivityManager.shared.isConnected {
-            showLoading()
             requestLogin()
         } else {
-            let alert = coordinator.createAlertWhenConectionFailed(
-                title: "Sem conexão",
-                message: "Conecte-se à internet para tentar novamente",
-                actionTitle: "Ok"
-            )
-            present(alert, animated: true)
+            let alert = coordinator.createAlertWhenConectionFailed(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", actionTitle: "Ok")
         }
     }
 
-    //Falta refatorar aqui
     @IBAction func configurePasswordPresentation(_ sender: Any) {
-        if(showPassword == true) {
-            passwordTextField.isSecureTextEntry = false
-            showPasswordButton.setImage(UIImage.init(systemName: "eye.slash")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        } else {
-            passwordTextField.isSecureTextEntry = true
-            showPasswordButton.setImage(UIImage.init(systemName: "eye")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        }
+        let imageName = showPassword ? "eye.slash" : "eye"
+        showPasswordButton.setImage(
+            UIImage.init(systemName: imageName)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        showPassword ? (passwordTextField.isSecureTextEntry = false) : (passwordTextField.isSecureTextEntry = true)
         showPassword = !showPassword
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let resetPasswordViewController = coordinator.goToResetPasswordView()
-        present(resetPasswordViewController, animated: true)
+       coordinator.goToResetPasswordView()
     }
     
     
     @IBAction func createAccountButton(_ sender: Any) {
-        let createAccountViewController = coordinator.goToCreateAccountView()
-        present(createAccountViewController, animated: true)
+        coordinator.goToCreateAccountView()
     }
 
-    func setupTextFieldsEnabledDebugBuild () {
+    private func setupTextFieldsEnabledDebugBuild () {
 #if DEBUG
         emailTextField.text = "clean.code@devpass.com"
         passwordTextField.text = "111111"
 #endif
     }
 
-    func verifyLogin() {
+    private func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
             coordinator.goToHomeView()
         }
     }
 
-    func requestLogin() {
+    private func requestLogin() {
+        showLoading()
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
         let endpoint = Endpoints.Auth.login
@@ -90,18 +83,18 @@ class BTLoginViewController: UIViewController {
         }
     }
 
-    func handleLogindResult(_ result: Result<Data, Error>) {
+    private func handleLogindResult(_ result: Result<Data, Error>) {
         switch result {
         case .success(let data):
-            self.handleRequestSuccess(data: data)
+            self.handleRequestSuccess(with: data)
         case .failure:
             self.handleRequestFailure()
         }
     }
 
-    func handleRequestSuccess(data: Data) {
+    private func handleRequestSuccess(with data: Data) {
         do {
-            let session = try decodeUser(data: data)
+            let session = try decodeUser(with: data)
             coordinator.goToHomeView()
             UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
         } catch {
@@ -109,17 +102,13 @@ class BTLoginViewController: UIViewController {
         }
     }
 
-    func decodeUser(data: Data) throws -> Session {
+    private func decodeUser(with data: Data) throws -> Session {
         let decoder = JSONDecoder()
-        do {
-            let session = try decoder.decode(Session.self, from: data)
-            return session
-        } catch {
-            throw error
-        }
+        let session = try decoder.decode(Session.self, from: data)
+        return session
     }
 
-    func handleRequestFailure() {
+    private func handleRequestFailure() {
         self.setErrorLogin("E-mail ou senha incorretos")
         Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
     }
@@ -128,29 +117,43 @@ class BTLoginViewController: UIViewController {
 // MARK: - Comportamentos de layout
 extension BTLoginViewController {
     //Falta refatorar aqui
-    func setupView() {
+    private func setupView() {
         heightLabelError.constant = 0
+        showPasswordButton.tintColor = .lightGray
+        setupLoginButton()
+        setupCreateAccountButton()
+        setupGesture()
+        validateEmailButton()
+        setupTextfieldColor()
+    }
+
+    private func setupLoginButton() {
         loginButton.layer.cornerRadius = loginButton.frame.height / 2
         loginButton.backgroundColor = .blue
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.isEnabled = true
-        
-        showPasswordButton.tintColor = .lightGray
-        
+    }
+
+    private func setupCreateAccountButton() {
         createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
         createAccountButton.layer.borderWidth = 1
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
         createAccountButton.setTitleColor(.blue, for: .normal)
         createAccountButton.backgroundColor = .white
-        
-        emailTextField.setDefaultColor()
-        passwordTextField.setDefaultColor()
+    }
+
+    private func setupGesture() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
-        validateButton()
     }
-    
+
+    private func setupTextfieldColor() {
+        emailTextField.setDefaultColor()
+        passwordTextField.setDefaultColor()
+    }
+
+
     @objc
     func didClickView() {
         view.endEditing(true)
@@ -166,7 +169,7 @@ extension BTLoginViewController {
     }
     
     @IBAction func emailEditing(_ sender: Any) {
-        validateButton()
+        validateEmailButton()
     }
     
     @IBAction func emailEndEditing(_ sender: Any) {
@@ -183,14 +186,14 @@ extension BTLoginViewController {
     }
     
     @IBAction func passwordEditing(_ sender: Any) {
-        validateButton()
+        validateEmailButton()
     }
     
     @IBAction func passwordEndEditing(_ sender: Any) {
         passwordTextField.setDefaultColor()
     }
     
-    func setErrorLogin(_ message: String) {
+    private func setErrorLogin(_ message: String) {
         errorInLogin = true
         heightLabelError.constant = 20
         errorLabel.text = message
@@ -198,7 +201,7 @@ extension BTLoginViewController {
         passwordTextField.setErrorColor()
     }
     
-    func resetErrorLogin(_ textField: UITextField) {
+    private func resetErrorLogin(_ textField: UITextField) {
         heightLabelError.constant = 0
         if textField == emailTextField {
             emailTextField.setEditingColor()
@@ -212,32 +215,30 @@ extension BTLoginViewController {
 
 extension BTLoginViewController {
     
-    func validateButton() {
-        let emailContainsDot = emailTextField.text?.contains(".") ?? false
-        let emailContainsAt = emailTextField.text?.contains("@") ?? false
-        let emailHasValidSize = emailTextField.text?.count ?? 0 > 5
-        let emailIsValid = emailContainsDot && emailContainsAt && emailHasValidSize
-
-        if emailIsValid {
+    private func validateEmailButton() {
+        let isEmailTextFieldValid = emailTextField.isPasswordTextFieldValid(withText: emailTextField.text)
+        if isEmailTextFieldValid {
             handleEmailIsValid()
         } else {
             disableButton()
         }
     }
 
-    func handleEmailIsValid() {
+    private func handleEmailIsValid() {
         guard let atIndex = emailTextField.text!.firstIndex(of: "@") else { return disableButton() }
         let substring = emailTextField.text![atIndex...]
         substring.contains(".") ? enableButton() : disableButton()
     }
 
-    func disableButton() {
+    private func disableButton() {
         loginButton.backgroundColor = .gray
         loginButton.isEnabled = false
     }
     
-    func enableButton() {
+    private func enableButton() {
         loginButton.backgroundColor = .blue
         loginButton.isEnabled = true
     }
 }
+
+
