@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		026F27812891D06D0099F7BD /* LABadNetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026F27802891D06D0099F7BD /* LABadNetworkLayer.swift */; };
 		02A7F8FB288C5B2100285FCC /* LALoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F8FA288C5B2100285FCC /* LALoginCoordinator.swift */; };
-		02A7F8FE288C982C00285FCC /* Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F8FD288C982C00285FCC /* Validations.swift */; };
+		02A7F8FE288C982C00285FCC /* LAEmailValidatorUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F8FD288C982C00285FCC /* LAEmailValidatorUseCase.swift */; };
 		02A7F917288EEC5B00285FCC /* StepToLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7F916288EEC5B00285FCC /* StepToLogin.swift */; };
 		0305F235D640314BEF1CB6C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D431FF8B37D7D716A60D0EF /* Assets.xcassets */; };
 		037556285C0C654567CE38A1 /* GCLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7841B896A0E1FE69D0831E95 /* GCLoginCoordinator.swift */; };
@@ -218,6 +218,9 @@
 		A4C4BEA628820DAE00CF1E09 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA528820DAE00CF1E09 /* User.swift */; };
 		A4C4BEA82882160B00CF1E09 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA72882160B00CF1E09 /* Session.swift */; };
 		A4C4BEAA2882164200CF1E09 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4BEA92882164200CF1E09 /* Endpoints.swift */; };
+		B9F2D6AD2888C9BE0022EC88 /* LoginUserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */; };
+		D8A5F2382888BB4000C3B53D /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A5F2372888BB4000C3B53D /* ButtonExtension.swift */; };
+		F6F961CD288A2C4D00218522 /* THResetPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */; };
 		AC0230ABE0EC4369485B779D /* SampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C23B980D72346088BBE7D43 /* SampleRequest.swift */; };
 		AC943CCAD5E3B88409E50C9B /* RestaurantListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C35D54F92D340A99DE444C2 /* RestaurantListViewController.swift */; };
 		B21079901CD96D518F949191 /* BTContactUsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2159DDC138A2AB34509331AA /* BTContactUsViewController.xib */; };
@@ -283,7 +286,7 @@
 		005B8952B19B6F417904CBB4 /* LAContactUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAContactUsViewController.swift; sourceTree = "<group>"; };
 		026F27802891D06D0099F7BD /* LABadNetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LABadNetworkLayer.swift; sourceTree = "<group>"; };
 		02A7F8FA288C5B2100285FCC /* LALoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LALoginCoordinator.swift; sourceTree = "<group>"; };
-		02A7F8FD288C982C00285FCC /* Validations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validations.swift; sourceTree = "<group>"; };
+		02A7F8FD288C982C00285FCC /* LAEmailValidatorUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAEmailValidatorUseCase.swift; sourceTree = "<group>"; };
 		02A7F916288EEC5B00285FCC /* StepToLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepToLogin.swift; sourceTree = "<group>"; };
 		04D104D9305FAA8CD90A3A5C /* SampleInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleInteractor.swift; sourceTree = "<group>"; };
 		04FBA42F90CF6D5E81496223 /* THLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THLoginViewController.swift; sourceTree = "<group>"; };
@@ -489,6 +492,9 @@
 		A4C4BEA528820DAE00CF1E09 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A4C4BEA72882160B00CF1E09 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		A4C4BEA92882164200CF1E09 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		B9F2D6AC2888C9BE0022EC88 /* LoginUserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserCoordinator.swift; sourceTree = "<group>"; };
+		D8A5F2372888BB4000C3B53D /* ButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExtension.swift; sourceTree = "<group>"; };
+		F6F961CC288A2C4D00218522 /* THResetPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THResetPasswordCoordinator.swift; sourceTree = "<group>"; };
 		A4FAE4161981D2997DFBDEED /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		A58AE8495B631B3CA317CA3F /* RLCreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLCreateAccountViewController.swift; sourceTree = "<group>"; };
 		A728A1F21850D5BC99BF6206 /* GCUser.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GCUser.storyboard; sourceTree = "<group>"; };
@@ -634,6 +640,7 @@
 		0FB29287B58932D942845762 /* RestaurantListView */ = {
 			isa = PBXGroup;
 			children = (
+				02A7F8FD288C982C00285FCC /* LAEmailValidatorUseCase.swift */,
 				0D7A878E17DCE690FA9D4565 /* RestaurantCellView.swift */,
 				B7EAE1A30F41181992FB4E80 /* RestaurantListView.swift */,
 			);
@@ -1542,7 +1549,7 @@
 				A45BAE9F2886577E00E5AAE6 /* THResetPasswordViewController.swift in Sources */,
 				D8A5F2382888BB4000C3B53D /* ButtonExtension.swift in Sources */,
 				A450D9B02880EF43003CCEBC /* UIViewController+extensions.swift in Sources */,
-				02A7F8FE288C982C00285FCC /* Validations.swift in Sources */,
+				02A7F8FE288C982C00285FCC /* LAEmailValidatorUseCase.swift in Sources */,
 				A45BAE71288654BA00E5AAE6 /* MJLoginViewController.swift in Sources */,
 				A45BAE9C2886577E00E5AAE6 /* THLoginViewController.swift in Sources */,
 				A45BAE2F28864D3800E5AAE6 /* AppCoordinator.swift in Sources */,
