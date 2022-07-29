@@ -7,11 +7,9 @@
 
 import Foundation
 
-final class TRLoginViewModel {
+final class TRLoginViewModel {    
     func validateEmail(textField: String) -> Bool {
-        guard let atIndex = textField.firstIndex(of: "@") else {
-            return false
-        }
+        guard let atIndex = textField.firstIndex(of: "@") else { return false }
         let emailHasDot = textField.contains(".")
         let emailHasAt = textField.contains("@")
         let emailIsHigherOrEqualToFive = textField.count >= 5

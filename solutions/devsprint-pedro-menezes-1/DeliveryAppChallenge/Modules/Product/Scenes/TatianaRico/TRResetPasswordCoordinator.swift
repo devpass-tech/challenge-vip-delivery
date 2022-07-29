@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TRResetPasswordCoordinator {
+final class TRResetPasswordCoordinator {
     var viewController: UIViewController?
     
     func contactViewController() {
@@ -28,6 +28,13 @@ class TRResetPasswordCoordinator {
         let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
         let action = UIAlertAction(title: titleAction, style: .cancel)
         alertController.addAction(action)
+        viewController?.present(alertController, animated: true)
+    }
+    
+    func alertConection(titleAlert: String, messageAlert: String, messageActionAlert: String) {
+        let alertController = UIAlertController(title: titleAlert, message: messageAlert, preferredStyle: .alert)
+        let actionAlert = UIAlertAction(title: messageActionAlert, style: .default)
+        alertController.addAction(actionAlert)
         viewController?.present(alertController, animated: true)
     }
 }

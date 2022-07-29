@@ -11,23 +11,14 @@ import UIKit
 struct TRLoginUserCoordinator {
     var controler: UIViewController?
     
-     func changeScreenHome() {
-        let vc = UINavigationController(rootViewController: HomeViewController())
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        window?.rootViewController = vc
-        window?.makeKeyAndVisible()
-    }
-    
-    func userResetPassword() {
+    func goToResetPassword() {
         let storyboard = UIStoryboard(name: "TRUser", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "TRResetPasswordViewController") as? TRResetPasswordViewController else { return }
         vc.modalPresentationStyle = .fullScreen
         controler?.present(vc, animated: true)
     }
     
-    func newAccount() {
+    func createNewAccount() {
         let controller = TRCreateAccountViewController()
         controller.modalPresentationStyle = .fullScreen
         controler?.present(controller, animated: true)

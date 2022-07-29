@@ -15,6 +15,7 @@ class GSLoginViewController: UIViewController {
     @IBOutlet weak var showPasswordButton: UIButton!
     var errorInLogin = false
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyLogin()

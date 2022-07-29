@@ -13,10 +13,10 @@ class TRLoginViewController: UIViewController {
     var showPassword = true
     var coordinator: TRLoginUserCoordinator = TRLoginUserCoordinator()
     let viewModel = TRLoginViewModel()
+    let badNetworkLayer = BadNetworkLayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        verifyLogin()
         showPlaceholderTextField()
         self.setupView()
         coordinator.controler = self
@@ -36,22 +36,16 @@ class TRLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        self.coordinator.userResetPassword()
+        self.coordinator.goToResetPassword()
     }
     
     
     @IBAction func createAccountButton(_ sender: Any) {
-        self.coordinator.newAccount()
+        self.coordinator.createNewAccount()
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
-    }
-    
-    private   func verifyLogin() {
-        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            coordinator.goToHomeViewController()
-        }
     }
     
     private func showPlaceholderTextField() {
@@ -73,10 +67,10 @@ class TRLoginViewController: UIViewController {
     private func startLoginRequest() {
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
-        BadNetworkLayer.shared.login(self, parameters: parameters) { session in
+        badNetworkLayer.login(self, parameters: parameters) { session in
                 let didLoginSucced = session != nil
                 if didLoginSucced {
-                    self.coordinator.changeScreenHome()
+                    self.coordinator.goToHomeViewController()
                 } else {
                     self.handleLoginFailure()
                 }
@@ -85,11 +79,7 @@ class TRLoginViewController: UIViewController {
     
     private func handleLoginFailure() {
         self.isErrorLogin(StringsHelper.EMAIL_PASSWORD_INCORRECT)
-        alertMensagem(target: self, title:StringsHelper.OPS, message: StringsHelper.THERE_WAS_PROBLEM)
-    }
-    
-    private func alertMensagem(target: UIViewController, title: String, message: String) {
-        Globals.alertMessage(title: title, message: message, targetVC: target)
+        coordinator.alertConection(titleAlert: StringsHelper.OPS, messageAlert: StringsHelper.THERE_WAS_PROBLEM, messageActionAlert: StringsHelper.OK)
     }
 }
 
