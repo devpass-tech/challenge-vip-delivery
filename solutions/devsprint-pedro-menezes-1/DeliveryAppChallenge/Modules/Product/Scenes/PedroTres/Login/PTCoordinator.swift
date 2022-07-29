@@ -42,4 +42,10 @@ final class PTCoordinator {
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }
+    
+    func navigateToCreateAccount(){
+        let createAccountViewController = PTCreateAccountViewController()
+        createAccountViewController.modalPresentationStyle = .fullScreen
+        controller?.present(createAccountViewController, animated: true)
+    }
 }

@@ -54,12 +54,8 @@ class PTLoginViewController: UIViewController {
     }
     
     @IBAction private func createAccountButton(_ sender: Any) {
-        let controller = PTCreateAccountViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        coordinator.navigateToCreateAccount()
     }
-    
-    
 }
 
 //MARK: - Regras de negócio
