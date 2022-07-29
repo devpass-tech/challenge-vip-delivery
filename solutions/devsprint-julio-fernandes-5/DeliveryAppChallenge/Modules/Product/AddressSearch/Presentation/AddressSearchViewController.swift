@@ -53,6 +53,10 @@ final class AddressSearchViewController: UIViewController {
 
 // MARK: - Extension
 
+extension AddressSearchViewController: AddressSearchViewControllerOutput {
+    
+}
+
 extension AddressSearchViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {}

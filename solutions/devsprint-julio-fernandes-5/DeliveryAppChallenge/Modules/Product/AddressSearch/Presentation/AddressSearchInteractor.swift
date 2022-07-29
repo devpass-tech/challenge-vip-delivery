@@ -1,6 +1,6 @@
 import UIKit
 
-final class AddressSearchInteractor {
+final class AddressSearchInteractor: AddressSearchInteractorProtocol {
     
     // MARK: - Private Properties
     
