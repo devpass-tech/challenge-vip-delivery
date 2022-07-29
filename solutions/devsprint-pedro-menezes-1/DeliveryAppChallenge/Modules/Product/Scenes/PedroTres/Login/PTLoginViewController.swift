@@ -23,6 +23,7 @@ class PTLoginViewController: UIViewController {
         setupUserDebug()
         heightLabelError.constant = 0
         setupLayout()
+        coordinator.controller = self
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -33,7 +34,7 @@ class PTLoginViewController: UIViewController {
         if ConnectivityManager.shared.isConnected {
             fetchLogin()
         } else {
-            showAlert()
+            coordinator.showAlert()
         }
     }
     
@@ -74,28 +75,12 @@ private extension PTLoginViewController {
                 
                 switch result {
                 case .success(let result):
-                    self.handleSuccess(session: result)
+                    self.handleUserLoginSuccess(with: result)
                 case .failure:
-                    self.handleFailure()
+                    self.handleUserLoginFailure()
                 }
             }
         }
-    }
-    
-    func showAlert() {
-        let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
-        let actin = UIAlertAction(title: "Ok", style: .default)
-        alertController.addAction(actin)
-        present(alertController, animated: true)
-    }
-    
-    func navigateToHome(){
-        let vc = UINavigationController(rootViewController: HomeViewController())
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        window?.rootViewController = vc
-        window?.makeKeyAndVisible()
     }
     
     func isValidEmail(_ email: String?) -> Bool {
@@ -107,13 +92,13 @@ private extension PTLoginViewController {
         email.count <= 5
     }
     
-    func handleSuccess(session: Session) {
+    func handleUserLoginSuccess(with session: Session) {
         UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-        self.navigateToHome()
+        self.coordinator.navigateToHome()
     }
     
-    func handleFailure() {
-        self.setErrorLogin("E-mail ou senha incorretos")
+    func handleUserLoginFailure() {
+        self.setErrorLoginStyle("E-mail ou senha incorretos")
         Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
     }
 }
@@ -124,7 +109,7 @@ private extension PTLoginViewController {
     func setupLayout() {
         setupLoginButton()
         setupCreateAccountButton()
-        setupStyle()
+        setDefaultStyle()
         setupGestureRecognizer()
         validateButton()
     }
@@ -144,7 +129,7 @@ private extension PTLoginViewController {
         createAccountButton.backgroundColor = .white
     }
     
-    func setupStyle(){
+    func setDefaultStyle(){
         showPasswordButton.tintColor = .lightGray
         emailTextField.setDefaultColor()
         passwordTextField.setDefaultColor()
@@ -195,7 +180,7 @@ private extension PTLoginViewController {
         passwordTextField.setDefaultColor()
     }
     
-    func setErrorLogin(_ message: String) {
+    func setErrorLoginStyle(_ message: String) {
         errorInLogin = true
         heightLabelError.constant = 20
         errorLabel.text = message

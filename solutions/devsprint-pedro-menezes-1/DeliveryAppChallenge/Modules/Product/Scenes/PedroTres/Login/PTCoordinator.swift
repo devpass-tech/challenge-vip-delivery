@@ -10,10 +10,9 @@ import UIKit
 
 final class PTCoordinator {
     
-    private let controller = PTLoginViewController
+    var controller: UIViewController?
     
     func showViewController(vc: UIViewController) {
-        let vc = vc
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
         let window = windowScene?.windows.first
@@ -25,10 +24,22 @@ final class PTCoordinator {
         let storyboard = UIStoryboard(name: "PTUser", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "PTResetPasswordViewController") as! GCResetPasswordViewController
         vc.modalPresentationStyle = .fullScreen
-        presentController.present(vc, animated: true)
+        controller?.present(vc, animated: true)
+    }
+        
+    func showAlert() {
+        let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
+        let actin = UIAlertAction(title: "Ok", style: .default)
+        alertController.addAction(actin)
+        controller?.present(alertController, animated: true)
     }
     
-    func showAlert(){
-        
+    func navigateToHome(){
+        let vc = UINavigationController(rootViewController: HomeViewController())
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.rootViewController = vc
+        window?.makeKeyAndVisible()
     }
 }
