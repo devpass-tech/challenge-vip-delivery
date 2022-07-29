@@ -355,7 +355,6 @@
 		6547C4662892F10F00468CED /* LoginReset */ = {
 			isa = PBXGroup;
 			children = (
-				6547C46A2893199600468CED /* Models */,
 				A45BAE3E28864F9800E5AAE6 /* GCUser.storyboard */,
 				A45BAE4428864F9800E5AAE6 /* GCLoginViewController.swift */,
 				A45BAE4128864F9800E5AAE6 /* GCResetPasswordViewController.swift */,
@@ -753,6 +752,7 @@
 		A45BADD228863E9D00E5AAE6 /* GabrielCastro */ = {
 			isa = PBXGroup;
 			children = (
+				6547C46A2893199600468CED /* Models */,
 				6547C4672892F13200468CED /* ViewController */,
 				6547C459288C292F00468CED /* ViewModel */,
 				65219CA22889932400220964 /* Coordinator */,

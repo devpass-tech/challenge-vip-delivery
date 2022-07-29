@@ -9,7 +9,6 @@ import UIKit
 
 final class GCLoginCoordinator  {
     
-    
     func showViewController(vc: UIViewController) {
         let vc = vc
         let scenes = UIApplication.shared.connectedScenes
