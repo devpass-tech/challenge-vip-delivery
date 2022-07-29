@@ -16,49 +16,29 @@ class PTLoginViewController: UIViewController {
     var errorInLogin = false
     
     private let service = PTLoginWorker()
+    private let coordinator = PTCoordinator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        verifyLogin()
-        
-#if DEBUG
-        emailTextField.text = "clean.code@devpass.com"
-        passwordTextField.text = "111111"
-#endif
-        
-        self.setupView()
-        self.validateButton()
+        setupUserDebug()
+        heightLabelError.constant = 0
+        setupLayout()
+        coordinator.controller = self
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
-    func verifyLogin() {
-        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            let vc = UINavigationController(rootViewController: HomeViewController())
-            let scenes = UIApplication.shared.connectedScenes
-            let windowScene = scenes.first as? UIWindowScene
-            let window = windowScene?.windows.first
-            window?.rootViewController = vc
-            window?.makeKeyAndVisible()
+    @IBAction private func loginButton(_ sender: Any) {
+        if ConnectivityManager.shared.isConnected {
+            fetchLogin()
+        } else {
+            coordinator.showAlert()
         }
     }
     
-    @IBAction func loginButton(_ sender: Any) {
-        if !ConnectivityManager.shared.isConnected {
-            let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
-            let actin = UIAlertAction(title: "Ok", style: .default)
-            alertController.addAction(actin)
-            present(alertController, animated: true)
-            return
-        }
-        
-        showLoading()
-        fetchLogin()
-    }
-    
-    @IBAction func showPassword(_ sender: Any) {
+    @IBAction private func showPassword(_ sender: Any) {
         if(showPassword == true) {
             passwordTextField.isSecureTextEntry = false
             showPasswordButton.setImage(UIImage.init(systemName: "eye.slash")?.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -69,30 +49,19 @@ class PTLoginViewController: UIViewController {
         showPassword = !showPassword
     }
     
-    @IBAction func resetPasswordButton(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "PTUser", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "PTResetPasswordViewController") as! PTResetPasswordViewController
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+    @IBAction private func resetPasswordButton(_ sender: Any) {
+        coordinator.showPTResetPasswordViewController(presentController: self)
     }
     
-    
-    @IBAction func createAccountButton(_ sender: Any) {
-        let controller = PTCreateAccountViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+    @IBAction private func createAccountButton(_ sender: Any) {
+        coordinator.navigateToCreateAccount()
     }
-    
-    private func navigateToHome(){
-        let vc = UINavigationController(rootViewController: HomeViewController())
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        window?.rootViewController = vc
-        window?.makeKeyAndVisible()
-    }
-    
-    private func fetchLogin() {
+}
+
+//MARK: - Regras de negócio
+private extension PTLoginViewController {
+    func fetchLogin() {
+        showLoading()
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
         
@@ -102,51 +71,70 @@ class PTLoginViewController: UIViewController {
                 
                 switch result {
                 case .success(let result):
-                    self.handleSuccess(session: result)
-                    break
+                    self.handleUserLoginSuccess(with: result)
                 case .failure:
-                    self.handleFailure()
-                    break
+                    self.handleUserLoginFailure()
                 }
             }
         }
     }
     
-    private func handleSuccess(session: Session) {
-        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-        self.navigateToHome()
+    func isValidEmail(_ email: String?) -> Bool {
+        guard let email = email else {
+            return false
+        }
+        return !email.contains(".") ||
+        !email.contains("@") ||
+        email.count <= 5
     }
     
-    private func handleFailure() {
-        self.setErrorLogin("E-mail ou senha incorretos")
+    func handleUserLoginSuccess(with session: Session) {
+        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+        self.coordinator.navigateToHome()
+    }
+    
+    func handleUserLoginFailure() {
+        self.setErrorLoginStyle("E-mail ou senha incorretos")
         Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
     }
 }
 
 // MARK: - Comportamentos de layout
-extension PTLoginViewController {
+private extension PTLoginViewController {
     
-    func setupView() {
-        heightLabelError.constant = 0
+    func setupLayout() {
+        setupLoginButton()
+        setupCreateAccountButton()
+        setDefaultStyle()
+        setupGestureRecognizer()
+        validateButton()
+    }
+    
+    func setupLoginButton() {
         loginButton.layer.cornerRadius = loginButton.frame.height / 2
         loginButton.backgroundColor = .blue
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.isEnabled = true
-        
-        showPasswordButton.tintColor = .lightGray
-        
+    }
+    
+    func setupCreateAccountButton() {
         createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
         createAccountButton.layer.borderWidth = 1
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
         createAccountButton.setTitleColor(.blue, for: .normal)
         createAccountButton.backgroundColor = .white
-        
+    }
+    
+    func setDefaultStyle(){
+        showPasswordButton.tintColor = .lightGray
         emailTextField.setDefaultColor()
         passwordTextField.setDefaultColor()
+    }
+    
+    func setupGestureRecognizer() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
-        validateButton()
     }
     
     @objc
@@ -188,7 +176,7 @@ extension PTLoginViewController {
         passwordTextField.setDefaultColor()
     }
     
-    func setErrorLogin(_ message: String) {
+    func setErrorLoginStyle(_ message: String) {
         errorInLogin = true
         heightLabelError.constant = 20
         errorLabel.text = message
@@ -206,24 +194,12 @@ extension PTLoginViewController {
             passwordTextField.setDefaultColor()
         }
     }
-}
-
-extension PTLoginViewController {
     
     func validateButton() {
         let email = emailTextField.text
         let isEmailValid = isValidEmail(email)
         
         isEmailValid ? enableButton() : disableButton()
-    }
-    
-    private func isValidEmail(_ email: String?) -> Bool {
-        guard let email = email else {
-            return false
-        }
-        return !email.contains(".") ||
-        !email.contains("@") ||
-        email.count <= 5
     }
     
     func disableButton() {
@@ -234,5 +210,12 @@ extension PTLoginViewController {
     func enableButton() {
         loginButton.backgroundColor = .blue
         loginButton.isEnabled = true
+    }
+    
+    func setupUserDebug() {
+    #if DEBUG
+        emailTextField.text = "clean.code@devpass.com"
+        passwordTextField.text = "111111"
+    #endif
     }
 }

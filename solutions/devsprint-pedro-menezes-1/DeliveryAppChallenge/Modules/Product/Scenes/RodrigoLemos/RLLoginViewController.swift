@@ -1,68 +1,63 @@
 import UIKit
 
 class RLLoginViewController: UIViewController {
-    
+
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
-    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var createAccountButton: UIButton!
-    
-    var showPassword = true
     @IBOutlet weak var showPasswordButton: UIButton!
+
+    var showPassword = true
     var errorInLogin = false
-    
+    let coordinator = RLLoginCoordinator()
+    let emailUseCase = EmailValidatorUseCase()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyIfIsAlreadyLogIn()
         setupView()
         validateButton()
     }
-    
+
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
 
     func verifyIfIsAlreadyLogIn() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            showHomeViewController()
+            coordinator.showHomeViewController()
         } else {
-            setLoginInformation()
+            setLoginDefaultValue()
         }
     }
 
-    func showHomeViewController() {
-        let vc = UINavigationController(rootViewController: HomeViewController())
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        window?.rootViewController = vc
-        window?.makeKeyAndVisible()
-    }
-
-    func setLoginInformation() {
+    func setLoginDefaultValue() {
         #if DEBUG
         emailTextField.text = "clean.code@devpass.com"
         passwordTextField.text = "111111"
         #endif
     }
-    
+
     @IBAction func loginButton(_ sender: Any) {
-        let userIsConnected = verifyIfUserHasConnection()
-        if userIsConnected {
-            showLoading()
-
-            let parameters: [String: String] = ["email": emailTextField.text!,
-                                                "password": passwordTextField.text!]
-            let endpoint = Endpoints.Auth.login
-
-            makeLoginRequest(with: endpoint, and: parameters)
+        let isUserConnected = verifyIfUserHasConnection()
+        if isUserConnected {
+            startLoginRequest()
         } else {
-            showNoConnectionAlert()
+            coordinator.showNoConnectionAlert(on: self)
         }
+    }
+
+    func startLoginRequest() {
+        showLoading()
+
+        let parameters: [String: String] = ["email": emailTextField.text!,
+                                            "password": passwordTextField.text!]
+        let endpoint = Endpoints.Auth.login
+
+        makeLoginRequest(with: endpoint, and: parameters)
     }
 
     func verifyIfUserHasConnection() -> Bool {
@@ -72,50 +67,25 @@ class RLLoginViewController: UIViewController {
             return false
         }
     }
-    
-
-    func showNoConnectionAlert() {
-        let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
-        let actin = UIAlertAction(title: "Ok", style: .default)
-        alertController.addAction(actin)
-        present(alertController, animated: true)
-        return
-    }
 
     func makeLoginRequest(with endpoint: String, and parameters: [String: String]) {
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
-            self.handleRequest(result: result)
-        }
-    }
-
-    func handleRequest(result: Result<Data, Error>) {
-        DispatchQueue.main.async {
-            self.stopLoading()
-            switch result {
-            case .success(let data):
-                self.decodeUser(with: data)
-            case .failure:
-                self.showRequestError()
+        BadNetworkLayer.shared.login(self, parameters: parameters) { session in
+            DispatchQueue.main.async {
+                self.handleLoginRequestResult(session: session)
             }
         }
     }
 
-    func decodeUser(with data: Data) {
-        let decoder = JSONDecoder()
-        do {
-            let session = try decoder.decode(Session.self, from: data)
-            self.showHomeViewController()
+    func handleLoginRequestResult(session: Session?) {
+        if let session = session {
+            self.coordinator.showHomeViewController()
             UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-        } catch {
-            Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
+        } else {
+            self.setErrorLogin("E-mail ou senha incorretos")
+            self.coordinator.showRequestError(on: self)
         }
     }
 
-    func showRequestError() {
-        self.setErrorLogin("E-mail ou senha incorretos")
-        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-    }
-    
     @IBAction func showPassword(_ sender: Any) {
         showPassword ? configureLayout(toShowPassword: true) : configureLayout(toShowPassword: false)
         showPassword = !showPassword
@@ -126,33 +96,19 @@ class RLLoginViewController: UIViewController {
         passwordTextField.isSecureTextEntry = toShowPassword ? false : true
         showPasswordButton.setImage(passwordButtonImage, for: .normal)
     }
-    
+
     @IBAction func resetPasswordButton(_ sender: Any) {
-        showResetPasswordViewController()
+        coordinator.showResetPasswordViewController(on: self)
     }
 
-    func showResetPasswordViewController() {
-        let storyboard = UIStoryboard(name: "RLUser", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "RLResetPasswordViewController") as! RLResetPasswordViewController
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
-    }
-    
-    
     @IBAction func createAccountButton(_ sender: Any) {
-        showCreateAccountViewController()
-    }
-
-    func showCreateAccountViewController() {
-        let controller = RLCreateAccountViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        coordinator.showCreateAccountViewController(on: self)
     }
 }
 
 // MARK: - Comportamentos de layout
 extension RLLoginViewController {
-    
+
     func setupView() {
         heightLabelError.constant = 0
         configureLoginButton()
@@ -201,7 +157,7 @@ extension RLLoginViewController {
     func didClickView() {
         view.endEditing(true)
     }
-    
+
     //email
     @IBAction func emailBeginEditing(_ sender: Any) {
         if errorInLogin {
@@ -210,15 +166,15 @@ extension RLLoginViewController {
             emailTextField.setEditingColor()
         }
     }
-    
+
     @IBAction func emailEditing(_ sender: Any) {
         validateButton()
     }
-    
+
     @IBAction func emailEndEditing(_ sender: Any) {
         emailTextField.setDefaultColor()
     }
-    
+
     //senha
     @IBAction func passwordBeginEditing(_ sender: Any) {
         if errorInLogin {
@@ -227,15 +183,15 @@ extension RLLoginViewController {
             passwordTextField.setEditingColor()
         }
     }
-    
+
     @IBAction func passwordEditing(_ sender: Any) {
         validateButton()
     }
-    
+
     @IBAction func passwordEndEditing(_ sender: Any) {
         passwordTextField.setDefaultColor()
     }
-    
+
     func setErrorLogin(_ message: String) {
         errorInLogin = true
         heightLabelError.constant = 20
@@ -243,7 +199,7 @@ extension RLLoginViewController {
         emailTextField.setErrorColor()
         passwordTextField.setErrorColor()
     }
-    
+
     func resetErrorLogin(_ textField: UITextField) {
         heightLabelError.constant = 0
         if textField == emailTextField {
@@ -257,39 +213,21 @@ extension RLLoginViewController {
 }
 
 extension RLLoginViewController {
-    
+
     func validateButton() {
-        if textDoNotContainsEmailRequirements() {
-            disableButton()
-        } else {
-            verifyEmailFormat()
-        }
-    }
-
-    func textDoNotContainsEmailRequirements() -> Bool {
-        return !emailTextField.text!.contains(".") ||
-        !emailTextField.text!.contains("@") ||
-        emailTextField.text!.count <= 5
-    }
-
-    func verifyEmailFormat() {
-        if let atIndex = emailTextField.text!.firstIndex(of: "@") {
-            let substring = emailTextField.text![atIndex...]
-            if substring.contains(".") {
-                enableButton()
-            } else {
-                disableButton()
-            }
+        let isEmailValid = emailUseCase.isEmailValid(for: emailTextField.text!)
+        if isEmailValid {
+            enableButton()
         } else {
             disableButton()
         }
     }
-    
+
     func disableButton() {
         loginButton.backgroundColor = .gray
         loginButton.isEnabled = false
     }
-    
+
     func enableButton() {
         loginButton.backgroundColor = .blue
         loginButton.isEnabled = true

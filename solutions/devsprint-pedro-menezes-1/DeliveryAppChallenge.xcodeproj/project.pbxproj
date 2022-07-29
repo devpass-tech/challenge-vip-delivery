@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00845DFBF5861EFB5C52CEBD /* RLLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAC61C0A48ABB7B6FBEA94B /* RLLoginCoordinator.swift */; };
 		0305F235D640314BEF1CB6C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D431FF8B37D7D716A60D0EF /* Assets.xcassets */; };
 		037556285C0C654567CE38A1 /* GCLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7841B896A0E1FE69D0831E95 /* GCLoginCoordinator.swift */; };
 		03E6AFCAF65A7374E4D3E865 /* BAResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566EE45C9222C5E58110C5CD /* BAResetPasswordViewController.swift */; };
@@ -49,6 +50,7 @@
 		314E4DED52A34CF0A088A59F /* ContactUsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E08DBAFF32A47D64E428A /* ContactUsModel.swift */; };
 		3676AF946519EB5D957F8881 /* AddressCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473E69D4627BEBEADD5A18E7 /* AddressCellView.swift */; };
 		3924FF2599FE79C9B7A5C8D6 /* TRContactUsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B5B6CBF67D929449B579111 /* TRContactUsViewController.xib */; };
+		39F50B2804242F7B645FCFAB /* EmailValidatorUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C6CE1D94CB10A4316EC369 /* EmailValidatorUseCase.swift */; };
 		3A82F0D329E41253E7899109 /* IBContactUsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C92D9DF5CCC14F53E91EDA6 /* IBContactUsViewController.xib */; };
 		3DCA4AB305BF2B0F88FE7484 /* PTLoginWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0DB309460E14C24F8DA2E /* PTLoginWorker.swift */; };
 		3E94DF8CCA64A1130E0377F2 /* IBContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB27595B44B5CD035AEC2E9 /* IBContactUsViewController.swift */; };
@@ -66,7 +68,6 @@
 		543E533D9E172695837186D4 /* RestaurantListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EAE1A30F41181992FB4E80 /* RestaurantListView.swift */; };
 		56BEE0EA70BA435B3F700564 /* RLResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFA59C8054381DCAEAF6CC /* RLResetPasswordViewController.swift */; };
 		578EB6A081AAE79358329DDF /* BALoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A65C107B73FBF664A62A88 /* BALoginViewController.swift */; };
-		5BE8261656865CA84E3AD636 /* Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D359E64E45D0BAA90C562B /* Validations.swift */; };
 		5C273322CE0CF5523C63327E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0FD0AD12F110E4C5752202 /* HomeViewController.swift */; };
 		5F5E06084BF0418BE0927DEA /* RLLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10625B9D0929F5C435DFF38B /* RLLoginViewController.swift */; };
 		615D7E4BD7C6FD57334F4F0E /* THUser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EEDAE679DDCCA829C98CCC9 /* THUser.storyboard */; };
@@ -82,6 +83,7 @@
 		70B09E430AE13713C8A010CA /* MJCreateAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B2166088CF7A67D56F088C6 /* MJCreateAccountViewController.xib */; };
 		7695B6B0CF1C0B3EF0832ECB /* CAUser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8B3576DB711835956C61835 /* CAUser.storyboard */; };
 		7AB87350DA9CFD6FAAE40E60 /* SampleRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0336D63C6CD6C6930B09C6A /* SampleRepositoryImpl.swift */; };
+		7B142D199C53994D742C1D97 /* LAEmailValidatorUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D2E8E0AAD8838DE96E8506 /* LAEmailValidatorUseCase.swift */; };
 		7B6B42599287450371ACDB25 /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A2A22B002F58BF746C000A /* ButtonExtension.swift */; };
 		7D6BE6E6A46816A096828B04 /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02A9D80C40854C22D0E0905 /* CategoryListView.swift */; };
 		7E66B2AF88494A66B4CD94EC /* CAContactUsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77B55BA1D7E6813B2EAA4978 /* CAContactUsViewController.xib */; };
@@ -107,6 +109,7 @@
 		9ACCAF36D9F050C4FAB20869 /* SampleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98F9B2AA3F343DA4408548C /* SampleRouter.swift */; };
 		9BF23A3D372011B8A24BA134 /* PTResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EFFCE6E1B6B7A6FBB78B24 /* PTResetPasswordViewController.swift */; };
 		9CC761B174BE7BF588C7D23F /* RLCreateAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB2271ABA86D7BAB0764BD95 /* RLCreateAccountViewController.xib */; };
+		9F00A7BEA696E67B1FA3656B /* PTCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF775D7BAF31B7133B894B81 /* PTCoordinator.swift */; };
 		9FE05A2BA97A7919F11CB20C /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778FE86B5B1473B7D6F660EE /* Session.swift */; };
 		A0000872D7AB3AD8379B8AC4 /* SampleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EBAB361027E525A254A3AC /* SampleRepository.swift */; };
 		A034A1A625491FC6726DD54C /* MenuListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA0BC749095A12C038BEE6 /* MenuListView.swift */; };
@@ -194,6 +197,7 @@
 		1EEDAE679DDCCA829C98CCC9 /* THUser.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = THUser.storyboard; sourceTree = "<group>"; };
 		2159DDC138A2AB34509331AA /* BTContactUsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BTContactUsViewController.xib; sourceTree = "<group>"; };
 		21C1B892E69EB6F21A035AFA /* BACreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BACreateAccountViewController.swift; sourceTree = "<group>"; };
+		25D2E8E0AAD8838DE96E8506 /* LAEmailValidatorUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAEmailValidatorUseCase.swift; sourceTree = "<group>"; };
 		26185D40562DDD2362C76833 /* THResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THResetPasswordViewController.swift; sourceTree = "<group>"; };
 		26DD9E2278B17E444E0E6E61 /* TRUser.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TRUser.storyboard; sourceTree = "<group>"; };
 		2717ACCCB02C7AE7AB0CB147 /* KeyboardAppearenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAppearenceManager.swift; sourceTree = "<group>"; };
@@ -256,7 +260,6 @@
 		85645997335DC7C95FF653BE /* THCreateAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = THCreateAccountViewController.xib; sourceTree = "<group>"; };
 		86C87676F1739A57D5756386 /* THContactUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THContactUsViewController.swift; sourceTree = "<group>"; };
 		88A2A22B002F58BF746C000A /* ButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExtension.swift; sourceTree = "<group>"; };
-		88D359E64E45D0BAA90C562B /* Validations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validations.swift; sourceTree = "<group>"; };
 		8A9A164F6534F3A347FDA4D6 /* MJUser.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MJUser.storyboard; sourceTree = "<group>"; };
 		8C92D9DF5CCC14F53E91EDA6 /* IBContactUsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IBContactUsViewController.xib; sourceTree = "<group>"; };
 		8D94FF720A81B4EA54376AA6 /* MJContactUsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MJContactUsViewController.xib; sourceTree = "<group>"; };
@@ -276,6 +279,7 @@
 		A58AE8495B631B3CA317CA3F /* RLCreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLCreateAccountViewController.swift; sourceTree = "<group>"; };
 		A728A1F21850D5BC99BF6206 /* GCUser.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GCUser.storyboard; sourceTree = "<group>"; };
 		A7C12A06CD9513682FA7B22D /* BTResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTResetPasswordViewController.swift; sourceTree = "<group>"; };
+		A8C6CE1D94CB10A4316EC369 /* EmailValidatorUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidatorUseCase.swift; sourceTree = "<group>"; };
 		AB107603B101F1BBD27FCC6A /* SampleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleResponse.swift; sourceTree = "<group>"; };
 		AB7B6B54EEF302F77367650B /* LACreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LACreateAccountViewController.swift; sourceTree = "<group>"; };
 		AD0FD0AD12F110E4C5752202 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -293,6 +297,7 @@
 		BCA5008321F0A55246D07915 /* SampleApiDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleApiDataSource.swift; sourceTree = "<group>"; };
 		BDC9BD45556960039884F370 /* GCLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCLoginViewModel.swift; sourceTree = "<group>"; };
 		BF1E5800AC86D5B10A7646CE /* PTContactUsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PTContactUsViewController.xib; sourceTree = "<group>"; };
+		BF775D7BAF31B7133B894B81 /* PTCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTCoordinator.swift; sourceTree = "<group>"; };
 		BFBAF031BFF5CD1A1607ACDE /* PTLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTLoginViewController.swift; sourceTree = "<group>"; };
 		C3964B9D12847E622DE9ECCC /* GCResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCResetPasswordViewController.swift; sourceTree = "<group>"; };
 		CBDC53F4E2FC3084983FDF64 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -314,6 +319,7 @@
 		E1D4022468D70D95835CC0FA /* TRCreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRCreateAccountViewController.swift; sourceTree = "<group>"; };
 		E24D6A2965A24035DD039E97 /* BAContactUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BAContactUsViewController.swift; sourceTree = "<group>"; };
 		E993684E42061C2C8CC6CA0F /* DeliveryAppChallengeTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = DeliveryAppChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAAC61C0A48ABB7B6FBEA94B /* RLLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLLoginCoordinator.swift; sourceTree = "<group>"; };
 		EB2271ABA86D7BAB0764BD95 /* RLCreateAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RLCreateAccountViewController.xib; sourceTree = "<group>"; };
 		EB40D2E8DC46B101D716D3BF /* LoadingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingController.swift; sourceTree = "<group>"; };
 		EBA4DD9799473241AAEFBE73 /* CAContactUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAContactUsViewController.swift; sourceTree = "<group>"; };
@@ -367,10 +373,12 @@
 		092046DD5FEF7F0D634C7831 /* RodrigoLemos */ = {
 			isa = PBXGroup;
 			children = (
+				A8C6CE1D94CB10A4316EC369 /* EmailValidatorUseCase.swift */,
 				15B97267891938594D3E4473 /* RLContactUsViewController.swift */,
 				48C13D7D7C543357A36470B1 /* RLContactUsViewController.xib */,
 				A58AE8495B631B3CA317CA3F /* RLCreateAccountViewController.swift */,
 				EB2271ABA86D7BAB0764BD95 /* RLCreateAccountViewController.xib */,
+				EAAC61C0A48ABB7B6FBEA94B /* RLLoginCoordinator.swift */,
 				10625B9D0929F5C435DFF38B /* RLLoginViewController.swift */,
 				75AFA59C8054381DCAEAF6CC /* RLResetPasswordViewController.swift */,
 				76258F8C34ADE040C2991BDE /* RLUser.storyboard */,
@@ -632,7 +640,7 @@
 		5C4B68015FC2916C7440FF15 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				88D359E64E45D0BAA90C562B /* Validations.swift */,
+				25D2E8E0AAD8838DE96E8506 /* LAEmailValidatorUseCase.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -701,6 +709,7 @@
 		6AF9C3F4B047AEBCBD099689 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				BF775D7BAF31B7133B894B81 /* PTCoordinator.swift */,
 				BFBAF031BFF5CD1A1607ACDE /* PTLoginViewController.swift */,
 				10C0DB309460E14C24F8DA2E /* PTLoginWorker.swift */,
 			);
@@ -1143,6 +1152,7 @@
 				7D6BE6E6A46816A096828B04 /* CategoryListView.swift in Sources */,
 				314E4DED52A34CF0A088A59F /* ContactUsModel.swift in Sources */,
 				4E6C4F5206FD5A9588EF9CFA /* DataModel.swift in Sources */,
+				39F50B2804242F7B645FCFAB /* EmailValidatorUseCase.swift in Sources */,
 				D8A671B5E27B743731C2D35C /* Endpoints.swift in Sources */,
 				B3216A7DEC628CAB9648CFE5 /* FeatureFactory.swift in Sources */,
 				62B7607A5A2873F220FD8BBB /* GCContactUsViewController.swift in Sources */,
@@ -1167,6 +1177,7 @@
 				08928B5A2872B211FFA29F28 /* LABadNetworkLayer.swift in Sources */,
 				C35EC820765034F86AC37B65 /* LAContactUsViewController.swift in Sources */,
 				DFCDD2F4A3653F01EF839D88 /* LACreateAccountViewController.swift in Sources */,
+				7B142D199C53994D742C1D97 /* LAEmailValidatorUseCase.swift in Sources */,
 				B715C5FF59802188823F2E90 /* LALoginCoordinator.swift in Sources */,
 				85E1F6BE98796811FEF8D48D /* LALoginViewController.swift in Sources */,
 				E6791E894CAE5B2E5920D2F0 /* LAResetPasswordViewController.swift in Sources */,
@@ -1184,12 +1195,14 @@
 				84A555200B0E62F028D513F1 /* NetworkManager.swift in Sources */,
 				C6DBCBC2C6F8F5DEFAF25DA2 /* NetworkRequest.swift in Sources */,
 				28BB82FCB41D2FD3D7A6E176 /* PTContactUsViewController.swift in Sources */,
+				9F00A7BEA696E67B1FA3656B /* PTCoordinator.swift in Sources */,
 				F6BF421469732F15EDAF5F2E /* PTCreateAccountViewController.swift in Sources */,
 				A08E6D7EEBE0742A35A7F9D5 /* PTLoginViewController.swift in Sources */,
 				3DCA4AB305BF2B0F88FE7484 /* PTLoginWorker.swift in Sources */,
 				9BF23A3D372011B8A24BA134 /* PTResetPasswordViewController.swift in Sources */,
 				E302E53FDD6D9E57381BE7E6 /* RLContactUsViewController.swift in Sources */,
 				3F0691B185EA34698574731C /* RLCreateAccountViewController.swift in Sources */,
+				00845DFBF5861EFB5C52CEBD /* RLLoginCoordinator.swift in Sources */,
 				5F5E06084BF0418BE0927DEA /* RLLoginViewController.swift in Sources */,
 				56BEE0EA70BA435B3F700564 /* RLResetPasswordViewController.swift in Sources */,
 				D54FF5E5B5ABFC787EEAC0B7 /* RatingView.swift in Sources */,
@@ -1235,7 +1248,6 @@
 				18928932C712285761525CA4 /* URLSessionProtocol.swift in Sources */,
 				DE6349CC5C443796F0D21929 /* User.swift in Sources */,
 				9878B4D81E5DFAEAD43719B7 /* UserDefaultsManager.swift in Sources */,
-				5BE8261656865CA84E3AD636 /* Validations.swift in Sources */,
 				C798C4E040D3FAE56F51A249 /* ViewCode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

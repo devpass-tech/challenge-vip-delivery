@@ -8,7 +8,6 @@
 import UIKit
 
 class LABadNetworkLayer {
-    static let shared = LABadNetworkLayer()
     
     func login(_ targetVc: UIViewController,
                parameters: [String : String],
