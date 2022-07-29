@@ -10,12 +10,12 @@ class TRResetPasswordViewController: UIViewController {
     @IBOutlet weak var viewSuccess: UIView!
     @IBOutlet weak var emailLabel: UILabel!
     
-    var email = ""
-    var loadingScreen = LoadingController()
-    var recoveryEmail = false
-    let badNetwokLayer = BadNetworkLayer()
-    var coordinator: TRResetPasswordCoordinator = TRResetPasswordCoordinator()
-    let globals = Globals()
+    private var email = ""
+    private var loadingScreen = LoadingController()
+    private var recoveryEmail = false
+    private let badNetwokLayer = BadNetworkLayer()
+    private var coordinator: TRResetPasswordCoordinator = TRResetPasswordCoordinator()
+    private let globals = Globals()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +54,7 @@ class TRResetPasswordViewController: UIViewController {
         self.coordinator.createAccountViewController()
     }
     
-    func startResetPasswordProcess() -> Bool {
+    private func startResetPasswordProcess() -> Bool {
         let emailHasDot = emailTextfield.text?.contains(".") ?? false
         let emailHasAt = emailTextfield.text?.contains("@") ?? false
         let emailHasValidSize = emailTextfield.text?.count ?? 0 > 5
@@ -62,14 +62,14 @@ class TRResetPasswordViewController: UIViewController {
         return emailIsValid
     }
     
-    func startResetPasswordProcessWithError() {
+    private func startResetPasswordProcessWithError() {
         self.view.endEditing(true)
         emailTextfield.setErrorColor()
         textLabel.textColor = .red
         textLabel.text = "Verifique o e-mail informado"
     }
     
-    func verifyStatusInternetConnection() {
+    private func verifyStatusInternetConnection() {
         let conection = ConnectivityManager.shared.isConnected
         if  conection {
             startResetPassword()
@@ -89,7 +89,7 @@ class TRResetPasswordViewController: UIViewController {
         }
     }
     
-    func handleSucessfulResponse(_ success: Bool) {
+    private func handleSucessfulResponse(_ success: Bool) {
         if success {
             self.resetSucessPassword()
         } else {
@@ -124,7 +124,7 @@ extension TRResetPasswordViewController {
         emailTextfield.setDefaultColor()
     }
     
-    func setupView() {
+    private func setupView() {
         configRecoverPassword()
         configLoginButton()
         configHelperButton()
@@ -174,21 +174,21 @@ extension TRResetPasswordViewController {
 }
 
 extension TRResetPasswordViewController {
-   private func validateButton() {
+    private func validateButton() {
         let emailIsEmpty = emailTextfield.text
         
         emailIsEmpty?.isEmpty ?? false ? disableCreateButton() : enableCreateButton()
     }
     
-   private func disableCreateButton() {
+    private func disableCreateButton() {
         configRecoverPassoworBtn(color: .gray, isEnabled: false, colorTitle: .white)
     }
     
-   private func enableCreateButton() {
+    private func enableCreateButton() {
         configRecoverPassoworBtn(color: .blue, isEnabled: true, colorTitle: .white)
     }
     
-   private func configRecoverPassoworBtn(color: UIColor, isEnabled: Bool, colorTitle: UIColor) {
+    private func configRecoverPassoworBtn(color: UIColor, isEnabled: Bool, colorTitle: UIColor) {
         recoverPasswordButton.backgroundColor = color
         recoverPasswordButton.setTitleColor(colorTitle, for: .normal)
         recoverPasswordButton.isEnabled = isEnabled
