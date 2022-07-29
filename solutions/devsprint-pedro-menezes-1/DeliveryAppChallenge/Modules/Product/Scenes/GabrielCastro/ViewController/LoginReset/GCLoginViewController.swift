@@ -18,10 +18,10 @@ final class GCLoginViewController: UIViewController {
     @IBOutlet weak var createAccountButton: UIButton!
     @IBOutlet weak var showPasswordButton: UIButton!
     
-    //MARK: - View LifeCycle
+    //MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        verifyLogin()
+        //verifyLogin()
         loginDefault()
         setupView()
         validateButton()
@@ -55,11 +55,11 @@ final class GCLoginViewController: UIViewController {
         return .lightContent
     }
     
-    private func verifyLogin() {
-        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            gcLoginCoordinator.showViewController(vc: HomeViewController())
-        }
-    }
+//    private func verifyLogin() {
+//        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
+//            gcLoginCoordinator.showViewController(vc: HomeViewController())
+//        }
+//    }
     
     func showRequestError() {
         self.setErrorLogin("E-mail ou senha incorretos")
