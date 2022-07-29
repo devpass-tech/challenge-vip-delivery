@@ -14,10 +14,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
-        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            gcLoginCoordinator.showViewController(vc: HomeViewController())
-        } else {
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
@@ -27,8 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.windowScene = windowScene
         self.window?.makeKeyAndVisible()
         }
-    }
 
 }
-    
+
+
 
