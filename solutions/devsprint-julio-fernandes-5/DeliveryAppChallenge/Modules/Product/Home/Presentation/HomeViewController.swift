@@ -21,6 +21,7 @@ final class HomeViewController: UIViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         navigationItem.title = "Delivery App"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.prefersLargeTitles = true
