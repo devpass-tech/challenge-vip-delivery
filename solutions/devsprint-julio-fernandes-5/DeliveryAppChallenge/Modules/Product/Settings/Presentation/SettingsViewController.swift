@@ -7,11 +7,13 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+final class SettingsViewController: UIViewController {
 
-    init() {
+    let interactor: SettingsViewInteractorProtocol
+
+    init(interactor: SettingsViewInteractorProtocol) {
+        self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
-
         navigationItem.title = "Settings"
     }
     
@@ -23,3 +25,5 @@ class SettingsViewController: UIViewController {
         self.view = SettingsView()
     }
 }
+
+extension SettingsViewController: SettingsViewControllerOutput {}
