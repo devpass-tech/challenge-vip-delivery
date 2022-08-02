@@ -47,6 +47,10 @@ final class AddressView: UIView {
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIView.noIntrinsicMetric, height: 66)
     }
+    
+    func fill(render data: SettingsViewResponse) {
+        self.addressLabel.text = data.address
+    }
 }
 
 extension AddressView {

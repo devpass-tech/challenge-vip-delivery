@@ -43,8 +43,8 @@ final class HomeViewController: UIViewController {
 
 //MARK: interface: HomeViewControllerOutput
 extension HomeViewController: HomeViewControllerOutput {
-    func showData() {
-        print(">>>> Dados exibidos com sucesso")
+    func showData(_ data: RestaurantDetailResponse.HomeViewModel) {
+        (homeView as? HomeView)?.fillAddressRender(data: data)
     }
     
     func showError() {

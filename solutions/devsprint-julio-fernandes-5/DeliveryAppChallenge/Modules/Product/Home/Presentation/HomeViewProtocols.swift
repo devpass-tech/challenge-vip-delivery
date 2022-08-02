@@ -12,11 +12,11 @@ protocol HomeViewInteractorProtocol {
 }
 
 protocol HomeViewPresenterProtocol {
-    func fetchedSuccessData()
+    func fetchedSuccessData(_ data: RestaurantDetailResponse.HomeViewModel)
     func fetchedErrorData()
 }
 
 protocol HomeViewControllerOutput: AnyObject {
-    func showData()
+    func showData(_ data: RestaurantDetailResponse.HomeViewModel)
     func showError()
 }
