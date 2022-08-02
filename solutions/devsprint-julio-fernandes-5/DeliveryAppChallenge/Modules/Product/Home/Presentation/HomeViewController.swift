@@ -11,6 +11,10 @@ final class HomeViewController: UIViewController {
     
     let interactor: HomeViewInteractorProtocol
     
+    lazy var homeView: UIView = {
+        return HomeView(delegate: self)
+    }()
+    
     init(interactor: HomeViewInteractorProtocol) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
@@ -23,7 +27,7 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Delivery App"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: nil, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(didTapSettings))
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
@@ -33,10 +37,11 @@ final class HomeViewController: UIViewController {
     }
     
     override func loadView() {
-        self.view = HomeView()
+        self.view = homeView
     }
 }
 
+//MARK: interface: HomeViewControllerOutput
 extension HomeViewController: HomeViewControllerOutput {
     func showData() {
         print(">>>> Dados exibidos com sucesso")
@@ -46,4 +51,21 @@ extension HomeViewController: HomeViewControllerOutput {
         print(">>>> Erro ao baixar os dados")
     }
     
+}
+
+//MARK: Target/Actions
+extension HomeViewController: AddressViewDelegate {
+    
+    func didTapEdit() {
+        showSeetings()
+    }
+    
+    @objc func didTapSettings() {
+        showSeetings()
+    }
+    
+    private func showSeetings() {
+        let controller = SettingsViewConfigurator.make(with: SettingsViewConfigurator.Dependencies())
+        show(controller, sender: self)
+    }
 }

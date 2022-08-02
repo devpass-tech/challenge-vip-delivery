@@ -7,16 +7,18 @@
 
 import UIKit
 
-class HomeView: UIView {
+final class HomeView: UIView {
 
-    let scrollView: UIScrollView = {
+    weak var delegate: AddressViewDelegate?
+    
+    lazy var  scrollView: UIScrollView = {
 
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
 
-    let stackView: UIStackView = {
+    lazy var  stackView: UIStackView = {
 
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -27,30 +29,30 @@ class HomeView: UIView {
         return stackView
     }()
 
-    let addressView: AddressView = {
+    lazy var  addressView: AddressView = {
 
-        let addressView = AddressView()
+        let addressView = AddressView(delegate: delegate)
         addressView.translatesAutoresizingMaskIntoConstraints = false
         return addressView
     }()
 
-    let categoryListView: CategoryListView = {
+    lazy var  categoryListView: CategoryListView = {
 
         let categoryListView = CategoryListView()
         categoryListView.translatesAutoresizingMaskIntoConstraints = false
         return categoryListView
     }()
 
-    let restaurantListView: RestaurantListView = {
+    lazy var  restaurantListView: RestaurantListView = {
 
         let restaurantListView = RestaurantListView()
         restaurantListView.translatesAutoresizingMaskIntoConstraints = false
         return restaurantListView
     }()
 
-    init() {
+    init(delegate: AddressViewDelegate?) {
         super.init(frame: .zero)
-
+        self.delegate = delegate
         backgroundColor = .white
 
         addSubviews()
@@ -65,7 +67,6 @@ class HomeView: UIView {
 extension HomeView {
 
     func addSubviews() {
-
         addSubview(scrollView)
         scrollView.addSubview(stackView)
 
@@ -75,7 +76,6 @@ extension HomeView {
     }
 
     func configureConstraints() {
-
         let estimatedHeight = CGFloat(restaurantListView.tableView.numberOfRows(inSection: 0))*RestaurantListView.cellSize
 
         NSLayoutConstraint.activate([
