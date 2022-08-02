@@ -13,7 +13,6 @@ final class SettingsViewInteractor {
 
     init(presenter: SettingsViewPresenterProtocol) {
         self.presenter = presenter
-        self.useCase = useCase
     }
 }
 

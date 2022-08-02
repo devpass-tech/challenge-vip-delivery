@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+final class SettingsViewController: UIViewController {
 
     let interactor: SettingsViewInteractorProtocol
 
@@ -25,3 +25,5 @@ class SettingsViewController: UIViewController {
         self.view = SettingsView()
     }
 }
+
+extension SettingsViewController: SettingsViewControllerOutput {}
