@@ -7,8 +7,13 @@
 
 import Foundation
 
-protocol SettingsViewInteractorProtocol {}
+protocol SettingsViewInteractorProtocol {
+    func fetchData()
+}
 
-protocol SettingsViewPresenterProtocol {}
+protocol SettingsViewPresenterProtocol {
+    func fetchedSuccessData(data: SettingsViewResponse)
+    func fetchedErrorData()
+}
 
 protocol SettingsViewControllerOutput: AnyObject {}

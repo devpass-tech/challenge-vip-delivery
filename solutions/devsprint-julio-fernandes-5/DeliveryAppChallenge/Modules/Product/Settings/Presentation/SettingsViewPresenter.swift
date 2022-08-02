@@ -11,4 +11,9 @@ final class SettingsViewPresenter {
     weak var controller: SettingsViewControllerOutput?
 }
 
-extension SettingsViewPresenter: SettingsViewPresenterProtocol {}
+extension SettingsViewPresenter: SettingsViewPresenterProtocol {
+    func fetchedSuccessData(data: SettingsViewResponse) {
+    }
+    func fetchedErrorData() {
+    }
+}
