@@ -13,7 +13,9 @@ enum SettingsViewConfigurator: FeatureFactory {
 
     static func make(with dependencies: Dependencies) -> UIViewController {
         let presenter = SettingsViewPresenter()
-        let interactor = SettingsViewInteractor(presenter: presenter)
+        let repository = SettingsViewRepository(network: NetworkManager())
+        let useCase = SettingsViewUseCase(repository: repository)
+        let interactor = SettingsViewInteractor(presenter: presenter, useCase: useCase)
         let controller = SettingsViewController(interactor: interactor)
         presenter.controller = controller
         return controller
