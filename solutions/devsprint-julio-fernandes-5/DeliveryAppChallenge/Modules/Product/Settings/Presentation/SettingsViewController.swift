@@ -9,9 +9,11 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
-    init() {
-        super.init(nibName: nil, bundle: nil)
+    let interactor: SettingsViewInteractorProtocol
 
+    init(interactor: SettingsViewInteractorProtocol) {
+        self.interactor = interactor
+        super.init(nibName: nil, bundle: nil)
         navigationItem.title = "Settings"
     }
     
