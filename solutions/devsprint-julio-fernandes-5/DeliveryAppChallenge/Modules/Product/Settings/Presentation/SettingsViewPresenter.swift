@@ -12,8 +12,6 @@ final class SettingsViewPresenter {
 }
 
 extension SettingsViewPresenter: SettingsViewPresenterProtocol {
-    func fetchedSuccessData(data: SettingsViewResponse) {
-    }
-    func fetchedErrorData() {
-    }
+    func fetchedSuccessData(data: SettingsViewResponse) {}
+    func fetchedErrorData() {}
 }
