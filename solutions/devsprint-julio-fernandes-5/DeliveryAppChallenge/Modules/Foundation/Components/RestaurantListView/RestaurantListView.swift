@@ -10,11 +10,11 @@ import UIKit
 class RestaurantListView: UIView {
 
     static let cellSize = CGFloat(82)
+    var content: [RestaurantDetailResponse] = []
 
     private let cellIdentifier = "RestaurantCellIdentifier"
 
     lazy var tableView: UITableView = {
-
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(RestaurantCellView.self, forCellReuseIdentifier: self.cellIdentifier)
@@ -25,30 +25,30 @@ class RestaurantListView: UIView {
 
     init() {
         super.init(frame: .zero)
-
         backgroundColor = .white
         addSubviews()
         configureConstraints()
-
         tableView.reloadData()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func fill(render data: [RestaurantDetailResponse]) {
+        content = data
+        tableView.reloadData()
+    }
 }
 
 extension RestaurantListView {
 
     func addSubviews() {
-
         addSubview(tableView)
     }
 
     func configureConstraints() {
-
         NSLayoutConstraint.activate([
-
             tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
@@ -60,14 +60,12 @@ extension RestaurantListView {
 extension RestaurantListView: UITableViewDataSource {
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        return 10
+        return content.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! RestaurantCellView
-
+        cell.fill(render: content[indexPath.row])
         return cell
     }
 }

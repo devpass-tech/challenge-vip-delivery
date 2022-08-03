@@ -45,7 +45,7 @@ final class HomeViewInteractorTests: XCTestCase {
 final class HomeViewPresenterProtocolSpy: HomeViewPresenterProtocol {
     
     private(set) var fetchedSuccessDataCalled = false
-    func fetchedSuccessData() {
+    func fetchedSuccessData(_ data: RestaurantDetailResponse.HomeViewModel) {
         fetchedSuccessDataCalled = true
     }
     
@@ -59,8 +59,10 @@ final class HomeViewPresenterProtocolSpy: HomeViewPresenterProtocol {
 final class HomeViewUseCaseProtocolSpy: HomeViewUseCaseProtocol {
     
     private(set) var executeCalled = false
-    var completionToBeReturned: Result<[RestaurantDetailResponse], Error> = .success([])
-    func execute(completion: @escaping (Result<[RestaurantDetailResponse], Error>) -> Void) {
+    private lazy var adrress = SettingsViewResponse(name: "name", email: "email", address: "address", paymentMethod: "payment")
+    private lazy var callback = RestaurantDetailResponse.HomeViewModel(list: [], address: adrress)
+    lazy var completionToBeReturned: Result<RestaurantDetailResponse.HomeViewModel, Error> = .success(callback)
+    func execute(completion: @escaping (Result<RestaurantDetailResponse.HomeViewModel, Error>) -> Void) {
         executeCalled = true
         completion(completionToBeReturned)
     }

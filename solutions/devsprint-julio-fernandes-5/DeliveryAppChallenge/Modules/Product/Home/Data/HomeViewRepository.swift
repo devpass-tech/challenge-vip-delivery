@@ -8,7 +8,7 @@
 import Foundation
 
 protocol HomeViewRepositoryProtocol {
-    func fetchData(completion: @escaping (Result<[RestaurantDetailResponse], NetworkError>) -> Void)
+    func fetchData(completion: @escaping (Result<RestaurantDetailResponse.HomeViewModel, NetworkError>) -> Void)
 }
 
 
@@ -16,9 +16,42 @@ protocol HomeViewRepositoryProtocol {
 final class HomeViewRepository {
     
     let network: NetworkManagerProtocol
+    let settingsWorker: SettingsViewRepositoryProtocol
     
-    init(network: NetworkManagerProtocol) {
+    private let group: DispatchGroup = DispatchGroup()
+    private var homeDataSource: [RestaurantDetailResponse]?
+    private var settingsDataSource: SettingsViewResponse?
+    
+    init(network: NetworkManagerProtocol, settingsWorker: SettingsViewRepositoryProtocol) {
         self.network = network
+        self.settingsWorker = settingsWorker
+    }
+    
+    private func fetchHomeDataSource() {
+        group.enter()
+        network.request(HomeViewEndpoint()) { [weak self] (response: Result<[RestaurantDetailResponse], Error>) in
+            switch response {
+            case let .success(dataDTO):
+                self?.homeDataSource = dataDTO
+                fallthrough
+            default:
+                self?.group.leave()
+            }
+            
+        }
+    }
+    
+    private func fetchSettingsDataSource() {
+        group.enter()
+        settingsWorker.fetchData { [weak self] (response: Result<SettingsViewResponse, NetworkError>) in
+            switch response {
+            case let .success(dataDTO):
+                self?.settingsDataSource = dataDTO
+                fallthrough
+            default:
+                self?.group.leave()
+            }
+        }
     }
     
 }
@@ -27,12 +60,20 @@ extension HomeViewRepository: HomeViewRepositoryProtocol {
     
     /// Executamos nossa chamada de network para obter os dados de API
     /// - Parameter completion: completion (Lista de restaurantes, Error)
-    func fetchData(completion: @escaping (Result<[RestaurantDetailResponse], NetworkError>) -> Void) {
-        network.request(HomeViewEndpoint()) { (response: Result<[RestaurantDetailResponse], Error>) in
-            switch response {
-            case let .success(dataDTO): completion(.success(dataDTO))
-            case .failure: completion(.failure(NetworkError.networkError))
+    func fetchData(completion: @escaping (Result<RestaurantDetailResponse.HomeViewModel, NetworkError>) -> Void) {
+        fetchHomeDataSource()
+        fetchSettingsDataSource()
+        group.notify(queue: .main) { [weak self] in
+            guard let homeDataSource = self?.homeDataSource,
+                  let settingsDataSource = self?.settingsDataSource else {
+                completion(.failure(.noData))
+                return
             }
+            
+            let viewModel = RestaurantDetailResponse.HomeViewModel(list: homeDataSource, address: settingsDataSource)
+            completion(.success(viewModel))
         }
     }
+    
+    
 }

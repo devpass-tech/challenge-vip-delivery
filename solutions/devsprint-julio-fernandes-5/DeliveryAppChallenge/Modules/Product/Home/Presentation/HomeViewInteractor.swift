@@ -24,7 +24,7 @@ extension HomeViewInteractor: HomeViewInteractorProtocol {
         // Chama o caso de uso 
         useCase.execute { [weak self] result in
             switch result {
-            case .success: self?.presenter.fetchedSuccessData()
+            case let .success(data): self?.presenter.fetchedSuccessData(data)
             case .failure: self?.presenter.fetchedErrorData()
             }
         }

@@ -38,7 +38,7 @@ class RestaurantCellView: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.text = "Benjamin Bakery"
+        label.text = ""
         return label
     }()
 
@@ -47,7 +47,7 @@ class RestaurantCellView: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 14)
-        label.text = "Bakery • 23-33 mins"
+        label.text = ""
         return label
     }()
 
@@ -58,9 +58,19 @@ class RestaurantCellView: UITableViewCell {
         addSubviews()
         configureConstraints()
     }
+    
+    override func prepareForReuse() {
+        restaurantNameLabel.text = ""
+        restaurantInfoLabel.text = ""
+    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func fill(render data: RestaurantDetailResponse) {
+        restaurantNameLabel.text = data.name
+        restaurantInfoLabel.text = data.detail
     }
 }
 

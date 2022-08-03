@@ -33,7 +33,7 @@ final class HomeViewUseCaseTests: XCTestCase {
 final class HomeViewRepositoryProtocolSpy: HomeViewRepositoryProtocol {
     
     private(set) var fetchDataCalled = false
-    func fetchData(completion: @escaping (Result<[RestaurantDetailResponse], NetworkError>) -> Void) {
+    func fetchData(completion: @escaping (Result<RestaurantDetailResponse.HomeViewModel, NetworkError>) -> Void) {
         fetchDataCalled = true
     }
     
