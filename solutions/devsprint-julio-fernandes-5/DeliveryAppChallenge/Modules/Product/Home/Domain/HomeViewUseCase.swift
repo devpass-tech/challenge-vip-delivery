@@ -8,7 +8,7 @@
 import Foundation
 
 protocol HomeViewUseCaseProtocol {
-    func execute(completion: @escaping (Result<[RestaurantDetailResponse], Error>) -> Void)
+    func execute(completion: @escaping (Result<RestaurantDetailResponse.HomeViewModel, Error>) -> Void)
 }
 
 final class HomeViewUseCase {
@@ -23,7 +23,7 @@ extension HomeViewUseCase: HomeViewUseCaseProtocol {
     
     /// Executamos a ação necessária para obter os dados necessários que serão enviados para o nosso VIP
     /// - Parameter completion: completion (Lista de restaurantes, error)
-    func execute(completion: @escaping (Result<[RestaurantDetailResponse], Error>) -> Void) {
+    func execute(completion: @escaping (Result<RestaurantDetailResponse.HomeViewModel, Error>) -> Void) {
         repository.fetchData { result in
             switch result {
             case let .success(data): completion(.success(data))

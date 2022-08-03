@@ -25,3 +25,17 @@ extension RestaurantDetailResponse {
         let max: Int
     }
 }
+
+extension RestaurantDetailResponse {
+    var detail: String {
+        return "\(category) • \(deliveryTime.min)-\(deliveryTime.max) mins"
+    }
+}
+
+extension RestaurantDetailResponse {
+    struct HomeViewModel {
+        let list: [RestaurantDetailResponse]
+        let address: SettingsViewResponse
+    }
+}
+

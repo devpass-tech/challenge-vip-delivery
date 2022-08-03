@@ -25,7 +25,7 @@ final class HomeViewPresenterTests: XCTestCase {
     }
 
     func test_fetchedSuccessData() {
-        sut?.fetchedSuccessData()
+        sut?.fetchedSuccessData(makeHomeViewModel())
         XCTAssertTrue(controller.showDataCalled)
     }
     
@@ -37,14 +37,19 @@ final class HomeViewPresenterTests: XCTestCase {
 }
 
 final class HomeViewControllerOutputSpy: HomeViewControllerOutput {
-    
     private(set) var showDataCalled = false
-    func showData() {
+    func showData(_ data: RestaurantDetailResponse.HomeViewModel) {
         showDataCalled = true
     }
     
     private(set) var showErrorCalled = false
     func showError() {
         showErrorCalled = true
+    }
+}
+
+extension XCTestCase {
+    func makeHomeViewModel() -> RestaurantDetailResponse.HomeViewModel {
+        return RestaurantDetailResponse.HomeViewModel(list: [], address: SettingsViewResponse(name: "name", email: "email", address: "address", paymentMethod: "paymentMethod"))
     }
 }

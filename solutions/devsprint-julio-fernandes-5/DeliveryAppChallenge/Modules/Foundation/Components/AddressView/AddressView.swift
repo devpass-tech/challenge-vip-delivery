@@ -6,10 +6,17 @@
 //
 
 import UIKit
+import Foundation
 
-class AddressView: UIView {
+protocol AddressViewDelegate: AnyObject {
+    func didTapEdit()
+}
 
-    let addressLabel: UILabel = {
+final class AddressView: UIView {
+    
+    weak var delegate: AddressViewDelegate?
+
+    lazy var addressLabel: UILabel = {
 
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -17,18 +24,18 @@ class AddressView: UIView {
         return label
     }()
 
-    let editButton: UIButton = {
-
+    lazy var editButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Edit", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
+        button.addTarget(self, action: #selector(didTapEdit), for: .touchUpInside)
         return button
     }()
 
-    init() {
+    init(delegate: AddressViewDelegate?) {
         super.init(frame: .zero)
-
+        self.delegate = delegate
         addSubviews()
         configureConstraints()
     }
@@ -39,6 +46,10 @@ class AddressView: UIView {
 
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIView.noIntrinsicMetric, height: 66)
+    }
+    
+    func fill(render data: SettingsViewResponse) {
+        self.addressLabel.text = data.address
     }
 }
 
@@ -61,3 +72,12 @@ extension AddressView {
         ])
     }
 }
+
+//MARK: Target/Actions
+extension AddressView {
+    
+    @objc func didTapEdit() {
+        delegate?.didTapEdit()
+    }
+}
+

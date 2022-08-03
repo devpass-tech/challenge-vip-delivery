@@ -23,7 +23,7 @@ final class SettingsViewRepository {
 
 extension SettingsViewRepository: SettingsViewRepositoryProtocol {
     func fetchData(completion: @escaping (Result<SettingsViewResponse, NetworkError>) -> Void) {
-        network.request(HomeViewEndpoint()) { (response: Result<SettingsViewResponse, Error>) in
+        network.request(SettingsViewEndpoint()) { (response: Result<SettingsViewResponse, Error>) in
             switch response {
             case let .success(data): completion(.success(data))
             case .failure: completion(.failure(NetworkError.networkError))

@@ -16,6 +16,7 @@ final class HomeViewControllerTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         sut = HomeViewController(interactor: interactor)
+        sut?.homeView = UIView()
     }
 
     override func tearDownWithError() throws {
@@ -40,6 +41,7 @@ final class HomeViewControllerTests: XCTestCase {
     }
     
     func test_loadView() {
+        sut?.homeView = HomeView(delegate: nil)
         sut?.loadView()
         XCTAssertTrue(sut?.view is HomeView)
     }
