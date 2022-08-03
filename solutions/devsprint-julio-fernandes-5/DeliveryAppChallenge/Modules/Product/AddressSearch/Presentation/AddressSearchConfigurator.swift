@@ -2,9 +2,7 @@ import UIKit
 
 enum AddressSearchConfigurator: FeatureFactory {
     
-    struct Dependencies {
-        let name: String
-    }
+    struct Dependencies {}
     
     static func make(with dependencies: Dependencies) -> UIViewController {
         let presenter: AddressSearchPresenter = AddressSearchPresenter()

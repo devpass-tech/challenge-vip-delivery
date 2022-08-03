@@ -7,10 +7,15 @@
 
 import UIKit
 
-class CategoryListView: UIView {
+protocol CategoryListDelegate: AnyObject {
+    func didTapCategory()
+}
+
+final class CategoryListView: UIView {
+    
+    weak var delegate: CategoryListDelegate?
 
     let scrollView: UIScrollView = {
-
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -18,7 +23,6 @@ class CategoryListView: UIView {
     }()
 
     let stackView: UIStackView = {
-
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -29,9 +33,9 @@ class CategoryListView: UIView {
     }()
 
 
-    init() {
+    init(delegate: CategoryListDelegate?) {
         super.init(frame: .zero)
-
+        self.delegate = delegate
         addSubviews()
         configureConstraints()
     }
@@ -43,6 +47,17 @@ class CategoryListView: UIView {
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIView.noIntrinsicMetric, height: 122)
     }
+    
+    @objc func didTapCategory() {
+        delegate?.didTapCategory()
+    }
+    
+    private func makeCell() -> CategoryCellView {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapCategory))
+        let item = CategoryCellView()
+        item.addGestureRecognizer(tap)
+        return item
+    }
 }
 
 extension CategoryListView {
@@ -53,15 +68,13 @@ extension CategoryListView {
         scrollView.addSubview(stackView)
 
         for _ in 0..<10 {
-
-            stackView.addArrangedSubview(CategoryCellView())
+            stackView.addArrangedSubview(makeCell())
         }
     }
 
     func configureConstraints() {
 
         NSLayoutConstraint.activate([
-
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
             scrollView.topAnchor.constraint(equalTo: topAnchor),

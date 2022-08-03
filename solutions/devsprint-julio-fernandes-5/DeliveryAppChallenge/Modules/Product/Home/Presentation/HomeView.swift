@@ -7,9 +7,11 @@
 
 import UIKit
 
+typealias HomeViewDelegate = RestaurantListViewdelegate & AddressViewDelegate & CategoryListDelegate
+
 final class HomeView: UIView {
 
-    weak var delegate: AddressViewDelegate?
+    weak var delegate: HomeViewDelegate?
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -32,16 +34,22 @@ final class HomeView: UIView {
         addressView.translatesAutoresizingMaskIntoConstraints = false
         return addressView
     }()
+    
+    lazy var categoryListView: CategoryListView = {
+        let categoryListView = CategoryListView(delegate: delegate)
+       categoryListView.translatesAutoresizingMaskIntoConstraints = false
+       return categoryListView
+   }()
 
     lazy var restaurantListView: RestaurantListView = {
-        let restaurantListView = RestaurantListView()
+        let restaurantListView = RestaurantListView(delegate: delegate)
         restaurantListView.translatesAutoresizingMaskIntoConstraints = false
         return restaurantListView
     }()
     
     var scrollViewHeightAnchor: NSLayoutConstraint?
      
-    init(delegate: AddressViewDelegate?) {
+    init(delegate: HomeViewDelegate?) {
         super.init(frame: .zero)
         self.delegate = delegate
         backgroundColor = .white
@@ -69,6 +77,7 @@ extension HomeView {
         scrollView.addSubview(stackView)
 
         stackView.addArrangedSubview(addressView)
+        stackView.addArrangedSubview(categoryListView)
         stackView.addArrangedSubview(restaurantListView)
     }
 

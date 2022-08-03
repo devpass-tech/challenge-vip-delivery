@@ -25,7 +25,7 @@ final class RestaurantListViewController: UIViewController {
     }
 
     override func loadView() {
-        self.view = RestaurantListView()
+        self.view = RestaurantListView(delegate: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,4 +38,11 @@ extension RestaurantListViewController: RestaurantListViewControllerOutput {
     func showData() {}
     
     func showError() {}
+}
+
+extension RestaurantListViewController: RestaurantListViewdelegate {
+    func didSelectRestaurant(_ data: RestaurantDetailResponse) {
+        let controller = RestaurantDetailsViewController()
+        show(controller, sender: self)
+    }
 }
