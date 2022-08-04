@@ -12,8 +12,8 @@ final class RestaurantListPresenter {
 }
 
 extension RestaurantListPresenter: RestaurantListPresenterProtocol {
-    func fetchedSuccessData() {
-        viewController?.showData()
+    func fetchedSuccessData(_ data: [RestaurantListResponse]) {
+        viewController?.showData(data)
     }
     
     func fetchedErrorData() {

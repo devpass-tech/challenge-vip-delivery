@@ -38,7 +38,7 @@ final class HomeViewPresenterTests: XCTestCase {
 
 final class HomeViewControllerOutputSpy: HomeViewControllerOutput {
     private(set) var showDataCalled = false
-    func showData(_ data: RestaurantDetailResponse.HomeViewModel) {
+    func showData(_ data: HomeViewModel) {
         showDataCalled = true
     }
     
@@ -49,7 +49,7 @@ final class HomeViewControllerOutputSpy: HomeViewControllerOutput {
 }
 
 extension XCTestCase {
-    func makeHomeViewModel() -> RestaurantDetailResponse.HomeViewModel {
-        return RestaurantDetailResponse.HomeViewModel(list: [], address: SettingsViewResponse(name: "name", email: "email", address: "address", paymentMethod: "paymentMethod"))
+    func makeHomeViewModel() -> HomeViewModel {
+        return HomeViewModel(list: [], address: SettingsViewResponse(name: "name", email: "email", address: "address", paymentMethod: "paymentMethod"))
     }
 }

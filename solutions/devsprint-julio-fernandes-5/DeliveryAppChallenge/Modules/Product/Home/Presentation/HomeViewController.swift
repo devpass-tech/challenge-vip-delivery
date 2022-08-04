@@ -43,7 +43,7 @@ final class HomeViewController: UIViewController {
 
 //MARK: interface: HomeViewControllerOutput
 extension HomeViewController: HomeViewControllerOutput {
-    func showData(_ data: RestaurantDetailResponse.HomeViewModel) {
+    func showData(_ data: HomeViewModel) {
         (homeView as? HomeView)?.fillAddressRender(data: data)
     }
     
@@ -54,18 +54,26 @@ extension HomeViewController: HomeViewControllerOutput {
 }
 
 //MARK: Target/Actions
-extension HomeViewController: AddressViewDelegate {
+extension HomeViewController: HomeViewDelegate {
+    
+    func didTapCategory() {
+        let controller = RestaurantListConfigurator.make(with: RestaurantListConfigurator.Dependencies())
+        show(controller, sender: self)
+    }
     
     func didTapEdit() {
-        showSeetings()
+        let controller = AddressSearchConfigurator.make(with: AddressSearchConfigurator.Dependencies())
+        show(controller, sender: self)
+    }
+    
+    func didSelectRestaurant(_ data: RestaurantListResponse) {
+        let controller = RestaurantDetailsViewController()
+        show(controller, sender: self)
     }
     
     @objc func didTapSettings() {
-        showSeetings()
-    }
-    
-    private func showSeetings() {
         let controller = SettingsViewConfigurator.make(with: SettingsViewConfigurator.Dependencies())
         show(controller, sender: self)
     }
+
 }

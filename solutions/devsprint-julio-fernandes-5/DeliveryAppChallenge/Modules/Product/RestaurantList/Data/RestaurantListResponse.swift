@@ -2,24 +2,32 @@
 //  RestaurantListResponse.swift
 //  DeliveryApp
 //
-//  Created by Vinicius dos Reis Morgado Brancalliao on 27/07/22.
+//  Created by Julio Fernandes on 26/07/22.
 //
 
+import Foundation
+
+/// Estrutura de dados vindo da API
 struct RestaurantListResponse: Decodable {
     let name: String
     let category: String
-    let deliveryTime: RestaurantDetailResponse.DeliveryTime
-    let reviews: Reviews
-    let menu: [Product]
+    let deliveryTime: DeliveryTime
+    
+    private enum CodingKeys: String, CodingKey {
+        case name, category
+        case deliveryTime = "delivery_time"
+    }
 }
 
-struct Reviews: Decodable {
-    let score: Double
-    let count: Int
+extension RestaurantListResponse {
+    struct DeliveryTime: Decodable {
+        let min: Int
+        let max: Int
+    }
 }
 
-struct Product: Decodable {
-    let category: String
-    let name: String
-    let price: Double
+extension RestaurantListResponse {
+    var detail: String {
+        return "\(category) • \(deliveryTime.min)-\(deliveryTime.max) mins"
+    }
 }

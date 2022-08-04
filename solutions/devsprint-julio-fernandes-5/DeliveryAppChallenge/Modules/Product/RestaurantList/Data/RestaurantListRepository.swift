@@ -8,7 +8,7 @@
 import Foundation
 
 protocol RestaurantListRepositoryProtocol {
-    func fetchData(completion: @escaping (Result<RestaurantListResponse, NetworkError>) -> Void)
+    func fetchData(completion: @escaping (Result<[RestaurantListResponse], NetworkError>) -> Void)
 }
 
 final class RestaurantListRepository {
@@ -21,8 +21,8 @@ final class RestaurantListRepository {
 }
 
 extension RestaurantListRepository: RestaurantListRepositoryProtocol {
-    func fetchData(completion: @escaping (Result<RestaurantListResponse, NetworkError>) -> Void) {
-        network.request(RestaurantListEndpoint()) { (response: Result<RestaurantListResponse, Error>) in
+    func fetchData(completion: @escaping (Result<[RestaurantListResponse], NetworkError>) -> Void) {
+        network.request(RestaurantListEndpoint()) { (response: Result<[RestaurantListResponse], Error>) in
             switch response {
             case .success(let data):
                 completion(.success(data))

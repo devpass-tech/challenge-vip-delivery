@@ -12,7 +12,7 @@ final class HomeViewPresenter {
 }
 
 extension HomeViewPresenter: HomeViewPresenterProtocol {
-    func fetchedSuccessData(_ data: RestaurantDetailResponse.HomeViewModel) {
+    func fetchedSuccessData(_ data: HomeViewModel) {
         controller?.showData(data)
     }
     

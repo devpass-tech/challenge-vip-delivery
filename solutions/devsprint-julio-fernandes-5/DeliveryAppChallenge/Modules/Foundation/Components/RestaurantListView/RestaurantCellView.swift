@@ -38,7 +38,6 @@ class RestaurantCellView: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.text = ""
         return label
     }()
 
@@ -47,7 +46,6 @@ class RestaurantCellView: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 14)
-        label.text = ""
         return label
     }()
 
@@ -68,7 +66,7 @@ class RestaurantCellView: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func fill(render data: RestaurantDetailResponse) {
+    func fill(render data: RestaurantListResponse) {
         restaurantNameLabel.text = data.name
         restaurantInfoLabel.text = data.detail
     }

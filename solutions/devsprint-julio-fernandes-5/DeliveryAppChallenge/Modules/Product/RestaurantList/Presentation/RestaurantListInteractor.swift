@@ -20,12 +20,10 @@ final class RestaurantListInteractor {
 
 extension RestaurantListInteractor: RestaurantListInteractorProtocol {
     func fetchData() {
-        useCase.execute { [weak self] result in
+        useCase.execute { [presenter] result in
             switch result {
-            case .success:
-                self?.presenter.fetchedSuccessData()
-            case .failure:
-                self?.presenter.fetchedErrorData()
+            case let .success(data): presenter.fetchedSuccessData(data)
+            case .failure: presenter.fetchedErrorData()
             }
         }
     }

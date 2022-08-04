@@ -7,10 +7,16 @@
 
 import UIKit
 
-class RestaurantListView: UIView {
+protocol RestaurantListViewdelegate: AnyObject {
+    func didSelectRestaurant(_ data: RestaurantListResponse)
+}
 
+final class RestaurantListView: UIView {
+
+    weak var delegate: RestaurantListViewdelegate?
+    
     static let cellSize = CGFloat(82)
-    var content: [RestaurantDetailResponse] = []
+    var content: [RestaurantListResponse] = []
 
     private let cellIdentifier = "RestaurantCellIdentifier"
 
@@ -23,8 +29,9 @@ class RestaurantListView: UIView {
         return tableView
     }()
 
-    init() {
+    init(delegate: RestaurantListViewdelegate?) {
         super.init(frame: .zero)
+        self.delegate = delegate
         backgroundColor = .white
         addSubviews()
         configureConstraints()
@@ -35,7 +42,7 @@ class RestaurantListView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func fill(render data: [RestaurantDetailResponse]) {
+    func fill(render data: [RestaurantListResponse]) {
         content = data
         tableView.reloadData()
     }
@@ -77,6 +84,6 @@ extension RestaurantListView: UITableViewDelegate {
     }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        delegate?.didSelectRestaurant(content[indexPath.row])
     }
 }

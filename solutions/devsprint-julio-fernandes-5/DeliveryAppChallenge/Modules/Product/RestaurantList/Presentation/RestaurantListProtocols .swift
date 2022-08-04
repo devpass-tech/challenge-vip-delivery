@@ -10,11 +10,11 @@ protocol RestaurantListInteractorProtocol {
 }
 
 protocol RestaurantListPresenterProtocol {
-    func fetchedSuccessData()
+    func fetchedSuccessData(_ data: [RestaurantListResponse])
     func fetchedErrorData()
 }
 
 protocol RestaurantListViewControllerOutput: AnyObject {
-    func showData()
+    func showData(_ data: [RestaurantListResponse])
     func showError()
 }
