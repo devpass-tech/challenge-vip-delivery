@@ -62,7 +62,7 @@ final class HomeView: UIView {
         nil
     }
     
-    func fillAddressRender(data: RestaurantDetailResponse.HomeViewModel) {
+    func fillAddressRender(data: HomeViewModel) {
         restaurantListView.fill(render: data.list)
         addressView.fill(render: data.address)
         scrollViewHeightAnchor?.constant = CGFloat(data.list.count)*RestaurantListView.cellSize

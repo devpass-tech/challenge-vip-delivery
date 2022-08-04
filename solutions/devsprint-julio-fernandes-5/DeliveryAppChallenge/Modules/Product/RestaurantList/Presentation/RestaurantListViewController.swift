@@ -10,6 +10,10 @@ import UIKit
 final class RestaurantListViewController: UIViewController {
     
     let interactor: RestaurantListInteractorProtocol
+    
+    lazy var content: RestaurantListView = {
+        return RestaurantListView(delegate: self)
+    }()
 
     init(interactor: RestaurantListInteractorProtocol) {
         self.interactor = interactor
@@ -25,23 +29,29 @@ final class RestaurantListViewController: UIViewController {
     }
 
     override func loadView() {
-        self.view = RestaurantListView(delegate: self)
+        self.view = content
     }
     
     override func viewDidAppear(_ animated: Bool) {
-            super.viewDidAppear(animated)
-            interactor.fetchData()
-        }
+        super.viewDidAppear(animated)
+        interactor.fetchData()
+    }
+    
 }
 
 extension RestaurantListViewController: RestaurantListViewControllerOutput {
-    func showData() {}
+    
+    func showData(_ data: [RestaurantListResponse]) {
+        DispatchQueue.main.async {
+            self.content.fill(render: data)
+        }
+    }
     
     func showError() {}
 }
 
 extension RestaurantListViewController: RestaurantListViewdelegate {
-    func didSelectRestaurant(_ data: RestaurantDetailResponse) {
+    func didSelectRestaurant(_ data: RestaurantListResponse) {
         let controller = RestaurantDetailsViewController()
         show(controller, sender: self)
     }

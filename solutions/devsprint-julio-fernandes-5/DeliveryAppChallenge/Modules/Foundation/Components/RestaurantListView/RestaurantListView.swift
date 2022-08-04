@@ -8,7 +8,7 @@
 import UIKit
 
 protocol RestaurantListViewdelegate: AnyObject {
-    func didSelectRestaurant(_ data: RestaurantDetailResponse)
+    func didSelectRestaurant(_ data: RestaurantListResponse)
 }
 
 final class RestaurantListView: UIView {
@@ -16,7 +16,7 @@ final class RestaurantListView: UIView {
     weak var delegate: RestaurantListViewdelegate?
     
     static let cellSize = CGFloat(82)
-    var content: [RestaurantDetailResponse] = []
+    var content: [RestaurantListResponse] = []
 
     private let cellIdentifier = "RestaurantCellIdentifier"
 
@@ -42,7 +42,7 @@ final class RestaurantListView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func fill(render data: [RestaurantDetailResponse]) {
+    func fill(render data: [RestaurantListResponse]) {
         content = data
         tableView.reloadData()
     }

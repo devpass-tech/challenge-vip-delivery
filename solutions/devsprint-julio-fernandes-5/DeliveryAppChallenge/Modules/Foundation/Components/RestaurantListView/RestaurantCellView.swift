@@ -66,7 +66,7 @@ class RestaurantCellView: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func fill(render data: RestaurantDetailResponse) {
+    func fill(render data: RestaurantListResponse) {
         restaurantNameLabel.text = data.name
         restaurantInfoLabel.text = data.detail
     }

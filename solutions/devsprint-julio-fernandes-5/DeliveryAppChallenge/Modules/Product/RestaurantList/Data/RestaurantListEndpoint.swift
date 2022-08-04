@@ -8,6 +8,6 @@
 import Foundation
 
 struct RestaurantListEndpoint: NetworkRequest {
-    var pathURL: String = "restaurant_details.json"
+    var pathURL: String = "home_restaurant_list.json"
     var method: HTTPMethod = .get
 }

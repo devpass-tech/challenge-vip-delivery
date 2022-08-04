@@ -43,7 +43,7 @@ final class HomeViewController: UIViewController {
 
 //MARK: interface: HomeViewControllerOutput
 extension HomeViewController: HomeViewControllerOutput {
-    func showData(_ data: RestaurantDetailResponse.HomeViewModel) {
+    func showData(_ data: HomeViewModel) {
         (homeView as? HomeView)?.fillAddressRender(data: data)
     }
     
@@ -66,7 +66,7 @@ extension HomeViewController: HomeViewDelegate {
         show(controller, sender: self)
     }
     
-    func didSelectRestaurant(_ data: RestaurantDetailResponse) {
+    func didSelectRestaurant(_ data: RestaurantListResponse) {
         let controller = RestaurantDetailsViewController()
         show(controller, sender: self)
     }

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol HomeViewRepositoryProtocol {
-    func fetchData(completion: @escaping (Result<RestaurantDetailResponse.HomeViewModel, NetworkError>) -> Void)
+    func fetchData(completion: @escaping (Result<HomeViewModel, NetworkError>) -> Void)
 }
 
 
@@ -19,7 +19,7 @@ final class HomeViewRepository {
     let settingsWorker: SettingsViewRepositoryProtocol
     
     private let group: DispatchGroup = DispatchGroup()
-    private var homeDataSource: [RestaurantDetailResponse]?
+    private var homeDataSource: [RestaurantListResponse]?
     private var settingsDataSource: SettingsViewResponse?
     
     init(network: NetworkManagerProtocol, settingsWorker: SettingsViewRepositoryProtocol) {
@@ -29,7 +29,7 @@ final class HomeViewRepository {
     
     private func fetchHomeDataSource() {
         group.enter()
-        network.request(HomeViewEndpoint()) { [weak self] (response: Result<[RestaurantDetailResponse], Error>) in
+        network.request(HomeViewEndpoint()) { [weak self] (response: Result<[RestaurantListResponse], Error>) in
             switch response {
             case let .success(dataDTO):
                 self?.homeDataSource = dataDTO
@@ -60,7 +60,7 @@ extension HomeViewRepository: HomeViewRepositoryProtocol {
     
     /// Executamos nossa chamada de network para obter os dados de API
     /// - Parameter completion: completion (Lista de restaurantes, Error)
-    func fetchData(completion: @escaping (Result<RestaurantDetailResponse.HomeViewModel, NetworkError>) -> Void) {
+    func fetchData(completion: @escaping (Result<HomeViewModel, NetworkError>) -> Void) {
         fetchHomeDataSource()
         fetchSettingsDataSource()
         group.notify(queue: .main) { [weak self] in
@@ -70,7 +70,7 @@ extension HomeViewRepository: HomeViewRepositoryProtocol {
                 return
             }
             
-            let viewModel = RestaurantDetailResponse.HomeViewModel(list: homeDataSource, address: settingsDataSource)
+            let viewModel = HomeViewModel(list: homeDataSource, address: settingsDataSource)
             completion(.success(viewModel))
         }
     }

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol RestaurantListUseCaseProtocol {
-    func execute(completion: @escaping (Result<RestaurantListResponse, Error>) -> Void)
+    func execute(completion: @escaping (Result<[RestaurantListResponse], Error>) -> Void)
 }
 
 final class RestaurantListUseCase {
@@ -20,7 +20,7 @@ final class RestaurantListUseCase {
 }
 
 extension RestaurantListUseCase: RestaurantListUseCaseProtocol {
-    func execute(completion: @escaping (Result<RestaurantListResponse, Error>) -> Void) {
+    func execute(completion: @escaping (Result<[RestaurantListResponse], Error>) -> Void) {
         repository.fetchData { result in
             switch result {
             case .success(let data):
