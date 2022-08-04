@@ -10,7 +10,6 @@ import UIKit
 class RestaurantDetailsView: UIView {
 
     let scrollView: UIScrollView = {
-
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
@@ -28,25 +27,24 @@ class RestaurantDetailsView: UIView {
     }()
 
     let restaurantInfoView: RestaurantInfoView = {
-
         let restaurantInfoView = RestaurantInfoView()
         restaurantInfoView.translatesAutoresizingMaskIntoConstraints = false
         return restaurantInfoView
     }()
 
     let ratingView: RatingView = {
-
         let ratingView = RatingView()
         ratingView.translatesAutoresizingMaskIntoConstraints = false
         return ratingView
     }()
 
     let menuListView: MenuListView = {
-
         let menuListView = MenuListView()
         menuListView.translatesAutoresizingMaskIntoConstraints = false
         return menuListView
     }()
+    
+    var scrollViewHeightAnchor: NSLayoutConstraint?
 
 
     init() {
@@ -60,6 +58,14 @@ class RestaurantDetailsView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func fillRender(data: RestaurantDetailViewModel) {
+        restaurantInfoView.fillRender(data: data.infoView)
+        ratingView.fillRender(data: data.reviews)
+        menuListView.fillRender(data: data.menu)
+        scrollViewHeightAnchor?.constant = CGFloat(data.menu.count)*MenuListView.cellSize
+        layoutIfNeeded()
     }
 }
 
@@ -77,8 +83,6 @@ extension RestaurantDetailsView {
 
     func configureConstraints() {
 
-        let estimatedHeight = CGFloat(menuListView.tableView.numberOfRows(inSection: 0))*MenuListView.cellSize
-
         NSLayoutConstraint.activate([
 
             scrollView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
@@ -92,10 +96,11 @@ extension RestaurantDetailsView {
             stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
 
             stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-
-            menuListView.heightAnchor.constraint(equalToConstant: estimatedHeight)
-
         ])
+        
+        let estimatedHeight = CGFloat(menuListView.tableView.numberOfRows(inSection: 0))*MenuListView.cellSize
+        scrollViewHeightAnchor = menuListView.heightAnchor.constraint(equalToConstant: estimatedHeight)
+        scrollViewHeightAnchor?.isActive = true
     }
 }
 

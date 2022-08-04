@@ -8,13 +8,14 @@
 import UIKit
 
 class MenuListView: UIView {
+    
+    var items: [Product] = []
 
     static let cellSize = CGFloat(96)
 
     private let cellIdentifier = "MenuCellIdentifier"
 
     lazy var tableView: UITableView = {
-
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(MenuCellView.self, forCellReuseIdentifier: self.cellIdentifier)
@@ -36,19 +37,21 @@ class MenuListView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func fillRender(data: [Product]) {
+        items = data
+        tableView.reloadData()
+    }
 }
 
 extension MenuListView {
 
     func addSubviews() {
-
         addSubview(tableView)
     }
 
     func configureConstraints() {
-
         NSLayoutConstraint.activate([
-
             tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
@@ -60,14 +63,11 @@ extension MenuListView {
 extension MenuListView: UITableViewDataSource {
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        return 10
+        return items.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! MenuCellView
-
         return cell
     }
 }
