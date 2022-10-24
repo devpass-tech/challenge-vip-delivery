@@ -1,9 +1,9 @@
 
-# VIP (Clean Swift) - Delivery App 🍕
+# VIP (Clean Swift) Challenge - Delivery App 🍕
 
-Neste desafio, aplicaremos conceitos da arquitetura VIP para finalizar a implementação de um aplicativo. 
+In this challenge, we will apply concepts from the VIP architecture to finalize the implementation of an iOS application.
 
-Desenvolveremos as diversas camadas que formam os módulos da aplicação: Interactor, Presenter, Router, entre outras tarefas.
+We will develop the different layers that compose the application modules: Interactor, Presenter, Router, among other tasks.
 
 <p float="left">
 <img src="screenshots/screenshot-1.jpeg" alt="drawing" width="200"/>
@@ -14,17 +14,15 @@ Desenvolveremos as diversas camadas que formam os módulos da aplicação: Inter
 <img src="screenshots/screenshot-6.png" alt="drawing" width="200"/>
 </p>
 
-# Iniciando os trabalhos
+# Contributing
 
+1. Fork & clone this repository.
+2. Start a new feature branch. 
+3. Open `solutions` folder and access your Dev Sprint's project.
+4. Build, run and code! 👩‍💻
 
-1. Clone este repositório na sua máquina.
-2. Abra a pasta `solutions` e acesse o projeto referente à sua Sprint.
-3. Faça um build e rode o projeto. ▶️
+# About Devpass
 
-# Sobre a Devpass
+Devpass is a diverse community of high-potential software developers accelerating their careers through real-world product development and mentorship from tech leaders of the best tech companies.
 
-A Devpass é uma comunidade de pessoas desenvolvedoras de alto potencial acelerando suas carreiras através de desenvolvimento de produtos reais, como o Hereminders, e conexões com as principais lideranças de tecnologia do país, através de mentorias particulares e Tech Talks.
-
-Se interessou? Acesse www.devpass.com.br e se inscreva na nossa lista para ficar por dentro das novidades!
-# devPassLagosta
-# devPassLagosta
+Interested? Access www.devpass.com.br for more information!
