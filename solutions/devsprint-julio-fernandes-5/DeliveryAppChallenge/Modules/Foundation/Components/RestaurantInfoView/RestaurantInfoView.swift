@@ -38,7 +38,6 @@ class RestaurantInfoView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 22)
-        label.text = "Benjamin Bakery"
         return label
     }()
 
@@ -47,13 +46,11 @@ class RestaurantInfoView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 15)
-        label.text = "Bakery • 23-33 mins"
         return label
     }()
 
     init() {
         super.init(frame: .zero)
-
         addSubviews()
         configureConstraints()
     }
@@ -64,6 +61,11 @@ class RestaurantInfoView: UIView {
 
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIView.noIntrinsicMetric, height: 100)
+    }
+    
+    func fillRender(data: RestaurantListResponse) {
+        restaurantNameLabel.text = data.name
+        restaurantInfoLabel.text = data.detail
     }
 }
 

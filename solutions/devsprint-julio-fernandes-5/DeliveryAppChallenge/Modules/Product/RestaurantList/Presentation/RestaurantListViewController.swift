@@ -52,7 +52,7 @@ extension RestaurantListViewController: RestaurantListViewControllerOutput {
 
 extension RestaurantListViewController: RestaurantListViewdelegate {
     func didSelectRestaurant(_ data: RestaurantListResponse) {
-        let controller = RestaurantDetailsViewController()
+        let controller = RestaurantDetailsConfigurator.make(with: RestaurantDetailsConfigurator.Dependencies())
         show(controller, sender: self)
     }
 }

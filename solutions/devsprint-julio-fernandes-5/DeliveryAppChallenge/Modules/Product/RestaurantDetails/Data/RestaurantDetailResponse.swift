@@ -11,6 +11,11 @@ struct RestaurantDetailResponse: Decodable {
     let deliveryTime: RestaurantListResponse.DeliveryTime
     let reviews: Reviews
     let menu: [Product]
+    
+    private enum CodingKeys: String, CodingKey {
+        case name, category, reviews, menu
+        case deliveryTime = "delivery_time"
+    }
 }
 
 struct Reviews: Decodable {
@@ -22,4 +27,10 @@ struct Product: Decodable {
     let category: String
     let name: String
     let price: Double
+}
+
+struct RestaurantDetailViewModel {
+    let infoView: RestaurantListResponse
+    let reviews: Reviews
+    let menu: [Product]
 }

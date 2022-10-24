@@ -21,7 +21,6 @@ class RatingView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 15)
-        label.text = "4.8 ★★★★★"
         label.textAlignment = .left
         return label
     }()
@@ -31,7 +30,6 @@ class RatingView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 15)
-        label.text = "351 reviews"
         label.textAlignment = .right
         return label
     }()
@@ -49,6 +47,11 @@ class RatingView: UIView {
 
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIView.noIntrinsicMetric, height: 74)
+    }
+    
+    func fillRender(data: Reviews) {
+        scoreLabel.text = "\(data.score) ★★★★★"
+        ratingCountLabel.text = "\(data.count) reviews"
     }
 }
 
