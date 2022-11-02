@@ -15,8 +15,8 @@ class HomeViewController: UIViewController {
         navigationItem.title = "Delivery App"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings",
                                                             style: .plain,
-                                                            target: nil,
-                                                            action: nil)
+                                                            target: self,
+                                                            action: #selector(presentSettings))
     }
     
     required init?(coder: NSCoder) {
@@ -29,5 +29,14 @@ class HomeViewController: UIViewController {
     
     override func loadView() {
         self.view = HomeView()
+    }
+}
+
+extension HomeViewController {
+    
+    @objc
+    private func presentSettings() {
+        let settingsViewController = SettingsFeatureFactory.make(with: .init())
+        navigationController?.pushViewController(settingsViewController, animated: true)
     }
 }
