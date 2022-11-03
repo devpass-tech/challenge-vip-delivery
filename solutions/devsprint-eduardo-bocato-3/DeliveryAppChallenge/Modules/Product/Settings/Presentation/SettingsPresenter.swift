@@ -18,7 +18,6 @@ final class SettingsPresenter {
 
 extension SettingsPresenter: SettingsPresentationLogic {
     func presentSettings(response: Settings.LoadData.Response) {
-        debugPrint("🚀 SettingsPresenter")
         let viewModel = Settings.LoadData.ViewModel()
         viewController?.displaySettings(viewModel: viewModel)
     }

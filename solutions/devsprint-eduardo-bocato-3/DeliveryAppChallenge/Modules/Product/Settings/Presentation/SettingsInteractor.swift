@@ -24,7 +24,6 @@ final class SettingsInteractor {
 
 extension SettingsInteractor: SettingsBussinesLogic {
     func loadSettings(request: Settings.LoadData.Request) {
-        debugPrint("🚀 SettingsInteractor")
         let response = Settings.LoadData.Response()
         presenter.presentSettings(response: response)
     }

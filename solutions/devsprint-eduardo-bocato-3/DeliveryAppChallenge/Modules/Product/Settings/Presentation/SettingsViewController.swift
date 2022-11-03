@@ -45,8 +45,5 @@ final class SettingsViewController: UIViewController {
 }
 
 extension SettingsViewController: SettingsDisplayLogic {
-    
-    func displaySettings(viewModel: Settings.LoadData.ViewModel) {
-        debugPrint("🚀 SettingsViewController")
-    }
+    func displaySettings(viewModel: Settings.LoadData.ViewModel) {}
 }
