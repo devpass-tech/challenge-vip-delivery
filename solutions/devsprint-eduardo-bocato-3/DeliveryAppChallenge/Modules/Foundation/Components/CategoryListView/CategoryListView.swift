@@ -9,6 +9,8 @@ import UIKit
 
 class CategoryListView: UIView {
 
+    var didSelectItem: ((Int) -> Void)?
+
     let scrollView: UIScrollView = {
 
         let scrollView = UIScrollView()
@@ -51,11 +53,6 @@ extension CategoryListView {
 
         addSubview(scrollView)
         scrollView.addSubview(stackView)
-
-        for _ in 0..<10 {
-
-            stackView.addArrangedSubview(CategoryCellView())
-        }
     }
 
     func configureConstraints() {
@@ -74,5 +71,14 @@ extension CategoryListView {
 
             stackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
         ])
+    }
+
+    func configureWith(_ viewModel: Home.Category.ViewModel) {
+
+        for (index,item) in viewModel.items.enumerated() {
+            let categoryView = CategoryCellView(title: item.title, andImage: item.imageName, at: index)
+            categoryView.didSelectCategory = didSelectItem
+            stackView.addArrangedSubview(categoryView)
+        }
     }
 }
