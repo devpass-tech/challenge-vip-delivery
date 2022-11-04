@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol HomeViewDisplayLogic: AnyObject {
+    
+}
+
 class HomeViewController: UIViewController {
 
     init() {

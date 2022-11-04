@@ -8,15 +8,17 @@
 import UIKit
 
 class RestaurantCellView: UITableViewCell {
-
-   private var mainStackView: UIStackView = {
-       let stack = UIStackView(frame: .zero)
-       stack.translatesAutoresizingMaskIntoConstraints = false
-       stack.spacing = 16
-       stack.alignment = .center
-       return stack
+    
+    static let identifier = "RestaurantCellView"
+    
+    private var mainStackView: UIStackView = {
+        let stack = UIStackView(frame: .zero)
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.spacing = 16
+        stack.alignment = .center
+        return stack
     }()
-
+    
     private var labelsStackView: UIStackView = {
         let stack = UIStackView(frame: .zero)
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -24,7 +26,7 @@ class RestaurantCellView: UITableViewCell {
         stack.spacing = 8
         return stack
     }()
-
+    
     lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +35,7 @@ class RestaurantCellView: UITableViewCell {
         imageView.image = UIImage(named: "restaurant-logo")
         return imageView
     }()
-
+    
     lazy var restaurantNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +43,7 @@ class RestaurantCellView: UITableViewCell {
         label.text = "Benjamin Bakery"
         return label
     }()
-
+    
     lazy var restaurantInfoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -50,44 +52,44 @@ class RestaurantCellView: UITableViewCell {
         label.text = "Bakery • 23-33 mins"
         return label
     }()
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.accessoryType = .disclosureIndicator
-
+        
         addSubviews()
         configureConstraints()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
 extension RestaurantCellView {
-
+    
     func addSubviews() {
-
+        
         addSubview(mainStackView)
         mainStackView.addArrangedSubview(logoImageView)
         mainStackView.addArrangedSubview(labelsStackView)
-
+        
         labelsStackView.addArrangedSubview(restaurantNameLabel)
         labelsStackView.addArrangedSubview(restaurantInfoLabel)
     }
-
+    
     func configureConstraints() {
-
+        
         NSLayoutConstraint.activate([
             mainStackView.topAnchor.constraint(equalTo: topAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-
+            
             self.logoImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             self.logoImageView.widthAnchor.constraint(equalToConstant: 50),
             self.logoImageView.heightAnchor.constraint(equalToConstant: 50),
-
+            
         ])
     }
 }

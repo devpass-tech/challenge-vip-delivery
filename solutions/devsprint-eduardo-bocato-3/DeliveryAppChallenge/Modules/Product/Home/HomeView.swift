@@ -43,7 +43,7 @@ class HomeView: UIView {
 
     let restaurantListView: RestaurantListView = {
 
-        let restaurantListView = RestaurantListView()
+        let restaurantListView = RestaurantListView(frame: .zero, tableViewDataSource: RestaurantListTableViewDataSource(), tableViewDelegate: RestaurantListTableViewDelegate())
         restaurantListView.translatesAutoresizingMaskIntoConstraints = false
         return restaurantListView
     }()

@@ -51,6 +51,16 @@
 		98FC5AB42732BFC8002412EA /* MenuListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FC5AB32732BFC8002412EA /* MenuListView.swift */; };
 		98FC5AB62732BFDA002412EA /* MenuCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FC5AB52732BFDA002412EA /* MenuCellView.swift */; };
 		98FC5AB82732C1EF002412EA /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FC5AB72732C1EF002412EA /* MenuItemView.swift */; };
+		F8C0A5D229156A7C0025F287 /* RestaurantListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C0A5D129156A7C0025F287 /* RestaurantListInteractor.swift */; };
+		F8C0A5D429156A850025F287 /* RestaurantListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C0A5D329156A850025F287 /* RestaurantListPresenter.swift */; };
+		F8C0A5D629156AE40025F287 /* RestaurantListUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C0A5D529156AE40025F287 /* RestaurantListUseCases.swift */; };
+		F8C0A5DB29156EB40025F287 /* RestaurantListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C0A5DA29156EB40025F287 /* RestaurantListRepository.swift */; };
+		F8C0A5DE29156F070025F287 /* RestaurantListRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C0A5DD29156F070025F287 /* RestaurantListRepositoryImpl.swift */; };
+		F8C0A5E0291571560025F287 /* RestaurantError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C0A5DF291571560025F287 /* RestaurantError.swift */; };
+		F8C0A5E3291577970025F287 /* RestaurantListTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C0A5E2291577970025F287 /* RestaurantListTableViewDelegate.swift */; };
+		F8C0A5E5291577A10025F287 /* RestaurantListTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C0A5E4291577A10025F287 /* RestaurantListTableViewDataSource.swift */; };
+		F8D984922912FCAE00097713 /* GetRestaurantsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D984912912FCAE00097713 /* GetRestaurantsUseCase.swift */; };
+		F8D984952912FDC300097713 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D984942912FDC300097713 /* Restaurant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +124,16 @@
 		98FC5AB32732BFC8002412EA /* MenuListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListView.swift; sourceTree = "<group>"; };
 		98FC5AB52732BFDA002412EA /* MenuCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellView.swift; sourceTree = "<group>"; };
 		98FC5AB72732C1EF002412EA /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
+		F8C0A5D129156A7C0025F287 /* RestaurantListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListInteractor.swift; sourceTree = "<group>"; };
+		F8C0A5D329156A850025F287 /* RestaurantListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListPresenter.swift; sourceTree = "<group>"; };
+		F8C0A5D529156AE40025F287 /* RestaurantListUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListUseCases.swift; sourceTree = "<group>"; };
+		F8C0A5DA29156EB40025F287 /* RestaurantListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListRepository.swift; sourceTree = "<group>"; };
+		F8C0A5DD29156F070025F287 /* RestaurantListRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListRepositoryImpl.swift; sourceTree = "<group>"; };
+		F8C0A5DF291571560025F287 /* RestaurantError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantError.swift; sourceTree = "<group>"; };
+		F8C0A5E2291577970025F287 /* RestaurantListTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListTableViewDelegate.swift; sourceTree = "<group>"; };
+		F8C0A5E4291577A10025F287 /* RestaurantListTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListTableViewDataSource.swift; sourceTree = "<group>"; };
+		F8D984912912FCAE00097713 /* GetRestaurantsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRestaurantsUseCase.swift; sourceTree = "<group>"; };
+		F8D984942912FDC300097713 /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +227,7 @@
 		980D5757280E008B00DDAF20 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				F8D9848F2912FB7E00097713 /* Services */,
 				98F12963272F307100B88A87 /* Components */,
 				980D575D280E013500DDAF20 /* Network */,
 				980D5759280E010200DDAF20 /* FeatureFactory.swift */,
@@ -323,7 +344,9 @@
 		98EA055C272A0933007B0228 /* RestaurantList */ = {
 			isa = PBXGroup;
 			children = (
-				98EA055D272A0949007B0228 /* RestaurantListViewController.swift */,
+				F8C0A5DC29156EF40025F287 /* Data */,
+				F8C0A5D029156A460025F287 /* Domain */,
+				F8C0A5CF29156A3C0025F287 /* Presentation */,
 			);
 			path = RestaurantList;
 			sourceTree = "<group>";
@@ -430,6 +453,77 @@
 			path = MenuListView;
 			sourceTree = "<group>";
 		};
+		F8C0A5CF29156A3C0025F287 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				F8C0A5E1291577870025F287 /* Adapters */,
+				98EA055D272A0949007B0228 /* RestaurantListViewController.swift */,
+				F8C0A5D129156A7C0025F287 /* RestaurantListInteractor.swift */,
+				F8C0A5D329156A850025F287 /* RestaurantListPresenter.swift */,
+				F8C0A5D529156AE40025F287 /* RestaurantListUseCases.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		F8C0A5D029156A460025F287 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				F8C0A5D929156EA50025F287 /* Repository */,
+				F8C0A5D829156E260025F287 /* UseCase */,
+				F8C0A5D729156B160025F287 /* Model */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		F8C0A5D729156B160025F287 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F8D984942912FDC300097713 /* Restaurant.swift */,
+				F8C0A5DF291571560025F287 /* RestaurantError.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F8C0A5D829156E260025F287 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				F8D984912912FCAE00097713 /* GetRestaurantsUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		F8C0A5D929156EA50025F287 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				F8C0A5DA29156EB40025F287 /* RestaurantListRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		F8C0A5DC29156EF40025F287 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F8C0A5DD29156F070025F287 /* RestaurantListRepositoryImpl.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		F8C0A5E1291577870025F287 /* Adapters */ = {
+			isa = PBXGroup;
+			children = (
+				F8C0A5E2291577970025F287 /* RestaurantListTableViewDelegate.swift */,
+				F8C0A5E4291577A10025F287 /* RestaurantListTableViewDataSource.swift */,
+			);
+			path = Adapters;
+			sourceTree = "<group>";
+		};
+		F8D9848F2912FB7E00097713 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -530,12 +624,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8C0A5E0291571560025F287 /* RestaurantError.swift in Sources */,
 				98FAF50A280E08F90075B35B /* SceneDelegate.swift in Sources */,
 				98FAF509280E08EC0075B35B /* AppDelegate.swift in Sources */,
 				980D5767280E079400DDAF20 /* SettingsView.swift in Sources */,
 				980D5766280E077F00DDAF20 /* AddressView.swift in Sources */,
 				980D5755280DFF7700DDAF20 /* SampleRouter.swift in Sources */,
 				983271C1272752AF0010C63A /* HomeViewController.swift in Sources */,
+				F8C0A5D429156A850025F287 /* RestaurantListPresenter.swift in Sources */,
 				980D5754280DFF7700DDAF20 /* SampleUseCases.swift in Sources */,
 				980D574F280DFF7700DDAF20 /* GetDataUseCase.swift in Sources */,
 				98FC5AB42732BFC8002412EA /* MenuListView.swift in Sources */,
@@ -549,20 +645,28 @@
 				980D5748280DFF7700DDAF20 /* SampleRepositoryImpl.swift in Sources */,
 				98F12975272F48E400B88A87 /* AddressCellView.swift in Sources */,
 				980D575F280E015600DDAF20 /* NetworkError.swift in Sources */,
+				F8C0A5E3291577970025F287 /* RestaurantListTableViewDelegate.swift in Sources */,
 				98F12970272F41AE00B88A87 /* RestaurantCellView.swift in Sources */,
 				98EA055E272A0949007B0228 /* RestaurantListViewController.swift in Sources */,
 				980D5765280E019D00DDAF20 /* NetworkRequest.swift in Sources */,
 				98F1297B272F51AE00B88A87 /* SettingsViewController.swift in Sources */,
+				F8C0A5D629156AE40025F287 /* RestaurantListUseCases.swift in Sources */,
 				980D5763280E018200DDAF20 /* NetworkManager.swift in Sources */,
 				980D574B280DFF7700DDAF20 /* SampleDataSource.swift in Sources */,
+				F8C0A5DB29156EB40025F287 /* RestaurantListRepository.swift in Sources */,
 				980D5753280DFF7700DDAF20 /* SampleFeatureFactory.swift in Sources */,
 				980D5750280DFF7700DDAF20 /* SampleInteractor.swift in Sources */,
+				F8C0A5D229156A7C0025F287 /* RestaurantListInteractor.swift in Sources */,
 				980D5761280E016C00DDAF20 /* URLSessionProtocol.swift in Sources */,
+				F8C0A5E5291577A10025F287 /* RestaurantListTableViewDataSource.swift in Sources */,
 				98F1296C272F328200B88A87 /* CategoryListView.swift in Sources */,
 				980D574D280DFF7700DDAF20 /* SampleRepository.swift in Sources */,
+				F8D984922912FCAE00097713 /* GetRestaurantsUseCase.swift in Sources */,
 				98F1296E272F363200B88A87 /* HomeView.swift in Sources */,
 				98F1296A272F327100B88A87 /* CategoryCellView.swift in Sources */,
 				98FC5AAB2732B938002412EA /* RestaurantDetailsView.swift in Sources */,
+				F8D984952912FDC300097713 /* Restaurant.swift in Sources */,
+				F8C0A5DE29156F070025F287 /* RestaurantListRepositoryImpl.swift in Sources */,
 				980D575A280E010200DDAF20 /* FeatureFactory.swift in Sources */,
 				98FC5AB62732BFDA002412EA /* MenuCellView.swift in Sources */,
 				980D574E280DFF7700DDAF20 /* DataModel.swift in Sources */,
