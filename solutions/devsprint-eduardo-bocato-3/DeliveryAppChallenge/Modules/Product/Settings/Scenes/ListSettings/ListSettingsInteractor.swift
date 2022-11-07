@@ -2,7 +2,7 @@
 import Foundation
 
 protocol SettingsBussinesLogic {
-    func fetchSettings(request: ListSettings.FetchData.Request)
+    func loadSettings(request: SettingsList.FetchData.Request)
 }
 
 protocol SettingsDataStore {
@@ -19,14 +19,14 @@ final class SettingsInteractor: SettingsBussinesLogic {
         self.settingsWorker = settingsWorker
     }
     
-    func fetchSettings(request: ListSettings.FetchData.Request) {
+    func loadSettings(request: SettingsList.FetchData.Request) {
         settingsWorker.fetchSettings { result in
             switch result {
-            case .Success(let settings):
-                let response = ListSettings.FetchData.Response(settings: settings)
-                self.presenter.presentFetchSettings(response: response)
-            case .Failure(let error):
-                self.presenter.presentFetchFailureSettings(error: error)
+            case .success(let settings):
+                let response = SettingsList.FetchData.Response(settings: settings)
+                self.presenter.presentSettingsList(response: response)
+            case .failure(let error):
+                self.presenter.presentSettingsListFailure(error: error)
             }
         }
     }

@@ -8,7 +8,8 @@
 import UIKit
 
 protocol SettingsDisplayLogic: AnyObject {
-    func displaySettings(viewModel: ListSettings.FetchData.ViewModel)
+    func displaySettings(viewModel: SettingsList.FetchData.ViewModel)
+    func displayFailure(error: SettingsList.FetchData.Error)
 }
 
 final class SettingsViewController: UIViewController {
@@ -35,8 +36,8 @@ final class SettingsViewController: UIViewController {
     }
     
     private func fetchData() {
-        let request = ListSettings.FetchData.Request()
-        interactor.fetchSettings(request: request)
+        let request = SettingsList.FetchData.Request()
+        interactor.loadSettings(request: request)
     }
     
     override func loadView() {
@@ -45,5 +46,8 @@ final class SettingsViewController: UIViewController {
 }
 
 extension SettingsViewController: SettingsDisplayLogic {
-    func displaySettings(viewModel: ListSettings.FetchData.ViewModel) {}
+    
+    func displaySettings(viewModel: SettingsList.FetchData.ViewModel) {}
+    
+    func displayFailure(error: SettingsList.FetchData.Error) {}
 }

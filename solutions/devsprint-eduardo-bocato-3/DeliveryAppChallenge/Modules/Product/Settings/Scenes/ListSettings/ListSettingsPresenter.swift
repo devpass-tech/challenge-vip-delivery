@@ -8,20 +8,20 @@
 import Foundation
 
 protocol SettingsPresentationLogic {
-    func presentFetchSettings(response: ListSettings.FetchData.Response)
-    func presentFetchFailureSettings(error: ListSettings.FetchData.Error)
+    func presentSettingsList(response: SettingsList.FetchData.Response)
+    func presentSettingsListFailure(error: SettingsList.FetchData.Error)
 }
 
 final class SettingsPresenter: SettingsPresentationLogic {
     
     weak var viewController: SettingsDisplayLogic?
     
-    func presentFetchSettings(response: ListSettings.FetchData.Response) {
-        let viewModel = ListSettings.FetchData.ViewModel()
+    func presentSettingsList(response: SettingsList.FetchData.Response) {
+        let viewModel = SettingsList.FetchData.ViewModel()
         viewController?.displaySettings(viewModel: viewModel)
     }
     
-    func presentFetchFailureSettings(error: ListSettings.FetchData.Error) {
-        // TODO:
+    func presentSettingsListFailure(error: SettingsList.FetchData.Error) {
+        viewController?.displayFailure(error: error)
     }
 }

@@ -15,9 +15,7 @@ final class SettingsWorker: SettingsWorkerProtocol {
     
     func fetchSettings(completionHandler: @escaping (SettingsServiceResult) -> Void) {
         settingsService.fetchSettings { result in
-            DispatchQueue.main.async {
-                completionHandler(result)
-            }
+            completionHandler(result)
         }
     }
 }

@@ -6,8 +6,8 @@ protocol SettingsServiceProtocol {
 }
 
 enum SettingsServiceResult {
-    case Success(result: Settings)
-    case Failure(error: ListSettings.FetchData.Error)
+    case success(result: Settings)
+    case failure(error: SettingsList.FetchData.Error)
 }
 
 final class SettingsAPI: SettingsServiceProtocol {
@@ -17,6 +17,6 @@ final class SettingsAPI: SettingsServiceProtocol {
                                 address: "Rua Bela Cintra, 495 - Consolação",
                                 paymentMethod: "Cartão de Crédito")
         
-        completion(.Success(result: settings))
+        completion(.success(result: settings))
     }
 }

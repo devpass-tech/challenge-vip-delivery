@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ListSettings {
+enum SettingsList {
     enum FetchData {
         struct Request {}
         
@@ -15,9 +15,7 @@ enum ListSettings {
             var settings: Settings
         }
         
-        struct ViewModel {
-            
-        }
+        struct ViewModel {}
         
         enum Error: Swift.Error {
             case decodeFail
