@@ -7,15 +7,13 @@
 
 import UIKit
 
-enum SettingsFeatureFactory: FeatureFactory {
-    struct Dependencies {}
+struct SettingsFactory {
     
-    static func make(with dependencies: Dependencies) -> UIViewController {
-        
-        let repository = SettingsRepositoryImpl()
-        let getSettings = GetSettings(repository: repository)
+    func makeViewController() -> UIViewController {
+        let service = SettingsAPI()
+        let worker = SettingsWorker(settingsService: service)
         let presenter = SettingsPresenter()
-        let interactor = SettingsInteractor(presenter: presenter, getSettigns: getSettings)
+        let interactor = SettingsInteractor(presenter: presenter, settingsWorker: worker)
         let view = SettingsView()
         let viewController = SettingsViewController(customView: view, interactor: interactor)
         

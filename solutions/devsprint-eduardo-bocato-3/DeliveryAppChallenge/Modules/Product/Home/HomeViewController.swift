@@ -36,7 +36,7 @@ extension HomeViewController {
     
     @objc
     private func presentSettings() {
-        let settingsViewController = SettingsFeatureFactory.make(with: .init())
+        let settingsViewController = SettingsFactory().makeViewController()
         navigationController?.pushViewController(settingsViewController, animated: true)
     }
 }

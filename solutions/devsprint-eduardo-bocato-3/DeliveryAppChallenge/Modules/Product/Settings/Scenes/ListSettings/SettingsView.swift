@@ -7,25 +7,9 @@
 
 import UIKit
 
-private enum Sections: Int, CaseIterable {
-    case name
-    case email
-    case address
-    case paymentMethod
+typealias SettingsViewInterface = (UIView & SettingsViewProtocol)
 
-    var name: String {
-        switch self {
-        case .name:
-            return "Name"
-        case .email:
-            return "Email"
-        case .address:
-            return "Address"
-        case .paymentMethod:
-            return "Payment Method"
-        }
-    }
-}
+protocol SettingsViewProtocol {}
 
 class SettingsView: UIView {
 
@@ -78,7 +62,7 @@ extension SettingsView {
 extension SettingsView: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return Sections.allCases.count
+        return Settings.Sections.allCases.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -90,7 +74,7 @@ extension SettingsView: UITableViewDataSource {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
 
-        guard let sectionIndex = Sections(rawValue: indexPath.section)
+        guard let sectionIndex = Settings.Sections(rawValue: indexPath.section)
         else { return UITableViewCell() }
 
         switch sectionIndex {
@@ -112,7 +96,7 @@ extension SettingsView: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
-        guard let section = Sections(rawValue: section) else {
+        guard let section = Settings.Sections(rawValue: section) else {
 
             return nil
         }
@@ -120,3 +104,4 @@ extension SettingsView: UITableViewDataSource {
     }
 }
 
+extension SettingsView: SettingsViewProtocol {}
