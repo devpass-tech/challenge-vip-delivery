@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		971D04EF2912F3B4009D1E93 /* HomeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971D04EE2912F3B4009D1E93 /* HomeModels.swift */; };
+		971D04F12912F695009D1E93 /* HomeViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971D04F02912F695009D1E93 /* HomeViewControllerTests.swift */; };
+		97A8550F29119C9F001FA8E4 /* HomeViewCategoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8550E29119C9F001FA8E4 /* HomeViewCategoryInteractor.swift */; };
+		97A855112911AF3D001FA8E4 /* HomeViewCategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A855102911AF3D001FA8E4 /* HomeViewCategoryPresenter.swift */; };
 		980D5748280DFF7700DDAF20 /* SampleRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */; };
 		980D5749280DFF7700DDAF20 /* SampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5735280DFF7700DDAF20 /* SampleRequest.swift */; };
 		980D574A280DFF7700DDAF20 /* SampleApiDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */; };
@@ -64,6 +68,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		971D04EE2912F3B4009D1E93 /* HomeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModels.swift; sourceTree = "<group>"; };
+		971D04F02912F695009D1E93 /* HomeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerTests.swift; sourceTree = "<group>"; };
+		97A8550E29119C9F001FA8E4 /* HomeViewCategoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewCategoryInteractor.swift; sourceTree = "<group>"; };
+		97A855102911AF3D001FA8E4 /* HomeViewCategoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewCategoryPresenter.swift; sourceTree = "<group>"; };
 		980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRepositoryImpl.swift; sourceTree = "<group>"; };
 		980D5735280DFF7700DDAF20 /* SampleRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRequest.swift; sourceTree = "<group>"; };
 		980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleApiDataSource.swift; sourceTree = "<group>"; };
@@ -271,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				983271D3272752B50010C63A /* DeliveryAppChallengeTests.swift */,
+				971D04F02912F695009D1E93 /* HomeViewControllerTests.swift */,
 			);
 			path = DeliveryAppChallengeTests;
 			sourceTree = "<group>";
@@ -307,7 +316,10 @@
 			isa = PBXGroup;
 			children = (
 				983271C0272752AF0010C63A /* HomeViewController.swift */,
+				97A8550E29119C9F001FA8E4 /* HomeViewCategoryInteractor.swift */,
+				97A855102911AF3D001FA8E4 /* HomeViewCategoryPresenter.swift */,
 				98F1296D272F363200B88A87 /* HomeView.swift */,
+				971D04EE2912F3B4009D1E93 /* HomeModels.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -554,6 +566,7 @@
 				980D5765280E019D00DDAF20 /* NetworkRequest.swift in Sources */,
 				98F1297B272F51AE00B88A87 /* SettingsViewController.swift in Sources */,
 				980D5763280E018200DDAF20 /* NetworkManager.swift in Sources */,
+				97A8550F29119C9F001FA8E4 /* HomeViewCategoryInteractor.swift in Sources */,
 				980D574B280DFF7700DDAF20 /* SampleDataSource.swift in Sources */,
 				980D5753280DFF7700DDAF20 /* SampleFeatureFactory.swift in Sources */,
 				980D5750280DFF7700DDAF20 /* SampleInteractor.swift in Sources */,
@@ -563,6 +576,7 @@
 				98F1296E272F363200B88A87 /* HomeView.swift in Sources */,
 				98F1296A272F327100B88A87 /* CategoryCellView.swift in Sources */,
 				98FC5AAB2732B938002412EA /* RestaurantDetailsView.swift in Sources */,
+				97A855112911AF3D001FA8E4 /* HomeViewCategoryPresenter.swift in Sources */,
 				980D575A280E010200DDAF20 /* FeatureFactory.swift in Sources */,
 				98FC5AB62732BFDA002412EA /* MenuCellView.swift in Sources */,
 				980D574E280DFF7700DDAF20 /* DataModel.swift in Sources */,
@@ -571,6 +585,7 @@
 				98F12972272F41BE00B88A87 /* RestaurantListView.swift in Sources */,
 				980D5749280DFF7700DDAF20 /* SampleRequest.swift in Sources */,
 				980D575C280E011A00DDAF20 /* ViewCode.swift in Sources */,
+				971D04EF2912F3B4009D1E93 /* HomeModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,6 +594,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				983271D4272752B50010C63A /* DeliveryAppChallengeTests.swift in Sources */,
+				971D04F12912F695009D1E93 /* HomeViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
