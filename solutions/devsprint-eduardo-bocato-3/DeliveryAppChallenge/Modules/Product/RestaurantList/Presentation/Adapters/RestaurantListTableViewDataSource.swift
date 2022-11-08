@@ -14,7 +14,7 @@ final class RestaurantListTableViewDataSource: NSObject, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RestaurantCellView.identifier, for: indexPath) as! RestaurantCellView
         let itemCellModel = items[indexPath.row]
-//        cell.configure(with: itemCellModel)
+        cell.configure(with: itemCellModel)
         return cell
     }
 }

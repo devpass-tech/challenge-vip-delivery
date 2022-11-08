@@ -57,7 +57,7 @@ extension RestaurantListViewController: RestaurantListDisplayLogic {
     func displayData(viewModel: RestaurantList.FetchRestaurants.ViewModel) {
         tableViewDataSource.items = viewModel.items
         DispatchQueue.main.async {
-//            self.customView?.reloadTableView()
+            self.customView.reloadTableView()
         }
     }
 }

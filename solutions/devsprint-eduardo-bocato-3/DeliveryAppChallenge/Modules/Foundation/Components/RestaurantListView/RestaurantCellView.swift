@@ -64,6 +64,11 @@ class RestaurantCellView: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    public func configure(with model: Restaurant) {
+        restaurantNameLabel.text = model.name
+        restaurantInfoLabel.text = "\(model.category) • \(model.deliveryTime.min)-\(model.deliveryTime.max) mins"
+    }
 }
 
 extension RestaurantCellView {

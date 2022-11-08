@@ -7,29 +7,27 @@
 
 import Foundation
 
-protocol GetRestaurantsUseCase {
+protocol GetRestaurantsUseCaseProtocol {
     func execute(completion: @escaping (Result<[Restaurant], GetRestaurantError>) -> Void)
 }
 
-final class GetRestaurantData {
-    private let repository: RestaurantListRepository
+final class GetRestaurantsUseCase {
+    private let service: RestaurantListServiceProtocol
 
-    init(repository: RestaurantListRepository) {
-        self.repository = repository
+    init(service: RestaurantListServiceProtocol) {
+        self.service = service
     }
 }
 
-extension GetRestaurantData: GetRestaurantsUseCase {
+extension GetRestaurantsUseCase: GetRestaurantsUseCaseProtocol {
     func execute(completion: @escaping (Result<[Restaurant], GetRestaurantError>) -> Void) {
-        guard let data = repository.getData() else {
-            return completion(.failure(.noData))
-        }
-        let decoder = JSONDecoder()
-        do {
-            let restaurants = try decoder.decode([Restaurant].self, from: data)
-            return completion(.success(restaurants))
-        } catch {
-            return completion(.failure(.invalidData))
+        service.getItems { result in
+            switch result {
+            case .success(let restaurants):
+                completion(.success(restaurants))
+            case .failure(let failure):
+                completion(.failure(.defaultError(message: "Error getting restaurants")))
+            }
         }
     }
 }

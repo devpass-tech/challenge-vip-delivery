@@ -7,12 +7,31 @@
 
 import Foundation
 
-class RestaurantListRepositoryImpl: RestaurantListRepository {
-    func getData() -> Data? {
-        return jsonData.data(using: .utf8)
+enum RestaurantListServiceError: Error {
+    case serialization(_ error: Error?)
+    case invalidData
+}
+
+protocol RestaurantListServiceProtocol {
+    func getItems(then: @escaping (Result<[Restaurant], RestaurantListServiceError>) -> Void)
+}
+
+class RestaurantListService: RestaurantListServiceProtocol {
+    func getItems(then: @escaping (Result<[Restaurant], RestaurantListServiceError>) -> Void) {
+        guard let jsonData = jsonData else {
+            return then(.failure(.invalidData))
+        }
+        do {
+            let value = try JSONDecoder().decode([Restaurant].self, from: jsonData)
+            DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+                then(.success(value))
+            }
+        } catch {
+            then(.failure(.serialization(error)))
+        }
     }
     
-    private let jsonData: String = """
+    private let jsonData: Data? = """
     [
         {
             "name": "Benjamin a Padaria",
@@ -103,5 +122,5 @@ class RestaurantListRepositoryImpl: RestaurantListRepository {
             }
         }
     ]
-    """
+    """.data(using: .utf8)
 }

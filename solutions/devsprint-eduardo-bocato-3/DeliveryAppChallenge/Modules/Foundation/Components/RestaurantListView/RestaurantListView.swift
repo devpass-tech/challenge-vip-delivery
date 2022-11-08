@@ -15,7 +15,7 @@ class RestaurantListView: UIView {
         
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(RestaurantCellView.self, forCellReuseIdentifier: self.cellIdentifier)
+        tableView.register(RestaurantCellView.self, forCellReuseIdentifier: RestaurantCellView.identifier)
         return tableView
     }()
     
@@ -35,6 +35,10 @@ class RestaurantListView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public func reloadTableView() {
+        tableView.reloadData()
     }
 }
 
