@@ -18,31 +18,38 @@ final class HomeViewCategoryInteractor: HomeViewCategoryBusinessLogic {
 
     //MARK: Dependencies
     private let presenter: HomeViewCategoryPresentationLogic
+    private var categoryWorker: CategoryWorkerProtocol
 
+    // MARK: - Private Properties
     private var categoryItems = [CategoryItem]()
 
-    init(presenter: HomeViewCategoryPresentationLogic) {
+    // MARK: - Initialization
+    init(
+        presenter: HomeViewCategoryPresentationLogic,
+        categoryWorker: CategoryWorkerProtocol
+    ) {
+
         self.presenter = presenter
+        self.categoryWorker = categoryWorker
     }
 
     func loadCategoryItemList(_ request: Home.Category.Request) {
 
         // worker perform load items (NetworkManger need to perform an API call for "category" items fetching)
-        
+        categoryWorker.fetchCategoryItems { [unowned self] result in
 
-        // pass response into presenter
-        categoryItems = [CategoryItem(title: "Pizza1", imageName: "pizza"),
-                             CategoryItem(title: "Pizza2", imageName: "pizza"),
-                             CategoryItem(title: "Pizza3", imageName: "pizza"),
-                             CategoryItem(title: "Pizza4", imageName: "pizza"),
-                             CategoryItem(title: "Pizza5", imageName: "pizza"),
-                             CategoryItem(title: "Pizza6", imageName: "pizza"),
-                             CategoryItem(title: "Pizza7", imageName: "pizza"),
-                             CategoryItem(title: "Pizza8", imageName: "pizza"),
-                             CategoryItem(title: "Pizza9", imageName: "pizza")]
+            switch result {
+                case .success(let categoryItems):
+                    self.categoryItems = categoryItems
+                    let request = Home.Category.Response.init(items: categoryItems)
+                    self.presenter.presentCategoryItemsList(request) // Interactor -> Presenter
 
-        let request = Home.Category.Response.init(items: categoryItems)
-        self.presenter.presentCategoryItemsList(request)
+                case .failure(let error):
+                    print(error)
+            }
+        }
+
+
     }
 
     func selectCategoryItem(_ request: Home.CategorySelection.Request) {
