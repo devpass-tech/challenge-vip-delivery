@@ -55,6 +55,13 @@
 		98FC5AB42732BFC8002412EA /* MenuListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FC5AB32732BFC8002412EA /* MenuListView.swift */; };
 		98FC5AB62732BFDA002412EA /* MenuCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FC5AB52732BFDA002412EA /* MenuCellView.swift */; };
 		98FC5AB82732C1EF002412EA /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FC5AB72732C1EF002412EA /* MenuItemView.swift */; };
+		9E12F794291C2D10007DB2EC /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12F793291C2D10007DB2EC /* SettingsModel.swift */; };
+		9E12F796291C2D2A007DB2EC /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12F795291C2D2A007DB2EC /* SettingsPresenter.swift */; };
+		9E12F798291C2D33007DB2EC /* SettingsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12F797291C2D33007DB2EC /* SettingsProtocols.swift */; };
+		9E12F79A291C2D39007DB2EC /* SettingsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12F799291C2D39007DB2EC /* SettingsResponse.swift */; };
+		9E12F79C291C2D56007DB2EC /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12F79B291C2D56007DB2EC /* SettingsInteractor.swift */; };
+		9E12F79E291C2D61007DB2EC /* SettingsConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12F79D291C2D61007DB2EC /* SettingsConfigurator.swift */; };
+		9E12F7A0291C2D77007DB2EC /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12F79F291C2D77007DB2EC /* Settings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +129,13 @@
 		98FC5AB32732BFC8002412EA /* MenuListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListView.swift; sourceTree = "<group>"; };
 		98FC5AB52732BFDA002412EA /* MenuCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellView.swift; sourceTree = "<group>"; };
 		98FC5AB72732C1EF002412EA /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
+		9E12F793291C2D10007DB2EC /* SettingsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
+		9E12F795291C2D2A007DB2EC /* SettingsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
+		9E12F797291C2D33007DB2EC /* SettingsProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsProtocols.swift; sourceTree = "<group>"; };
+		9E12F799291C2D39007DB2EC /* SettingsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsResponse.swift; sourceTree = "<group>"; };
+		9E12F79B291C2D56007DB2EC /* SettingsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
+		9E12F79D291C2D61007DB2EC /* SettingsConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsConfigurator.swift; sourceTree = "<group>"; };
+		9E12F79F291C2D77007DB2EC /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -411,8 +425,9 @@
 		98F12979272F512900B88A87 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				98F1297A272F51AE00B88A87 /* SettingsViewController.swift */,
-				98612706272F56AB0049403C /* SettingsView.swift */,
+				9E12F792291C2C94007DB2EC /* Models */,
+				9E12F791291C2C8D007DB2EC /* Data */,
+				9E12F790291C2C7C007DB2EC /* Presentation */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -440,6 +455,36 @@
 				98FC5AB52732BFDA002412EA /* MenuCellView.swift */,
 			);
 			path = MenuListView;
+			sourceTree = "<group>";
+		};
+		9E12F790291C2C7C007DB2EC /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				9E12F79D291C2D61007DB2EC /* SettingsConfigurator.swift */,
+				9E12F79B291C2D56007DB2EC /* SettingsInteractor.swift */,
+				9E12F793291C2D10007DB2EC /* SettingsModel.swift */,
+				9E12F795291C2D2A007DB2EC /* SettingsPresenter.swift */,
+				9E12F797291C2D33007DB2EC /* SettingsProtocols.swift */,
+				98612706272F56AB0049403C /* SettingsView.swift */,
+				98F1297A272F51AE00B88A87 /* SettingsViewController.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		9E12F791291C2C8D007DB2EC /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				9E12F799291C2D39007DB2EC /* SettingsResponse.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		9E12F792291C2C94007DB2EC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9E12F79F291C2D77007DB2EC /* Settings.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -545,6 +590,7 @@
 				98FAF50A280E08F90075B35B /* SceneDelegate.swift in Sources */,
 				98FAF509280E08EC0075B35B /* AppDelegate.swift in Sources */,
 				980D5767280E079400DDAF20 /* SettingsView.swift in Sources */,
+				9E12F7A0291C2D77007DB2EC /* Settings.swift in Sources */,
 				980D5766280E077F00DDAF20 /* AddressView.swift in Sources */,
 				980D5755280DFF7700DDAF20 /* SampleRouter.swift in Sources */,
 				983271C1272752AF0010C63A /* HomeViewController.swift in Sources */,
@@ -554,6 +600,7 @@
 				980D5756280DFF7700DDAF20 /* SampleView.swift in Sources */,
 				98FC5AB82732C1EF002412EA /* MenuItemView.swift in Sources */,
 				98FC5AAE2732BA2E002412EA /* RestaurantInfoView.swift in Sources */,
+				9E12F798291C2D33007DB2EC /* SettingsProtocols.swift in Sources */,
 				980D5752280DFF7700DDAF20 /* SamplePresenter.swift in Sources */,
 				980D5751280DFF7700DDAF20 /* SampleViewController.swift in Sources */,
 				980D574C280DFF7700DDAF20 /* SampleResponse.swift in Sources */,
@@ -561,6 +608,7 @@
 				980D5748280DFF7700DDAF20 /* SampleRepositoryImpl.swift in Sources */,
 				98F12975272F48E400B88A87 /* AddressCellView.swift in Sources */,
 				980D575F280E015600DDAF20 /* NetworkError.swift in Sources */,
+				9E12F796291C2D2A007DB2EC /* SettingsPresenter.swift in Sources */,
 				98F12970272F41AE00B88A87 /* RestaurantCellView.swift in Sources */,
 				98EA055E272A0949007B0228 /* RestaurantListViewController.swift in Sources */,
 				980D5765280E019D00DDAF20 /* NetworkRequest.swift in Sources */,
@@ -571,13 +619,17 @@
 				980D5753280DFF7700DDAF20 /* SampleFeatureFactory.swift in Sources */,
 				980D5750280DFF7700DDAF20 /* SampleInteractor.swift in Sources */,
 				980D5761280E016C00DDAF20 /* URLSessionProtocol.swift in Sources */,
+				9E12F79C291C2D56007DB2EC /* SettingsInteractor.swift in Sources */,
 				98F1296C272F328200B88A87 /* CategoryListView.swift in Sources */,
 				980D574D280DFF7700DDAF20 /* SampleRepository.swift in Sources */,
+				9E12F79A291C2D39007DB2EC /* SettingsResponse.swift in Sources */,
 				98F1296E272F363200B88A87 /* HomeView.swift in Sources */,
 				98F1296A272F327100B88A87 /* CategoryCellView.swift in Sources */,
 				98FC5AAB2732B938002412EA /* RestaurantDetailsView.swift in Sources */,
 				97A855112911AF3D001FA8E4 /* HomeViewCategoryPresenter.swift in Sources */,
 				980D575A280E010200DDAF20 /* FeatureFactory.swift in Sources */,
+				9E12F794291C2D10007DB2EC /* SettingsModel.swift in Sources */,
+				9E12F79E291C2D61007DB2EC /* SettingsConfigurator.swift in Sources */,
 				98FC5AB62732BFDA002412EA /* MenuCellView.swift in Sources */,
 				980D574E280DFF7700DDAF20 /* DataModel.swift in Sources */,
 				98EA0561272A0963007B0228 /* RestaurantDetailsViewController.swift in Sources */,

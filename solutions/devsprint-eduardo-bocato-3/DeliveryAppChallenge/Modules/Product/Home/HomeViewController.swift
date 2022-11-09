@@ -25,8 +25,8 @@ class HomeViewController: UIViewController {
         navigationItem.title = "Delivery App"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings",
                                                             style: .plain,
-                                                            target: nil,
-                                                            action: nil)
+                                                            target: self,
+                                                            action: #selector(presentSettings))
     }
     
     required init?(coder: NSCoder) {
@@ -56,5 +56,14 @@ extension HomeViewController: HomeViewCategoryDisplayLogic {
 
     func displaySelectedCategoryItem(_ viewModel: Home.CategorySelection.ViewModel) {
         debugPrint("\(viewModel.title) selected")
+    }
+}
+
+extension HomeViewController {
+
+    @objc
+    private func presentSettings() {
+        let settingsViewController = SettingsConfigurator().makeViewController()
+        navigationController?.pushViewController(settingsViewController, animated: true)
     }
 }

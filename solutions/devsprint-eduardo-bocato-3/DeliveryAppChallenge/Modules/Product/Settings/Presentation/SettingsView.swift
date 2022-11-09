@@ -7,29 +7,11 @@
 
 import UIKit
 
-private enum Sections: Int, CaseIterable {
-    case name
-    case email
-    case address
-    case paymentMethod
-
-    var name: String {
-        switch self {
-        case .name:
-            return "Name"
-        case .email:
-            return "Email"
-        case .address:
-            return "Address"
-        case .paymentMethod:
-            return "Payment Method"
-        }
-    }
-}
-
-class SettingsView: UIView {
-
-    let cellIdentifier = "SettingsCell"
+final class SettingsView: UIView {
+    
+    private let cellIdentifier = "SettingsCellIdentifier"
+    private let headers: [Settings.Sections] = Settings.Sections.allCases
+    private var item: Settings = .init(name: "", email: "", address: "", paymentMethod: "")
 
     lazy var tableView: UITableView = {
         let tableView = UITableView.init(frame: CGRect.zero, style: .grouped)
@@ -57,6 +39,14 @@ class SettingsView: UIView {
 }
 
 extension SettingsView {
+    
+    func displayItem(_ item: Settings) {
+        self.item = item
+        tableView.reloadData()
+    }
+}
+
+extension SettingsView {
 
     func addSubviews() {
 
@@ -76,46 +66,23 @@ extension SettingsView {
 }
 
 extension SettingsView: UITableViewDataSource {
-
     func numberOfSections(in tableView: UITableView) -> Int {
-        return Sections.allCases.count
+        return Settings.Sections.allCases.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
         return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-
-        guard let sectionIndex = Sections(rawValue: indexPath.section)
-        else { return UITableViewCell() }
-
-        switch sectionIndex {
-        case .name:
-            cell.textLabel?.text = "John Appleseed"
-
-        case .email:
-            cell.textLabel?.text = "john@apple.com"
-
-        case .address:
-            cell.textLabel?.text = "Rua Bela Cintra, 495 - Consolação"
-
-        case .paymentMethod:
-            cell.textLabel?.text = "Cartão de Crédito"
-        }
-        
+        let sectionIndex = headers[indexPath.section]
+        cell.textLabel?.text = sectionIndex.textLabel(with: item)
         return cell
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-
-        guard let section = Sections(rawValue: section) else {
-
-            return nil
-        }
+        let section = headers[section]
         return section.name
     }
 }
