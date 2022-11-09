@@ -9,6 +9,8 @@ import UIKit
 
 class CategoryCellView: UIView {
 
+    var didSelectCategory: ((Int) -> Void)?
+
     let stackView: UIStackView = {
 
         let stackView = UIStackView()
@@ -38,11 +40,14 @@ class CategoryCellView: UIView {
         return label
     }()
 
+    private(set) var indexPosition: Int = 0
+
     init() {
         super.init(frame: .zero)
 
         addSubviews()
         configureConstraints()
+        tapAction()
     }
 
     required init?(coder: NSCoder) {
@@ -75,5 +80,21 @@ extension CategoryCellView {
             imageView.heightAnchor.constraint(equalToConstant: 54),
             imageView.widthAnchor.constraint(equalToConstant: 54)
         ])
+    }
+
+    convenience init(title: String, andImage imageName: String, at index: Int) {
+        self.init()
+        nameLabel.text = title
+        imageView.image = UIImage(named: imageName)
+        indexPosition = index
+    }
+
+    private func tapAction() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        self.addGestureRecognizer(tapGesture)
+    }
+
+    @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
+        didSelectCategory?(indexPosition)
     }
 }
