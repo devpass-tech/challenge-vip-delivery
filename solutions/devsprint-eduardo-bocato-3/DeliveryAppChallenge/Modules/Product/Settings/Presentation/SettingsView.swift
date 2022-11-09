@@ -38,9 +38,9 @@ final class SettingsView: UIView {
     }
 }
 
-extension SettingsView {
+extension SettingsView: SettingsViewInterface {
     
-    func displayItem(_ item: Settings) {
+    func displayItem(item: Settings) {
         self.item = item
         tableView.reloadData()
     }

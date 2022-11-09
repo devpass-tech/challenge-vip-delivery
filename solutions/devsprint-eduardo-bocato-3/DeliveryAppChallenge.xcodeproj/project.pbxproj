@@ -62,6 +62,14 @@
 		9E12F79C291C2D56007DB2EC /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12F79B291C2D56007DB2EC /* SettingsInteractor.swift */; };
 		9E12F79E291C2D61007DB2EC /* SettingsConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12F79D291C2D61007DB2EC /* SettingsConfigurator.swift */; };
 		9E12F7A0291C2D77007DB2EC /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12F79F291C2D77007DB2EC /* Settings.swift */; };
+		9E12F7AB291C32C7007DB2EC /* SettingsPresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12F7AA291C32C7007DB2EC /* SettingsPresenterSpy.swift */; };
+		9E12F7AF291C3350007DB2EC /* Settings+Fixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12F7AE291C3350007DB2EC /* Settings+Fixture.swift */; };
+		9E12F7B1291C3371007DB2EC /* SettingsInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12F7B0291C3371007DB2EC /* SettingsInteractorTests.swift */; };
+		9E12F7B5291C349A007DB2EC /* SettingsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12F7B4291C349A007DB2EC /* SettingsViewControllerTests.swift */; };
+		9E12F7B7291C350D007DB2EC /* SettingsInteractorSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12F7B6291C350D007DB2EC /* SettingsInteractorSpy.swift */; };
+		9E12F7B9291C35E0007DB2EC /* SettingsPresenterDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12F7B8291C35E0007DB2EC /* SettingsPresenterDummy.swift */; };
+		9E12F7BB291C3685007DB2EC /* SettingsViewDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12F7BA291C3685007DB2EC /* SettingsViewDummy.swift */; };
+		9E12F7BF291C3CCE007DB2EC /* SettingsViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12F7BE291C3CCE007DB2EC /* SettingsViewSpy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +144,14 @@
 		9E12F79B291C2D56007DB2EC /* SettingsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
 		9E12F79D291C2D61007DB2EC /* SettingsConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsConfigurator.swift; sourceTree = "<group>"; };
 		9E12F79F291C2D77007DB2EC /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		9E12F7AA291C32C7007DB2EC /* SettingsPresenterSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenterSpy.swift; sourceTree = "<group>"; };
+		9E12F7AE291C3350007DB2EC /* Settings+Fixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+Fixture.swift"; sourceTree = "<group>"; };
+		9E12F7B0291C3371007DB2EC /* SettingsInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractorTests.swift; sourceTree = "<group>"; };
+		9E12F7B4291C349A007DB2EC /* SettingsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewControllerTests.swift; sourceTree = "<group>"; };
+		9E12F7B6291C350D007DB2EC /* SettingsInteractorSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractorSpy.swift; sourceTree = "<group>"; };
+		9E12F7B8291C35E0007DB2EC /* SettingsPresenterDummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenterDummy.swift; sourceTree = "<group>"; };
+		9E12F7BA291C3685007DB2EC /* SettingsViewDummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewDummy.swift; sourceTree = "<group>"; };
+		9E12F7BE291C3CCE007DB2EC /* SettingsViewSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewSpy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +308,7 @@
 		983271D2272752B50010C63A /* DeliveryAppChallengeTests */ = {
 			isa = PBXGroup;
 			children = (
+				9E12F7A2291C31E8007DB2EC /* Modules */,
 				983271D3272752B50010C63A /* DeliveryAppChallengeTests.swift */,
 				971D04F02912F695009D1E93 /* HomeViewControllerTests.swift */,
 			);
@@ -487,6 +504,69 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		9E12F7A2291C31E8007DB2EC /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				9E12F7A3291C31E8007DB2EC /* Product */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		9E12F7A3291C31E8007DB2EC /* Product */ = {
+			isa = PBXGroup;
+			children = (
+				9E12F7A4291C31E8007DB2EC /* Settings */,
+			);
+			path = Product;
+			sourceTree = "<group>";
+		};
+		9E12F7A4291C31E8007DB2EC /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				9E12F7A7291C329D007DB2EC /* TestUtils */,
+				9E12F7A6291C3293007DB2EC /* Presentation */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		9E12F7A6291C3293007DB2EC /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				9E12F7B0291C3371007DB2EC /* SettingsInteractorTests.swift */,
+				9E12F7B4291C349A007DB2EC /* SettingsViewControllerTests.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		9E12F7A7291C329D007DB2EC /* TestUtils */ = {
+			isa = PBXGroup;
+			children = (
+				9E12F7A9291C32AF007DB2EC /* Fixtures */,
+				9E12F7A8291C32A9007DB2EC /* Doubles */,
+			);
+			path = TestUtils;
+			sourceTree = "<group>";
+		};
+		9E12F7A8291C32A9007DB2EC /* Doubles */ = {
+			isa = PBXGroup;
+			children = (
+				9E12F7AA291C32C7007DB2EC /* SettingsPresenterSpy.swift */,
+				9E12F7B6291C350D007DB2EC /* SettingsInteractorSpy.swift */,
+				9E12F7B8291C35E0007DB2EC /* SettingsPresenterDummy.swift */,
+				9E12F7BA291C3685007DB2EC /* SettingsViewDummy.swift */,
+				9E12F7BE291C3CCE007DB2EC /* SettingsViewSpy.swift */,
+			);
+			path = Doubles;
+			sourceTree = "<group>";
+		};
+		9E12F7A9291C32AF007DB2EC /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				9E12F7AE291C3350007DB2EC /* Settings+Fixture.swift */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -645,8 +725,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E12F7AF291C3350007DB2EC /* Settings+Fixture.swift in Sources */,
+				9E12F7B5291C349A007DB2EC /* SettingsViewControllerTests.swift in Sources */,
+				9E12F7B7291C350D007DB2EC /* SettingsInteractorSpy.swift in Sources */,
+				9E12F7AB291C32C7007DB2EC /* SettingsPresenterSpy.swift in Sources */,
+				9E12F7B9291C35E0007DB2EC /* SettingsPresenterDummy.swift in Sources */,
+				9E12F7B1291C3371007DB2EC /* SettingsInteractorTests.swift in Sources */,
 				983271D4272752B50010C63A /* DeliveryAppChallengeTests.swift in Sources */,
+				9E12F7BF291C3CCE007DB2EC /* SettingsViewSpy.swift in Sources */,
 				971D04F12912F695009D1E93 /* HomeViewControllerTests.swift in Sources */,
+				9E12F7BB291C3685007DB2EC /* SettingsViewDummy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

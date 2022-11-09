@@ -5,7 +5,7 @@
 //  Created by Douglas Garcia on 08/11/22.
 //
 
-import Foundation
+import UIKit
 
 protocol SettingsBusinessLogic {
     var presenter: SettingsPresentationLogic { get set }
@@ -20,4 +20,9 @@ protocol SettingsPresentationLogic {
 protocol SettingsViewControllerDisplayLogic: AnyObject {
     var interactor: SettingsBusinessLogic { get set }
     func displayData(viewModel: SettingsList.LoadSettings.ViewModel)
+}
+
+typealias SettingsCustomViewInterface = (UIView & SettingsViewInterface)
+protocol SettingsViewInterface {
+    func displayItem(item: Settings)
 }

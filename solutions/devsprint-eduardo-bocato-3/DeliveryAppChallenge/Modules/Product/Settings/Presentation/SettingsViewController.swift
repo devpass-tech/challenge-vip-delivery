@@ -10,9 +10,9 @@ import UIKit
 final class SettingsViewController: UIViewController {
     
     var interactor: SettingsBusinessLogic
-    private var customView = SettingsView()
+    private var customView: SettingsCustomViewInterface
 
-    init(customView: SettingsView, interactor: SettingsBusinessLogic) {
+    init(customView: SettingsCustomViewInterface, interactor: SettingsBusinessLogic) {
         self.interactor = interactor
         self.customView = customView
         super.init(nibName: nil, bundle: nil)
@@ -38,7 +38,7 @@ extension SettingsViewController: SettingsViewControllerDisplayLogic {
     
     func displayData(viewModel: SettingsList.LoadSettings.ViewModel) {
         DispatchQueue.main.async {
-            self.customView.displayItem(viewModel.item)
+            self.customView.displayItem(item: viewModel.item)
         }
     }
 }
