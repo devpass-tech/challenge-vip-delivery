@@ -36,13 +36,13 @@ final class HomeViewCategoryInteractor: HomeViewCategoryBusinessLogic {
     func loadCategoryItemList(_ request: Home.Category.Request) {
 
         // worker perform load items (NetworkManger need to perform an API call for "category" items fetching)
-        categoryWorker.fetchCategoryItems { [unowned self] result in
+        categoryWorker.fetchCategoryItems { [unowned self, presenter] result in
 
             switch result {
                 case .success(let categoryItems):
                     self.categoryItems = categoryItems
                     let request = Home.Category.Response.init(items: categoryItems)
-                    self.presenter.presentCategoryItemsList(request) // Interactor -> Presenter
+                    presenter.presentCategoryItemsList(request) // Interactor -> Presenter
 
                 case .failure(let error):
                     print(error)
