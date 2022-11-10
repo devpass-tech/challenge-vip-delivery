@@ -18,6 +18,8 @@ class RestaurantListViewController: UIViewController {
     private let tableViewDataSource: RestaurantListTableViewDataSource
     private let tableViewDelegate: RestaurantListTableViewDelegate
     
+    private var tableViewHeightConstraint: NSLayoutConstraint
+    
     var items: [Restaurant] = []
 
     init(customView: RestaurantListView,
@@ -29,9 +31,10 @@ class RestaurantListViewController: UIViewController {
         self.interactor = interactor
         self.tableViewDelegate = tableViewDelegate
         self.tableViewDataSource = tableViewDataSource
+        tableViewHeightConstraint = customView.tableView.heightAnchor.constraint(equalToConstant: 0)
         super.init(nibName: nil, bundle: nil)
 
-        navigationItem.title = "Restaurant List"
+//        navigationItem.title = "Restaurant List"
     }
 
     required init?(coder: NSCoder) {
@@ -58,6 +61,10 @@ extension RestaurantListViewController: RestaurantListDisplayLogic {
         tableViewDataSource.items = viewModel.items
         DispatchQueue.main.async {
             self.customView.reloadTableView()
+            let estimatedHeight = CGFloat(self.customView.tableView.numberOfRows(inSection: 0))*RestaurantListView.cellSize
+            NSLayoutConstraint.deactivate([self.tableViewHeightConstraint])
+            self.tableViewHeightConstraint = self.customView.tableView.heightAnchor.constraint(equalToConstant: estimatedHeight)
+            NSLayoutConstraint.activate([self.tableViewHeightConstraint])
         }
     }
 }

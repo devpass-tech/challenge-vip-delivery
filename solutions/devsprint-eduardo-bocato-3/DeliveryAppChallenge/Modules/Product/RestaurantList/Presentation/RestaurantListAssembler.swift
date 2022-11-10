@@ -45,8 +45,6 @@ struct RestaurantListAssembler: RestaurantListAssembling {
         presenter.viewController = viewController
 //        viewController.router = router
         
-        return UINavigationController(
-            rootViewController: viewController
-        )
+        return viewController
     }
 }
