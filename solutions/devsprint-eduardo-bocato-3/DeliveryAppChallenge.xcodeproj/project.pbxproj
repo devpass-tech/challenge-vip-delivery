@@ -58,6 +58,9 @@
 		F86418F8291D6A2800DB3CA4 /* CategoryListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86418F7291D6A2800DB3CA4 /* CategoryListPresenter.swift */; };
 		F86418FA291D70F400DB3CA4 /* CategoryListUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86418F9291D70F400DB3CA4 /* CategoryListUseCases.swift */; };
 		F86418FC291D72FF00DB3CA4 /* CategoryListAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86418FB291D72FF00DB3CA4 /* CategoryListAssembler.swift */; };
+		F86418FE291DA31E00DB3CA4 /* AddressSearchAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86418FD291DA31E00DB3CA4 /* AddressSearchAssembler.swift */; };
+		F86418FF291DA3FE00DB3CA4 /* AddressSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EA055A272A092F007B0228 /* AddressSearchViewController.swift */; };
+		F8641900291DA42400DB3CA4 /* AddressListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F12976272F48F000B88A87 /* AddressListView.swift */; };
 		F8C0A5D229156A7C0025F287 /* RestaurantListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C0A5D129156A7C0025F287 /* RestaurantListInteractor.swift */; };
 		F8C0A5D429156A850025F287 /* RestaurantListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C0A5D329156A850025F287 /* RestaurantListPresenter.swift */; };
 		F8C0A5D629156AE40025F287 /* RestaurantListUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C0A5D529156AE40025F287 /* RestaurantListUseCases.swift */; };
@@ -137,6 +140,7 @@
 		F86418F7291D6A2800DB3CA4 /* CategoryListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListPresenter.swift; sourceTree = "<group>"; };
 		F86418F9291D70F400DB3CA4 /* CategoryListUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListUseCases.swift; sourceTree = "<group>"; };
 		F86418FB291D72FF00DB3CA4 /* CategoryListAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListAssembler.swift; sourceTree = "<group>"; };
+		F86418FD291DA31E00DB3CA4 /* AddressSearchAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchAssembler.swift; sourceTree = "<group>"; };
 		F8C0A5D129156A7C0025F287 /* RestaurantListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListInteractor.swift; sourceTree = "<group>"; };
 		F8C0A5D329156A850025F287 /* RestaurantListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListPresenter.swift; sourceTree = "<group>"; };
 		F8C0A5D529156AE40025F287 /* RestaurantListUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListUseCases.swift; sourceTree = "<group>"; };
@@ -351,6 +355,7 @@
 			isa = PBXGroup;
 			children = (
 				98EA055A272A092F007B0228 /* AddressSearchViewController.swift */,
+				F86418FD291DA31E00DB3CA4 /* AddressSearchAssembler.swift */,
 			);
 			path = AddressSearch;
 			sourceTree = "<group>";
@@ -664,6 +669,7 @@
 				980D574C280DFF7700DDAF20 /* SampleResponse.swift in Sources */,
 				F86418F4291D6A1900DB3CA4 /* CategoryListViewController.swift in Sources */,
 				98FC5AB12732BB7D002412EA /* RatingView.swift in Sources */,
+				F86418FE291DA31E00DB3CA4 /* AddressSearchAssembler.swift in Sources */,
 				980D5748280DFF7700DDAF20 /* SampleRepositoryImpl.swift in Sources */,
 				98F12975272F48E400B88A87 /* AddressCellView.swift in Sources */,
 				980D575F280E015600DDAF20 /* NetworkError.swift in Sources */,
@@ -686,8 +692,10 @@
 				F8D984922912FCAE00097713 /* GetRestaurantsUseCase.swift in Sources */,
 				98F1296A272F327100B88A87 /* CategoryCellView.swift in Sources */,
 				98FC5AAB2732B938002412EA /* RestaurantDetailsView.swift in Sources */,
+				F86418FF291DA3FE00DB3CA4 /* AddressSearchViewController.swift in Sources */,
 				F8D984952912FDC300097713 /* Restaurant.swift in Sources */,
 				F86418FA291D70F400DB3CA4 /* CategoryListUseCases.swift in Sources */,
+				F8641900291DA42400DB3CA4 /* AddressListView.swift in Sources */,
 				F8C0A5DE29156F070025F287 /* RestaurantListService.swift in Sources */,
 				980D575A280E010200DDAF20 /* FeatureFactory.swift in Sources */,
 				98FC5AB62732BFDA002412EA /* MenuCellView.swift in Sources */,

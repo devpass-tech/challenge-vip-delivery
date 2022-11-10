@@ -18,11 +18,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
 
-        let rootVC = HomeViewController()
+        let addressSearchAssembler: AddressSearchAssembler = .init()
+        let categoryListAssembler: CategoryListAssembler = .init()
+        let restaurantListAssembler: RestaurantListAssembler = .init()
+        
+        let rootVC: HomeViewController = .init(addressSearchViewAssembler: addressSearchAssembler,
+                                        restaurantListViewAssembler: restaurantListAssembler,
+                                        categoryListAssembler: categoryListAssembler)
 
         self.window?.rootViewController = UINavigationController(rootViewController: rootVC)
         self.window?.windowScene = windowScene
         self.window?.makeKeyAndVisible()
     }
 }
-

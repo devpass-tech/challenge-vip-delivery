@@ -31,15 +31,19 @@ class HomeViewController: UIViewController {
         stackView.spacing = 0
         return stackView
     }()
+    
+    private let addressSearchViewAssembler: AddressSearchAssembler
+    private let restaurantListViewAssembler: RestaurantListAssembler
+    private let categoryListAssembler: CategoryListAssembler
 
-    let addressView: AddressView = {
-
-        let addressView = AddressView()
-        addressView.translatesAutoresizingMaskIntoConstraints = false
-        return addressView
-    }()
-
-    init() {
+    init(
+        addressSearchViewAssembler: AddressSearchAssembler,
+        restaurantListViewAssembler: RestaurantListAssembler,
+        categoryListAssembler: CategoryListAssembler
+    ) {
+        self.addressSearchViewAssembler = addressSearchViewAssembler
+        self.restaurantListViewAssembler = restaurantListViewAssembler
+        self.categoryListAssembler = categoryListAssembler
         super.init(nibName: nil, bundle: nil)
 
         navigationItem.title = "Delivery App"
@@ -59,12 +63,25 @@ class HomeViewController: UIViewController {
         addSubviews()
         configureConstraints()
         navigationController?.navigationBar.prefersLargeTitles = true
+//        setupAddressSearchView()
         setupCategoryListView()
         setupRestaurantListView()
     }
     
+    private func setupAddressSearchView() {
+        let child = addressSearchViewAssembler.makeViewController()
+        addChild(child)
+        
+        NSLayoutConstraint.activate([
+            child.view.heightAnchor.constraint(equalToConstant: 200)
+        ])
+
+        stackView.addArrangedSubview(child.view)
+        child.didMove(toParent: self)
+    }
+    
     private func setupRestaurantListView() {
-        let child = RestaurantListAssembler().makeViewController()
+        let child = restaurantListViewAssembler.makeViewController()
         addChild(child)
 
         stackView.addArrangedSubview(child.view)
@@ -72,7 +89,7 @@ class HomeViewController: UIViewController {
     }
     
     private func setupCategoryListView() {
-        let child = CategoryListAssembler().makeViewController()
+        let child = categoryListAssembler.makeViewController()
         addChild(child)
 
         stackView.addArrangedSubview(child.view)
@@ -86,8 +103,6 @@ extension HomeViewController {
 
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
-
-        stackView.addArrangedSubview(addressView)
     }
 
     func configureConstraints() {
