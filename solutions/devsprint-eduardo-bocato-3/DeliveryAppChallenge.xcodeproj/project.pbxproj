@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		971D04EF2912F3B4009D1E93 /* HomeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971D04EE2912F3B4009D1E93 /* HomeModels.swift */; };
 		971D04F12912F695009D1E93 /* HomeViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971D04F02912F695009D1E93 /* HomeViewControllerTests.swift */; };
+		9751C0B52919901500FFE51C /* HomeCategoryWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9751C0B42919901500FFE51C /* HomeCategoryWorker.swift */; };
+		977EE1A2291AC4FB00244242 /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977EE1A1291AC4FB00244242 /* CategoryService.swift */; };
+		977EE1A7291AC6E100244242 /* MenuItemEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977EE1A6291AC6E100244242 /* MenuItemEntity.swift */; };
 		97A8550F29119C9F001FA8E4 /* HomeViewCategoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8550E29119C9F001FA8E4 /* HomeViewCategoryInteractor.swift */; };
 		97A855112911AF3D001FA8E4 /* HomeViewCategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A855102911AF3D001FA8E4 /* HomeViewCategoryPresenter.swift */; };
 		980D5748280DFF7700DDAF20 /* SampleRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */; };
@@ -70,6 +73,9 @@
 /* Begin PBXFileReference section */
 		971D04EE2912F3B4009D1E93 /* HomeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModels.swift; sourceTree = "<group>"; };
 		971D04F02912F695009D1E93 /* HomeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerTests.swift; sourceTree = "<group>"; };
+		9751C0B42919901500FFE51C /* HomeCategoryWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryWorker.swift; sourceTree = "<group>"; };
+		977EE1A1291AC4FB00244242 /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
+		977EE1A6291AC6E100244242 /* MenuItemEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemEntity.swift; sourceTree = "<group>"; };
 		97A8550E29119C9F001FA8E4 /* HomeViewCategoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewCategoryInteractor.swift; sourceTree = "<group>"; };
 		97A855102911AF3D001FA8E4 /* HomeViewCategoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewCategoryPresenter.swift; sourceTree = "<group>"; };
 		980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRepositoryImpl.swift; sourceTree = "<group>"; };
@@ -142,6 +148,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		977EE19F291AC44E00244242 /* CategoryWorker */ = {
+			isa = PBXGroup;
+			children = (
+				9751C0B42919901500FFE51C /* HomeCategoryWorker.swift */,
+			);
+			path = CategoryWorker;
+			sourceTree = "<group>";
+		};
+		977EE1A0291AC4E800244242 /* CategoryService */ = {
+			isa = PBXGroup;
+			children = (
+				977EE1A1291AC4FB00244242 /* CategoryService.swift */,
+			);
+			path = CategoryService;
+			sourceTree = "<group>";
+		};
+		977EE1A4291AC6C900244242 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				971D04EE2912F3B4009D1E93 /* HomeModels.swift */,
+				977EE1A6291AC6E100244242 /* MenuItemEntity.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		980D5732280DFF7700DDAF20 /* Sample */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,11 +346,13 @@
 		983271F2272753100010C63A /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				977EE1A0291AC4E800244242 /* CategoryService */,
+				977EE19F291AC44E00244242 /* CategoryWorker */,
+				977EE1A4291AC6C900244242 /* Models */,
 				983271C0272752AF0010C63A /* HomeViewController.swift */,
 				97A8550E29119C9F001FA8E4 /* HomeViewCategoryInteractor.swift */,
 				97A855102911AF3D001FA8E4 /* HomeViewCategoryPresenter.swift */,
 				98F1296D272F363200B88A87 /* HomeView.swift */,
-				971D04EE2912F3B4009D1E93 /* HomeModels.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -545,9 +578,11 @@
 				98FAF50A280E08F90075B35B /* SceneDelegate.swift in Sources */,
 				98FAF509280E08EC0075B35B /* AppDelegate.swift in Sources */,
 				980D5767280E079400DDAF20 /* SettingsView.swift in Sources */,
+				977EE1A2291AC4FB00244242 /* CategoryService.swift in Sources */,
 				980D5766280E077F00DDAF20 /* AddressView.swift in Sources */,
 				980D5755280DFF7700DDAF20 /* SampleRouter.swift in Sources */,
 				983271C1272752AF0010C63A /* HomeViewController.swift in Sources */,
+				9751C0B52919901500FFE51C /* HomeCategoryWorker.swift in Sources */,
 				980D5754280DFF7700DDAF20 /* SampleUseCases.swift in Sources */,
 				980D574F280DFF7700DDAF20 /* GetDataUseCase.swift in Sources */,
 				98FC5AB42732BFC8002412EA /* MenuListView.swift in Sources */,
@@ -578,6 +613,7 @@
 				98FC5AAB2732B938002412EA /* RestaurantDetailsView.swift in Sources */,
 				97A855112911AF3D001FA8E4 /* HomeViewCategoryPresenter.swift in Sources */,
 				980D575A280E010200DDAF20 /* FeatureFactory.swift in Sources */,
+				977EE1A7291AC6E100244242 /* MenuItemEntity.swift in Sources */,
 				98FC5AB62732BFDA002412EA /* MenuCellView.swift in Sources */,
 				980D574E280DFF7700DDAF20 /* DataModel.swift in Sources */,
 				98EA0561272A0963007B0228 /* RestaurantDetailsViewController.swift in Sources */,

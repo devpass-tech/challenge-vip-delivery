@@ -51,7 +51,9 @@ class HomeViewController: UIViewController {
 extension HomeViewController: HomeViewCategoryDisplayLogic {
 
     func displayCategoryItems(_ viewModel: Home.Category.ViewModel) {
-        (self.view as! HomeView).categoryListView.configureWith(viewModel)
+        DispatchQueue.main.async {
+            (self.view as! HomeView).categoryListView.configureWith(viewModel)
+        }
     }
 
     func displaySelectedCategoryItem(_ viewModel: Home.CategorySelection.ViewModel) {

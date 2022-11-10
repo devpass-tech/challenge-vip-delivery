@@ -19,7 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
 
         let homeCategoryPresenter = HomeviewCategoryPresenter()
-        let homeCategoryInteractor =  HomeViewCategoryInteractor(presenter: homeCategoryPresenter)
+        let homeCategoryWorker = HomeCategoryWorker.getCategoryWorker()
+        let homeCategoryInteractor =  HomeViewCategoryInteractor(presenter: homeCategoryPresenter, categoryWorker: homeCategoryWorker)
         let rootVC = HomeViewController(interactor: homeCategoryInteractor)
         homeCategoryPresenter.viewController = rootVC
 
