@@ -23,11 +23,13 @@ final class HomeCategoryWorker: CategoryWorkerProtocol {
     func fetchCategoryItems(_ completion: @escaping (Result<[CategoryItem], MenuItemErorr>) -> Void) {
         apiService.getMenuItems { result in
             do {
-                let categoryItems: [CategoryItem] = try result
-                    .get()
-                    .map {
-                        .init(title: $0.name, imageName: "pizza")
-                    }
+                let menuItem = try result.get()
+                let categoryItem: CategoryItem =  .init(title: menuItem.name, imageName: "pizza")
+//                    .get()
+//                    {
+//                        .init(title: $0.name, imageName: "pizza")
+//                    }
+                let categoryItems = [categoryItem]
                 completion(.success(categoryItems))
 
             }catch {

@@ -34,7 +34,7 @@ extension NetworkManagerProtocol {
 
 
 protocol APIServiceProtocol {
-    func getMenuItems(_ completion: @escaping (Result<[MenuItemEntity], NetworkError>) -> Void)
+    func getMenuItems(_ completion: @escaping (Result<MenuItemEntity, NetworkError>) -> Void)
 }
 
 final class APIService: APIServiceProtocol {
@@ -44,10 +44,10 @@ final class APIService: APIServiceProtocol {
         self.networkManager = networkManager
     }
 
-    func getMenuItems(_ completion: @escaping (Result<[MenuItemEntity], NetworkError>) -> Void) {
+    func getMenuItems(_ completion: @escaping (Result<MenuItemEntity, NetworkError>) -> Void) {
         networkManager.apiRequest(
             .menuItemDetails,
-            completion: { (result: Result<[MenuItemEntity], Error>) in
+            completion: { (result: Result<MenuItemEntity, Error>) in
                 switch result {
                     case let .success(items):
                         completion(.success(items))
