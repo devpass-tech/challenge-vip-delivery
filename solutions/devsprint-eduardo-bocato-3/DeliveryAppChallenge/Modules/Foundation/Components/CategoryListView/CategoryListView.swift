@@ -69,7 +69,9 @@ extension CategoryListView {
             stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
 
-            stackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+            stackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            self.heightAnchor.constraint(equalToConstant: 200),
+            scrollView.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
 

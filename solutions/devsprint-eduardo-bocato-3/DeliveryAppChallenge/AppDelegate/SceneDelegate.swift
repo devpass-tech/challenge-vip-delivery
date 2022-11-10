@@ -19,10 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let restaurantListAssembler = RestaurantListAssembler()
         self.window = UIWindow(frame: UIScreen.main.bounds)
 
-        let homeCategoryPresenter = HomeviewCategoryPresenter()
-        let homeCategoryInteractor =  HomeViewCategoryInteractor(presenter: homeCategoryPresenter)
-        let rootVC = HomeViewController(interactor: homeCategoryInteractor)
-        homeCategoryPresenter.viewController = rootVC
+        let rootVC = HomeViewController()
 
         self.window?.rootViewController = UINavigationController(rootViewController: rootVC)
 //        self.window?.rootViewController = restaurantListAssembler.makeViewController()

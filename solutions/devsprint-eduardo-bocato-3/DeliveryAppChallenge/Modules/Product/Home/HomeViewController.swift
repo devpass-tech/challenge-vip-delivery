@@ -39,19 +39,7 @@ class HomeViewController: UIViewController {
         return addressView
     }()
 
-    let categoryListView: CategoryListView = {
-
-        let categoryListView = CategoryListView()
-        categoryListView.translatesAutoresizingMaskIntoConstraints = false
-        return categoryListView
-    }()
-
-    //MARK: Dependencies
-    private let interactor: HomeViewCategoryBusinessLogic
-
-    init(interactor: HomeViewCategoryBusinessLogic) {
-        
-        self.interactor = interactor
+    init() {
         super.init(nibName: nil, bundle: nil)
 
         navigationItem.title = "Delivery App"
@@ -71,21 +59,20 @@ class HomeViewController: UIViewController {
         addSubviews()
         configureConstraints()
         navigationController?.navigationBar.prefersLargeTitles = true
-        interactor.loadCategoryItemList(.init())
+        setupCategoryListView()
         setupRestaurantListView()
-    }
-    
-    override func loadView() {
-//        let customView = HomeView()
-        categoryListView.didSelectItem = { [interactor] index in
-            interactor.selectCategoryItem(.init(index: index))
-        }
-//        self.view = customView
-        super.loadView()
     }
     
     private func setupRestaurantListView() {
         let child = RestaurantListAssembler().makeViewController()
+        addChild(child)
+
+        stackView.addArrangedSubview(child.view)
+        child.didMove(toParent: self)
+    }
+    
+    private func setupCategoryListView() {
+        let child = CategoryListAssembler().makeViewController()
         addChild(child)
 
         stackView.addArrangedSubview(child.view)
@@ -100,7 +87,6 @@ extension HomeViewController {
         scrollView.addSubview(stackView)
 
         stackView.addArrangedSubview(addressView)
-        stackView.addArrangedSubview(categoryListView)
     }
 
     func configureConstraints() {
@@ -119,16 +105,5 @@ extension HomeViewController {
 
             stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
         ])
-    }
-}
-
-extension HomeViewController: HomeViewCategoryDisplayLogic {
-
-    func displayCategoryItems(_ viewModel: Home.Category.ViewModel) {
-        self.categoryListView.configureWith(viewModel)
-    }
-
-    func displaySelectedCategoryItem(_ viewModel: Home.CategorySelection.ViewModel) {
-        debugPrint("\(viewModel.title) selected")
     }
 }

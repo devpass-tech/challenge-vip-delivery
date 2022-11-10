@@ -15,11 +15,11 @@ protocol CategoryListBusinessLogic {
 
 final class CategoryListInteractor: CategoryListBusinessLogic {
     //MARK: Dependencies
-    private let presenter: HomeViewCategoryPresentationLogic
+    private let presenter: CategoryListPresentationLogic
 
     private var categoryItems = [CategoryItem]()
 
-    init(presenter: HomeViewCategoryPresentationLogic) {
+    init(presenter: CategoryListPresentationLogic) {
         self.presenter = presenter
     }
 

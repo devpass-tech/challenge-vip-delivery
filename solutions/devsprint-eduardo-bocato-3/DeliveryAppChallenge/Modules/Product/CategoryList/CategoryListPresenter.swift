@@ -1,22 +1,22 @@
 //
-//  HomeViewCategoryPresenter.swift
+//  CategoryListPresenter.swift
 //  DeliveryAppChallenge
 //
-//  Created by Aby Mathew on 02/11/22.
+//  Created by Matheus Lenke on 10/11/22.
 //
 
 import Foundation
 
-protocol HomeViewCategoryPresentationLogic {
+protocol CategoryListPresentationLogic {
     func presentCategoryItemsList(_ response: Home.Category.Response)
     func presentCategoryItemSelection(_ response: Home.CategorySelection.Response)
 }
 
 
-final class HomeviewCategoryPresenter: HomeViewCategoryPresentationLogic {
+final class CategoryListPresenter: CategoryListPresentationLogic {
 
     //MARK: Dependencies
-    weak var viewController: HomeViewCategoryDisplayLogic?
+    weak var viewController: CategoryListDisplayLogic?
     
     func presentCategoryItemsList(_ response: Home.Category.Response) {
 
