@@ -12,7 +12,6 @@ protocol CategoryListBusinessLogic {
     func selectCategoryItem(_ request: Home.CategorySelection.Request)
 }
 
-
 final class CategoryListInteractor: CategoryListBusinessLogic {
     //MARK: Dependencies
     private let presenter: CategoryListPresentationLogic

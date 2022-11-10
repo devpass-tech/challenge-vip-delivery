@@ -29,6 +29,8 @@ class CategoryListView: UIView {
         stackView.spacing = 8
         return stackView
     }()
+    
+    var categoryViews: [CategoryCellView] = []
 
 
     init() {
@@ -68,10 +70,6 @@ extension CategoryListView {
             stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-
-            stackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
-            self.heightAnchor.constraint(equalToConstant: 200),
-            scrollView.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
 
@@ -80,6 +78,7 @@ extension CategoryListView {
         for (index,item) in viewModel.items.enumerated() {
             let categoryView = CategoryCellView(title: item.title, andImage: item.imageName, at: index)
             categoryView.didSelectCategory = didSelectItem
+            categoryViews.append(categoryView)
             stackView.addArrangedSubview(categoryView)
         }
     }

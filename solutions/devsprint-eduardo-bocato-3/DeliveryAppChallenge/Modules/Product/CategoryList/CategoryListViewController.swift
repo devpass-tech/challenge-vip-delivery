@@ -40,11 +40,9 @@ class CategoryListViewController: UIViewController {
         customView.didSelectItem = { [interactor] index in
             interactor.selectCategoryItem(.init(index: index))
         }
-        super.loadView()
     }
     
     override func viewDidLoad() {
-        view.backgroundColor = .red
         fetchData()
     }
     

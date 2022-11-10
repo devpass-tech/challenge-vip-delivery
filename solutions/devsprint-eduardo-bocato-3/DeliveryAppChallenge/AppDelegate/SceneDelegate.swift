@@ -16,13 +16,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
-        let restaurantListAssembler = RestaurantListAssembler()
         self.window = UIWindow(frame: UIScreen.main.bounds)
 
         let rootVC = HomeViewController()
 
         self.window?.rootViewController = UINavigationController(rootViewController: rootVC)
-//        self.window?.rootViewController = restaurantListAssembler.makeViewController()
         self.window?.windowScene = windowScene
         self.window?.makeKeyAndVisible()
     }

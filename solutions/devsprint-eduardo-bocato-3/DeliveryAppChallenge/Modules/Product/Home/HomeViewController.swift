@@ -76,6 +76,7 @@ class HomeViewController: UIViewController {
         addChild(child)
 
         stackView.addArrangedSubview(child.view)
+
         child.didMove(toParent: self)
     }
 }
