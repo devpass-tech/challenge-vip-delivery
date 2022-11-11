@@ -442,7 +442,7 @@
 		98F12979272F512900B88A87 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				9E12F792291C2C94007DB2EC /* Models */,
+				9E12F7C0291EDAE1007DB2EC /* Domain */,
 				9E12F791291C2C8D007DB2EC /* Data */,
 				9E12F790291C2C7C007DB2EC /* Presentation */,
 			);
@@ -496,12 +496,12 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		9E12F792291C2C94007DB2EC /* Models */ = {
+		9E12F792291C2C94007DB2EC /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				9E12F79F291C2D77007DB2EC /* Settings.swift */,
 			);
-			path = Models;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		9E12F7A2291C31E8007DB2EC /* Modules */ = {
@@ -565,6 +565,14 @@
 				9E12F7AE291C3350007DB2EC /* Settings+Fixture.swift */,
 			);
 			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		9E12F7C0291EDAE1007DB2EC /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				9E12F792291C2C94007DB2EC /* Model */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
