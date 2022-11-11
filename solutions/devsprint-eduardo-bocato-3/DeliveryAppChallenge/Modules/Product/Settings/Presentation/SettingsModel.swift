@@ -18,5 +18,10 @@ enum SettingsList {
         struct ViewModel {
             var item: Settings
         }
+        
+        enum Error: Swift.Error {
+            case noData
+            case parseFailure
+        }
     }
 }

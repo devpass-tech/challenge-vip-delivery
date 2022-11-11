@@ -10,20 +10,21 @@ import Foundation
 final class SettingsInteractor: SettingsBusinessLogic {
     
     var presenter: SettingsPresentationLogic
+    let getSettingsUseCase: GetSettingsUseCaseProtocol
     
-    init(presenter: SettingsPresentationLogic) {
+    init(presenter: SettingsPresentationLogic, getSettingsUseCase: GetSettingsUseCaseProtocol) {
         self.presenter = presenter
+        self.getSettingsUseCase = getSettingsUseCase
     }
     
     func loadData(request: SettingsList.LoadSettings.Request) {
-        let data = SettingsResponse(
-            name: "John Appleseed",
-            email: "john@apple.com",
-            address: "Rua Bela Cintra, 495 - Consolação",
-            paymentMethod: "Cartão de Crédito"
-        )
-
-        let response = SettingsList.LoadSettings.Response(data: data)
-        presenter.presentData(response: response)
+        getSettingsUseCase.execute { result in
+            switch result {
+            case let .success(settings):
+                self.presenter.presentData(response: .init(data: settings))
+            case let .failure(error):
+                self.presenter.presentError(error: error)
+            }
+        }
     }
 }

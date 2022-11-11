@@ -37,8 +37,19 @@ final class SettingsViewController: UIViewController {
 extension SettingsViewController: SettingsViewControllerDisplayLogic {
     
     func displayData(viewModel: SettingsList.LoadSettings.ViewModel) {
-        DispatchQueue.main.async {
-            self.customView.displayItem(item: viewModel.item)
+        DispatchQueue.main.async { [weak self] in
+            self?.customView.displayItem(item: viewModel.item)
         }
+    }
+    
+    func displayError(error: SettingsList.LoadSettings.Error) {
+        let controller = UIAlertController(
+            title: "Ops!",
+            message: error.localizedDescription,
+            preferredStyle: .alert
+        )
+        
+        controller.addAction(.init(title: "Ok", style: .default))
+        present(controller, animated: true)
     }
 }

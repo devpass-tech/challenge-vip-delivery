@@ -10,8 +10,10 @@ import UIKit
 struct SettingsConfigurator {
     
     func makeViewController() -> UIViewController {
+        let service = SettingsService()
+        let useCase = GetSettingsUseCase(service: service)
         let presenter = SettingsPresenter()
-        let interactor = SettingsInteractor(presenter: presenter)
+        let interactor = SettingsInteractor(presenter: presenter, getSettingsUseCase: useCase)
         let settingsView = SettingsView()
         let viewController = SettingsViewController(customView: settingsView, interactor: interactor)
         

@@ -12,8 +12,11 @@ final class SettingsPresenter: SettingsPresentationLogic {
     weak var viewController: SettingsViewControllerDisplayLogic?
     
     func presentData(response: SettingsList.LoadSettings.Response) {
-        let item = response.data.convertSettingModel()
-        let viewModel = SettingsList.LoadSettings.ViewModel(item: item)
-        viewController?.displayData(viewModel: viewModel)
+        let settings = response.data.convertSettingModel()
+        viewController?.displayData(viewModel: .init(item: settings))
+    }
+    
+    func presentError(error: SettingsList.LoadSettings.Error) {
+        viewController?.displayError(error: error)
     }
 }
