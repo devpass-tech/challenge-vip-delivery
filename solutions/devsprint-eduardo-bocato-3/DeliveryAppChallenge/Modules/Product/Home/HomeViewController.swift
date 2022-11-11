@@ -9,13 +9,16 @@ import UIKit
 
 protocol HomeViewCategoryDisplayLogic: AnyObject {
     func displayCategoryItems(_ viewModel: Home.Category.ViewModel)
-    func displaySelectedCategoryItem(_ viewModel: Home.CategorySelection.ViewModel)
+//    func displaySelectedCategoryItem(_ viewModel: Home.CategorySelection.ViewModel)
+    func displaySelectedCategoryItem()
 }
 
 class HomeViewController: UIViewController {
 
     //MARK: Dependencies
     private let interactor: HomeViewCategoryBusinessLogic
+    typealias CategoryRouter = CategoryRoutingLogic & CategoryDataPassing
+    var categoryRouter: CategoryRouter!
 
     init(interactor: HomeViewCategoryBusinessLogic) {
         
@@ -56,7 +59,8 @@ extension HomeViewController: HomeViewCategoryDisplayLogic {
         }
     }
 
-    func displaySelectedCategoryItem(_ viewModel: Home.CategorySelection.ViewModel) {
-        debugPrint("\(viewModel.title) selected")
+    func displaySelectedCategoryItem() {
+        categoryRouter.routeToSelectedCategoryItemm()
+        debugPrint("category item selection done")
     }
 }

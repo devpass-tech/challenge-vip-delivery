@@ -32,8 +32,10 @@ final class HomeviewCategoryPresenter: HomeViewCategoryPresentationLogic {
 
     func presentCategoryItemSelection(_ response: Home.CategorySelection.Response) {
 
-        let viewModel = Home.CategorySelection.ViewModel(title: response.title,
-                                                         imageName: response.imageName)
-        viewController?.displaySelectedCategoryItem(viewModel)
+//        let viewModel = Home.CategorySelection.ViewModel(title: response.title,
+//                                                         imageName: response.imageName)
+//        viewController?.displaySelectedCategoryItem(viewModel)
+
+        viewController?.displaySelectedCategoryItem()
     }
 }

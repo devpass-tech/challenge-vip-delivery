@@ -13,8 +13,12 @@ protocol HomeViewCategoryBusinessLogic {
 }
 
 
-final class HomeViewCategoryInteractor: HomeViewCategoryBusinessLogic {
+protocol CategoryDataStore {
+    var selectedCategory: CategoryItem? { get set }
+}
 
+
+final class HomeViewCategoryInteractor: HomeViewCategoryBusinessLogic, CategoryDataStore {
 
     //MARK: Dependencies
     private let presenter: HomeViewCategoryPresentationLogic
@@ -22,6 +26,7 @@ final class HomeViewCategoryInteractor: HomeViewCategoryBusinessLogic {
 
     // MARK: - Private Properties
     private var categoryItems = [CategoryItem]()
+    var selectedCategory: CategoryItem?
 
     // MARK: - Initialization
     init(
@@ -53,7 +58,9 @@ final class HomeViewCategoryInteractor: HomeViewCategoryBusinessLogic {
     }
 
     func selectCategoryItem(_ request: Home.CategorySelection.Request) {
-        let response: Home.CategorySelection.Response = categoryItems[request.index]
+        let selectedItem = categoryItems[request.index]
+        let response: Home.CategorySelection.Response = selectedItem
+        self.selectedCategory = selectedItem
         presenter.presentCategoryItemSelection(response)
     }
 

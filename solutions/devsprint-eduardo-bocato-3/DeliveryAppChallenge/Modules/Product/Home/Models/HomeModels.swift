@@ -33,6 +33,6 @@ enum Home {
             let index: Int
         }
         typealias Response = CategoryItem
-        typealias ViewModel = CategoryViewModel
+        struct ViewModel {}
     }
 }

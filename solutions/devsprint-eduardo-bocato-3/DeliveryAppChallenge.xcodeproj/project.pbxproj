@@ -14,6 +14,7 @@
 		977EE1A7291AC6E100244242 /* MenuItemEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977EE1A6291AC6E100244242 /* MenuItemEntity.swift */; };
 		97A8550F29119C9F001FA8E4 /* HomeViewCategoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8550E29119C9F001FA8E4 /* HomeViewCategoryInteractor.swift */; };
 		97A855112911AF3D001FA8E4 /* HomeViewCategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A855102911AF3D001FA8E4 /* HomeViewCategoryPresenter.swift */; };
+		97BCE472291D874800AA2C62 /* CategoryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BCE471291D874800AA2C62 /* CategoryRouter.swift */; };
 		980D5748280DFF7700DDAF20 /* SampleRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */; };
 		980D5749280DFF7700DDAF20 /* SampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5735280DFF7700DDAF20 /* SampleRequest.swift */; };
 		980D574A280DFF7700DDAF20 /* SampleApiDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */; };
@@ -78,6 +79,7 @@
 		977EE1A6291AC6E100244242 /* MenuItemEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemEntity.swift; sourceTree = "<group>"; };
 		97A8550E29119C9F001FA8E4 /* HomeViewCategoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewCategoryInteractor.swift; sourceTree = "<group>"; };
 		97A855102911AF3D001FA8E4 /* HomeViewCategoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewCategoryPresenter.swift; sourceTree = "<group>"; };
+		97BCE471291D874800AA2C62 /* CategoryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRouter.swift; sourceTree = "<group>"; };
 		980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRepositoryImpl.swift; sourceTree = "<group>"; };
 		980D5735280DFF7700DDAF20 /* SampleRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRequest.swift; sourceTree = "<group>"; };
 		980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleApiDataSource.swift; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 				97A8550E29119C9F001FA8E4 /* HomeViewCategoryInteractor.swift */,
 				97A855102911AF3D001FA8E4 /* HomeViewCategoryPresenter.swift */,
 				98F1296D272F363200B88A87 /* HomeView.swift */,
+				97BCE471291D874800AA2C62 /* CategoryRouter.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -589,6 +592,7 @@
 				980D5756280DFF7700DDAF20 /* SampleView.swift in Sources */,
 				98FC5AB82732C1EF002412EA /* MenuItemView.swift in Sources */,
 				98FC5AAE2732BA2E002412EA /* RestaurantInfoView.swift in Sources */,
+				97BCE472291D874800AA2C62 /* CategoryRouter.swift in Sources */,
 				980D5752280DFF7700DDAF20 /* SamplePresenter.swift in Sources */,
 				980D5751280DFF7700DDAF20 /* SampleViewController.swift in Sources */,
 				980D574C280DFF7700DDAF20 /* SampleResponse.swift in Sources */,

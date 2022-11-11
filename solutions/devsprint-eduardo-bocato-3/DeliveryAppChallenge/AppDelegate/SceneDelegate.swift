@@ -18,13 +18,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
 
-        let homeCategoryPresenter = HomeviewCategoryPresenter()
-        let homeCategoryWorker = HomeCategoryWorker.getCategoryWorker()
-        let homeCategoryInteractor =  HomeViewCategoryInteractor(presenter: homeCategoryPresenter, categoryWorker: homeCategoryWorker)
-        let rootVC = HomeViewController(interactor: homeCategoryInteractor)
-        homeCategoryPresenter.viewController = rootVC
+        let homeCategoryPresenter = HomeviewCategoryPresenter() //Presenter
+        let homeCategoryWorker = HomeCategoryWorker.getCategoryWorker() // worker
+        let homeCategoryInteractor =  HomeViewCategoryInteractor(presenter: homeCategoryPresenter, categoryWorker: homeCategoryWorker) // Interactor
 
-        self.window?.rootViewController = UINavigationController(rootViewController: rootVC)
+        let homeVC = HomeViewController(interactor: homeCategoryInteractor) // HomeViewController
+
+        let categoryRouter: CategoryRouter = .init(viewController: homeVC) // Router
+        categoryRouter.dataStore = homeCategoryInteractor // DataStore setting into Router
+        homeCategoryPresenter.viewController = homeVC // ViewController setting into Presenter
+
+        homeVC.categoryRouter = categoryRouter // Router setting into HomeViewController
+
+
+        self.window?.rootViewController = UINavigationController(rootViewController: homeVC)
         self.window?.windowScene = windowScene
         self.window?.makeKeyAndVisible()
     }
