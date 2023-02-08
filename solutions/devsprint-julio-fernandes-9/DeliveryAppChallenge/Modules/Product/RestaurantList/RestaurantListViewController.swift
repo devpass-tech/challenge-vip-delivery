@@ -21,9 +21,7 @@ class RestaurantListViewController: UIViewController, RestaurantListViewControll
         navigationItem.title = "Restaurant List"
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder) { nil }
 
     override func loadView() {
         self.view = RestaurantListView()
