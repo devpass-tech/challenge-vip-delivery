@@ -7,15 +7,17 @@
 
 import UIKit
 
-protocol RestaurantListViewControllerProtocol {
+protocol RestaurantListViewControllerProtocol: AnyObject {
     
 }
 
 class RestaurantListViewController: UIViewController, RestaurantListViewControllerProtocol {
+    
+    private let interactor: RestaurantListInteractorProtocol
 
-    init() {
+    init(interactor: RestaurantListInteractorProtocol) {
+        self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
-
         navigationItem.title = "Restaurant List"
     }
 

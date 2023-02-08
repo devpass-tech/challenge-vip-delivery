@@ -13,4 +13,9 @@ protocol RestaurantListInteractorProtocol {
 
 final class RestaurantListInteractor: RestaurantListInteractorProtocol {
     
+    private let presenter: RestaurantListPresenterProtocol
+    
+    init(presenter: RestaurantListPresenterProtocol) {
+        self.presenter = presenter
+    }
 }

@@ -13,4 +13,6 @@ protocol RestaurantListPresenterProtocol {
 
 final class RestaurantListPresenter: RestaurantListPresenterProtocol {
     
+    weak var controller: RestaurantListViewControllerProtocol?
+    
 }
