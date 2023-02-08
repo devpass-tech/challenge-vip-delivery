@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		875DD92929933643009728A2 /* RestaurantListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875DD92829933643009728A2 /* RestaurantListPresenter.swift */; };
+		875DD92B29933659009728A2 /* RestaurantListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875DD92A29933659009728A2 /* RestaurantListInteractor.swift */; };
+		875DD92D29933679009728A2 /* RestaurantListFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875DD92C29933679009728A2 /* RestaurantListFactory.swift */; };
 		980D5748280DFF7700DDAF20 /* SampleRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */; };
 		980D5749280DFF7700DDAF20 /* SampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5735280DFF7700DDAF20 /* SampleRequest.swift */; };
 		980D574A280DFF7700DDAF20 /* SampleApiDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */; };
@@ -64,6 +67,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		875DD92829933643009728A2 /* RestaurantListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListPresenter.swift; sourceTree = "<group>"; };
+		875DD92A29933659009728A2 /* RestaurantListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListInteractor.swift; sourceTree = "<group>"; };
+		875DD92C29933679009728A2 /* RestaurantListFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListFactory.swift; sourceTree = "<group>"; };
 		980D5734280DFF7700DDAF20 /* SampleRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRepositoryImpl.swift; sourceTree = "<group>"; };
 		980D5735280DFF7700DDAF20 /* SampleRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleRequest.swift; sourceTree = "<group>"; };
 		980D5736280DFF7700DDAF20 /* SampleApiDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleApiDataSource.swift; sourceTree = "<group>"; };
@@ -324,6 +330,9 @@
 			isa = PBXGroup;
 			children = (
 				98EA055D272A0949007B0228 /* RestaurantListViewController.swift */,
+				875DD92829933643009728A2 /* RestaurantListPresenter.swift */,
+				875DD92A29933659009728A2 /* RestaurantListInteractor.swift */,
+				875DD92C29933679009728A2 /* RestaurantListFactory.swift */,
 			);
 			path = RestaurantList;
 			sourceTree = "<group>";
@@ -541,6 +550,7 @@
 				98FC5AB42732BFC8002412EA /* MenuListView.swift in Sources */,
 				980D5756280DFF7700DDAF20 /* SampleView.swift in Sources */,
 				98FC5AB82732C1EF002412EA /* MenuItemView.swift in Sources */,
+				875DD92D29933679009728A2 /* RestaurantListFactory.swift in Sources */,
 				98FC5AAE2732BA2E002412EA /* RestaurantInfoView.swift in Sources */,
 				980D5752280DFF7700DDAF20 /* SamplePresenter.swift in Sources */,
 				980D5751280DFF7700DDAF20 /* SampleViewController.swift in Sources */,
@@ -558,6 +568,7 @@
 				980D5753280DFF7700DDAF20 /* SampleFeatureFactory.swift in Sources */,
 				980D5750280DFF7700DDAF20 /* SampleInteractor.swift in Sources */,
 				980D5761280E016C00DDAF20 /* URLSessionProtocol.swift in Sources */,
+				875DD92B29933659009728A2 /* RestaurantListInteractor.swift in Sources */,
 				98F1296C272F328200B88A87 /* CategoryListView.swift in Sources */,
 				980D574D280DFF7700DDAF20 /* SampleRepository.swift in Sources */,
 				98F1296E272F363200B88A87 /* HomeView.swift in Sources */,
@@ -571,6 +582,7 @@
 				98F12972272F41BE00B88A87 /* RestaurantListView.swift in Sources */,
 				980D5749280DFF7700DDAF20 /* SampleRequest.swift in Sources */,
 				980D575C280E011A00DDAF20 /* ViewCode.swift in Sources */,
+				875DD92929933643009728A2 /* RestaurantListPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

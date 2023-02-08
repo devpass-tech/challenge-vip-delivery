@@ -7,7 +7,11 @@
 
 import UIKit
 
-class RestaurantListViewController: UIViewController {
+protocol RestaurantListViewControllerProtocol {
+    
+}
+
+class RestaurantListViewController: UIViewController, RestaurantListViewControllerProtocol {
 
     init() {
         super.init(nibName: nil, bundle: nil)
