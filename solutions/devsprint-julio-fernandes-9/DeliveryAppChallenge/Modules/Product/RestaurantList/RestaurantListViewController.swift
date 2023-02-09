@@ -7,17 +7,21 @@
 
 import UIKit
 
-class RestaurantListViewController: UIViewController {
+protocol RestaurantListViewControllerProtocol: AnyObject {
+    
+}
 
-    init() {
+class RestaurantListViewController: UIViewController, RestaurantListViewControllerProtocol {
+    
+    private let interactor: RestaurantListInteractorProtocol
+
+    init(interactor: RestaurantListInteractorProtocol) {
+        self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
-
         navigationItem.title = "Restaurant List"
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder) { nil }
 
     override func loadView() {
         self.view = RestaurantListView()
