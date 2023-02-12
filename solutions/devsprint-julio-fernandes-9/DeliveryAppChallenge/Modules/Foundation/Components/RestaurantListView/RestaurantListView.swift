@@ -7,14 +7,16 @@
 
 import UIKit
 
+protocol RestaurantListViewDelegate: AnyObject {
+    func restaurantList(_ restaurantListView: RestaurantListView, didTap restaurant: HomeViewEntity.RestaurantItem)
+}
+
 class RestaurantListView: UIView {
 
     static let cellSize = CGFloat(82)
-
     private let cellIdentifier = "RestaurantCellIdentifier"
 
     lazy var tableView: UITableView = {
-
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(RestaurantCellView.self, forCellReuseIdentifier: self.cellIdentifier)
@@ -25,12 +27,16 @@ class RestaurantListView: UIView {
 
     init() {
         super.init(frame: .zero)
-
         backgroundColor = .white
         addSubviews()
         configureConstraints()
-
-        tableView.reloadData()
+    }
+    
+    weak var delegate: RestaurantListViewDelegate?
+    var dataSource: [HomeViewEntity.RestaurantItem] = [] {
+        didSet {
+            self.tableView.reloadData()
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -41,14 +47,12 @@ class RestaurantListView: UIView {
 extension RestaurantListView {
 
     func addSubviews() {
-
         addSubview(tableView)
     }
 
     func configureConstraints() {
 
         NSLayoutConstraint.activate([
-
             tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
@@ -60,14 +64,16 @@ extension RestaurantListView {
 extension RestaurantListView: UITableViewDataSource {
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        return 10
+        print(dataSource)
+        return dataSource.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! RestaurantCellView
-
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? RestaurantCellView else {
+            return UITableViewCell()
+        }
+        cell.restaurant = dataSource[indexPath.row]
         return cell
     }
 }
@@ -79,6 +85,7 @@ extension RestaurantListView: UITableViewDelegate {
     }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        tableView.deselectRow(at: indexPath, animated: true)
+        delegate?.restaurantList(self, didTap: dataSource[indexPath.row])
     }
 }

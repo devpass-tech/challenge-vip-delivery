@@ -10,28 +10,24 @@ import UIKit
 class CategoryListView: UIView {
 
     let scrollView: UIScrollView = {
-
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-
         return scrollView
     }()
 
     let stackView: UIStackView = {
-
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .fill
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 8
+        stackView.distribution = .fill
+        stackView.spacing = 10
         return stackView
     }()
 
 
     init() {
         super.init(frame: .zero)
-
         addSubviews()
         configureConstraints()
     }
@@ -43,25 +39,24 @@ class CategoryListView: UIView {
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIView.noIntrinsicMetric, height: 122)
     }
+    
+    public var categories: Set<String> = [] {
+        didSet {
+            categories.forEach { stackView.addArrangedSubview(CategoryCellView(categorie: $0)) }
+        }
+    }
 }
 
 extension CategoryListView {
 
     func addSubviews() {
-
         addSubview(scrollView)
         scrollView.addSubview(stackView)
-
-        for _ in 0..<10 {
-
-            stackView.addArrangedSubview(CategoryCellView())
-        }
     }
 
     func configureConstraints() {
 
         NSLayoutConstraint.activate([
-
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
             scrollView.topAnchor.constraint(equalTo: topAnchor),
