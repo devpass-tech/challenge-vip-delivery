@@ -32,7 +32,6 @@
 		980D5763280E018200DDAF20 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5762280E018200DDAF20 /* NetworkManager.swift */; };
 		980D5765280E019D00DDAF20 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980D5764280E019D00DDAF20 /* NetworkRequest.swift */; };
 		980D5766280E077F00DDAF20 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F12967272F30E500B88A87 /* AddressView.swift */; };
-		980D5767280E079400DDAF20 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98612706272F56AB0049403C /* SettingsView.swift */; };
 		983271C6272752B50010C63A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 983271C5272752B50010C63A /* Assets.xcassets */; };
 		983271C9272752B50010C63A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 983271C7272752B50010C63A /* LaunchScreen.storyboard */; };
 		983271D4272752B50010C63A /* DeliveryAppChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983271D3272752B50010C63A /* DeliveryAppChallengeTests.swift */; };
@@ -43,7 +42,6 @@
 		98F12970272F41AE00B88A87 /* RestaurantCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1296F272F41AE00B88A87 /* RestaurantCellView.swift */; };
 		98F12972272F41BE00B88A87 /* RestaurantListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F12971272F41BE00B88A87 /* RestaurantListView.swift */; };
 		98F12975272F48E400B88A87 /* AddressCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F12974272F48E400B88A87 /* AddressCellView.swift */; };
-		98F1297B272F51AE00B88A87 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F1297A272F51AE00B88A87 /* SettingsViewController.swift */; };
 		98FAF509280E08EC0075B35B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983271BC272752AF0010C63A /* AppDelegate.swift */; };
 		98FAF50A280E08F90075B35B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983271BE272752AF0010C63A /* SceneDelegate.swift */; };
 		98FC5AAB2732B938002412EA /* RestaurantDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FC5AAA2732B938002412EA /* RestaurantDetailsView.swift */; };
@@ -52,6 +50,15 @@
 		98FC5AB42732BFC8002412EA /* MenuListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FC5AB32732BFC8002412EA /* MenuListView.swift */; };
 		98FC5AB62732BFDA002412EA /* MenuCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FC5AB52732BFDA002412EA /* MenuCellView.swift */; };
 		98FC5AB82732C1EF002412EA /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FC5AB72732C1EF002412EA /* MenuItemView.swift */; };
+		ACEFB66329994CA700EE6582 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEFB65D29994CA700EE6582 /* SettingsPresenter.swift */; };
+		ACEFB66429994CA700EE6582 /* SettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEFB65E29994CA700EE6582 /* SettingsRouter.swift */; };
+		ACEFB66529994CA700EE6582 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEFB65F29994CA700EE6582 /* SettingsViewController.swift */; };
+		ACEFB66629994CA700EE6582 /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEFB66029994CA700EE6582 /* SettingsInteractor.swift */; };
+		ACEFB66829994CA700EE6582 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEFB66229994CA700EE6582 /* SettingsModel.swift */; };
+		ACEFB66A29994CBC00EE6582 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEFB66929994CBC00EE6582 /* SettingsView.swift */; };
+		ACEFB66D299952AE00EE6582 /* SettingsNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEFB66C299952AE00EE6582 /* SettingsNetworkRequest.swift */; };
+		ACEFB6702999558E00EE6582 /* SettingsNetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEFB66F2999558E00EE6582 /* SettingsNetworkResponse.swift */; };
+		ACEFB69629998D9100EE6582 /* SettingsConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEFB69529998D9100EE6582 /* SettingsConfigurator.swift */; };
 		ACFD2496299827BE00696561 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD2495299827BE00696561 /* HomeInteractor.swift */; };
 		ACFD2497299827BE00696561 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD2490299827BD00696561 /* HomeModel.swift */; };
 		ACFD2498299827BE00696561 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD2491299827BD00696561 /* HomeView.swift */; };
@@ -110,7 +117,6 @@
 		983271CA272752B50010C63A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		983271CF272752B50010C63A /* DeliveryAppChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeliveryAppChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		983271D3272752B50010C63A /* DeliveryAppChallengeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryAppChallengeTests.swift; sourceTree = "<group>"; };
-		98612706272F56AB0049403C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		98EA055A272A092F007B0228 /* AddressSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchViewController.swift; sourceTree = "<group>"; };
 		98EA055D272A0949007B0228 /* RestaurantListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListViewController.swift; sourceTree = "<group>"; };
 		98EA0560272A0963007B0228 /* RestaurantDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsViewController.swift; sourceTree = "<group>"; };
@@ -121,7 +127,6 @@
 		98F12971272F41BE00B88A87 /* RestaurantListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListView.swift; sourceTree = "<group>"; };
 		98F12974272F48E400B88A87 /* AddressCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressCellView.swift; sourceTree = "<group>"; };
 		98F12976272F48F000B88A87 /* AddressListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressListView.swift; sourceTree = "<group>"; };
-		98F1297A272F51AE00B88A87 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		98F1297C272F51DE00B88A87 /* MenuItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemViewController.swift; sourceTree = "<group>"; };
 		98FC5AAA2732B938002412EA /* RestaurantDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsView.swift; sourceTree = "<group>"; };
 		98FC5AAD2732BA2E002412EA /* RestaurantInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantInfoView.swift; sourceTree = "<group>"; };
@@ -129,6 +134,15 @@
 		98FC5AB32732BFC8002412EA /* MenuListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListView.swift; sourceTree = "<group>"; };
 		98FC5AB52732BFDA002412EA /* MenuCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellView.swift; sourceTree = "<group>"; };
 		98FC5AB72732C1EF002412EA /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
+		ACEFB65D29994CA700EE6582 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
+		ACEFB65E29994CA700EE6582 /* SettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRouter.swift; sourceTree = "<group>"; };
+		ACEFB65F29994CA700EE6582 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		ACEFB66029994CA700EE6582 /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
+		ACEFB66229994CA700EE6582 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
+		ACEFB66929994CBC00EE6582 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		ACEFB66C299952AE00EE6582 /* SettingsNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNetworkRequest.swift; sourceTree = "<group>"; };
+		ACEFB66F2999558E00EE6582 /* SettingsNetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNetworkResponse.swift; sourceTree = "<group>"; };
+		ACEFB69529998D9100EE6582 /* SettingsConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfigurator.swift; sourceTree = "<group>"; };
 		ACFD2490299827BD00696561 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		ACFD2491299827BD00696561 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		ACFD2492299827BD00696561 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
@@ -427,8 +441,8 @@
 		98F12979272F512900B88A87 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				98F1297A272F51AE00B88A87 /* SettingsViewController.swift */,
-				98612706272F56AB0049403C /* SettingsView.swift */,
+				ACEFB66B2999527C00EE6582 /* Presentation */,
+				ACEFB66E299952B900EE6582 /* Data */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -456,6 +470,29 @@
 				98FC5AB52732BFDA002412EA /* MenuCellView.swift */,
 			);
 			path = MenuListView;
+			sourceTree = "<group>";
+		};
+		ACEFB66B2999527C00EE6582 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				ACEFB66929994CBC00EE6582 /* SettingsView.swift */,
+				ACEFB65F29994CA700EE6582 /* SettingsViewController.swift */,
+				ACEFB66029994CA700EE6582 /* SettingsInteractor.swift */,
+				ACEFB65D29994CA700EE6582 /* SettingsPresenter.swift */,
+				ACEFB65E29994CA700EE6582 /* SettingsRouter.swift */,
+				ACEFB66229994CA700EE6582 /* SettingsModel.swift */,
+				ACEFB69529998D9100EE6582 /* SettingsConfigurator.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		ACEFB66E299952B900EE6582 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				ACEFB66C299952AE00EE6582 /* SettingsNetworkRequest.swift */,
+				ACEFB66F2999558E00EE6582 /* SettingsNetworkResponse.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		ACFD24A8299827F100696561 /* Data */ = {
@@ -587,10 +624,12 @@
 				ACFD24AC299862EB00696561 /* AddressListView.swift in Sources */,
 				ACFD24AB2998628300696561 /* AddressSearchViewController.swift in Sources */,
 				98FAF50A280E08F90075B35B /* SceneDelegate.swift in Sources */,
+				ACEFB66429994CA700EE6582 /* SettingsRouter.swift in Sources */,
+				ACEFB69629998D9100EE6582 /* SettingsConfigurator.swift in Sources */,
 				98FAF509280E08EC0075B35B /* AppDelegate.swift in Sources */,
-				980D5767280E079400DDAF20 /* SettingsView.swift in Sources */,
 				980D5766280E077F00DDAF20 /* AddressView.swift in Sources */,
 				980D5755280DFF7700DDAF20 /* SampleRouter.swift in Sources */,
+				ACEFB66629994CA700EE6582 /* SettingsInteractor.swift in Sources */,
 				980D5754280DFF7700DDAF20 /* SampleUseCases.swift in Sources */,
 				980D574F280DFF7700DDAF20 /* GetDataUseCase.swift in Sources */,
 				98FC5AB42732BFC8002412EA /* MenuListView.swift in Sources */,
@@ -606,32 +645,37 @@
 				98FC5AB12732BB7D002412EA /* RatingView.swift in Sources */,
 				980D5748280DFF7700DDAF20 /* SampleRepositoryImpl.swift in Sources */,
 				98F12975272F48E400B88A87 /* AddressCellView.swift in Sources */,
+				ACEFB66529994CA700EE6582 /* SettingsViewController.swift in Sources */,
 				ACFD2498299827BE00696561 /* HomeView.swift in Sources */,
 				980D575F280E015600DDAF20 /* NetworkError.swift in Sources */,
 				98F12970272F41AE00B88A87 /* RestaurantCellView.swift in Sources */,
 				98EA055E272A0949007B0228 /* RestaurantListViewController.swift in Sources */,
 				980D5765280E019D00DDAF20 /* NetworkRequest.swift in Sources */,
-				98F1297B272F51AE00B88A87 /* SettingsViewController.swift in Sources */,
 				ACFD24B12998732A00696561 /* HomeConfigurator.swift in Sources */,
 				980D5763280E018200DDAF20 /* NetworkManager.swift in Sources */,
 				ACFD2499299827BE00696561 /* HomePresenter.swift in Sources */,
 				ACFD2497299827BE00696561 /* HomeModel.swift in Sources */,
 				980D574B280DFF7700DDAF20 /* SampleDataSource.swift in Sources */,
+				ACEFB66D299952AE00EE6582 /* SettingsNetworkRequest.swift in Sources */,
 				980D5753280DFF7700DDAF20 /* SampleFeatureFactory.swift in Sources */,
 				980D5750280DFF7700DDAF20 /* SampleInteractor.swift in Sources */,
 				980D5761280E016C00DDAF20 /* URLSessionProtocol.swift in Sources */,
+				ACEFB66829994CA700EE6582 /* SettingsModel.swift in Sources */,
 				875DD92B29933659009728A2 /* RestaurantListInteractor.swift in Sources */,
 				98F1296C272F328200B88A87 /* CategoryListView.swift in Sources */,
 				980D574D280DFF7700DDAF20 /* SampleRepository.swift in Sources */,
+				ACEFB66A29994CBC00EE6582 /* SettingsView.swift in Sources */,
 				98F1296A272F327100B88A87 /* CategoryCellView.swift in Sources */,
 				ACFD24A7299827C500696561 /* HomeViewEntity.swift in Sources */,
 				ACFD24A6299827C500696561 /* HomeNetworkRequest.swift in Sources */,
+				ACEFB66329994CA700EE6582 /* SettingsPresenter.swift in Sources */,
 				98FC5AAB2732B938002412EA /* RestaurantDetailsView.swift in Sources */,
 				980D575A280E010200DDAF20 /* FeatureFactory.swift in Sources */,
 				98FC5AB62732BFDA002412EA /* MenuCellView.swift in Sources */,
 				ACFD2496299827BE00696561 /* HomeInteractor.swift in Sources */,
 				980D574E280DFF7700DDAF20 /* DataModel.swift in Sources */,
 				98EA0561272A0963007B0228 /* RestaurantDetailsViewController.swift in Sources */,
+				ACEFB6702999558E00EE6582 /* SettingsNetworkResponse.swift in Sources */,
 				980D574A280DFF7700DDAF20 /* SampleApiDataSource.swift in Sources */,
 				98F12972272F41BE00B88A87 /* RestaurantListView.swift in Sources */,
 				980D5749280DFF7700DDAF20 /* SampleRequest.swift in Sources */,
