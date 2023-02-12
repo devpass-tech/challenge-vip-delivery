@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol AddressViewDelegate: AnyObject {
+    func didTapEditButton()
+}
+
 class AddressView: UIView {
 
     let addressLabel: UILabel = {
@@ -17,14 +21,16 @@ class AddressView: UIView {
         return label
     }()
 
-    let editButton: UIButton = {
-
+    lazy var editButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Edit", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
+        button.addTarget(self, action: #selector(didTapEditButton), for: .touchUpInside)
         return button
     }()
+    
+    weak var delegate: AddressViewDelegate?
 
     init() {
         super.init(frame: .zero)
@@ -39,6 +45,11 @@ class AddressView: UIView {
 
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIView.noIntrinsicMetric, height: 66)
+    }
+    
+    @objc
+    func didTapEditButton() {
+        delegate?.didTapEditButton()
     }
 }
 

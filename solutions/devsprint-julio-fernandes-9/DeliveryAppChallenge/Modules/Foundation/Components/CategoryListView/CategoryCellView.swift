@@ -10,7 +10,6 @@ import UIKit
 class CategoryCellView: UIView {
 
     let stackView: UIStackView = {
-
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -19,7 +18,6 @@ class CategoryCellView: UIView {
     }()
 
     let imageView: UIImageView = {
-
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "pizza")
@@ -29,7 +27,6 @@ class CategoryCellView: UIView {
     }()
 
     let nameLabel: UILabel = {
-
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Pizza"
@@ -38,11 +35,11 @@ class CategoryCellView: UIView {
         return label
     }()
 
-    init() {
+    init(categorie: String) {
         super.init(frame: .zero)
-
         addSubviews()
         configureConstraints()
+        nameLabel.text = categorie
     }
 
     required init?(coder: NSCoder) {
@@ -57,7 +54,6 @@ class CategoryCellView: UIView {
 extension CategoryCellView {
 
     func addSubviews() {
-
         addSubview(stackView)
         stackView.addArrangedSubview(imageView)
         stackView.addArrangedSubview(nameLabel)
@@ -66,7 +62,6 @@ extension CategoryCellView {
     func configureConstraints() {
 
         NSLayoutConstraint.activate([
-
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.topAnchor.constraint(equalTo: topAnchor),
