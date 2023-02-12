@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RestaurantInfoView: UIView {
+final class RestaurantInfoView: UIView {
 
    private var mainStackView: UIStackView = {
        let stack = UIStackView(frame: .zero)
