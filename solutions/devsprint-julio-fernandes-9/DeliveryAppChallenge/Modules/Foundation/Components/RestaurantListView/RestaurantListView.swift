@@ -64,7 +64,6 @@ extension RestaurantListView {
 extension RestaurantListView: UITableViewDataSource {
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(dataSource)
         return dataSource.count
     }
 

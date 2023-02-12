@@ -20,8 +20,8 @@ class CategoryListView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .fill
-        stackView.distribution = .fill
-        stackView.spacing = 10
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 8
         return stackView
     }()
 
