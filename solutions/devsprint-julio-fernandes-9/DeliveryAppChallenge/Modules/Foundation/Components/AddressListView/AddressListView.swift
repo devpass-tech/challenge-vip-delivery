@@ -24,7 +24,7 @@ final class AddressListView: UIView, AddressListViewProtocol {
     private let cellIdentifier = "AddressCellIdentifier"
 
     // MARK: - View properties
-    private var viewModelList: [AddressListViewModel]?
+    private var viewModelList: [AddressListViewModel] = []
 
     // MARK: - UIElements
     private lazy var tableView: UITableView = {
@@ -72,21 +72,12 @@ extension AddressListView {
 }
 
 extension AddressListView: UITableViewDataSource {
-
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        return 10
+        viewModelList.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? AddressCellView else { return UITableViewCell() }
-
-        guard let viewModelList = self.viewModelList else { return UITableViewCell() }
-
-        // TODO: - Efficient?
-        let cellCount = viewModelList.count
-
-        guard indexPath.row < cellCount else { return UITableViewCell() }
 
         let viewModel = viewModelList[indexPath.row]
 

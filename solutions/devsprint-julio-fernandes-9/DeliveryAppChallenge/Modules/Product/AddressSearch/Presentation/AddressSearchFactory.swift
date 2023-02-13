@@ -7,26 +7,15 @@
 
 import UIKit
 
-final class AddressSearchControllerFactory {
+enum AddressSearchControllerFactory {
 
-    private let addressListView: AddressListViewProtocol
-    private let interactor: AddressSearchInteractorProtocol
-    private let presenter: AddressSearchPresenterProtocol
-
-    init(with addressListView: AddressListViewProtocol = AddressListView(),
-         interactor: AddressSearchInteractorProtocol = AddressSearchInteractor(),
-         and presenter: AddressSearchPresenterProtocol = AddressSearchPresenter()
-    ) {
-        self.addressListView = addressListView
-        self.interactor = interactor
-        self.presenter = presenter
-    }
-
-    func makeViewController() -> UIViewController {
-        interactor.presenter = presenter
-
+    static func make() -> AddressSearchViewController {
+        let addressListView = AddressListView()
+        let interactor = AddressSearchInteractor()
+        let presenter = AddressSearchPresenter()
         let controller = AddressSearchViewController(with: addressListView, and: interactor)
 
+        interactor.presenter = presenter
         presenter.controller = controller
 
         return controller
