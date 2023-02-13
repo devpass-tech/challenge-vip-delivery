@@ -62,6 +62,13 @@ class RestaurantCellView: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    public var restaurant: HomeViewEntity.RestaurantItem? {
+        didSet {
+            restaurantNameLabel.text = restaurant?.name
+            restaurantInfoLabel.text = restaurant?.info
+        }
+    }
 }
 
 extension RestaurantCellView {

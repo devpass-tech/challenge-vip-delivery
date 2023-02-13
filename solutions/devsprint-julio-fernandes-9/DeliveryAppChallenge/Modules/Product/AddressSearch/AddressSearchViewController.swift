@@ -40,7 +40,7 @@ class AddressSearchViewController: UIViewController {
 extension AddressSearchViewController: UISearchResultsUpdating {
 
     func updateSearchResults(for searchController: UISearchController) {
-
+        
     }
 }
 
