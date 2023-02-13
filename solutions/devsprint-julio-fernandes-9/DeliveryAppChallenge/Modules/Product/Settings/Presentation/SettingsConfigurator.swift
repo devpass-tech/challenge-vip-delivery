@@ -13,7 +13,7 @@ enum SettingsConfigurator {
     
     static func makeSettings() -> UIViewController {
         let presenter = SettingsPresenter()
-        let interactor = SettingsInteractor(network: NetworkManager(), presenter: presenter, dataSource: .init())
+        let interactor = SettingsInteractor(network: NetworkManager(), presenter: presenter)
         let router = SettingsRouter()
         let viewController = SettingsViewController(interactor: interactor, router: router)
         presenter.viewController = viewController
