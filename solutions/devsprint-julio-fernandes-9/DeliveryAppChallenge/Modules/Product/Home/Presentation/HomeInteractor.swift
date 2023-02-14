@@ -41,7 +41,7 @@ private extension HomeInteractor {
     
     func fetchDataView() {
         networking.request(HomeNetworkRequest.fetchDataView) { [weak self] (result: Result<[Restaurant], Error>) in
-            guard let self else { return }
+            guard let self = self else { return }
             switch result {
             case .success(let response):
                 self.presenter.presentResponse(.hasDataView(response: response))

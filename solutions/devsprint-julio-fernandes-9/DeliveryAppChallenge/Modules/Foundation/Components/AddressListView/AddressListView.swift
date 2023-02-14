@@ -7,14 +7,27 @@
 
 import UIKit
 
-class AddressListView: UIView {
+// TODO: - Move to suitable file && folder
+struct AddressListViewModel {
+    var title: String
+    var subtitle: String
+}
 
+protocol AddressListViewProtocol where Self: UIView {
+    func show(viewModelList: [AddressListViewModel]) -> Void
+}
+
+final class AddressListView: UIView, AddressListViewProtocol {
+
+    // MARK: - Cell properties
     static let cellSize = CGFloat(82)
-
     private let cellIdentifier = "AddressCellIdentifier"
 
-    lazy var tableView: UITableView = {
+    // MARK: - View properties
+    private var viewModelList: [AddressListViewModel] = []
 
+    // MARK: - UIElements
+    private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(AddressCellView.self, forCellReuseIdentifier: self.cellIdentifier)
@@ -33,22 +46,23 @@ class AddressListView: UIView {
         tableView.reloadData()
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func show(viewModelList: [AddressListViewModel]) {
+        self.viewModelList = viewModelList
+        tableView.reloadData()
     }
+
+    required init?(coder: NSCoder) { nil }
 }
 
+// TODO: Conform to ViewCodeProtocol
 extension AddressListView {
 
     func addSubviews() {
-
         addSubview(tableView)
     }
 
     func configureConstraints() {
-
         NSLayoutConstraint.activate([
-
             tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
@@ -58,15 +72,16 @@ extension AddressListView {
 }
 
 extension AddressListView: UITableViewDataSource {
-
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        return 10
+        viewModelList.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? AddressCellView else { return UITableViewCell() }
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! AddressCellView
+        let viewModel = viewModelList[indexPath.row]
+
+        cell.populate(with: viewModel.title, andSubtitle: viewModel.subtitle)
 
         return cell
     }
@@ -75,7 +90,7 @@ extension AddressListView: UITableViewDataSource {
 extension AddressListView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return RestaurantListView.cellSize
+        RestaurantListView.cellSize
     }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

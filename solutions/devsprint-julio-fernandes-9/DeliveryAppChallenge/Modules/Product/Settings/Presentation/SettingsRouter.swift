@@ -35,6 +35,6 @@ extension SettingsRouter: SettingsRouting {
 private extension SettingsRouter {
     
     func showEditAddress() {
-        viewController?.navigationController?.pushViewController(AddressSearchViewController(), animated: true)
+        viewController?.navigationController?.pushViewController(AddressSearchControllerFactory.make(), animated: true)
     }
 }

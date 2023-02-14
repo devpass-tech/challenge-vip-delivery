@@ -7,7 +7,11 @@
 
 import UIKit
 
-class AddressCellView: UITableViewCell {
+protocol AddressCellViewProtocol where Self: UITableViewCell {
+    func populate(with title: String, andSubtitle subtitle: String)
+}
+
+final class AddressCellView: UITableViewCell, AddressCellViewProtocol {
 
     private var stackView: UIStackView = {
         let stack = UIStackView(frame: .zero)
@@ -17,20 +21,18 @@ class AddressCellView: UITableViewCell {
         return stack
     }()
 
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.text = "Street address"
         return label
     }()
 
-    lazy var subtitleLabel: UILabel = {
+    private lazy var subtitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 14)
-        label.text = "Neighborhood"
         return label
     }()
 
@@ -41,11 +43,15 @@ class AddressCellView: UITableViewCell {
         configureConstraints()
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required init?(coder: NSCoder) { nil }
+
+    func populate(with title: String, andSubtitle subtitle: String) {
+        self.titleLabel.text = title
+        self.subtitleLabel.text = subtitle
     }
 }
 
+// TODO: Conform to ViewCodeProtocol
 extension AddressCellView {
 
     func addSubviews() {

@@ -34,7 +34,7 @@ private extension HomePresenter {
     
     private func presentViewModel(with response: [Restaurant]) {
         
-        let restaurants = response.map { restaurant in
+        let restaurants: [HomeViewEntity.RestaurantItem] = response.map { restaurant in
             let info = "\(restaurant.category) • \(restaurant.deliveryTime.min)-\(restaurant.deliveryTime.max) min"
             return HomeViewEntity.RestaurantItem(name: restaurant.name, info: info)
         }
