@@ -38,7 +38,7 @@ private extension SettingsInteractor {
     func fetchDataView() {
         
         network.request(SettingsNetworkRequest.fetchData) { [weak self] (result: Result<SettingsNetworkResponse, Error>) in
-            guard let self else { return }
+            guard let self = self else { return }
             switch result {
             case .success(let response):
                 self.presenter.presentResponse(.fetchDataView(response: response))
