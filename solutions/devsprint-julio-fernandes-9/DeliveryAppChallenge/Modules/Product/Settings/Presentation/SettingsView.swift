@@ -2,10 +2,20 @@
 //  SettingsView.swift
 //  DeliveryAppChallenge
 //
-//  Created by Rodrigo Borges on 31/10/21.
+//  Created by Alexandre Robaert on 12/02/23.
+//  Copyright (c) 2023 Alexandre Robaert. All rights reserved.
 //
 
 import UIKit
+
+protocol SettingsViewProtocol where Self: UIView {
+    var delegate: SettingsViewDelegate? { get set }
+    var model: SettingsNetworkResponse? { get set }
+}
+
+protocol SettingsViewDelegate where Self: UIViewController {
+    func didTapAddress()
+}
 
 private enum Sections: Int, CaseIterable {
     case name
@@ -27,8 +37,8 @@ private enum Sections: Int, CaseIterable {
     }
 }
 
-class SettingsView: UIView {
-
+final class SettingsView: UIView, SettingsViewProtocol {
+    
     let cellIdentifier = "SettingsCell"
 
     lazy var tableView: UITableView = {
@@ -37,17 +47,22 @@ class SettingsView: UIView {
         tableView.backgroundColor = .systemGroupedBackground
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         tableView.dataSource = self
+        tableView.delegate = self
         return tableView
     }()
+    
+    weak var delegate: SettingsViewDelegate?
+    public var model: SettingsNetworkResponse? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
 
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
-
         backgroundColor = .white
-        
         addSubviews()
         configureConstraints()
-
         tableView.reloadData()
     }
 
@@ -59,14 +74,11 @@ class SettingsView: UIView {
 extension SettingsView {
 
     func addSubviews() {
-
         addSubview(tableView)
     }
 
     func configureConstraints() {
-
         NSLayoutConstraint.activate([
-
             tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
@@ -75,14 +87,13 @@ extension SettingsView {
     }
 }
 
-extension SettingsView: UITableViewDataSource {
+extension SettingsView: UITableViewDataSource, UITableViewDelegate {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return Sections.allCases.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
         return 1
     }
 
@@ -95,28 +106,29 @@ extension SettingsView: UITableViewDataSource {
 
         switch sectionIndex {
         case .name:
-            cell.textLabel?.text = "John Appleseed"
-
+            cell.textLabel?.text = model?.name
         case .email:
-            cell.textLabel?.text = "john@apple.com"
-
+            cell.textLabel?.text = model?.email
         case .address:
-            cell.textLabel?.text = "Rua Bela Cintra, 495 - Consolação"
-
+            cell.textLabel?.text = model?.address
         case .paymentMethod:
-            cell.textLabel?.text = "Cartão de Crédito"
+            cell.textLabel?.text = model?.paymentMethod
         }
-        
         return cell
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
         guard let section = Sections(rawValue: section) else {
-
             return nil
         }
         return section.name
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if let sectionIndex = Sections(rawValue: indexPath.section), sectionIndex == .address {
+            delegate?.didTapAddress()
+        }
+    }
 }
-

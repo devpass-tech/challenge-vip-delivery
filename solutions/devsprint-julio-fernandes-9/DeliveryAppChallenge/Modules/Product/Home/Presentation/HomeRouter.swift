@@ -47,7 +47,7 @@ private extension HomeRouter {
     }
     
     private func goToSettings() {
-        viewController?.navigationController?.pushViewController(SettingsViewController(), animated: true)
+        viewController?.navigationController?.pushViewController(SettingsConfigurator.makeSettings(), animated: true)
     }
     
     private func showAlertError(message: String) {
