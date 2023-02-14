@@ -1,0 +1,65 @@
+#==================================================================================================
+# Xcodegen documentation
+# https://github.com/yonaskolb/XcodeGen/blob/master/Docs/ProjectSpec.md#target-scheme
+#==================================================================================================
+
+# Definimos o nome do projeto
+name: DeliveryAppChallenge
+
+# Configuracoes de compilacao
+settings:
+  MARKETING_VERSION: "1.0.0"
+  SWIFT_VERSION: 5.0
+  VERSIONING_SYSTEM: "apple-generic"
+  CODE_SIGN_IDENTITY: "iPhone Developer"
+  ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: "YES"
+  ARCHS: $(ARCHS_STANDARD)
+  
+options:
+  bundleIdPrefix: com.devpass
+  deploymentTarget:
+    iOS: 13.3
+
+targets:
+  DeliveryApp:
+    type: application
+    platform: iOS
+    sources:
+      - DeliveryAppChallenge
+    scheme:
+      testTargets:
+      - name: DeliveryAppChallengeTests
+        randomExecutionOrder: true
+      gatherCoverageData: true
+      coverageTargets:
+        - DeliveryApp
+    settings:
+      configs:
+        Debug:
+          ONLY_ACTIVE_ARCH: NO
+    info:
+      path: DeliveryAppChallenge/Resources/Info.plist
+      properties:
+        UISupportedInterfaceOrientations: []
+        NSAppTransportSecurity: true
+        UILaunchStoryboardName: LaunchScreen
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+          UISceneConfigurations:
+            UIWindowSceneSessionRoleApplication:
+              - UISceneConfigurationName: Default Configuration
+                UISceneDelegateClassName: $(PRODUCT_MODULE_NAME).SceneDelegate
+
+  DeliveryAppChallengeTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: DeliveryAppChallengeTests
+        includes:
+          - "**/*.swift"
+
+    settings:
+      TEST_HOST: "$(BUILT_PRODUCTS_DIR)/DeliveryApp.app/DeliveryApp"
+
+    info:
+      path: DeliveryAppChallengeTests/Info.plist
