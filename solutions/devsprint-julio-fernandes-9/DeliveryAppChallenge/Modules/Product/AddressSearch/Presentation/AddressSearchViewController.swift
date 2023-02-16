@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol AddressSearchViewControllerProtocol where Self: UIViewController {
-
+protocol AddressSearchDisplayLogicProtocol where Self: UIViewController {
+    func display(_ viewModel: AddressSearchModel.ViewModel)
 }
 
-final class AddressSearchViewController: UIViewController, AddressSearchViewControllerProtocol {
+final class AddressSearchViewController: UIViewController, AddressSearchDisplayLogicProtocol {
 
     // TODO: Should one inject such dependency?
     let searchController = UISearchController(searchResultsController: nil)
@@ -20,9 +20,9 @@ final class AddressSearchViewController: UIViewController, AddressSearchViewCont
     private let addresslistView: AddressListViewProtocol
 
     // MARK: - VIP Lifecycle dependencies
-    private let interactor: AddressSearchInteractorProtocol
+    private let interactor: AddressSearchBusinessLogicProtocol
 
-    init(with addresslistView: AddressListViewProtocol, and interactor: AddressSearchInteractorProtocol) {
+    init(with addresslistView: AddressListViewProtocol, and interactor: AddressSearchBusinessLogicProtocol) {
         self.addresslistView = addresslistView
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
@@ -37,16 +37,21 @@ final class AddressSearchViewController: UIViewController, AddressSearchViewCont
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
-        addresslistView.show(viewModelList: [.init(title: "Test title 1", subtitle: "Test subtitle 1"),
-                                             .init(title: "Test title 2", subtitle: "Test subtitle 2"),
-                                             .init(title: "Test title 3", subtitle: "Test subtitle 3"),
-                                             .init(title: "Test title 4", subtitle: "Test subtitle 4")])
+        interactor.doRequest(.fetchDataView)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupDelegatesAndNavigation()
+    }
+
+    func display(_ viewModel: AddressSearchModel.ViewModel) {
+        switch viewModel {
+        case let .success(viewEntity): addresslistView.show(viewEntity)
+        case let .error(viewEntity): print(viewEntity)
+        }
     }
 }
 
@@ -66,13 +71,13 @@ extension AddressSearchViewController {
 extension AddressSearchViewController: UISearchResultsUpdating {
 
     func updateSearchResults(for searchController: UISearchController) {
-        // Should trigger interactor?
+        // TODO: To be implemented
     }
 }
 
 extension AddressSearchViewController: UISearchBarDelegate, UISearchControllerDelegate {
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        // Triggers interactor
+        // TODO: To be implemented
     }
 }

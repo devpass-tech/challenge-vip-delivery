@@ -11,11 +11,11 @@ enum AddressSearchControllerFactory {
 
     static func make() -> AddressSearchViewController {
         let addressListView = AddressListView()
-        let interactor = AddressSearchInteractor()
         let presenter = AddressSearchPresenter()
+        let network = NetworkManager()
+        let interactor = AddressSearchInteractor(with: presenter, and: network)
         let controller = AddressSearchViewController(with: addressListView, and: interactor)
 
-        interactor.presenter = presenter
         presenter.controller = controller
 
         return controller

@@ -7,12 +7,25 @@
 
 import Foundation
 
-protocol AddressSearchPresenterProtocol: AnyObject {
-    var controller: AddressSearchViewControllerProtocol? { get set } 
+protocol AddressSearchPresentationLogicProtocol: AnyObject {
+    var controller: AddressSearchDisplayLogicProtocol? { get set }
+    func presentResponde(_ response: AddressSearchModel.Response)
 }
 
-final class AddressSearchPresenter: AddressSearchPresenterProtocol {
+final class AddressSearchPresenter: AddressSearchPresentationLogicProtocol {
 
-    weak var controller: AddressSearchViewControllerProtocol?
+    weak var controller: AddressSearchDisplayLogicProtocol?
 
+    func presentResponde(_ response: AddressSearchModel.Response) {
+        switch response {
+        case let .hasDataView(response):
+            let response = response.map( { $0.getFullAddress() })
+            let items: [AddressListViewModel] = response.map({
+                .init(title: $0.streetWithNumber, subtitle: $0.neighborhood)
+            })
+            controller?.display(.success(items))
+        case let .errorOnFetchDataView(message):
+            print(message)
+        }
+    }
 }
