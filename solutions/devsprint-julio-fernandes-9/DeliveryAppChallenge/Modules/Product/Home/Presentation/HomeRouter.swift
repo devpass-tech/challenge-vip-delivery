@@ -64,6 +64,7 @@ private extension HomeRouter {
     }
     
     private func showEditAddress() {
-        self.viewController?.navigationController?.pushViewController(AddressSearchControllerFactory.make(), animated: true)
+        let controller = viewController as? HomeDisplayLogic
+        self.viewController?.navigationController?.pushViewController(AddressSearchControllerFactory.make(delegate: controller), animated: true)
     }
 }

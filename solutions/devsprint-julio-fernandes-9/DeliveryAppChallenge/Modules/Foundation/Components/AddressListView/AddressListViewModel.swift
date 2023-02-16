@@ -11,3 +11,9 @@ struct AddressListViewModel {
     var title: String
     var subtitle: String
 }
+
+extension AddressListViewModel {
+    func toString() -> String {
+        "\(title). \(subtitle)"
+    }
+}

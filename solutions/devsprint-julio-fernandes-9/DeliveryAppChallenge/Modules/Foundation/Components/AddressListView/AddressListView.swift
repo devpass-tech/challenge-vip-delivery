@@ -8,7 +8,12 @@
 import UIKit
 
 protocol AddressListViewProtocol where Self: UIView {
+    var delegate: AddressListViewDelegate? { get set }
     func show(_ viewModelList: [AddressListViewModel]) -> Void
+}
+
+protocol AddressListViewDelegate: AnyObject {
+    func didTapAddress(_ viewModel: AddressListViewModel)
 }
 
 final class AddressListView: UIView, AddressListViewProtocol {
@@ -19,6 +24,9 @@ final class AddressListView: UIView, AddressListViewProtocol {
 
     // MARK: - View properties
     private var viewModelList: [AddressListViewModel] = []
+
+    // MARK: - Delegate
+    weak var delegate: AddressListViewDelegate?
 
     // MARK: - UIElements
     private lazy var tableView: UITableView = {
@@ -88,6 +96,7 @@ extension AddressListView: UITableViewDelegate {
     }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        let viewModel = viewModelList[indexPath.row]
+        delegate?.didTapAddress(viewModel)
     }
 }

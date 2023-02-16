@@ -22,4 +22,9 @@ enum AddressSearchModel {
         case success(_ viewModel: [AddressListViewModel])
         case error(_ viewModel: AddressListViewModel)
     }
+
+    enum Route {
+        case goToHome
+        case showAllertError(_ message: String)
+    }
 }

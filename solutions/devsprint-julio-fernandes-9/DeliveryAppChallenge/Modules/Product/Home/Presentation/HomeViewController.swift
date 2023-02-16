@@ -63,6 +63,8 @@ extension HomeViewController: HomeDisplayLogic {
                 self.mainView.updateView(viewEntity: viewEntity)
             case .dataViewWithError(let messageError):
                 self.router.routeTo(.showMessageError(message: messageError))
+            case let .updateAddress(address):
+                print("address: \(address)")
             }
         }
     }

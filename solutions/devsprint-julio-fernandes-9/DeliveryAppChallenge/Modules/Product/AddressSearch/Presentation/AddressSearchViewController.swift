@@ -17,23 +17,34 @@ final class AddressSearchViewController: UIViewController, AddressSearchDisplayL
     let searchController = UISearchController(searchResultsController: nil)
 
     // MARK: - UI Properties
-    private let addresslistView: AddressListViewProtocol
+    private let addressListView: AddressListViewProtocol
 
     // MARK: - VIP Lifecycle dependencies
     private let interactor: AddressSearchBusinessLogicProtocol
+    private let router: AddressSearchRoutingProtocol
 
-    init(with addresslistView: AddressListViewProtocol, and interactor: AddressSearchBusinessLogicProtocol) {
-        self.addresslistView = addresslistView
+    weak var delegate: HomeDisplayLogic?
+
+    init(addressListView: AddressListViewProtocol,
+         router: AddressSearchRoutingProtocol,
+         delegate: HomeDisplayLogic?,
+         interactor: AddressSearchBusinessLogicProtocol) {
+        self.addressListView = addressListView
+        self.router = router
+        self.delegate = delegate
         self.interactor = interactor
+
         super.init(nibName: nil, bundle: nil)
+
         setupDelegatesAndNavigation()
+        self.addressListView.delegate = self
     }
 
     required init?(coder: NSCoder) { nil }
 
     override func loadView() {
         super.loadView()
-        self.view = addresslistView
+        self.view = addressListView
     }
 
     override func viewDidLoad() {
@@ -49,7 +60,7 @@ final class AddressSearchViewController: UIViewController, AddressSearchDisplayL
 
     func display(_ viewModel: AddressSearchModel.ViewModel) {
         switch viewModel {
-        case let .success(viewEntity): addresslistView.show(viewEntity)
+        case let .success(viewEntity): addressListView.show(viewEntity)
         case let .error(viewEntity): print(viewEntity)
         }
     }
@@ -71,13 +82,27 @@ extension AddressSearchViewController {
 extension AddressSearchViewController: UISearchResultsUpdating {
 
     func updateSearchResults(for searchController: UISearchController) {
-        // TODO: To be implemented
+        if let text = searchController.searchBar.text,
+           text.count >= 3 {
+            interactor.doRequest(.filterBy(text))
+        }
     }
 }
 
 extension AddressSearchViewController: UISearchBarDelegate, UISearchControllerDelegate {
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        // TODO: To be implemented
+        if let text = searchBar.text {
+            interactor.doRequest(.filterBy(text))
+        }
     }
+
+}
+
+extension AddressSearchViewController: AddressListViewDelegate {
+
+    func didTapAddress(_ viewModel: AddressListViewModel) {
+        delegate?.displayViewModel(.updateAddress(viewModel.toString()))
+    }
+
 }
