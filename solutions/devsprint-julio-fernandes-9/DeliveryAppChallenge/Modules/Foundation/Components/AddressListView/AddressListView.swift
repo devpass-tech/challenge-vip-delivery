@@ -7,14 +7,8 @@
 
 import UIKit
 
-// TODO: - Move to suitable file && folder
-struct AddressListViewModel {
-    var title: String
-    var subtitle: String
-}
-
 protocol AddressListViewProtocol where Self: UIView {
-    func show(viewModelList: [AddressListViewModel]) -> Void
+    func show(_ viewModelList: [AddressListViewModel]) -> Void
 }
 
 final class AddressListView: UIView, AddressListViewProtocol {
@@ -46,7 +40,7 @@ final class AddressListView: UIView, AddressListViewProtocol {
         tableView.reloadData()
     }
 
-    func show(viewModelList: [AddressListViewModel]) {
+    func show(_ viewModelList: [AddressListViewModel]) {
         self.viewModelList = viewModelList
         tableView.reloadData()
     }
