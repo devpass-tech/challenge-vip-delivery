@@ -40,7 +40,7 @@ extension HomeInteractor: HomeBusinessLogic {
 private extension HomeInteractor {
     
     func fetchDataView() {
-        networking.request(RestaurantListNetworkRequest.all) { [weak self] (result: Result<[Restaurant], Error>) in
+        networking.request(DeliveryNetworkRequest.allRestaurants) { [weak self] (result: Result<[Restaurant], Error>) in
             guard let self = self else { return }
             switch result {
             case .success(let response):

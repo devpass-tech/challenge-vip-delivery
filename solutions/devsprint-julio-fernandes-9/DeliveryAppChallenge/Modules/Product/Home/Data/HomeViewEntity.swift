@@ -10,11 +10,6 @@ import Foundation
 
 struct HomeViewEntity {
     
-    let restaurantList: [RestaurantItem]
+    let restaurantList: [RestaurantItemProtocol]
     let categories: Set<String>
-    
-    struct RestaurantItem: RestaurantItemProtocol {
-        let name: String
-        let info: String
-    }
 }

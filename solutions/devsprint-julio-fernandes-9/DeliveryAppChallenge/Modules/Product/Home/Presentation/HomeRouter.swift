@@ -66,7 +66,7 @@ private extension HomeRouter {
     }
     
     private func showRestaurantDetail() {
-        self.viewController?.navigationController?.pushViewController(RestaurantDetailsViewController(), animated: true)
+        self.viewController?.navigationController?.pushViewController(RestaurantDetailsConfigurator.make(), animated: true)
     }
     
     private func showEditAddress() {

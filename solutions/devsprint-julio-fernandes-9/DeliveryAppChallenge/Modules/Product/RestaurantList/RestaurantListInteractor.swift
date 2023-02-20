@@ -44,7 +44,7 @@ extension RestaurantListInteractor: RestaurantListBusinessLogic {
 private extension RestaurantListInteractor {
     
     func fetchDataView(category: String) {
-        network.request(RestaurantListNetworkRequest.all) { [weak self] (result: Result<[Restaurant], Error>) in
+        network.request(DeliveryNetworkRequest.allRestaurants) { [weak self] (result: Result<[Restaurant], Error>) in
             guard let self = self else { return }
             switch result {
             case .success(let response):

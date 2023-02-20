@@ -38,7 +38,6 @@ class RatingView: UIView {
 
     init() {
         super.init(frame: .zero)
-
         addSubviews()
         configureConstraints()
     }
@@ -49,6 +48,11 @@ class RatingView: UIView {
 
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIView.noIntrinsicMetric, height: 74)
+    }
+    
+    public func updateView(score: Double, rating: UInt) {
+        scoreLabel.text = "\(score) ★★★★★"
+        ratingCountLabel.text = "\(rating) reviews"
     }
 }
 
