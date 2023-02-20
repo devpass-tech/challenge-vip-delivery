@@ -10,7 +10,7 @@ import Foundation
 enum AddressSearchModel {
     enum Request {
         case fetchDataView
-        case filterBy(_ partialMatching: String)
+        case filterBy(_ value: String)
     }
 
     enum Response {

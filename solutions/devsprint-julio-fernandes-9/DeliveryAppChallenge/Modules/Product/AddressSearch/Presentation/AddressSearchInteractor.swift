@@ -14,19 +14,23 @@ protocol AddressSearchBusinessLogicProtocol: AnyObject {
 final class AddressSearchInteractor: AddressSearchBusinessLogicProtocol {
 
     private let presenter: AddressSearchPresentationLogicProtocol
-    private let network: NetworkManagerProtocol
+    private let remoteLoader: RemoteLoaderProtocol
+    private let localLoader: LocalAddressSearchLoaderprotocol = LocalAddressSearchLoader()
 
-    init(with presenter: AddressSearchPresentationLogicProtocol, and network: NetworkManagerProtocol) {
+    private var items: [Address] = []
+
+    init(presenter: AddressSearchPresentationLogicProtocol,
+         remoteLoader: RemoteLoaderProtocol) {
         self.presenter = presenter
-        self.network = network
+        self.remoteLoader = remoteLoader
     }
 
     func doRequest(_ request: AddressSearchModel.Request) {
         switch request {
         case .fetchDataView:
             self.fetchDataView()
-        case let .filterBy(partialMatching):
-            print("filter: \(partialMatching)")
+        case let .filterBy(value):
+            self.fetchData(by: value)
         }
     }
 
@@ -35,21 +39,36 @@ final class AddressSearchInteractor: AddressSearchBusinessLogicProtocol {
 private extension AddressSearchInteractor {
 
     private func fetchDataView() {
-        network.request(AddressSearchRequest.fetchAllAdresses) { [weak self] (result: Result<[Address], Error>) in
+        remoteLoader.doRequest(AddressSearchRequest.fetchAllAdresses) { [weak self] (result: Result<[Address], Error>) in
             guard let self = self else { return }
             guard Thread.isMainThread else {
                 DispatchQueue.main.async {
-                    self.handleResult(result)
+                    self.handleAndPresentResult(result)
                 }
                 return
             }
-            self.handleResult(result)
+            self.handleAndPresentResult(result)
         }
     }
+}
 
-    private func handleResult(_ result: Result<[Address], Error>) {
+private extension AddressSearchInteractor {
+
+    private func fetchData(by value: String) {
+        localLoader.filter(by: value) { [weak self] (result: [Address]) in
+            guard let self = self else { return }
+            self.handleAndPresentResult(.success(result))
+        }
+
+    }
+}
+
+private extension AddressSearchInteractor {
+
+    private func handleAndPresentResult(_ result: Result<[Address], Error>) {
         switch result {
         case let .success(response):
+            localLoader.insert(items: response)
             presenter.presentResponde(.hasDataView(response))
         case let .failure(error):
             print(error.localizedDescription)

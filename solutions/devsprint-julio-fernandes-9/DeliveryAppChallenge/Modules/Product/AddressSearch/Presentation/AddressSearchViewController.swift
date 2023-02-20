@@ -92,9 +92,14 @@ extension AddressSearchViewController: UISearchResultsUpdating {
 extension AddressSearchViewController: UISearchBarDelegate, UISearchControllerDelegate {
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        if let text = searchBar.text {
+        if let text = searchBar.text,
+           text.count >= 3 {
             interactor.doRequest(.filterBy(text))
         }
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        interactor.doRequest(.fetchDataView)
     }
 
 }
