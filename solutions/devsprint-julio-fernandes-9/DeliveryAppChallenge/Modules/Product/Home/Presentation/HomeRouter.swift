@@ -29,6 +29,8 @@ extension HomeRouter: HomeRouting {
                 self.goToSettings()
             case .showMessageError(let message):
                 self.showAlertError(message: message)
+            case .goToRestaurantList(let category):
+                self.showRestaurantList(category: category)
             case .goToRestaurantDetail:
                 self.showRestaurantDetail()
             case .goToEditAddress:
@@ -57,6 +59,10 @@ private extension HomeRouter {
         }
         alertController.addAction(action)
         self.viewController?.navigationController?.present(alertController, animated: true)
+    }
+    
+    private func showRestaurantList(category: String) {
+        self.viewController?.navigationController?.pushViewController(RestaurantListConfigurantor.make(categoryFilter: category), animated: true)
     }
     
     private func showRestaurantDetail() {

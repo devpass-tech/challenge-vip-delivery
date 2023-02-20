@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol RestaurantItemProtocol {
+    var name: String { get }
+    var info: String { get }
+}
+
 class RestaurantCellView: UITableViewCell {
 
    private var mainStackView: UIStackView = {
@@ -63,7 +68,7 @@ class RestaurantCellView: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public var restaurant: HomeViewEntity.RestaurantItem? {
+    public var restaurant: RestaurantItemProtocol? {
         didSet {
             restaurantNameLabel.text = restaurant?.name
             restaurantInfoLabel.text = restaurant?.info

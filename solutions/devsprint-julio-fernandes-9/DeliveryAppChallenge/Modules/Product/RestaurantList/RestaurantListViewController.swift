@@ -2,28 +2,69 @@
 //  RestaurantListViewController.swift
 //  DeliveryAppChallenge
 //
-//  Created by Rodrigo Borges on 27/10/21.
+//  Created by Alexandre Robaert on 19/02/23.
+//  Copyright (c) 2023 Alexandre Robaert. All rights reserved.
 //
 
 import UIKit
 
-protocol RestaurantListViewControllerProtocol: AnyObject {
-    
+protocol RestaurantListDisplayLogic where Self: UIViewController {
+    func displayViewModel(_ viewModel: RestaurantListModel.ViewModel)
 }
 
-class RestaurantListViewController: UIViewController, RestaurantListViewControllerProtocol {
+final class RestaurantListViewController: UIViewController {
     
-    private let interactor: RestaurantListInteractorProtocol
-
-    init(interactor: RestaurantListInteractorProtocol) {
+    private let mainView: RestaurantListViewProtocol
+    private let interactor: RestaurantListBusinessLogic
+    private let router: RestaurantListRouting
+    private let categoryFilter: String
+    
+    init(mainView: RestaurantListViewProtocol = RestaurantListView(),
+         interactor: RestaurantListBusinessLogic,
+         router: RestaurantListRouting, categoryFilter: String) {
+        
+        self.mainView = mainView
         self.interactor = interactor
+        self.router = router
+        self.categoryFilter = categoryFilter
         super.init(nibName: nil, bundle: nil)
-        navigationItem.title = "Restaurant List"
     }
-
-    required init?(coder: NSCoder) { nil }
-
+    
     override func loadView() {
-        self.view = RestaurantListView()
+        mainView.delegate = self
+        view = mainView
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        interactor.doRequest(.fetchRestaurantList(category: categoryFilter))
+        
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented, You should't initialize the ViewController through Storyboards")
+    }
+}
+
+// MARK: - RestaurantListDisplayLogic
+extension RestaurantListViewController: RestaurantListDisplayLogic {
+    
+    func displayViewModel(_ viewModel: RestaurantListModel.ViewModel) {
+        DispatchQueue.main.async {
+            switch viewModel {
+            case .restaurantList(let restaurants):
+                self.mainView.dataSource = restaurants
+            case .fetchError(let message):
+                print(message)
+            }
+        }
+    }
+}
+
+// MARK: - RestaurantListViewDelegate
+extension RestaurantListViewController: RestaurantListViewDelegate {
+    func restaurantList(_ restaurantListView: RestaurantListView, didTap restaurant: RestaurantItemProtocol) {
+        router.routeTo(.goToRestaurantDetail(restaurantName: restaurant.name))
     }
 }

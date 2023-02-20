@@ -28,6 +28,7 @@ enum HomeModel {
         case dismissHomeScene
         case goToSettings
         case showMessageError(message: String)
+        case goToRestaurantList(category: String)
         case goToRestaurantDetail
         case goToEditAddress
     }

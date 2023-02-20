@@ -13,7 +13,7 @@ struct HomeViewEntity {
     let restaurantList: [RestaurantItem]
     let categories: Set<String>
     
-    struct RestaurantItem {
+    struct RestaurantItem: RestaurantItemProtocol {
         let name: String
         let info: String
     }

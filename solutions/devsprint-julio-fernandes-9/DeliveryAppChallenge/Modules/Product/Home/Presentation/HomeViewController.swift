@@ -70,11 +70,14 @@ extension HomeViewController: HomeDisplayLogic {
 
 // MARK: - HomeViewDelegate
 extension HomeViewController: HomeViewDelegate {
-    
-    func homeView(_ homeView: HomeView, didTap restaurant: HomeViewEntity.RestaurantItem) {
-        router.routeTo(.goToRestaurantDetail)
+    func didTapCategory(category: String) {
+        router.routeTo(.goToRestaurantList(category: category))
     }
     
+    func homeView(_ homeView: HomeView, didTap restaurant: RestaurantItemProtocol) {
+        router.routeTo(.goToRestaurantDetail)
+    }
+        
     func didTapEditAddress() {
         router.routeTo(.goToEditAddress)
     }

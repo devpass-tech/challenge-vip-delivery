@@ -7,11 +7,16 @@
 
 import UIKit
 
-protocol RestaurantListViewDelegate: AnyObject {
-    func restaurantList(_ restaurantListView: RestaurantListView, didTap restaurant: HomeViewEntity.RestaurantItem)
+protocol RestaurantListViewProtocol where Self: UIView {
+    var delegate: RestaurantListViewDelegate? { get set }
+    var dataSource: [RestaurantItemProtocol] { get set }
 }
 
-class RestaurantListView: UIView {
+protocol RestaurantListViewDelegate: AnyObject {
+    func restaurantList(_ restaurantListView: RestaurantListView, didTap restaurant: RestaurantItemProtocol)
+}
+
+class RestaurantListView: UIView, RestaurantListViewProtocol {
 
     static let cellSize = CGFloat(82)
     private let cellIdentifier = "RestaurantCellIdentifier"
@@ -33,7 +38,7 @@ class RestaurantListView: UIView {
     }
     
     weak var delegate: RestaurantListViewDelegate?
-    var dataSource: [HomeViewEntity.RestaurantItem] = [] {
+    var dataSource: [RestaurantItemProtocol] = [] {
         didSet {
             self.tableView.reloadData()
         }

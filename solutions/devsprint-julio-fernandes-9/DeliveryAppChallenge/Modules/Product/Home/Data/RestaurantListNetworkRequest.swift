@@ -8,9 +8,9 @@
 
 import Foundation
 
-enum HomeNetworkRequest: NetworkRequest {
+enum RestaurantListNetworkRequest: NetworkRequest {
     
-    case fetchDataView
+    case all
     
     var pathURL: String {
         return "home_restaurant_list.json"

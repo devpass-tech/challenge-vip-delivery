@@ -10,11 +10,13 @@ import UIKit
 protocol HomeViewProtocol: UIView {
     var delegate: HomeViewDelegate? { get set }
     func updateView(viewEntity: HomeViewEntity)
+    func updateAddress(address: String)
 }
 
 protocol HomeViewDelegate where Self: UIViewController {
-    func homeView(_ homeView: HomeView, didTap restaurant: HomeViewEntity.RestaurantItem)
+    func homeView(_ homeView: HomeView, didTap restaurant: RestaurantItemProtocol)
     func didTapEditAddress()
+    func didTapCategory(category: String)
 }
 
 final class HomeView: UIView, HomeViewProtocol {
@@ -42,9 +44,10 @@ final class HomeView: UIView, HomeViewProtocol {
         return addressView
     }()
     
-    let categoryListView: CategoryListView = {
+    lazy var categoryListView: CategoryListView = {
         let categoryListView = CategoryListView()
         categoryListView.translatesAutoresizingMaskIntoConstraints = false
+        categoryListView.delegate = self
         return categoryListView
     }()
     
@@ -70,6 +73,10 @@ final class HomeView: UIView, HomeViewProtocol {
         restaurantListView.dataSource = viewEntity.restaurantList
         categoryListView.categories = viewEntity.categories
         setup()
+    }
+    
+    func updateAddress(address: String) {
+        addressView.updateAddress(address: address)
     }
 }
 
@@ -103,12 +110,18 @@ extension HomeView: ViewCode {
 }
 
 extension HomeView: RestaurantListViewDelegate, AddressViewDelegate {
-    
-    func restaurantList(_ restaurantListView: RestaurantListView, didTap restaurant: HomeViewEntity.RestaurantItem) {
+        
+    func restaurantList(_ restaurantListView: RestaurantListView, didTap restaurant: RestaurantItemProtocol) {
         delegate?.homeView(self, didTap: restaurant)
     }
     
     func didTapEditButton() {
         delegate?.didTapEditAddress()
+    }
+}
+
+extension HomeView: CategoryListViewDelegate {
+    func categoryList(_ categoryList: CategoryListView, didTap category: String) {
+        delegate?.didTapCategory(category: category)
     }
 }

@@ -7,7 +7,11 @@
 
 import UIKit
 
-class CategoryListView: UIView {
+protocol CategoryListViewDelegate: AnyObject {
+    func categoryList(_ categoryList: CategoryListView, didTap category: String)
+}
+
+class CategoryListView: UIView, CategoryCellDelegate {
 
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -25,6 +29,16 @@ class CategoryListView: UIView {
         return stackView
     }()
 
+    weak var delegate: CategoryListViewDelegate?
+    var categories: Set<String> = [] {
+        didSet {
+            categories.forEach {
+                let categoryCell = CategoryCellView(categorie: $0)
+                categoryCell.delegate = self
+                stackView.addArrangedSubview(categoryCell)
+            }
+        }
+    }
 
     init() {
         super.init(frame: .zero)
@@ -40,10 +54,8 @@ class CategoryListView: UIView {
         return CGSize(width: UIView.noIntrinsicMetric, height: 122)
     }
     
-    public var categories: Set<String> = [] {
-        didSet {
-            categories.forEach { stackView.addArrangedSubview(CategoryCellView(categorie: $0)) }
-        }
+    func categoryCell(_ categoryCell: CategoryCellView, didTap category: String) {
+        delegate?.categoryList(self, didTap: category)
     }
 }
 

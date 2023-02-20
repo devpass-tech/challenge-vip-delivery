@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol CategoryCellDelegate: AnyObject {
+    func categoryCell(_ categoryCell: CategoryCellView, didTap category: String)
+}
+
 class CategoryCellView: UIView {
 
     let stackView: UIStackView = {
@@ -34,12 +38,16 @@ class CategoryCellView: UIView {
         label.numberOfLines = 1
         return label
     }()
+    
+    weak var delegate: CategoryCellDelegate?
 
     init(categorie: String) {
         super.init(frame: .zero)
         addSubviews()
         configureConstraints()
         nameLabel.text = categorie
+        isUserInteractionEnabled = true
+        addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(didTap)))
     }
 
     required init?(coder: NSCoder) {
@@ -48,6 +56,13 @@ class CategoryCellView: UIView {
 
     override var intrinsicContentSize: CGSize {
         return CGSize(width: 54, height: 70)
+    }
+    
+    @objc
+    private func didTap() {
+        if let category = nameLabel.text {
+            delegate?.categoryCell(self, didTap: category)
+        }
     }
 }
 
