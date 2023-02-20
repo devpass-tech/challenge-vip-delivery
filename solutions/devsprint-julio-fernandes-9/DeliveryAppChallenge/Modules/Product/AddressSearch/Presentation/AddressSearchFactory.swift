@@ -14,8 +14,10 @@ enum AddressSearchControllerFactory {
         let presenter = AddressSearchPresenter()
         let network = NetworkManager()
         let remoteLoader = RemoteAddressSearchLoader(networking: network)
+        let localLoader = LocalAddressSearchLoader()
         let interactor = AddressSearchInteractor(presenter: presenter,
-                                                 remoteLoader: remoteLoader)
+                                                 remoteLoader: remoteLoader,
+                                                 localLoader: localLoader)
         let router = AddressSearchRouter()
         let controller = AddressSearchViewController(addressListView: addressListView,
                                                      router: router,

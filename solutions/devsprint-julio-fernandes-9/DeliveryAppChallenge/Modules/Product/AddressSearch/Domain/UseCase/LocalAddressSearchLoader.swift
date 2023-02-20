@@ -15,13 +15,13 @@ protocol LocalLoaderProtocol: AnyObject {
                             completion: @escaping LocalLoaderResponse<T>)
 }
 
-protocol LocalAddressSearchLoaderprotocol: AnyObject {
+protocol LocalAddressSearchLoaderProtocol: AnyObject {
     typealias LocalResponse = (([Address]) -> Void)
     func insert(items: [Address])
     func filter(by value: String, completion: @escaping LocalResponse)
 }
 
-final class LocalAddressSearchLoader: LocalAddressSearchLoaderprotocol {
+final class LocalAddressSearchLoader: LocalAddressSearchLoaderProtocol {
 
     private var localItems: [Address] = []
 
