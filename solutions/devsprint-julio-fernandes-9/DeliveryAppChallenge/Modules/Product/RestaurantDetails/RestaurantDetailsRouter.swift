@@ -33,6 +33,6 @@ extension RestaurantDetailsRouter: RestaurantDetailsRouting {
 private extension RestaurantDetailsRouter {
     
     func showMenuItem() {
-        viewController?.navigationController?.pushViewController(MenuItemViewController(), animated: true)
+        viewController?.navigationController?.pushViewController(MenuItemConfigurator.make(), animated: true)
     }
 }

@@ -66,13 +66,7 @@ class MenuCellView: UITableViewCell {
     
     func updateCell(menuName: String, price: Double) {
         itemNameLabel.text = menuName
-        itemPriceLabel.text = formatPrice(value: price)
-    }
-    
-    private func formatPrice(value: Double) -> String {
-        let formater = NumberFormatter()
-        formater.numberStyle = .currency
-        return formater.string(from: NSNumber(value: value))!
+        itemPriceLabel.text = price.currency
     }
 }
 

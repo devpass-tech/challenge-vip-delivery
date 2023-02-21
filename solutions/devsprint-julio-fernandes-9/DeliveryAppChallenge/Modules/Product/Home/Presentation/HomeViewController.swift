@@ -36,6 +36,11 @@ final class HomeViewController: UIViewController {
         mainView.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented, You should't initialize the ViewController through Storyboards")
@@ -44,7 +49,6 @@ final class HomeViewController: UIViewController {
     private func setup() {
         navigationItem.title = "Delivery App"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(goToSettings))
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     @objc
