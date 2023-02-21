@@ -61,7 +61,7 @@ final class AddressSearchViewController: UIViewController, AddressSearchDisplayL
     func display(_ viewModel: AddressSearchModel.ViewModel) {
         switch viewModel {
         case let .success(viewEntity): addressListView.show(viewEntity)
-        case let .error(viewEntity): print(viewEntity)
+        case let .error(message): router.routeTo(.showAllertError(message))
         }
     }
 }

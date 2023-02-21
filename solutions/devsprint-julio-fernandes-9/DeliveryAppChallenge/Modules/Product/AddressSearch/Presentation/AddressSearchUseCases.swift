@@ -20,7 +20,7 @@ enum AddressSearchModel {
 
     enum ViewModel {
         case success(_ viewModel: [AddressListViewModel])
-        case error(_ viewModel: AddressListViewModel)
+        case error(_ message: String)
     }
 
     enum Route {

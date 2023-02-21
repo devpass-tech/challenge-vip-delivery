@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+// TODO: To be implemented
 protocol LocalLoaderProtocol: AnyObject {
     typealias LocalLoaderResponse<T: Codable> = ((T) -> Void)
     func insert<T: Codable>(items: [T])

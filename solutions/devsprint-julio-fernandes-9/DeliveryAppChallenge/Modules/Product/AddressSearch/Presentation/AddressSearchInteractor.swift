@@ -71,9 +71,9 @@ private extension AddressSearchInteractor {
     private func handleAndPresentResult(_ result: Result<[Address], Error>) {
         switch result {
         case let .success(response):
-            presenter.presentResponde(.hasDataView(response))
+            presenter.presentResponse(.hasDataView(response))
         case let .failure(error):
-            print(error.localizedDescription)
+            presenter.presentResponse(.errorOnFetchDataView(error.localizedDescription))
         }
     }
 
