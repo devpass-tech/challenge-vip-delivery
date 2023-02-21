@@ -30,9 +30,9 @@ final class AddressSearchInteractor: AddressSearchBusinessLogicProtocol {
     func doRequest(_ request: AddressSearchModel.Request) {
         switch request {
         case .fetchDataView:
-            self.fetchDataView()
+            self.fetchDataViewFromRemoteLoader()
         case let .filterBy(value):
-            self.fetchData(by: value)
+            self.fetchDataViewFromLocalLoader(by: value)
         }
     }
 
@@ -40,7 +40,7 @@ final class AddressSearchInteractor: AddressSearchBusinessLogicProtocol {
 
 private extension AddressSearchInteractor {
 
-    private func fetchDataView() {
+    private func fetchDataViewFromRemoteLoader() {
         remoteLoader.doRequest(AddressSearchRequest.fetchAllAdresses) { [weak self] (result: Result<[Address], Error>) in
             guard let self = self else { return }
             guard Thread.isMainThread else {
@@ -52,11 +52,12 @@ private extension AddressSearchInteractor {
             self.handleAndPresentResult(result)
         }
     }
+
 }
 
 private extension AddressSearchInteractor {
 
-    private func fetchData(by value: String) {
+    private func fetchDataViewFromLocalLoader(by value: String) {
         localLoader.filter(by: value) { [weak self] (result: [Address]) in
             guard let self = self else { return }
             self.handleAndPresentResult(.success(result))
@@ -70,7 +71,6 @@ private extension AddressSearchInteractor {
     private func handleAndPresentResult(_ result: Result<[Address], Error>) {
         switch result {
         case let .success(response):
-            localLoader.insert(items: response)
             presenter.presentResponde(.hasDataView(response))
         case let .failure(error):
             print(error.localizedDescription)

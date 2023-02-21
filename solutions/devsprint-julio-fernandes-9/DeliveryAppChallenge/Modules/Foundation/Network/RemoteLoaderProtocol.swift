@@ -9,7 +9,7 @@ import Foundation
 
 protocol RemoteLoaderProtocol: AnyObject {
     // TODO: How to inject/set NetworkManagerProtocol dependency properly?
-    typealias RemoteLoaderResponse<T: Decodable> = ((Result<T, Error>) -> Void)
-    func doRequest<T: Decodable>(_ request: NetworkRequest,
-                                 completion: @escaping RemoteLoaderResponse<T>)
+    typealias LoaderResponse<T: Codable> = ((Result<T, Error>) -> Void)
+    func doRequest<T: Codable>(_ request: NetworkRequest,
+                                 completion: @escaping LoaderResponse<T>)
 }
