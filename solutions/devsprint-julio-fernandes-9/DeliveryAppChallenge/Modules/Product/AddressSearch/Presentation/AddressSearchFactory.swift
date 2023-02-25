@@ -10,8 +10,8 @@ import UIKit
 enum AddressSearchControllerFactory {
 
     static func make(delegate: HomeDisplayLogic?) -> AddressSearchViewController {
-        let addressListView = AddressListView()
         let presenter = AddressSearchPresenter()
+
         let network = NetworkManager()
         let remoteLoader = RemoteAddressSearchLoader(networking: network)
         let localLoader = LocalAddressSearchLoader()
@@ -20,7 +20,9 @@ enum AddressSearchControllerFactory {
         let interactor = AddressSearchInteractor(presenter: presenter,
                                                  remoteLoader: loaderDecorator,
                                                  localLoader: localLoader)
+
         let router = AddressSearchRouter()
+        let addressListView = AddressListView()
         let controller = AddressSearchViewController(addressListView: addressListView,
                                                      router: router,
                                                      delegate: delegate,

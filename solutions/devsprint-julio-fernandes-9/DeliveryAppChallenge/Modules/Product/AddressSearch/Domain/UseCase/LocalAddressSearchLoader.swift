@@ -8,36 +8,25 @@
 import Foundation
 import UIKit
 
-// TODO: To be implemented
-protocol LocalLoaderProtocol: AnyObject {
-    typealias LocalLoaderResponse<T: Codable> = ((T) -> Void)
-    func insert<T: Codable>(items: [T])
-    func filter<T: Codable>(by value: String,
-                            completion: @escaping LocalLoaderResponse<T>)
-}
+final class LocalAddressSearchLoader: LocalLoaderProtocol {
 
-protocol LocalAddressSearchLoaderProtocol: AnyObject {
-    typealias LocalResponse = (([Address]) -> Void)
-    func insert(items: [Address])
-    func filter(by value: String, completion: @escaping LocalResponse)
-}
+    private var items: [Address] = []
 
-final class LocalAddressSearchLoader: LocalAddressSearchLoaderProtocol {
-
-    private var localItems: [Address] = []
-
-    func insert(items: [Address]) {
-        // Is there repeated elements?
-        /// NO
+    func insert<T: Codable>(items: [T]) {
+        // TODO: Is there repeated elements?
+        /// if Yes, then:
         ///     Get non-repeated items
-        // Append it do self.items
-        guard !items.isEmpty else { return }
-        self.localItems = items
+        /// else
+        /// Append it do self.items
+        guard let addressList = items as? [Address],
+              !addressList.isEmpty else { return }
+        self.items = addressList
     }
 
-    func filter(by value: String, completion: @escaping LocalResponse) {
-        let items: [Address] = localItems.filter { $0.contain(value: value) }
-        completion(items)
+    func filter<T: Codable>(by value: String, completion: @escaping LocalLoaderResponse<T>) {
+        let items: [Address] = items.filter { $0.contain(value: value) }
+        guard let result = items as? T else { return }
+        completion(result)
     }
 
 }

@@ -15,8 +15,8 @@ final class RemoteAddressSearchLoader: RemoteLoaderProtocol {
         self.networking = networking
     }
 
-    func doRequest<T>(_ request: NetworkRequest,
-                      completion: @escaping LoaderResponse<T>) where T : Codable {
+    func doRequest<T: Codable>(_ request: NetworkRequest,
+                      completion: @escaping LoaderResponse<T>) {
         networking.request(request, completion: completion)
     }
 

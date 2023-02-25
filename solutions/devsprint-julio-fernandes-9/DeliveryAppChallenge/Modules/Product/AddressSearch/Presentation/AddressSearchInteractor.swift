@@ -15,13 +15,13 @@ final class AddressSearchInteractor: AddressSearchBusinessLogicProtocol {
 
     private let presenter: AddressSearchPresentationLogicProtocol
     private let remoteLoader: RemoteLoaderProtocol
-    private let localLoader: LocalAddressSearchLoaderProtocol
+    private let localLoader: LocalLoaderProtocol
 
     private var items: [Address] = []
 
     init(presenter: AddressSearchPresentationLogicProtocol,
          remoteLoader: RemoteLoaderProtocol,
-         localLoader: LocalAddressSearchLoaderProtocol) {
+         localLoader: LocalLoaderProtocol) {
         self.presenter = presenter
         self.remoteLoader = remoteLoader
         self.localLoader = localLoader

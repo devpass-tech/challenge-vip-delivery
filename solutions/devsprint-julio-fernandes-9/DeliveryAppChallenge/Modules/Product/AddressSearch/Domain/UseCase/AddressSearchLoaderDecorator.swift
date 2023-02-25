@@ -10,9 +10,9 @@ import Foundation
 final class AddressSearchLoaderDecorator {
 
     let decoratee: RemoteLoaderProtocol
-    let local: LocalAddressSearchLoaderProtocol
+    let local: LocalLoaderProtocol
 
-    init(decoratee: RemoteAddressSearchLoader, local: LocalAddressSearchLoaderProtocol) {
+    init(decoratee: RemoteAddressSearchLoader, local: LocalLoaderProtocol) {
         self.decoratee = decoratee
         self.local = local
     }
@@ -20,7 +20,7 @@ final class AddressSearchLoaderDecorator {
 
 extension AddressSearchLoaderDecorator: RemoteLoaderProtocol {
 
-    func doRequest<T>(_ request: NetworkRequest, completion: @escaping LoaderResponse<T>) where T : Decodable {
+    func doRequest<T: Decodable>(_ request: NetworkRequest, completion: @escaping LoaderResponse<T>) {
         decoratee.doRequest(request) { [weak self] (result: Result<[Address], Error>) in
             guard let self = self else { return }
             switch result {
@@ -29,8 +29,8 @@ extension AddressSearchLoaderDecorator: RemoteLoaderProtocol {
                 guard let decorateeResponse = response as? T else { return }
                 completion(.success(decorateeResponse))
             default:
-                // TODO: To be implemented
-                break
+                guard let decorateeResult = result as? Result<T, any Error> else { return }
+                completion(decorateeResult)
             }
         }
     }
