@@ -2,20 +2,56 @@
 //  RestaurantListInteractor.swift
 //  DeliveryAppChallenge
 //
-//  Created by Cora on 07/02/23.
+//  Created by Alexandre Robaert on 19/02/23.
+//  Copyright (c) 2023 Alexandre Robaert. All rights reserved.
 //
 
 import Foundation
 
-protocol RestaurantListInteractorProtocol {
+protocol RestaurantListBusinessLogic {
     
+    func doRequest(_ request: RestaurantListModel.Request)
 }
 
-final class RestaurantListInteractor: RestaurantListInteractorProtocol {
+final class RestaurantListInteractor {
     
-    private let presenter: RestaurantListPresenterProtocol
+    private let presenter: RestaurantListPresentationLogic
+    private let network: NetworkManager
     
-    init(presenter: RestaurantListPresenterProtocol) {
+    init(presenter: RestaurantListPresentationLogic, network: NetworkManager) {
         self.presenter = presenter
+        self.network = network
+    }
+}
+
+
+// MARK: - RestaurantListBusinessLogic
+extension RestaurantListInteractor: RestaurantListBusinessLogic {
+    
+    func doRequest(_ request: RestaurantListModel.Request) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            
+            switch request {
+            case .fetchRestaurantList(let category):
+                self.fetchDataView(category: category)
+            }
+        }
+    }
+}
+
+
+// MARK: - Private Zone
+private extension RestaurantListInteractor {
+    
+    func fetchDataView(category: String) {
+        network.request(RestaurantListNetworkRequest.all) { [weak self] (result: Result<[Restaurant], Error>) in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                self.presenter.presentResponse(.dataRestaurantList(response: response, category: category))
+            case .failure(let error):
+                self.presenter.presentResponse(.errorRequest(error: error))
+            }
+        }
     }
 }

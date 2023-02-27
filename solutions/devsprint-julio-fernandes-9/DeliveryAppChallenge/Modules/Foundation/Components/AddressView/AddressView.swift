@@ -51,6 +51,10 @@ class AddressView: UIView {
     func didTapEditButton() {
         delegate?.didTapEditButton()
     }
+    
+    func updateAddress(address: String) {
+        addressLabel.text = address
+    }
 }
 
 extension AddressView {
