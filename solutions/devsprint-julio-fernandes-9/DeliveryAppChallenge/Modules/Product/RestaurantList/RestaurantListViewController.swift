@@ -37,6 +37,8 @@ final class RestaurantListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Lista de Restaurantes"
+        navigationController?.navigationBar.prefersLargeTitles = false
         interactor.doRequest(.fetchRestaurantList(category: categoryFilter))
         
     }

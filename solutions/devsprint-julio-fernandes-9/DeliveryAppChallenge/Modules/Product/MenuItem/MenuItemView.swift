@@ -7,28 +7,40 @@
 
 import UIKit
 
-class MenuItemView: UIView {
+protocol MenuItemViewProtocol where Self: UIView {
+    var delegate: MenuItemViewDelegate? { get set }
+    var item: MenuItemModelProtocol? { get set }
+}
+
+protocol MenuItemViewDelegate where Self: UIViewController {
+    func didTapAddCart()
+}
+
+protocol MenuItemModelProtocol {
+    var name: String { get }
+    var description: String { get }
+    var price: Double { get }
+}
+
+class MenuItemView: UIView, MenuItemViewProtocol {
 
     let scrollView: UIScrollView = {
-
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
 
     let stackView: UIStackView = {
-
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .fill
-        stackView.distribution = .equalSpacing
+        stackView.distribution = .fill
         stackView.spacing = 8
         return stackView
     }()
 
     let imageView: UIImageView = {
-
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "pizza")
@@ -36,7 +48,6 @@ class MenuItemView: UIView {
     }()
 
     let itemNameLabel: UILabel = {
-
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Copo Pão de Queijo + Suco de Laranja"
@@ -46,7 +57,6 @@ class MenuItemView: UIView {
     }()
 
     let itemDescriptionLabel: UILabel = {
-
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Combo com 8 mini pães de queijo + Suco de Laranja"
@@ -57,7 +67,6 @@ class MenuItemView: UIView {
     }()
 
     let itemPriceLabel: UILabel = {
-
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "R$ 20,00"
@@ -66,21 +75,27 @@ class MenuItemView: UIView {
         return label
     }()
 
-
-    let addToCartButton: UIButton = {
-
+    lazy var addToCartButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.systemBlue, for: .normal)
+        button.addTarget(self, action: #selector(didTapAddToCart), for: .touchUpInside)
         button.setTitle("Adicionar ao carrinho", for: .normal)
         return button
     }()
+    
+    weak var delegate: MenuItemViewDelegate?
+    var item: MenuItemModelProtocol? {
+        didSet {
+            itemNameLabel.text = item?.name
+            itemDescriptionLabel.text = item?.description
+            itemPriceLabel.text = item?.price.currency
+        }
+    }
 
     init() {
         super.init(frame: .zero)
-
         backgroundColor = .white
-
         addSubviews()
         configureConstraints()
     }
@@ -88,15 +103,17 @@ class MenuItemView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    @objc
+    private func didTapAddToCart() {
+        delegate?.didTapAddCart()
+    }
 }
 
 extension MenuItemView {
-
     func addSubviews() {
-
         addSubview(scrollView)
         scrollView.addSubview(stackView)
-
         stackView.addArrangedSubview(imageView)
         stackView.addArrangedSubview(itemNameLabel)
         stackView.addArrangedSubview(itemDescriptionLabel)
@@ -105,10 +122,7 @@ extension MenuItemView {
     }
 
     func configureConstraints() {
-
-
         NSLayoutConstraint.activate([
-
             scrollView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),

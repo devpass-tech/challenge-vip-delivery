@@ -30,6 +30,8 @@ final class RestaurantDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Detalhes"
+        navigationController?.navigationBar.prefersLargeTitles = false
         interactor.doRequest(.fetchRestaurantDetail)
         
     }

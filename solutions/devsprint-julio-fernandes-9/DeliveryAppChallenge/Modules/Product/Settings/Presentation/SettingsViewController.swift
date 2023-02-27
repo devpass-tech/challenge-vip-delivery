@@ -27,6 +27,8 @@ final class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Configurações"
+        navigationController?.navigationBar.prefersLargeTitles = false
         interactor.doRequest(.fetchDataView)
     }
     
