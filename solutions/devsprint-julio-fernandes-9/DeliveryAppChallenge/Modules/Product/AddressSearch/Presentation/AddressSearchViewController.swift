@@ -7,46 +7,62 @@
 
 import UIKit
 
-protocol AddressSearchViewControllerProtocol where Self: UIViewController {
-
+protocol AddressSearchDisplayLogicProtocol where Self: UIViewController {
+    func display(_ viewModel: AddressSearchModel.ViewModel)
 }
 
-final class AddressSearchViewController: UIViewController, AddressSearchViewControllerProtocol {
+final class AddressSearchViewController: UIViewController, AddressSearchDisplayLogicProtocol {
 
     // TODO: Should one inject such dependency?
     let searchController = UISearchController(searchResultsController: nil)
 
     // MARK: - UI Properties
-    private let addresslistView: AddressListViewProtocol
+    private let addressListView: AddressListViewProtocol
 
     // MARK: - VIP Lifecycle dependencies
-    private let interactor: AddressSearchInteractorProtocol
+    private let interactor: AddressSearchBusinessLogicProtocol
+    private let router: AddressSearchRoutingProtocol
 
-    init(with addresslistView: AddressListViewProtocol, and interactor: AddressSearchInteractorProtocol) {
-        self.addresslistView = addresslistView
+    weak var delegate: HomeDisplayLogic?
+
+    init(addressListView: AddressListViewProtocol,
+         router: AddressSearchRoutingProtocol,
+         delegate: HomeDisplayLogic?,
+         interactor: AddressSearchBusinessLogicProtocol) {
+        self.addressListView = addressListView
+        self.router = router
+        self.delegate = delegate
         self.interactor = interactor
+
         super.init(nibName: nil, bundle: nil)
+
         setupDelegatesAndNavigation()
+        self.addressListView.delegate = self
     }
 
     required init?(coder: NSCoder) { nil }
 
     override func loadView() {
         super.loadView()
-        self.view = addresslistView
+        self.view = addressListView
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
-        addresslistView.show(viewModelList: [.init(title: "Test title 1", subtitle: "Test subtitle 1"),
-                                             .init(title: "Test title 2", subtitle: "Test subtitle 2"),
-                                             .init(title: "Test title 3", subtitle: "Test subtitle 3"),
-                                             .init(title: "Test title 4", subtitle: "Test subtitle 4")])
+        interactor.doRequest(.fetchDataView)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupDelegatesAndNavigation()
+    }
+
+    func display(_ viewModel: AddressSearchModel.ViewModel) {
+        switch viewModel {
+        case let .success(viewEntity): addressListView.show(viewEntity)
+        case let .error(viewEntity): print(viewEntity)
+        }
     }
 }
 
@@ -66,13 +82,27 @@ extension AddressSearchViewController {
 extension AddressSearchViewController: UISearchResultsUpdating {
 
     func updateSearchResults(for searchController: UISearchController) {
-        // Should trigger interactor?
+        if let text = searchController.searchBar.text,
+           text.count >= 3 {
+            interactor.doRequest(.filterBy(text))
+        }
     }
 }
 
 extension AddressSearchViewController: UISearchBarDelegate, UISearchControllerDelegate {
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        // Triggers interactor
+        if let text = searchBar.text {
+            interactor.doRequest(.filterBy(text))
+        }
     }
+
+}
+
+extension AddressSearchViewController: AddressListViewDelegate {
+
+    func didTapAddress(_ viewModel: AddressListViewModel) {
+        delegate?.displayViewModel(.updateAddress(viewModel.toString()))
+    }
+
 }

@@ -22,6 +22,7 @@ enum HomeModel {
     enum ViewModel {
         case dataView(viewEntity: HomeViewEntity)
         case dataViewWithError(messageError: String)
+        case updateAddress(_ address: String)
     }
     
     enum Route {

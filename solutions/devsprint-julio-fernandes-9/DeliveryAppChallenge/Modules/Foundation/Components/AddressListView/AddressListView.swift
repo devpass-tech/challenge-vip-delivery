@@ -7,14 +7,13 @@
 
 import UIKit
 
-// TODO: - Move to suitable file && folder
-struct AddressListViewModel {
-    var title: String
-    var subtitle: String
+protocol AddressListViewProtocol where Self: UIView {
+    var delegate: AddressListViewDelegate? { get set }
+    func show(_ viewModelList: [AddressListViewModel]) -> Void
 }
 
-protocol AddressListViewProtocol where Self: UIView {
-    func show(viewModelList: [AddressListViewModel]) -> Void
+protocol AddressListViewDelegate: AnyObject {
+    func didTapAddress(_ viewModel: AddressListViewModel)
 }
 
 final class AddressListView: UIView, AddressListViewProtocol {
@@ -25,6 +24,9 @@ final class AddressListView: UIView, AddressListViewProtocol {
 
     // MARK: - View properties
     private var viewModelList: [AddressListViewModel] = []
+
+    // MARK: - Delegate
+    weak var delegate: AddressListViewDelegate?
 
     // MARK: - UIElements
     private lazy var tableView: UITableView = {
@@ -46,7 +48,7 @@ final class AddressListView: UIView, AddressListViewProtocol {
         tableView.reloadData()
     }
 
-    func show(viewModelList: [AddressListViewModel]) {
+    func show(_ viewModelList: [AddressListViewModel]) {
         self.viewModelList = viewModelList
         tableView.reloadData()
     }
@@ -94,6 +96,7 @@ extension AddressListView: UITableViewDelegate {
     }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        let viewModel = viewModelList[indexPath.row]
+        delegate?.didTapAddress(viewModel)
     }
 }
