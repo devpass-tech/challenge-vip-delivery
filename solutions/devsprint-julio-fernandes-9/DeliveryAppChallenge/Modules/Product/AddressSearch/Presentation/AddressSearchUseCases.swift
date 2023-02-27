@@ -10,7 +10,7 @@ import Foundation
 enum AddressSearchModel {
     enum Request {
         case fetchDataView
-        case filterBy(_ partialMatching: String)
+        case filterBy(_ value: String)
     }
 
     enum Response {
@@ -20,7 +20,7 @@ enum AddressSearchModel {
 
     enum ViewModel {
         case success(_ viewModel: [AddressListViewModel])
-        case error(_ viewModel: AddressListViewModel)
+        case error(_ message: String)
     }
 
     enum Route {

@@ -9,14 +9,14 @@ import Foundation
 
 protocol AddressSearchPresentationLogicProtocol: AnyObject {
     var controller: AddressSearchDisplayLogicProtocol? { get set }
-    func presentResponde(_ response: AddressSearchModel.Response)
+    func presentResponse(_ response: AddressSearchModel.Response)
 }
 
 final class AddressSearchPresenter: AddressSearchPresentationLogicProtocol {
 
     weak var controller: AddressSearchDisplayLogicProtocol?
 
-    func presentResponde(_ response: AddressSearchModel.Response) {
+    func presentResponse(_ response: AddressSearchModel.Response) {
         switch response {
         case let .hasDataView(response):
             let response = response.map( { $0.getFullAddress() })
@@ -25,7 +25,7 @@ final class AddressSearchPresenter: AddressSearchPresentationLogicProtocol {
             })
             controller?.display(.success(items))
         case let .errorOnFetchDataView(message):
-            print(message)
+            controller?.display(.error(message))
         }
     }
 }

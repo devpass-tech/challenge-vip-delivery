@@ -20,3 +20,20 @@ extension Address {
         FullAddress(streetWithNumber: "\(street), \(number)", neighborhood: neighborhood)
     }
 }
+
+extension Address: Equatable {
+    static func == (lhs: Address, rhs: Address) -> Bool {
+        lhs.street == lhs.street &&
+        lhs.number == rhs.number &&
+        lhs.neighborhood == rhs.neighborhood
+    }
+}
+
+extension Address {
+    func contain(value: String) -> Bool {
+        // TODO: replace by NSPredicate
+        street.contains(value) ||
+        number.contains(value) ||
+        neighborhood.contains(value)
+    }
+}

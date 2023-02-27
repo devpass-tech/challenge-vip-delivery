@@ -36,7 +36,6 @@ private extension AddressSearchRouter {
     }
 
     private func showAllertError(_ message: String) {
-        let message = "ERROR"
         let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default) { action in
             alertController.dismiss(animated: true)
