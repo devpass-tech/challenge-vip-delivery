@@ -63,6 +63,17 @@ class MenuCellView: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func updateCell(menuName: String, price: Double) {
+        itemNameLabel.text = menuName
+        itemPriceLabel.text = formatPrice(value: price)
+    }
+    
+    private func formatPrice(value: Double) -> String {
+        let formater = NumberFormatter()
+        formater.numberStyle = .currency
+        return formater.string(from: NSNumber(value: value))!
+    }
 }
 
 extension MenuCellView {

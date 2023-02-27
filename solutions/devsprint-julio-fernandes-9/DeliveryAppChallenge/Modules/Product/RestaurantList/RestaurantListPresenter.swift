@@ -16,7 +16,6 @@ final class RestaurantListPresenter {
     public weak var viewController: RestaurantListDisplayLogic?
 }
 
-
 // MARK: - RestaurantListPresentationLogic
 extension RestaurantListPresenter: RestaurantListPresentationLogic {
     
@@ -30,15 +29,11 @@ extension RestaurantListPresenter: RestaurantListPresentationLogic {
     }
 }
 
-
 // MARK: - Private Zone
 private extension RestaurantListPresenter {
     
     func presentViewModel(response: [Restaurant], category: String) {
-        let restaurants: [HomeViewEntity.RestaurantItem] = response.filter({ $0.category.elementsEqual(category)}).map { restaurant in
-            let info = "\(restaurant.category) • \(restaurant.deliveryTime.min)-\(restaurant.deliveryTime.max) min"
-            return HomeViewEntity.RestaurantItem(name: restaurant.name, info: info)
-        }
+        let restaurants = response.filter({ $0.category.elementsEqual(category)})
         viewController?.displayViewModel(.restaurantList(list: restaurants))
     }
     

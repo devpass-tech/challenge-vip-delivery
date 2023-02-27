@@ -33,13 +33,8 @@ extension HomePresenter: HomePresentationLogic {
 private extension HomePresenter {
     
     private func presentViewModel(with response: [Restaurant]) {
-        
-        let restaurants: [HomeViewEntity.RestaurantItem] = response.map { restaurant in
-            let info = "\(restaurant.category) • \(restaurant.deliveryTime.min)-\(restaurant.deliveryTime.max) min"
-            return HomeViewEntity.RestaurantItem(name: restaurant.name, info: info)
-        }
         let categories = Set(response.compactMap { $0.category })
-        let viewEntity = HomeViewEntity(restaurantList: restaurants, categories: categories)
+        let viewEntity = HomeViewEntity(restaurantList: response, categories: categories)
         viewController?.displayViewModel(.dataView(viewEntity: viewEntity))
     }
     

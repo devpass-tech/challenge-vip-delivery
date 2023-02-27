@@ -14,10 +14,8 @@ protocol RestaurantListRouting {
 }
 
 final class RestaurantListRouter {
-    
-    public weak var viewController: UIViewController?
+    weak var viewController: UIViewController?
 }
-
 
 // MARK: - RestaurantListRouting
 extension RestaurantListRouter: RestaurantListRouting {
@@ -32,11 +30,10 @@ extension RestaurantListRouter: RestaurantListRouting {
     }
 }
 
-
 // MARK: - Private Zone
 private extension RestaurantListRouter {
     
     func showRestaurantDetailt() {
-        viewController?.navigationController?.pushViewController(RestaurantDetailsViewController(), animated: true)
+        viewController?.navigationController?.pushViewController(RestaurantDetailsConfigurator.make(), animated: true)
     }
 }

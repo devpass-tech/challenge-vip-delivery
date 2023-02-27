@@ -50,10 +50,16 @@ final class RestaurantInfoView: UIView {
         label.text = "Bakery • 23-33 mins"
         return label
     }()
+    
+    var restaurant: RestaurantItemProtocol? {
+        didSet {
+            restaurantNameLabel.text = restaurant?.name
+            restaurantInfoLabel.text = restaurant?.info
+        }
+    }
 
     init() {
         super.init(frame: .zero)
-
         addSubviews()
         configureConstraints()
     }
